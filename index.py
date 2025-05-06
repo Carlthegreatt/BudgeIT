@@ -87,9 +87,7 @@ ctk.set_default_color_theme("blue")
 app = ctk.CTk()
 app.geometry("600x400")
 app.title("Main Window")
-# or "light"
-button = ctk.CTkButton(app, fg_color="#252B3B", text="Click Me")
-button.pack(pady=2)
+
 btn = ctk.CTkButton(app, text="Get Started", command=login_window)
 btn.pack(pady=100)
 
