@@ -26,15 +26,16 @@ class RegisterWindow(Window):
 
         self._build_ui(
             reg,
-            "Welcome to BudgeIT",
+            "Create Account",
+            "Join BudgeIT today",
             "Already have an account? Login here",
             lambda: (
                 reg.destroy(),
-                LoginWindow("Login", 400, 500).login_window_style(),
+                LoginWindow("Login", 400, 450).login_window_style(),
             ),
         )
 
-    def _build_ui(self, window, header_text, link_text, link_action):
+    def _build_ui(self, window, header_text, sub_header_text, link_text, link_action):
         main_frame = ctk.CTkFrame(window, fg_color="#252B3B")
         main_frame.pack(expand=True, fill="both")
 
@@ -44,8 +45,15 @@ class RegisterWindow(Window):
         ctk.CTkLabel(
             master=frame,
             text=header_text,
-            font=ctk.CTkFont(family="Helvetica", size=20, weight="bold"),
-        ).pack(pady=20)
+            font=ctk.CTkFont(family="Helvetica", size=30, weight="bold"),
+        ).pack(pady=(25, 0))
+
+        ctk.CTkLabel(
+            master=frame,
+            text=sub_header_text,
+            font=ctk.CTkFont(family="Helvetica", size=14),
+            text_color="#A6ADC8",
+        ).pack(pady=(5, 10))
 
         for placeholder in ["Username", "Password", "Confirm Password"]:
             ctk.CTkEntry(
@@ -89,7 +97,8 @@ class LoginWindow(Window):
 
         self._build_ui(
             log,
-            "Login to BudgeIT",
+            "Welcome Back",
+            "Please sign in to continue",
             "Don't have an account? Register here",
             lambda: (
                 log.destroy(),
@@ -97,7 +106,7 @@ class LoginWindow(Window):
             ),
         )
 
-    def _build_ui(self, window, header_text, link_text, link_action):
+    def _build_ui(self, window, header_text, sub_header_text, link_text, link_action):
         main_frame = ctk.CTkFrame(window, fg_color="#252B3B")
         main_frame.pack(expand=True, fill="both")
 
@@ -107,10 +116,17 @@ class LoginWindow(Window):
         ctk.CTkLabel(
             master=frame,
             text=header_text,
-            font=ctk.CTkFont(family="Helvetica", size=20, weight="bold"),
-        ).pack(pady=20)
+            font=ctk.CTkFont(family="Helvetica", size=30, weight="bold"),
+        ).pack(pady=(30, 0))
 
-        for placeholder in ["Username", "Password"]:
+        ctk.CTkLabel(
+            master=frame,
+            text=sub_header_text,
+            font=ctk.CTkFont(family="Helvetica", size=14),
+            text_color="#A6ADC8",
+        ).pack(pady=(5, 10))
+
+        for placeholder in ["Enter your username", "Enter your password"]:
             ctk.CTkEntry(
                 master=frame,
                 fg_color="#12233B",
@@ -149,8 +165,8 @@ app = ctk.CTk()
 app.geometry("600x400")
 app.title("Main Window")
 
-user_login = LoginWindow("Login", 400, 500)
-ctk.CTkButton(app, text="Get Started", command=user_login.login_window_style).pack(
+user_login = RegisterWindow("Register", 400, 500)
+ctk.CTkButton(app, text="Get Started", command=user_login.register_window_style).pack(
     pady=100
 )
 
