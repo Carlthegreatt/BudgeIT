@@ -11,6 +11,8 @@ class Window:
         window = ctk.CTkToplevel()
         window.geometry(f"{self.width}x{self.height}")
         window.title(self.title)
+        window.resizable(False, False)
+        window.configure(fg_color="#252B3B")
         return window
 
 
@@ -70,7 +72,7 @@ class RegisterWindow(Window):
             master=frame,
             text=link_text,
             text_color="white",
-            font=ctk.CTkFont(underline=True, size=10),
+            font=ctk.CTkFont(size=10),
             cursor="hand2",
         )
         link.pack()
@@ -133,7 +135,7 @@ class LoginWindow(Window):
             master=frame,
             text=link_text,
             text_color="white",
-            font=ctk.CTkFont(underline=True, size=10),
+            font=ctk.CTkFont(size=10),
             cursor="hand2",
         )
         link.pack()
