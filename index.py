@@ -158,16 +158,101 @@ class LoginWindow(Window):
         link.bind("<Button-1>", lambda e: link_action())
 
 
+class MainWindow(Window):
+    def __init__(self, title, width, height):
+        super().__init__(title, width, height)
+        self.user_login = RegisterWindow("Register", 400, 500)
+
+    def create_main_window(self):
+        app = ctk.CTk()
+        app.geometry(f"{self.width}x{self.height}")
+        app.title(self.title)
+        app.configure(fg_color="#252B3B")
+
+        # Create main container
+        main_container = ctk.CTkFrame(app, fg_color="#252B3B")
+        main_container.pack(expand=True, fill="both", padx=40, pady=40)
+
+        # Left side content
+        left_frame = ctk.CTkFrame(main_container, fg_color="#0D1826", corner_radius=20)
+        left_frame.pack(side="left", expand=True, fill="both", padx=(0, 20))
+
+        # Logo and title
+        ctk.CTkLabel(
+            left_frame,
+            text="BudgeIT",
+            font=ctk.CTkFont(family="Helvetica", size=48, weight="bold"),
+        ).pack(pady=(60, 10))
+
+        ctk.CTkLabel(
+            left_frame,
+            text="Smart Budget Management",
+            font=ctk.CTkFont(family="Helvetica", size=18),
+            text_color="#A6ADC8",
+        ).pack(pady=(0, 40))
+
+        # Features list
+        features = [
+            "📊 Track your expenses in real-time",
+            "💰 Set and manage your budget goals",
+            "📈 Visualize your spending patterns",
+            "🔔 Get smart notifications and alerts",
+        ]
+
+        for feature in features:
+            ctk.CTkLabel(
+                left_frame,
+                text=feature,
+                font=ctk.CTkFont(family="Helvetica", size=14),
+                text_color="#FFFFFF",
+            ).pack(pady=8, anchor="w", padx=40)
+
+        # Right side content
+        right_frame = ctk.CTkFrame(main_container, fg_color="#0D1826", corner_radius=20)
+        right_frame.pack(side="right", expand=True, fill="both")
+
+        # Welcome message
+        ctk.CTkLabel(
+            right_frame,
+            text="Welcome to BudgeIT",
+            font=ctk.CTkFont(family="Helvetica", size=32, weight="bold"),
+        ).pack(pady=(60, 10))
+
+        ctk.CTkLabel(
+            right_frame,
+            text="Your personal finance companion",
+            font=ctk.CTkFont(family="Helvetica", size=16),
+            text_color="#A6ADC8",
+        ).pack(pady=(0, 40))
+
+        # Get Started button with modern styling
+        get_started_btn = ctk.CTkButton(
+            right_frame,
+            text="Get Started",
+            font=ctk.CTkFont(family="Helvetica", size=16, weight="bold"),
+            fg_color="#4628A1",
+            hover_color="#5B3BBF",
+            corner_radius=30,
+            height=50,
+            width=200,
+            command=self.user_login.register_window_style,
+        )
+        get_started_btn.pack(pady=20)
+
+        # Additional info
+        ctk.CTkLabel(
+            right_frame,
+            text="Join thousands of users managing their finances smarter",
+            font=ctk.CTkFont(family="Helvetica", size=12),
+            text_color="#A6ADC8",
+        ).pack(pady=(20, 0))
+
+        return app
+
+
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
-app = ctk.CTk()
-app.geometry("600x400")
-app.title("Main Window")
-
-user_login = RegisterWindow("Register", 400, 500)
-ctk.CTkButton(app, text="Get Started", command=user_login.register_window_style).pack(
-    pady=100
-)
-
+main_window = MainWindow("BudgeIT - Smart Budget Management", 800, 600)
+app = main_window.create_main_window()
 app.mainloop()
