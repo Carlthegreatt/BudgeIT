@@ -1,4 +1,7 @@
 import customtkinter as ctk
+import json
+import os
+from tkinter import messagebox
 
 
 class Window:
@@ -19,18 +22,74 @@ class Window:
 class RegisterWindow(Window):
     def __init__(self, title, width, height):
         super().__init__(title, width, height)
+        self.username_entry = None
+        self.password_entry = None
+        self.confirm_password_entry = None
+        self.message_label = None
+        self.users_file = "users.json"
+        self._load_users()
+
+    def _load_users(self):
+        if os.path.exists(self.users_file):
+            with open(self.users_file, "r") as f:
+                self.users = json.load(f)
+        else:
+            self.users = {}
+            self._save_users()
+
+    def _save_users(self):
+        with open(self.users_file, "w") as f:
+            json.dump(self.users, f, indent=4)
+
+    def _handle_register(self):
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+        confirm_password = self.confirm_password_entry.get()
+
+        if not username or not password or not confirm_password:
+            self.message_label.configure(
+                text="Please fill in all fields", text_color="#FF0000"
+            )
+            return
+
+        if password != confirm_password:
+            self.message_label.configure(
+                text="Passwords do not match", text_color="#FF0000"
+            )
+            return
+
+        if username in self.users:
+            self.message_label.configure(
+                text="Username already exists", text_color="#FF0000"
+            )
+            return
+
+        # Store the new user
+        self.users[username] = {"password": password}
+        self._save_users()
+        self.message_label.configure(
+            text="Registration successful! Please login.", text_color="#00FF00"
+        )
+        self.window.after(
+            2000,
+            lambda: (
+                self.window.destroy(),
+                LoginWindow("Login", 400, 450).login_window_style(),
+            ),
+        )
 
     def register_window_style(self):
-        reg = super().create_window()
-        reg.transient(app)
+        self.window = super().create_window()
+        self.window.transient(app)
+        self.window.grab_set()
 
         self._build_ui(
-            reg,
+            self.window,
             "Create Account",
             "Join BudgeIT today",
             "Already have an account? Login here",
             lambda: (
-                reg.destroy(),
+                self.window.destroy(),
                 LoginWindow("Login", 400, 450).login_window_style(),
             ),
         )
@@ -55,17 +114,51 @@ class RegisterWindow(Window):
             text_color="#A6ADC8",
         ).pack(pady=(5, 10))
 
-        for placeholder in ["Username", "Password", "Confirm Password"]:
-            ctk.CTkEntry(
-                master=frame,
-                fg_color="#12233B",
-                placeholder_text=placeholder,
-                show="*" if "Password" in placeholder else "",
-                corner_radius=15,
-                height=40,
-                width=250,
-            ).pack(pady=12)
+        # Username entry
+        self.username_entry = ctk.CTkEntry(
+            master=frame,
+            fg_color="#12233B",
+            placeholder_text="Username",
+            corner_radius=15,
+            height=40,
+            width=250,
+        )
+        self.username_entry.pack(pady=12)
 
+        # Password entry
+        self.password_entry = ctk.CTkEntry(
+            master=frame,
+            fg_color="#12233B",
+            placeholder_text="Password",
+            show="*",
+            corner_radius=15,
+            height=40,
+            width=250,
+        )
+        self.password_entry.pack(pady=12)
+
+        # Confirm Password entry
+        self.confirm_password_entry = ctk.CTkEntry(
+            master=frame,
+            fg_color="#12233B",
+            placeholder_text="Confirm Password",
+            show="*",
+            corner_radius=15,
+            height=40,
+            width=250,
+        )
+        self.confirm_password_entry.pack(pady=(12, 5))
+
+        # Message label for validation feedback
+        self.message_label = ctk.CTkLabel(
+            master=frame,
+            text="",
+            font=ctk.CTkFont(family="Helvetica", size=12),
+            text_color="#FF0000",
+        )
+        self.message_label.pack(pady=(0, 5))
+
+        # Register button
         ctk.CTkButton(
             master=frame,
             fg_color="#4628A1",
@@ -74,7 +167,8 @@ class RegisterWindow(Window):
             corner_radius=30,
             height=40,
             width=250,
-        ).pack(pady=12)
+            command=self._handle_register,
+        ).pack(pady=(0, 12))
 
         link = ctk.CTkLabel(
             master=frame,
@@ -83,25 +177,72 @@ class RegisterWindow(Window):
             font=ctk.CTkFont(size=10),
             cursor="hand2",
         )
-        link.pack()
+        link.pack(pady=(0, 20))
         link.bind("<Button-1>", lambda e: link_action())
 
 
 class LoginWindow(Window):
     def __init__(self, title, width, height):
         super().__init__(title, width, height)
+        self.username_entry = None
+        self.password_entry = None
+        self.message_label = None
+        self.users_file = "users.json"
+        self._load_users()
+
+    def _load_users(self):
+        if os.path.exists(self.users_file):
+            with open(self.users_file, "r") as f:
+                self.users = json.load(f)
+        else:
+            self.users = {}
+            self._save_users()
+
+    def _save_users(self):
+        with open(self.users_file, "w") as f:
+            json.dump(self.users, f, indent=4)
+
+    def _authenticate_user(self, username, password):
+        if username in self.users and self.users[username]["password"] == password:
+            return True
+        return False
+
+    def _handle_login(self):
+        username = self.username_entry.get()
+        password = self.password_entry.get()
+
+        if not username or not password:
+            self.message_label.configure(
+                text="Please fill in all fields", text_color="#FF0000"
+            )
+            return
+
+        if self._authenticate_user(username, password):
+            self.message_label.configure(text="Login successful!", text_color="#00FF00")
+            self.window.after(
+                2000,
+                lambda: (
+                    self.window.destroy(),
+                    # Here you can add code to open the main application window
+                ),
+            )
+        else:
+            self.message_label.configure(
+                text="Invalid username or password", text_color="#FF0000"
+            )
 
     def login_window_style(self):
-        log = super().create_window()
-        log.transient(app)
+        self.window = super().create_window()
+        self.window.transient(app)
+        self.window.grab_set()
 
         self._build_ui(
-            log,
+            self.window,
             "Welcome Back",
             "Please sign in to continue",
             "Don't have an account? Register here",
             lambda: (
-                log.destroy(),
+                self.window.destroy(),
                 RegisterWindow("Register", 400, 500).register_window_style(),
             ),
         )
@@ -126,17 +267,39 @@ class LoginWindow(Window):
             text_color="#A6ADC8",
         ).pack(pady=(5, 10))
 
-        for placeholder in ["Enter your username", "Enter your password"]:
-            ctk.CTkEntry(
-                master=frame,
-                fg_color="#12233B",
-                placeholder_text=placeholder,
-                show="*" if "Password" in placeholder else "",
-                corner_radius=15,
-                height=40,
-                width=250,
-            ).pack(pady=12)
+        # Username entry
+        self.username_entry = ctk.CTkEntry(
+            master=frame,
+            fg_color="#12233B",
+            placeholder_text="Enter your username",
+            corner_radius=15,
+            height=40,
+            width=250,
+        )
+        self.username_entry.pack(pady=12)
 
+        # Password entry
+        self.password_entry = ctk.CTkEntry(
+            master=frame,
+            fg_color="#12233B",
+            placeholder_text="Enter your password",
+            show="*",
+            corner_radius=15,
+            height=40,
+            width=250,
+        )
+        self.password_entry.pack(pady=(12, 5))
+
+        # Message label for validation feedback
+        self.message_label = ctk.CTkLabel(
+            master=frame,
+            text="",
+            font=ctk.CTkFont(family="Helvetica", size=12),
+            text_color="#FF0000",
+        )
+        self.message_label.pack(pady=(0, 5))
+
+        # Login button
         ctk.CTkButton(
             master=frame,
             fg_color="#4628A1",
@@ -145,7 +308,8 @@ class LoginWindow(Window):
             corner_radius=30,
             height=40,
             width=250,
-        ).pack(pady=12)
+            command=self._handle_login,
+        ).pack(pady=(0, 12))
 
         link = ctk.CTkLabel(
             master=frame,
@@ -154,7 +318,7 @@ class LoginWindow(Window):
             font=ctk.CTkFont(size=10),
             cursor="hand2",
         )
-        link.pack()
+        link.pack(pady=(0, 20))
         link.bind("<Button-1>", lambda e: link_action())
 
 
