@@ -166,7 +166,7 @@ class RegisterWindow(Window):
         self.username_entry = ctk.CTkEntry(
             master=frame,
             fg_color="#12233B",
-            placeholder_text="Username",
+            placeholder_text="Enter your username",
             corner_radius=15,
             height=40,
             width=250,
@@ -177,7 +177,7 @@ class RegisterWindow(Window):
         self.password_entry = ctk.CTkEntry(
             master=frame,
             fg_color="#12233B",
-            placeholder_text="Password",
+            placeholder_text="Enter your password",
             show="*",
             corner_radius=15,
             height=40,
