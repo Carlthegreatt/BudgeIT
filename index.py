@@ -1,5 +1,5 @@
 import customtkinter as ctk
-import json
+import sqlite3
 import os
 from tkinter import messagebox
 
@@ -19,6 +19,65 @@ class Window:
         return window
 
 
+class DatabaseManager:
+    def __init__(self):
+        self.db_file = "budgeit.db"
+        self._create_database()
+
+    def _create_database(self):
+        conn = sqlite3.connect(self.db_file)
+        cursor = conn.cursor()
+
+        # Create users table if it doesn't exist
+        cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                password TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """
+        )
+
+        conn.commit()
+        conn.close()
+
+    def add_user(self, username, password):
+        try:
+            conn = sqlite3.connect(self.db_file)
+            cursor = conn.cursor()
+            cursor.execute(
+                "INSERT INTO users (username, password) VALUES (?, ?)",
+                (username, password),
+            )
+            conn.commit()
+            return True
+        except sqlite3.IntegrityError:
+            return False
+        finally:
+            conn.close()
+
+    def verify_user(self, username, password):
+        conn = sqlite3.connect(self.db_file)
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT * FROM users WHERE username = ? AND password = ?",
+            (username, password),
+        )
+        user = cursor.fetchone()
+        conn.close()
+        return user is not None
+
+    def user_exists(self, username):
+        conn = sqlite3.connect(self.db_file)
+        cursor = conn.cursor()
+        cursor.execute("SELECT username FROM users WHERE username = ?", (username,))
+        user = cursor.fetchone()
+        conn.close()
+        return user is not None
+
+
 class RegisterWindow(Window):
     def __init__(self, title, width, height):
         super().__init__(title, width, height)
@@ -26,20 +85,7 @@ class RegisterWindow(Window):
         self.password_entry = None
         self.confirm_password_entry = None
         self.message_label = None
-        self.users_file = "users.json"
-        self._load_users()
-
-    def _load_users(self):
-        if os.path.exists(self.users_file):
-            with open(self.users_file, "r") as f:
-                self.users = json.load(f)
-        else:
-            self.users = {}
-            self._save_users()
-
-    def _save_users(self):
-        with open(self.users_file, "w") as f:
-            json.dump(self.users, f, indent=4)
+        self.db = DatabaseManager()
 
     def _handle_register(self):
         username = self.username_entry.get()
@@ -58,25 +104,27 @@ class RegisterWindow(Window):
             )
             return
 
-        if username in self.users:
+        if self.db.user_exists(username):
             self.message_label.configure(
                 text="Username already exists", text_color="#FF0000"
             )
             return
 
-        # Store the new user
-        self.users[username] = {"password": password}
-        self._save_users()
-        self.message_label.configure(
-            text="Registration successful! Please login.", text_color="#00FF00"
-        )
-        self.window.after(
-            2000,
-            lambda: (
-                self.window.destroy(),
-                LoginWindow("Login", 400, 450).login_window_style(),
-            ),
-        )
+        if self.db.add_user(username, password):
+            self.message_label.configure(
+                text="Registration successful! Please login.", text_color="#00FF00"
+            )
+            self.window.after(
+                2000,
+                lambda: (
+                    self.window.destroy(),
+                    LoginWindow("Login", 400, 450).login_window_style(),
+                ),
+            )
+        else:
+            self.message_label.configure(
+                text="Registration failed. Please try again.", text_color="#FF0000"
+            )
 
     def register_window_style(self):
         self.window = super().create_window()
@@ -187,25 +235,7 @@ class LoginWindow(Window):
         self.username_entry = None
         self.password_entry = None
         self.message_label = None
-        self.users_file = "users.json"
-        self._load_users()
-
-    def _load_users(self):
-        if os.path.exists(self.users_file):
-            with open(self.users_file, "r") as f:
-                self.users = json.load(f)
-        else:
-            self.users = {}
-            self._save_users()
-
-    def _save_users(self):
-        with open(self.users_file, "w") as f:
-            json.dump(self.users, f, indent=4)
-
-    def _authenticate_user(self, username, password):
-        if username in self.users and self.users[username]["password"] == password:
-            return True
-        return False
+        self.db = DatabaseManager()
 
     def _handle_login(self):
         username = self.username_entry.get()
@@ -217,7 +247,7 @@ class LoginWindow(Window):
             )
             return
 
-        if self._authenticate_user(username, password):
+        if self.db.verify_user(username, password):
             self.message_label.configure(text="Login successful!", text_color="#00FF00")
             self.window.after(
                 2000,
