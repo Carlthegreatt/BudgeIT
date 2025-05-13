@@ -419,7 +419,7 @@ class MainWindow(Window):
             text_color="#A6ADC8",
         ).pack(pady=(0, 40))
 
-        # Get Started button with modern styling
+        # Get Started button
         get_started_btn = ctk.CTkButton(
             right_frame,
             text="Get Started",
