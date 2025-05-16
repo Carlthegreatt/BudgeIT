@@ -1,0 +1,15 @@
+<RCC>
+  <qresource prefix="/">
+    <file>icons/analyticslight.svg</file>
+    <file>icons/monitoringlight.svg</file>
+    <file>icons/financedark.svg</file>
+    <file>icons/trendinglight.svg</file>
+    <file>icons/walletlight.svg</file>
+    <file>icons/savingslight.svg</file>
+    <file>icons/analyticsdark.svg</file>
+    <file>icons/monitoringdark.svg</file>
+    <file>icons/dashboarddark.svg</file>
+    <file>icons/logoutlight.svg</file>
+    <file>icons/dashboardlight.svg</file>
+  </qresource>
+</RCC>

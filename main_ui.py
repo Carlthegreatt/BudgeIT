@@ -1,69 +1,16 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'newDRIyGh.ui'
+## Form generated from reading UI file 'newQtVWuj.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (
-    QCoreApplication,
-    QDate,
-    QDateTime,
-    QLocale,
-    QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
-    QTime,
-    QUrl,
-    Qt,
-)
-from PySide6.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QGradient,
-    QIcon,
-    QImage,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
-    QTransform,
-)
-from PySide6.QtWidgets import (
-    QApplication,
-    QButtonGroup,
-    QComboBox,
-    QFrame,
-    QGroupBox,
-    QHBoxLayout,
-    QHeaderView,
-    QLabel,
-    QLineEdit,
-    QMainWindow,
-    QProgressBar,
-    QPushButton,
-    QScrollArea,
-    QSizePolicy,
-    QSpacerItem,
-    QStackedWidget,
-    QTableView,
-    QTableWidget,
-    QTableWidgetItem,
-    QToolButton,
-    QVBoxLayout,
-    QWidget,
-)
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
 import icons_rc
 
 
@@ -186,7 +133,10 @@ class Ui_MainWindow(QMainWindow):
         self.homebtn.setAutoFillBackground(False)
         icon = QIcon()
         icon.addFile(
-            ":/icons/dashboardlight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
+            ":/icons/dashboardlight.svg",
+            QSize(),
+            QIcon.Mode.Normal,
+            QIcon.State.Off,
         )
         icon.addFile(
             ":/icons/dashboarddark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
@@ -256,12 +206,7 @@ class Ui_MainWindow(QMainWindow):
         self.logoutbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.logoutbtn.setStyleSheet("")
         icon3 = QIcon()
-        icon3.addFile(
-            ":/icons/logout_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg",
-            QSize(),
-            QIcon.Mode.Normal,
-            QIcon.State.Off,
-        )
+
         icon3.addFile(
             ":/icons/logoutlight.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
         )
@@ -514,12 +459,6 @@ class Ui_MainWindow(QMainWindow):
         )
         icon4 = QIcon()
         icon4.addFile(
-            ":/icons/wallet_24dp_F5F5F5_FILL0_wght400_GRAD0_opsz24.svg",
-            QSize(),
-            QIcon.Mode.Normal,
-            QIcon.State.Off,
-        )
-        icon4.addFile(
             ":/icons/walletlight.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
         )
         self.viewcategorylbl_4.setIcon(icon4)
@@ -620,12 +559,6 @@ class Ui_MainWindow(QMainWindow):
             ""
         )
         icon5 = QIcon()
-        icon5.addFile(
-            ":/icons/savings_24dp_EFEFEF_FILL0_wght400_GRAD0_opsz24.svg",
-            QSize(),
-            QIcon.Mode.Normal,
-            QIcon.State.Off,
-        )
         icon5.addFile(
             ":/icons/savingslight.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
         )
@@ -883,9 +816,9 @@ class Ui_MainWindow(QMainWindow):
             "}\n"
             "QPushButton:hover {\n"
             "\n"
-            "	background-color: rgb(154, 77, 106);\n"
-            "	border-color: rgb(154, 77, 106);\n"
-            "	border: 2px solid rgb(154, 77, 106);\n"
+            "	background-color: rgb(231, 201, 201);\n"
+            "	border-color: rgb(231, 201, 201);\n"
+            "	border: 2px solid rgb(231, 201, 201);\n"
             "   \n"
             "}"
         )
