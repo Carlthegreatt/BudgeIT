@@ -4,7 +4,7 @@ from PySide6.QtGui import QColor
 
 class ShadowEffect:
     def __init__(
-        self, blur_radius=20, x_offset=20, y_offset=20, color=QColor(0, 0, 0, 160)
+        self, blur_radius=20, x_offset=40, y_offset=20, color=QColor(0, 0, 0, 160)
     ):
         self.effect = QGraphicsDropShadowEffect()
         self.effect.setBlurRadius(blur_radius)

@@ -746,6 +746,7 @@ class Ui_MainWindow(QMainWindow):
         self.horizontalLayout_7.addWidget(self.descriptionedit)
 
         self.categorycombo = QComboBox(self.activitybox)
+        self.categorycombo.setPlaceholderText("Category")
         self.categorycombo.addItem("")
         self.categorycombo.addItem("")
         self.categorycombo.addItem("")
@@ -773,6 +774,10 @@ class Ui_MainWindow(QMainWindow):
             "            }\n"
             "\n"
             "\n"
+            "QComboBox QAbstractItemView {\n"
+            "background-color: #ffffff;\n"
+            "color: #000000; \n"
+            "}"
             "QComboBox::drop-down {\n"
             "    border: none;\n"
             "    background: transparent;\n"
@@ -818,7 +823,7 @@ class Ui_MainWindow(QMainWindow):
         )
         self.addtransbtn.setCheckable(True)
         self.addtransbtn.setFlat(True)
-        
+        self.addtransbtn.clicked.connect(self.add_entry)
 
         self.horizontalLayout_7.addWidget(self.addtransbtn)
 
@@ -826,18 +831,15 @@ class Ui_MainWindow(QMainWindow):
 
         self.verticalLayout_15 = QVBoxLayout()
         self.verticalLayout_15.setObjectName("verticalLayout_15")
-        self.verticalLayout_15.setContentsMargins(15, 15, 15, 16)
+        self.verticalLayout_15.setContentsMargins(15, 15, 15, 15)
         self.tablebox = QGroupBox(self.activitybox)
         self.tablebox.setObjectName("tablebox")
         sizePolicy.setHeightForWidth(self.tablebox.sizePolicy().hasHeightForWidth())
         self.tablebox.setSizePolicy(sizePolicy)
         self.tablebox.setMaximumSize(QSize(16777215, 291))
         self.tablebox.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius:20\n" ""
+            "background-color: rgb(255, 255, 255);\n" "border-radius:15\n" ""
         )
-        shadow_effect = ShadowEffect()
-        shadow_effect.apply_to(self.tablebox)
-  
 
         self.verticalLayout_14 = QVBoxLayout(self.tablebox)
         self.verticalLayout_14.setObjectName("verticalLayout_14")
@@ -847,7 +849,38 @@ class Ui_MainWindow(QMainWindow):
         self.activities.setSizePolicy(sizePolicy)
         self.activities.horizontalHeader().setCascadingSectionResizes(True)
         self.activities.horizontalHeader().setDefaultSectionSize(120)
-        
+        self.activities = QTableView()
+        self.model = QStandardItemModel()
+
+        self.model.setHorizontalHeaderLabels(
+            ["Date", "Amount", "Description", "Category"]
+        )
+
+        self.activities.setModel(self.model)
+        self.activities.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.activities.verticalHeader().setVisible(False)
+        self.activities.setAlternatingRowColors(True)
+        self.activities.setShowGrid(False)
+
+        self.activities.setStyleSheet(
+            "QTableView {\n"
+            "    background-color: #ffffff;\n"
+            "    alternate-background-color: #f2f2f2;\n"
+            "    gridline-color: #d9d9d9;\n"
+            "    selection-background-color: #cce6ff;\n"
+            "    selection-color: #003366;\n"
+            '    font: 12pt "Segoe UI";\n'
+            "    border-radius: 15px;\n"
+            "}\n"
+            "QHeaderView::section {\n"
+            "    background-color: transparent;\n"
+            "    padding: 5px;\n"
+            "    border: 1px solid #ccc;\n"
+            "}\n"
+            "QTableView::item {\n"
+            "    padding: 5px;\n"
+            "}\n"
+        )
 
         self.verticalLayout_14.addWidget(self.activities)
 
@@ -1272,6 +1305,33 @@ class Ui_MainWindow(QMainWindow):
         self.tab.setCurrentIndex(0)
 
         QMetaObject.connectSlotsByName(MainWindow)
+
+    def add_entry(self):
+        amount = self.amountedit.text().strip()
+        description = self.descriptionedit.text().strip()
+        category = self.categorycombo.currentText()
+        current_datetime = QDate.currentDate().toString("yyyy-MM-dd")
+
+        if not amount.isdigit():
+            print("Invalid input")
+            return
+
+        # Add to table
+        row = [
+            QStandardItem(current_datetime),
+            QStandardItem(amount),
+            QStandardItem(description),
+            QStandardItem(category),
+        ]
+        # Append row directly since row already contains QStandardItems
+        for item in row:
+            item.setTextAlignment(Qt.AlignCenter)
+        self.model.appendRow(row)
+
+        # Clear inputs
+        self.amountedit.clear()
+        self.descriptionedit.clear()
+        self.categorycombo.setCurrentIndex(0)
 
     # setupUi
 
