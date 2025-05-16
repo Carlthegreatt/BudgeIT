@@ -9,8 +9,10 @@ class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
+
         MainWindow.resize(1004, 679)
         MainWindow.setMinimumSize(QSize(1000, 700))
+
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_6 = QHBoxLayout(self.centralwidget)
@@ -504,20 +506,20 @@ class Ui_MainWindow(QMainWindow):
         self.horizontalLayout_21 = QHBoxLayout()
         self.horizontalLayout_21.setObjectName("horizontalLayout_21")
         self.horizontalLayout_21.setContentsMargins(-1, 15, -1, -1)
-        self.budgetvalue_4 = QLabel(self.totalbudgetbox_3)
-        self.budgetvalue_4.setObjectName("budgetvalue_4")
-        self.budgetvalue_4.setFont(font1)
-        self.budgetvalue_4.setStyleSheet(
+        self.savingsvalue = QLabel(self.totalbudgetbox_3)
+        self.savingsvalue.setObjectName("savingsvalue")
+        self.savingsvalue.setFont(font1)
+        self.savingsvalue.setStyleSheet(
             "color: rgb(212, 106, 146);\n"
             "background-color: transparent;\n"
             'font: 700 45px "inter";\n'
             ""
         )
-        self.budgetvalue_4.setFrameShape(QFrame.Shape.NoFrame)
-        self.budgetvalue_4.setFrameShadow(QFrame.Shadow.Sunken)
-        self.budgetvalue_4.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.savingsvalue.setFrameShape(QFrame.Shape.NoFrame)
+        self.savingsvalue.setFrameShadow(QFrame.Shadow.Sunken)
+        self.savingsvalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.horizontalLayout_21.addWidget(self.budgetvalue_4)
+        self.horizontalLayout_21.addWidget(self.savingsvalue)
 
         self.verticalLayout_28.addLayout(self.horizontalLayout_21)
 
@@ -589,33 +591,31 @@ class Ui_MainWindow(QMainWindow):
         self.horizontalLayout_13.setSpacing(20)
         self.horizontalLayout_13.setObjectName("horizontalLayout_13")
         self.horizontalLayout_13.setContentsMargins(40, -1, 30, 0)
-        self.incomevalue_3 = QLabel(self.savingsbox)
-        self.incomevalue_3.setObjectName("incomevalue_3")
-        sizePolicy.setHeightForWidth(
-            self.incomevalue_3.sizePolicy().hasHeightForWidth()
-        )
-        self.incomevalue_3.setSizePolicy(sizePolicy)
-        self.incomevalue_3.setMaximumSize(QSize(16777215, 50))
-        self.incomevalue_3.setFont(font1)
-        self.incomevalue_3.setStyleSheet(
+        self.expensevalue = QLabel(self.savingsbox)
+        self.expensevalue.setObjectName("expensevalue")
+        sizePolicy.setHeightForWidth(self.expensevalue.sizePolicy().hasHeightForWidth())
+        self.expensevalue.setSizePolicy(sizePolicy)
+        self.expensevalue.setMaximumSize(QSize(16777215, 50))
+        self.expensevalue.setFont(font1)
+        self.expensevalue.setStyleSheet(
             "color: rgb(250, 250, 250);\n" 'font: 700 30px "inter";\n' ""
         )
-        self.incomevalue_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.incomevalue_3.setWordWrap(True)
+        self.expensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.expensevalue.setWordWrap(True)
 
-        self.horizontalLayout_13.addWidget(self.incomevalue_3)
+        self.horizontalLayout_13.addWidget(self.expensevalue)
 
-        self.savingslbl = QLabel(self.savingsbox)
-        self.savingslbl.setObjectName("savingslbl")
-        self.savingslbl.setMaximumSize(QSize(16777215, 20))
-        self.savingslbl.setStyleSheet(
+        self.expenselbl = QLabel(self.savingsbox)
+        self.expenselbl.setObjectName("expenselbl")
+        self.expenselbl.setMaximumSize(QSize(16777215, 20))
+        self.expenselbl.setStyleSheet(
             "color: rgb(250, 250, 250);\n"
             'font: 600 14px "Inter";\n'
             "text-align: center;"
         )
-        self.savingslbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.expenselbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.horizontalLayout_13.addWidget(self.savingslbl)
+        self.horizontalLayout_13.addWidget(self.expenselbl)
 
         self.verticalLayout_31.addLayout(self.horizontalLayout_13)
 
@@ -1362,7 +1362,7 @@ class Ui_MainWindow(QMainWindow):
             QCoreApplication.translate("MainWindow", "Current budget", None)
         )
         self.budgetvalue_3.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 54300.00", None)
+            QCoreApplication.translate("MainWindow", "\u20b1 5300.00", None)
         )
         self.viewcategorylbl_4.setText(
             QCoreApplication.translate("MainWindow", "View Category", None)
@@ -1371,22 +1371,22 @@ class Ui_MainWindow(QMainWindow):
         self.totalbudgetlbl_4.setText(
             QCoreApplication.translate("MainWindow", "Savings", None)
         )
-        self.budgetvalue_4.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 34500.00", None)
+        self.savingsvalue.setText(
+            QCoreApplication.translate("MainWindow", "\u20b1 1200.00", None)
         )
         self.viewcategorylbl_5.setText(
             QCoreApplication.translate("MainWindow", "View Category", None)
         )
         self.savingsbox.setTitle("")
-        self.incomevalue_3.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 54420.00", None)
+        self.expensevalue.setText(
+            QCoreApplication.translate("MainWindow", "\u20b1 1420.00", None)
         )
-        self.savingslbl.setText(
+        self.expenselbl.setText(
             QCoreApplication.translate("MainWindow", "Total expense", None)
         )
         self.incomebox.setTitle("")
         self.incomevalue_2.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 54420.00", None)
+            QCoreApplication.translate("MainWindow", "\u20b1 6520.00", None)
         )
         self.incomlbl.setText(
             QCoreApplication.translate("MainWindow", "Total income", None)
@@ -1528,6 +1528,9 @@ class Ui_MainWindow(QMainWindow):
 
 app = QApplication([])
 window = Ui_MainWindow()
+
 window.setupUi(window)
+window.setWindowTitle(" ")
+window.setWindowIcon(QIcon(""))
 window.show()
 app.exec()
