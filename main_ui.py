@@ -1289,12 +1289,10 @@ class Ui_MainWindow(QMainWindow):
         self.greethello.setText(
             QCoreApplication.translate("MainWindow", "Hello,", None)
         )
-        self.user.setText(
-            QCoreApplication.translate("MainWindow", "Carl Blancaflor", None)
-        )
+        self.user.setText(QCoreApplication.translate("MainWindow", "Oscar Pol", None))
         self.totalbudgetbox_2.setTitle("")
         self.totalbudgetlbl_3.setText(
-            QCoreApplication.translate("MainWindow", "Total Budget", None)
+            QCoreApplication.translate("MainWindow", "Current budget", None)
         )
         self.budgetvalue_3.setText(
             QCoreApplication.translate("MainWindow", "\u20b1 54300.00", None)
@@ -1317,14 +1315,14 @@ class Ui_MainWindow(QMainWindow):
             QCoreApplication.translate("MainWindow", "\u20b1 54420.00", None)
         )
         self.savingslbl.setText(
-            QCoreApplication.translate("MainWindow", "Total Expense", None)
+            QCoreApplication.translate("MainWindow", "Total expense", None)
         )
         self.incomebox.setTitle("")
         self.incomevalue_2.setText(
             QCoreApplication.translate("MainWindow", "\u20b1 54420.00", None)
         )
         self.incomlbl.setText(
-            QCoreApplication.translate("MainWindow", "Total Income", None)
+            QCoreApplication.translate("MainWindow", "Total income", None)
         )
         self.activitybox.setTitle("")
         self.activitylbl.setText(
@@ -1459,8 +1457,6 @@ class Ui_MainWindow(QMainWindow):
         self.groupBox_5.setTitle("")
 
     # retranslateUi
-
-
 
 
 app = QApplication([])
