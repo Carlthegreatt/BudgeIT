@@ -4,9 +4,6 @@ from PySide6.QtWidgets import *
 from components.amounteditor import AmountEditor
 
 
-
-
-
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -251,7 +248,7 @@ class Ui_MainWindow(QMainWindow):
             "color: rgb(254, 250, 250);\n" 'font: 700 23pt "Inter";'
         )
         self.category = QComboBox(self.activitybox)
-        self.category.setPlaceholderText('Category')
+        self.category.setPlaceholderText("Category")
         self.category.addItem("")
         self.category.addItem("")
         self.category.setObjectName("category")
@@ -271,10 +268,8 @@ class Ui_MainWindow(QMainWindow):
             "color: #000000; \n"
             "}"
             "QComboBox::drop-down {\n"
-            
             "border: none;\n"
             "background: transparent;}\n"
-           
         )
         self.category.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.category.setEditable(False)
