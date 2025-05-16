@@ -2,6 +2,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from components.icons_rc import *
+from components.ui import *
 
 
 class Ui_MainWindow(QMainWindow):
@@ -817,6 +818,7 @@ class Ui_MainWindow(QMainWindow):
         )
         self.addtransbtn.setCheckable(True)
         self.addtransbtn.setFlat(True)
+        
 
         self.horizontalLayout_7.addWidget(self.addtransbtn)
 
@@ -833,6 +835,10 @@ class Ui_MainWindow(QMainWindow):
         self.tablebox.setStyleSheet(
             "background-color: rgb(255, 255, 255);\n" "border-radius:20\n" ""
         )
+        shadow_effect = ShadowEffect()
+        shadow_effect.apply_to(self.tablebox)
+  
+
         self.verticalLayout_14 = QVBoxLayout(self.tablebox)
         self.verticalLayout_14.setObjectName("verticalLayout_14")
         self.activities = QTableView(self.tablebox)
@@ -841,6 +847,7 @@ class Ui_MainWindow(QMainWindow):
         self.activities.setSizePolicy(sizePolicy)
         self.activities.horizontalHeader().setCascadingSectionResizes(True)
         self.activities.horizontalHeader().setDefaultSectionSize(120)
+        
 
         self.verticalLayout_14.addWidget(self.activities)
 
