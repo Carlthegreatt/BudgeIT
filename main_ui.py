@@ -19,7 +19,7 @@ class Ui_MainWindow(QMainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1004, 679)
-        MainWindow.setMinimumSize(QSize(994, 664))
+        MainWindow.setMinimumSize(QSize(1000, 700))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout_6 = QHBoxLayout(self.centralwidget)
@@ -131,6 +131,7 @@ class Ui_MainWindow(QMainWindow):
         self.homebtn.setSizePolicy(sizePolicy)
         self.homebtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.homebtn.setAutoFillBackground(False)
+        self.homebtn.clicked.connect(lambda: self.tab.setCurrentIndex(0))
         icon = QIcon()
         icon.addFile(
             ":/icons/dashboardlight.svg",
@@ -156,6 +157,7 @@ class Ui_MainWindow(QMainWindow):
         sizePolicy.setHeightForWidth(self.analyticsbtn.sizePolicy().hasHeightForWidth())
         self.analyticsbtn.setSizePolicy(sizePolicy)
         self.analyticsbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.analyticsbtn.clicked.connect(lambda: self.tab.setCurrentIndex(1))
         icon1 = QIcon()
         icon1.addFile(
             ":/icons/analyticslight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
@@ -179,6 +181,7 @@ class Ui_MainWindow(QMainWindow):
         sizePolicy.setHeightForWidth(self.reportbtn.sizePolicy().hasHeightForWidth())
         self.reportbtn.setSizePolicy(sizePolicy)
         self.reportbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.reportbtn.clicked.connect(lambda: self.tab.setCurrentIndex(2))
         icon2 = QIcon()
         icon2.addFile(
             ":/icons/monitoringlight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
