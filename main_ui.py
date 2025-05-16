@@ -1,17 +1,7 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'newQtVWuj.ui'
-##
-## Created by: Qt User Interface Compiler version 6.9.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-import icons_rc
+from components.icons_rc import *
 
 
 class Ui_MainWindow(QMainWindow):
@@ -1471,8 +1461,9 @@ class Ui_MainWindow(QMainWindow):
     # retranslateUi
 
 
-app = QApplication([])
 
+
+app = QApplication([])
 window = Ui_MainWindow()
 window.setupUi(window)
 window.show()
