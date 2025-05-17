@@ -283,7 +283,7 @@ class Ui_MainWindow(QMainWindow):
         self.analyticsbtn_min.setChecked(False)
         self.analyticsbtn_min.setPopupMode(QToolButton.ToolButtonPopupMode.DelayedPopup)
         self.analyticsbtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.analyticsbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(1))
+        self.analyticsbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(2))
 
         self.verticalLayout_52.addWidget(self.analyticsbtn_min)
 
@@ -305,7 +305,7 @@ class Ui_MainWindow(QMainWindow):
         self.reportbtn_min.setCheckable(True)
         self.reportbtn_min.setChecked(False)
         self.reportbtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.reportbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(2))
+        self.reportbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(1))
 
         self.verticalLayout_52.addWidget(self.reportbtn_min)
 
