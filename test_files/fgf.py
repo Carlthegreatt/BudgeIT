@@ -1,67 +1,56 @@
-import sys
-from PySide6.QtWidgets import (
-    QApplication,
-    QWidget,
-    QVBoxLayout,
-    QGroupBox,
-    QLabel,
-    QPushButton,
-    QGraphicsDropShadowEffect,
-)
-from PySide6.QtGui import QColor
+from PySide6.QtWidgets import QMainWindow, QApplication, QWidget
+from PySide6.QtCore import QFile, QPropertyAnimation, QEasingCurve, QSize
+from PySide6.QtUiTools import QUiLoader
 
 
-def apply_shadow(widget, blur=20, x_offset=0, y_offset=5, color="#555"):
-    shadow = QGraphicsDropShadowEffect()
-    shadow.setBlurRadius(blur)
-    shadow.setXOffset(x_offset)
-    shadow.setYOffset(y_offset)
-    shadow.setColor(QColor(color))
-    widget.setGraphicsEffect(shadow)
-
-
-class MainWindow(QWidget):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("GroupBox with Layout and Shadow")
-        self.setStyleSheet(
-            "background-color: #f0f0f0;"
-        )  # Lighter background for contrast
 
-        main_layout = QVBoxLayout(self)
+        loader = QUiLoader()
+        ui_file = QFile("main.ui")
+        ui_file.open(QFile.ReadOnly)
+        self.ui = loader.load(ui_file, self)
+        ui_file.close()
 
-        group_box = QGroupBox("User Info")
-        group_box.setStyleSheet(
-            """
-            QGroupBox {
-                background-color: white;
-                border: 1px solid #ccc;
-                border-radius: 8px;
-                margin-top: 20px;
-            }
+        self.setCentralWidget(self.ui)
 
-            QGroupBox::title {
-                subcontrol-origin: margin;
-                left: 10px;
-                padding: 0 4px;
-                background-color: transparent;
-            }
-        """
-        )
+        # Widgets
+        self.sidebar = self.ui.findChild(QWidget, "sidebar")
+        self.toggle_button = self.ui.findChild(QWidget, "toggleButton")
+        self.full_content = self.ui.findChild(QWidget, "fullSidebarContent")
+        self.mini_content = self.ui.findChild(QWidget, "miniSidebarContent")
 
-        group_layout = QVBoxLayout(group_box)
-        group_layout.addWidget(QLabel("Name: John Doe"))
-        group_layout.addWidget(QLabel("Age: 30"))
-        group_layout.addWidget(QPushButton("Submit"))
+        # State
+        self.sidebar_expanded = True
+        self.expanded_width = 200
+        self.collapsed_width = 50
 
-        apply_shadow(group_box)  # Apply the shadow
+        # Init view
+        self.mini_content.setVisible(False)
 
-        main_layout.addWidget(group_box)
+        self.toggle_button.clicked.connect(self.toggle_sidebar)
+
+    def toggle_sidebar(self):
+        self.sidebar_expanded = not self.sidebar_expanded
+
+        width = self.expanded_width if self.sidebar_expanded else self.collapsed_width
+
+        # Animate width change
+        animation = QPropertyAnimation(self.sidebar, b"maximumWidth")
+        animation.setDuration(250)
+        animation.setStartValue(self.sidebar.width())
+        animation.setEndValue(width)
+        animation.setEasingCurve(QEasingCurve.InOutCubic)
+        animation.start()
+
+        # Toggle contents
+        self.full_content.setVisible(self.sidebar_expanded)
+        self.mini_content.setVisible(not self.sidebar_expanded)
 
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
+    app = QApplication([])
     window = MainWindow()
-    window.resize(350, 250)
     window.show()
-    sys.exit(app.exec())
+    app.exec()
