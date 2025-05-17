@@ -2,6 +2,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from components.amounteditor import AmountEditor
+from components.addtransactions import add_entry
 
 
 class Ui_MainWindow(QMainWindow):
@@ -146,6 +147,8 @@ class Ui_MainWindow(QMainWindow):
         self.editbudgetbtn.clicked.connect(
             self.amount_editor.show
         )  # Connect to show method
+        self.add_entry = AddTransactions(self)
+        self.editbudgetbtn.clicked.connect(self.add_entry.show)
         self.budgetamount = QLabel(self.budgetbox)
         self.budgetamount.setObjectName("budgetamount")
         self.budgetamount.setGeometry(QRect(10, 30, 121, 31))

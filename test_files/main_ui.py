@@ -1,6 +1,6 @@
-from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+from PySide6.QtCore import *
 from components.icons_rc import *
 from components.ui import *
 
