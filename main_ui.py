@@ -5,7 +5,6 @@ from components.icons_rc import *
 from components.ui import *
 
 
-
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -445,19 +444,24 @@ class Ui_MainWindow(QMainWindow):
         self.viewcategorylbl_4.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.viewcategorylbl_4.setAutoFillBackground(False)
         self.viewcategorylbl_4.setStyleSheet(
-            "\n"
-            "QToolButton {\n"
-            "background-color: rgb(167, 83, 115);\n"
-            "color: rgb(167, 83, 115);\n"
-            "border-color: rgb(244, 212, 212);\n"
-            "text-align: center;\n"
-            'font: 600 7pt "Inter";\n'
-            "border-radius: 25px;}\n"
-            " \n"
-            "QToolButton:hover {\n"
-            "	background-color: rgb(147, 73, 101);\n"
-            "}\n"
-            ""
+            """
+QToolButton {
+background: qradialgradient(
+            cx: 0.5, cy: 0.5, radius: 0.6,
+            fx: 0.5, fy: 0.5,
+		stop: 0 #6c4464
+        stop: 1 #a75373
+    );
+color: rgb(167, 83, 115);
+border-color: rgb(244, 212, 212);
+text-align: center;
+font: 600 7pt "Inter";
+border-radius: 25px;}
+ 
+QToolButton:hover {
+	background-color: rgb(147, 73, 101);
+}
+"""
         )
         icon4 = QIcon()
         icon4.addFile(
@@ -545,21 +549,26 @@ class Ui_MainWindow(QMainWindow):
         self.viewcategorylbl_5.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.viewcategorylbl_5.setAutoFillBackground(False)
         self.viewcategorylbl_5.setStyleSheet(
-            "QToolButton{\n"
-            "\n"
-            "background-color: rgb(203, 101, 140);\n"
-            "color: rgb(167, 83, 115);\n"
-            "border-color: rgb(244, 212, 212);\n"
-            "text-align: center;\n"
-            'font: 600 7pt "Inter";\n'
-            "border-radius: 25px;}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    \n"
-            "	background-color: rgb(177, 88, 122);\n"
-            "}\n"
-            "  \n"
-            ""
+            """QToolButton{
+
+background: qradialgradient(
+            cx: 0.5, cy: 0.5, radius: 0.6,
+            fx: 0.5, fy: 0.5,
+		stop: 0 #a75373
+        stop: 1 #d46a92
+    );
+color: rgb(167, 83, 115);
+border-color: rgb(244, 212, 212);
+text-align: center;
+font: 600 7pt "Inter";
+border-radius: 25px;}
+
+QToolButton:hover {
+    
+	background-color: rgb(177, 88, 122);
+}
+  
+"""
         )
         icon5 = QIcon()
         icon5.addFile(
@@ -822,9 +831,8 @@ class Ui_MainWindow(QMainWindow):
             "}\n"
             "QPushButton:hover {\n"
             "\n"
-            "	background-color: rgb(231, 201, 201);\n"
-            "	border-color: rgb(231, 201, 201);\n"
-            "	border: 2px solid rgb(231, 201, 201);\n"
+            "		background-color: rgb(138, 69, 95);\n"
+           
             "   \n"
             "}"
         )
