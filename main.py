@@ -2,6 +2,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import components.icons_rc
+from components.addtransactions import AddTransactions
 
 
 class Ui_MainWindow(QMainWindow):
@@ -1111,6 +1112,7 @@ class Ui_MainWindow(QMainWindow):
         self.horizontalLayout_13.addWidget(self.descriptionedit)
 
         self.categorycombo = QComboBox(self.activitybox)
+        self.categorycombo.setPlaceholderText("Category")
         self.categorycombo.addItem("")
         self.categorycombo.addItem("")
         self.categorycombo.addItem("")
@@ -1190,6 +1192,11 @@ class Ui_MainWindow(QMainWindow):
         )
         self.addtransbtn.setCheckable(True)
         self.addtransbtn.setFlat(True)
+        self.addtransbtn.clicked.connect(
+            lambda: AddTransactions(
+                self.amountedit, self.descriptionedit, self.categorycombo, self.model
+            ).add_entry()
+        )
 
         self.horizontalLayout_13.addWidget(self.addtransbtn)
 
@@ -1209,12 +1216,43 @@ class Ui_MainWindow(QMainWindow):
         self.verticalLayout_14 = QVBoxLayout(self.tablebox)
         self.verticalLayout_14.setObjectName("verticalLayout_14")
         self.activities = QTableView(self.tablebox)
+
         self.activities.setObjectName("activities")
         sizePolicy.setHeightForWidth(self.activities.sizePolicy().hasHeightForWidth())
         self.activities.setSizePolicy(sizePolicy)
         self.activities.horizontalHeader().setCascadingSectionResizes(True)
-        self.activities.horizontalHeader().setDefaultSectionSize(120)
 
+        self.activities.horizontalHeader().setDefaultSectionSize(120)
+        self.activities = QTableView()
+        self.model = QStandardItemModel()
+
+        self.model.setHorizontalHeaderLabels(
+            ["Date", "Amount", "Description", "Category"]
+        )
+        self.activities.setModel(self.model)
+        self.activities.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.activities.verticalHeader().setVisible(False)
+        self.activities.setAlternatingRowColors(True)
+        self.activities.setShowGrid(False)
+        self.activities.setStyleSheet(
+            "QTableView {\n"
+            "    background-color: #ffffff;\n"
+            "    alternate-background-color: #f2f2f2;\n"
+            "    gridline-color: #d9d9d9;\n"
+            "    selection-background-color: #cce6ff;\n"
+            "    selection-color: #003366;\n"
+            '    font: 12pt "Segoe UI";\n'
+            "    border-radius: 15px;\n"
+            "}\n"
+            "QHeaderView::section {\n"
+            "    background-color: transparent;\n"
+            "    padding: 5px;\n"
+            "    border: 1px solid #ccc;\n"
+            "}\n"
+            "QTableView::item {\n"
+            "    padding: 5px;\n"
+            "}\n"
+        )
         self.verticalLayout_14.addWidget(self.activities)
 
         self.tablelayout.addWidget(self.tablebox)
