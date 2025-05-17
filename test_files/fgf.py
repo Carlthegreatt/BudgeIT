@@ -1,78 +1,67 @@
 import sys
-from PySide6.QtCore import Qt, QPoint
 from PySide6.QtWidgets import (
     QApplication,
     QWidget,
     QVBoxLayout,
-    QHBoxLayout,
+    QGroupBox,
     QLabel,
     QPushButton,
+    QGraphicsDropShadowEffect,
 )
+from PySide6.QtGui import QColor
+
+
+def apply_shadow(widget, blur=20, x_offset=0, y_offset=5, color="#555"):
+    shadow = QGraphicsDropShadowEffect()
+    shadow.setBlurRadius(blur)
+    shadow.setXOffset(x_offset)
+    shadow.setYOffset(y_offset)
+    shadow.setColor(QColor(color))
+    widget.setGraphicsEffect(shadow)
 
 
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("GroupBox with Layout and Shadow")
+        self.setStyleSheet(
+            "background-color: #f0f0f0;"
+        )  # Lighter background for contrast
 
-        self.setWindowFlags(Qt.FramelessWindowHint)
-        self.setMinimumSize(400, 300)
-
-        self.drag_pos = None  # For dragging the window
-
-        # Main layout
         main_layout = QVBoxLayout(self)
-        main_layout.setContentsMargins(0, 0, 0, 0)
 
-        # Custom title bar
-        title_bar = QWidget()
-        title_bar.setFixedHeight(30)
-        title_bar.setStyleSheet("background-color: #444; color: white;")
+        group_box = QGroupBox("User Info")
+        group_box.setStyleSheet(
+            """
+            QGroupBox {
+                background-color: white;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                margin-top: 20px;
+            }
 
-        title_layout = QHBoxLayout(title_bar)
-        title_layout.setContentsMargins(8, 0, 8, 0)
+            QGroupBox::title {
+                subcontrol-origin: margin;
+                left: 10px;
+                padding: 0 4px;
+                background-color: transparent;
+            }
+        """
+        )
 
-        self.title_label = QLabel("My App")
-        title_layout.addWidget(self.title_label)
+        group_layout = QVBoxLayout(group_box)
+        group_layout.addWidget(QLabel("Name: John Doe"))
+        group_layout.addWidget(QLabel("Age: 30"))
+        group_layout.addWidget(QPushButton("Submit"))
 
-        title_layout.addStretch()
+        apply_shadow(group_box)  # Apply the shadow
 
-        btn_minimize = QPushButton("-")
-        btn_minimize.setFixedSize(20, 20)
-        btn_minimize.setStyleSheet("background: none; color: white; border: none;")
-        btn_minimize.clicked.connect(self.showMinimized)
-
-        btn_close = QPushButton("x")
-        btn_close.setFixedSize(20, 20)
-        btn_close.setStyleSheet("background: none; color: white; border: none;")
-        btn_close.clicked.connect(self.close)
-
-        title_layout.addWidget(btn_minimize)
-        title_layout.addWidget(btn_close)
-
-        main_layout.addWidget(title_bar)
-
-        # Your main content
-        content = QLabel("Hello!")
-        content.setAlignment(Qt.AlignCenter)
-        content.setStyleSheet("font-size: 16px;")
-        main_layout.addWidget(content)
-
-        # Mouse events for dragging the window
-        title_bar.mousePressEvent = self.mousePressEvent
-        title_bar.mouseMoveEvent = self.mouseMoveEvent
-
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            self.drag_pos = event.globalPosition().toPoint()
-
-    def mouseMoveEvent(self, event):
-        if event.buttons() == Qt.LeftButton and self.drag_pos:
-            self.move(self.pos() + event.globalPosition().toPoint() - self.drag_pos)
-            self.drag_pos = event.globalPosition().toPoint()
+        main_layout.addWidget(group_box)
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
+    window.resize(350, 250)
     window.show()
     sys.exit(app.exec())

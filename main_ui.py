@@ -5,6 +5,7 @@ from components.icons_rc import *
 from components.ui import *
 
 
+
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -15,10 +16,14 @@ class Ui_MainWindow(QMainWindow):
 
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.centralwidget.setStyleSheet("background-color: rgb(245, 245, 245);")
         self.horizontalLayout_6 = QHBoxLayout(self.centralwidget)
         self.horizontalLayout_6.setSpacing(0)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
-        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_6.setContentsMargins(0, 0, 20, 0)
+        self.verticalLayout_11 = QVBoxLayout()
+        self.verticalLayout_11.setObjectName("verticalLayout_11")
+        self.verticalLayout_11.setContentsMargins(0, 0, 20, 0)
         self.sidebar = QGroupBox(self.centralwidget)
         self.sidebar.setObjectName("sidebar")
         self.sidebar.setMinimumSize(QSize(170, 0))
@@ -212,10 +217,11 @@ class Ui_MainWindow(QMainWindow):
         self.logoutbtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
 
         self.verticalLayout.addWidget(self.logoutbtn)
-
         self.verticalLayout_3.addLayout(self.verticalLayout)
 
-        self.horizontalLayout_6.addWidget(self.sidebar)
+        self.verticalLayout_11.addWidget(self.sidebar)
+
+        self.horizontalLayout_6.addLayout(self.verticalLayout_11)
 
         self.widget = QWidget(self.centralwidget)
         self.widget.setObjectName("widget")
@@ -305,7 +311,7 @@ class Ui_MainWindow(QMainWindow):
         self.user.setFont(font)
         self.user.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 700 40px "Inter";\n'
+            'font: 700 45px "Inter";\n'
             "background-color: transparent\n"
             ""
         )
@@ -378,7 +384,7 @@ class Ui_MainWindow(QMainWindow):
         self.budgetvalue_3.setFrameShape(QFrame.Shape.NoFrame)
         self.budgetvalue_3.setFrameShadow(QFrame.Shadow.Sunken)
         self.budgetvalue_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
+        self.budgetvalue_3.setWordWrap(True)
         self.horizontalLayout_18.addWidget(self.budgetvalue_3)
 
         self.verticalLayout_25.addLayout(self.horizontalLayout_18)
@@ -509,6 +515,7 @@ class Ui_MainWindow(QMainWindow):
         self.savingsvalue = QLabel(self.totalbudgetbox_3)
         self.savingsvalue.setObjectName("savingsvalue")
         self.savingsvalue.setFont(font1)
+        self.savingsvalue.setWordWrap(True)
         self.savingsvalue.setStyleSheet(
             "color: rgb(212, 106, 146);\n"
             "background-color: transparent;\n"
@@ -601,7 +608,7 @@ class Ui_MainWindow(QMainWindow):
             "color: rgb(250, 250, 250);\n" 'font: 700 30px "inter";\n' ""
         )
         self.expensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.expensevalue.setWordWrap(True)
+        self.expensevalue.setWordWrap(False)
 
         self.horizontalLayout_13.addWidget(self.expensevalue)
 
@@ -650,7 +657,7 @@ class Ui_MainWindow(QMainWindow):
             "color: rgb(250, 250, 250);\n" 'font: 700 30px "inter";\n' ""
         )
         self.incomevalue_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.incomevalue_2.setWordWrap(True)
+        self.incomevalue_2.setWordWrap(False)
 
         self.horizontalLayout_12.addWidget(self.incomevalue_2)
 
