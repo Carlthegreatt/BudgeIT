@@ -22,7 +22,7 @@ A desktop application for managing personal or small business finances. Track yo
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/Carlthegreatt/BudgeIT.git
-2. **Install Dependecies**
+2. **Install Dependencies**
     ```bash
     pip install -r requirements.txt
 3. **Run the application**
