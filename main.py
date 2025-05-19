@@ -5,58 +5,6 @@ from PySide6.QtWidgets import *
 import components.icons_rc
 from components.addtransactions import AddTransactions
 
-from PySide6.QtCore import (
-    QPropertyAnimation,
-    QPoint,
-    QEasingCurve,
-    QParallelAnimationGroup,
-)
-from PySide6.QtWidgets import QGraphicsOpacityEffect
-
-
-class FadeSlideInAnimator:
-    def __init__(self, distance=30, duration=500, easing=QEasingCurve.OutCubic):
-        self.distance = distance
-        self.duration = duration
-        self.easing = easing
-
-    def animate(self, widget):
-        # Apply opacity effect if not already set
-        if not isinstance(widget.graphicsEffect(), QGraphicsOpacityEffect):
-            opacity_effect = QGraphicsOpacityEffect()
-            widget.setGraphicsEffect(opacity_effect)
-            widget._opacity_effect = opacity_effect
-        else:
-            opacity_effect = widget.graphicsEffect()
-
-        # Set initial opacity
-        opacity_effect.setOpacity(0.0)
-
-        # Fade-in animation
-        fade_anim = QPropertyAnimation(opacity_effect, b"opacity")
-        fade_anim.setDuration(self.duration)
-        fade_anim.setStartValue(0.0)
-        fade_anim.setEndValue(1.0)
-
-        # Slide-in animation
-        original_pos = widget.pos()
-        start_pos = original_pos - QPoint(self.distance, 0)
-
-        slide_anim = QPropertyAnimation(widget, b"pos")
-        slide_anim.setDuration(self.duration)
-        slide_anim.setStartValue(start_pos)
-        slide_anim.setEndValue(original_pos)
-        slide_anim.setEasingCurve(self.easing)
-
-        # Combine both
-        group = QParallelAnimationGroup()
-        group.addAnimation(fade_anim)
-        group.addAnimation(slide_anim)
-        group.start()
-
-        # Prevent garbage collection
-        widget._anim_group = group
-
 
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
