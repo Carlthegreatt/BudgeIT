@@ -228,7 +228,7 @@ class Ui_MainWindow(QMainWindow):
         self.analyticsbtn_min.setChecked(False)
         self.analyticsbtn_min.setPopupMode(QToolButton.ToolButtonPopupMode.DelayedPopup)
         self.analyticsbtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.analyticsbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(2))
+        self.analyticsbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(1))
 
         self.verticalLayout_52.addWidget(self.analyticsbtn_min)
 
@@ -250,7 +250,7 @@ class Ui_MainWindow(QMainWindow):
         self.reportbtn_min.setCheckable(True)
         self.reportbtn_min.setChecked(False)
         self.reportbtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.reportbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(1))
+        self.reportbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(2))
 
         self.verticalLayout_52.addWidget(self.reportbtn_min)
 
@@ -584,9 +584,9 @@ class Ui_MainWindow(QMainWindow):
         self.morebtn.setIconSize(QSize(20, 20))
 
         self.horizontalLayout_24.addWidget(self.morebtn)
-
         self.verticalLayout.addWidget(self.dashboardwidget)
 
+        # start of page 1
         self.tab = QStackedWidget(self.tabframe)
         self.tab.setObjectName("tab")
         self.page_1 = QWidget()
@@ -914,8 +914,8 @@ class Ui_MainWindow(QMainWindow):
             "QToolButton{\n"
             "\n"
             "background: qradialgradient(\n"
-            "            cx: 0.5, cy: 0.5, radius: 0.6,\n"
-            "            fx: 0.5, fy: 0.5,\n"
+            "cx: 0.5, cy: 0.5, radius: 0.6,\n"
+            "fx: 0.5, fy: 0.5,\n"
             "		stop: 0 #a75373\n"
             "        stop: 1 #d46a92\n"
             "    );\n"
@@ -1282,27 +1282,142 @@ QHeaderView::section {
 
 """
         )
-
         self.verticalLayout_14.addWidget(self.activities)
-
         self.tablelayout.addWidget(self.tablebox)
-
         self.verticalLayout_10.addLayout(self.tablelayout)
-
         self.activitylayout.addWidget(self.activitybox)
-
         self.verticalLayout_26.addLayout(self.activitylayout)
-
         self.page1_scrollarea.setWidget(self.scrollAreaWidgetContents_1)
-
         self.verticalLayout_3.addWidget(self.page1_scrollarea)
-
         self.tab.addWidget(self.page_1)
+
+        # start of page 2
         self.page_2 = QWidget()
         self.page_2.setObjectName("page_2")
-        self.page_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.page_2.setStyleSheet("")
+        self.verticalLayout_15 = QVBoxLayout(self.page_2)
+        self.verticalLayout_15.setObjectName("verticalLayout_15")
+        font5 = QFont()
+        font5.setFamilies(["Inter"])
+        font5.setPointSize(30)
+        font5.setBold(True)
+        font5.setItalic(False)
 
-        self.verticalLayout_9 = QVBoxLayout(self.page_2)
+        self.scrollArea_2 = QScrollArea(self.page_2)
+        self.scrollArea_2.setObjectName("scrollArea_2")
+        self.scrollArea_2.setStyleSheet(
+            "\n"
+            "QScrollArea{\n"
+            "border: none;}\n"
+            "\n"
+            "QScrollBar:vertical {\n"
+            "    \n"
+            "    background-color: rgb(245, 245, 245);\n"
+            "    width: 5px;\n"
+            "    margin: 0px 0px 0px 0px;\n"
+            "	border: none\n"
+            "	\n"
+            "}\n"
+            "\n"
+            "QScrollBar::handle:vertical {\n"
+            "    background: rgb(80, 51, 74);\n"
+            "    min-height: 20px;\n"
+            "    border-radius: 10000px;\n"
+            "}\n"
+            "\n"
+            "QScrollBar::add-line:vertical,\n"
+            "QScrollBar::sub-line:vertical {\n"
+            "    background: none;\n"
+            "    height: 0px;\n"
+            "}\n"
+            ""
+        )
+        self.scrollArea_2.setVerticalScrollBarPolicy(
+            Qt.ScrollBarPolicy.ScrollBarAlwaysOn
+        )
+        self.scrollArea_2.setWidgetResizable(True)
+        self.scrollAreaWidgetContents_4 = QWidget()
+        self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
+        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 737, 826))
+        self.verticalLayout_16 = QVBoxLayout(self.scrollAreaWidgetContents_4)
+        self.verticalLayout_16.setObjectName("verticalLayout_16")
+        self.verticalLayout_16.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_19 = QHBoxLayout()
+        self.horizontalLayout_19.setObjectName("horizontalLayout_19")
+        self.horizontalLayout_19.setContentsMargins(25, -1, 20, -1)
+        self.groupBox_9 = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.groupBox_9.setObjectName("groupBox_9")
+        sizePolicy.setHeightForWidth(self.groupBox_9.sizePolicy().hasHeightForWidth())
+        self.groupBox_9.setSizePolicy(sizePolicy)
+        self.groupBox_9.setMinimumSize(QSize(300, 247))
+        self.groupBox_9.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+        )
+
+        self.horizontalLayout_19.addWidget(self.groupBox_9)
+
+        self.groupBox_10 = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.groupBox_10.setObjectName("groupBox_10")
+        self.groupBox_10.setMinimumSize(QSize(300, 247))
+        self.groupBox_10.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+        )
+
+        self.horizontalLayout_19.addWidget(self.groupBox_10)
+
+        self.verticalLayout_16.addLayout(self.horizontalLayout_19)
+
+        self.horizontalLayout_20 = QHBoxLayout()
+        self.horizontalLayout_20.setObjectName("horizontalLayout_20")
+        self.horizontalLayout_20.setContentsMargins(25, -1, 20, -1)
+        self.groupBox_11 = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.groupBox_11.setObjectName("groupBox_11")
+        self.groupBox_11.setMinimumSize(QSize(300, 247))
+        self.groupBox_11.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+        )
+
+        self.horizontalLayout_20.addWidget(self.groupBox_11)
+
+        self.groupBox_12 = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.groupBox_12.setObjectName("groupBox_12")
+        sizePolicy.setHeightForWidth(self.groupBox_12.sizePolicy().hasHeightForWidth())
+        self.groupBox_12.setSizePolicy(sizePolicy)
+        self.groupBox_12.setMinimumSize(QSize(300, 247))
+        self.groupBox_12.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+        )
+
+        self.horizontalLayout_20.addWidget(self.groupBox_12)
+
+        self.verticalLayout_16.addLayout(self.horizontalLayout_20)
+
+        self.horizontalLayout_21 = QHBoxLayout()
+        self.horizontalLayout_21.setObjectName("horizontalLayout_21")
+        self.horizontalLayout_21.setContentsMargins(25, -1, 20, 50)
+        self.groupBox_13 = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.groupBox_13.setObjectName("groupBox_13")
+        self.groupBox_13.setMinimumSize(QSize(300, 247))
+        self.groupBox_13.setMaximumSize(QSize(800, 247))
+        self.groupBox_13.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+        )
+
+        self.horizontalLayout_21.addWidget(self.groupBox_13)
+
+        self.verticalLayout_16.addLayout(self.horizontalLayout_21)
+
+        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_4)
+
+        self.verticalLayout_15.addWidget(self.scrollArea_2)
+
+        self.tab.addWidget(self.page_2)
+
+        self.page_3 = QWidget()
+        self.page_3.setObjectName("page_3")
+        self.page_3.setStyleSheet("background-color: rgb(255, 255, 255);")
+
+        self.verticalLayout_9 = QVBoxLayout(self.page_3)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
         self.verticalLayout_11 = QVBoxLayout()
         self.verticalLayout_11.setObjectName("verticalLayout_11")
@@ -1311,7 +1426,7 @@ QHeaderView::section {
         self.horizontalLayout_7.setSpacing(120)
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
         self.horizontalLayout_7.setContentsMargins(-1, 10, -1, 10)
-        self.incomebox_34 = QGroupBox(self.page_2)
+        self.incomebox_34 = QGroupBox(self.page_3)
         self.incomebox_34.setObjectName("incomebox_34")
         self.incomebox_34.setMinimumSize(QSize(720, 70))
         self.incomebox_34.setMaximumSize(QSize(700, 70))
@@ -1456,7 +1571,7 @@ QHeaderView::section {
 
         self.verticalLayout_11.addLayout(self.horizontalLayout_7)
 
-        self.scrollArea_4 = QScrollArea(self.page_2)
+        self.scrollArea_4 = QScrollArea(self.page_3)
         self.scrollArea_4.setObjectName("scrollArea_4")
         self.scrollArea_4.setStyleSheet(
             "background-color: transparent;\n" "border-radius: 10;\n" "border: none;"
@@ -1564,140 +1679,6 @@ QHeaderView::section {
 
         self.verticalLayout_9.addLayout(self.verticalLayout_11)
 
-        self.tab.addWidget(self.page_2)
-        self.page_3 = QWidget()
-        self.page_3.setObjectName("page_3")
-        self.page_3.setStyleSheet("")
-        self.verticalLayout_15 = QVBoxLayout(self.page_3)
-        self.verticalLayout_15.setObjectName("verticalLayout_15")
-        self.greetuser_13 = QLabel(self.page_3)
-        self.greetuser_13.setObjectName("greetuser_13")
-        sizePolicy1.setHeightForWidth(
-            self.greetuser_13.sizePolicy().hasHeightForWidth()
-        )
-        self.greetuser_13.setSizePolicy(sizePolicy1)
-        font5 = QFont()
-        font5.setFamilies(["Inter"])
-        font5.setPointSize(30)
-        font5.setBold(True)
-        font5.setItalic(False)
-        self.greetuser_13.setFont(font5)
-        self.greetuser_13.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            'font: 700 30pt "Inter";\n'
-            "background-color: transparent\n"
-            ""
-        )
-
-        self.verticalLayout_15.addWidget(self.greetuser_13)
-
-        self.scrollArea_2 = QScrollArea(self.page_3)
-        self.scrollArea_2.setObjectName("scrollArea_2")
-        self.scrollArea_2.setStyleSheet(
-            "\n"
-            "QScrollArea{\n"
-            "border: none;}\n"
-            "\n"
-            "QScrollBar:vertical {\n"
-            "    \n"
-            "    background-color: rgb(245, 245, 245);\n"
-            "    width: 5px;\n"
-            "    margin: 0px 0px 0px 0px;\n"
-            "	border: none\n"
-            "	\n"
-            "}\n"
-            "\n"
-            "QScrollBar::handle:vertical {\n"
-            "    background: rgb(80, 51, 74);\n"
-            "    min-height: 20px;\n"
-            "    border-radius: 10000px;\n"
-            "}\n"
-            "\n"
-            "QScrollBar::add-line:vertical,\n"
-            "QScrollBar::sub-line:vertical {\n"
-            "    background: none;\n"
-            "    height: 0px;\n"
-            "}\n"
-            ""
-        )
-        self.scrollArea_2.setVerticalScrollBarPolicy(
-            Qt.ScrollBarPolicy.ScrollBarAlwaysOn
-        )
-        self.scrollArea_2.setWidgetResizable(True)
-        self.scrollAreaWidgetContents_4 = QWidget()
-        self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
-        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 737, 826))
-        self.verticalLayout_16 = QVBoxLayout(self.scrollAreaWidgetContents_4)
-        self.verticalLayout_16.setObjectName("verticalLayout_16")
-        self.horizontalLayout_19 = QHBoxLayout()
-        self.horizontalLayout_19.setObjectName("horizontalLayout_19")
-        self.horizontalLayout_19.setContentsMargins(25, -1, 20, -1)
-        self.groupBox_9 = QGroupBox(self.scrollAreaWidgetContents_4)
-        self.groupBox_9.setObjectName("groupBox_9")
-        sizePolicy.setHeightForWidth(self.groupBox_9.sizePolicy().hasHeightForWidth())
-        self.groupBox_9.setSizePolicy(sizePolicy)
-        self.groupBox_9.setMinimumSize(QSize(300, 247))
-        self.groupBox_9.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
-        )
-
-        self.horizontalLayout_19.addWidget(self.groupBox_9)
-
-        self.groupBox_10 = QGroupBox(self.scrollAreaWidgetContents_4)
-        self.groupBox_10.setObjectName("groupBox_10")
-        self.groupBox_10.setMinimumSize(QSize(300, 247))
-        self.groupBox_10.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
-        )
-
-        self.horizontalLayout_19.addWidget(self.groupBox_10)
-
-        self.verticalLayout_16.addLayout(self.horizontalLayout_19)
-
-        self.horizontalLayout_20 = QHBoxLayout()
-        self.horizontalLayout_20.setObjectName("horizontalLayout_20")
-        self.horizontalLayout_20.setContentsMargins(25, -1, 20, -1)
-        self.groupBox_11 = QGroupBox(self.scrollAreaWidgetContents_4)
-        self.groupBox_11.setObjectName("groupBox_11")
-        self.groupBox_11.setMinimumSize(QSize(300, 247))
-        self.groupBox_11.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
-        )
-
-        self.horizontalLayout_20.addWidget(self.groupBox_11)
-
-        self.groupBox_12 = QGroupBox(self.scrollAreaWidgetContents_4)
-        self.groupBox_12.setObjectName("groupBox_12")
-        sizePolicy.setHeightForWidth(self.groupBox_12.sizePolicy().hasHeightForWidth())
-        self.groupBox_12.setSizePolicy(sizePolicy)
-        self.groupBox_12.setMinimumSize(QSize(300, 247))
-        self.groupBox_12.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
-        )
-
-        self.horizontalLayout_20.addWidget(self.groupBox_12)
-
-        self.verticalLayout_16.addLayout(self.horizontalLayout_20)
-
-        self.horizontalLayout_21 = QHBoxLayout()
-        self.horizontalLayout_21.setObjectName("horizontalLayout_21")
-        self.horizontalLayout_21.setContentsMargins(25, -1, 20, 50)
-        self.groupBox_13 = QGroupBox(self.scrollAreaWidgetContents_4)
-        self.groupBox_13.setObjectName("groupBox_13")
-        self.groupBox_13.setMinimumSize(QSize(300, 247))
-        self.groupBox_13.setMaximumSize(QSize(800, 247))
-        self.groupBox_13.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
-        )
-
-        self.horizontalLayout_21.addWidget(self.groupBox_13)
-
-        self.verticalLayout_16.addLayout(self.horizontalLayout_21)
-
-        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_4)
-
-        self.verticalLayout_15.addWidget(self.scrollArea_2)
-
         self.tab.addWidget(self.page_3)
 
         self.verticalLayout.addWidget(self.tab)
@@ -1720,12 +1701,21 @@ QHeaderView::section {
 
         self.tab.setCurrentIndex(0)
 
+        # Add connection for tab changes
+        self.tab.currentChanged.connect(self.update_menu_label)
+
         QMetaObject.connectSlotsByName(MainWindow)
         self.maxsidebar.hide()
         self.minsidebar.show()
         self.sidebar_expanded = True
 
-    # setupUi
+    def update_menu_label(self, index):
+        if index == 0:
+            self.menulabel.setText("Dashboard")
+        elif index == 1:
+            self.menulabel.setText("Analytics")
+        elif index == 2:
+            self.menulabel.setText("Reports")
 
     def toggle_sidebar(self):
         if self.sidebar_expanded:
@@ -1768,9 +1758,18 @@ QHeaderView::section {
         self.menubtn.setText(
             QCoreApplication.translate("MainWindow", "PushButton", None)
         )
-        self.menulabel.setText(
-            QCoreApplication.translate("MainWindow", "Dashboard", None)
-        )
+        if self.tab.currentIndex() == 0:
+            self.menulabel.setText(
+                QCoreApplication.translate("MainWindow", "Dashboard", None)
+            )
+        elif self.tab.currentIndex() == 1:
+            self.menulabel.setText(
+                QCoreApplication.translate("MainWindow", "Analytics", None)
+            )
+        elif self.tab.currentIndex() == 2:
+            self.menulabel.setText(
+                QCoreApplication.translate("MainWindow", "Reports", None)
+            )
         self.notificationsbtn.setText(
             QCoreApplication.translate("MainWindow", "...", None)
         )
@@ -1937,9 +1936,6 @@ QHeaderView::section {
         )
         self.incomebox_39.setTitle("")
         self.incomebox_40.setTitle("")
-        self.greetuser_13.setText(
-            QCoreApplication.translate("MainWindow", "Analytics", None)
-        )
         self.groupBox_9.setTitle("")
         self.groupBox_10.setTitle("")
         self.groupBox_11.setTitle("")
