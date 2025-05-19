@@ -11,15 +11,15 @@ class AddTransactions:
         category_combo: QComboBox,
         model: QStandardItemModel,
     ):
-        self.amountedit = amount_edit
-        self.descriptionedit = description_edit
-        self.categorycombo = category_combo
-        self.model = model
+        self.__amountedit = amount_edit
+        self.__descriptionedit = description_edit
+        self.__categorycombo = category_combo
+        self.__model = model
 
     def add_entry(self):
-        amount = self.amountedit.text().strip()
-        description = self.descriptionedit.text().strip()
-        category = self.categorycombo.currentText()
+        amount = self.__amountedit.text().strip()
+        description = self.__descriptionedit.text().strip()
+        category = self.__categorycombo.currentText()
         current_date = QDate.currentDate().toString("yyyy-MM-dd")
 
         try:
@@ -41,9 +41,9 @@ class AddTransactions:
         for item in row:
             item.setTextAlignment(Qt.AlignCenter)
 
-        self.model.appendRow(row)
+        self.__model.appendRow(row)
 
         # Clear inputs
-        self.amountedit.clear()
-        self.descriptionedit.clear()
-        self.categorycombo.setCurrentIndex(0)
+        self.__amountedit.clear()
+        self.__descriptionedit.clear()
+        self.__categorycombo.setCurrentIndex(0)

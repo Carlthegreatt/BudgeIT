@@ -1,56 +1,107 @@
-from PySide6.QtWidgets import QMainWindow, QApplication, QWidget
-from PySide6.QtCore import QFile, QPropertyAnimation, QEasingCurve, QSize
-from PySide6.QtUiTools import QUiLoader
+from PySide6.QtWidgets import (
+    QApplication,
+    QWidget,
+    QVBoxLayout,
+    QScrollArea,
+    QLabel,
+    QGraphicsOpacityEffect,
+)
+from PySide6.QtCore import (
+    QPropertyAnimation,
+    QPoint,
+    QEasingCurve,
+    QParallelAnimationGroup,
+    Qt,
+    QTimer,
+)
 
 
-class MainWindow(QMainWindow):
+class FadeSlideScrollArea(QWidget):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("Scroll-triggered Fade + Slide In")
+        self.resize(500, 500)
 
-        loader = QUiLoader()
-        ui_file = QFile("main.ui")
-        ui_file.open(QFile.ReadOnly)
-        self.ui = loader.load(ui_file, self)
-        ui_file.close()
+        layout = QVBoxLayout(self)
 
-        self.setCentralWidget(self.ui)
+        self.scroll_area = QScrollArea()
+        self.scroll_area.setWidgetResizable(True)
+        layout.addWidget(self.scroll_area)
 
-        # Widgets
-        self.sidebar = self.ui.findChild(QWidget, "sidebar")
-        self.toggle_button = self.ui.findChild(QWidget, "toggleButton")
-        self.full_content = self.ui.findChild(QWidget, "fullSidebarContent")
-        self.mini_content = self.ui.findChild(QWidget, "miniSidebarContent")
+        # Container for scroll content
+        self.container = QWidget()
+        self.vbox = QVBoxLayout(self.container)
 
-        # State
-        self.sidebar_expanded = True
-        self.expanded_width = 200
-        self.collapsed_width = 50
+        self.labels = []
 
-        # Init view
-        self.mini_content.setVisible(False)
+        for i in range(30):
+            label = QLabel(f"Item {i + 1}")
+            label.setStyleSheet(
+                "font-size: 18px; padding: 12px; background: #eee; margin: 5px;"
+            )
+            self.vbox.addWidget(label)
+            self.labels.append(label)
 
-        self.toggle_button.clicked.connect(self.toggle_sidebar)
+            # Store placeholder for animations
+            label._animated = False
+            label._opacity = QGraphicsOpacityEffect()
+            label.setGraphicsEffect(label._opacity)
+            label._opacity.setOpacity(0.0)
 
-    def toggle_sidebar(self):
-        self.sidebar_expanded = not self.sidebar_expanded
+        self.scroll_area.setWidget(self.container)
 
-        width = self.expanded_width if self.sidebar_expanded else self.collapsed_width
+        # Track which labels have animated
+        self.animated = set()
 
-        # Animate width change
-        animation = QPropertyAnimation(self.sidebar, b"maximumWidth")
-        animation.setDuration(250)
-        animation.setStartValue(self.sidebar.width())
-        animation.setEndValue(width)
-        animation.setEasingCurve(QEasingCurve.InOutCubic)
-        animation.start()
+        # Connect scroll
+        self.scroll_area.verticalScrollBar().valueChanged.connect(self.check_visibility)
 
-        # Toggle contents
-        self.full_content.setVisible(self.sidebar_expanded)
-        self.mini_content.setVisible(not self.sidebar_expanded)
+        # Delay initial visibility check to allow layout setup
+        QTimer.singleShot(200, self.check_visibility)
+
+    def check_visibility(self):
+        viewport = self.scroll_area.viewport()
+        scroll_pos = self.scroll_area.verticalScrollBar().value()
+        viewport_bottom = scroll_pos + viewport.height()
+
+        for i, widget in enumerate(self.labels):
+            widget_top = widget.y()
+            widget_bottom = widget.y() + widget.height()
+
+            if widget_bottom >= scroll_pos and widget_top <= viewport_bottom:
+                if not widget._animated:
+                    self.animate_widget(widget)
+                    widget._animated = True
+
+    def animate_widget(self, widget):
+        # Opacity animation
+        fade_anim = QPropertyAnimation(widget.graphicsEffect(), b"opacity")
+        fade_anim.setDuration(500)
+        fade_anim.setStartValue(0.0)
+        fade_anim.setEndValue(1.0)
+
+        # Position animation
+        original_pos = widget.pos()
+        start_pos = original_pos - QPoint(30, 0)
+
+        slide_anim = QPropertyAnimation(widget, b"pos")
+        slide_anim.setDuration(500)
+        slide_anim.setStartValue(start_pos)
+        slide_anim.setEndValue(original_pos)
+        slide_anim.setEasingCurve(QEasingCurve.OutCubic)
+
+        # Run animations in parallel
+        group = QParallelAnimationGroup()
+        group.addAnimation(fade_anim)
+        group.addAnimation(slide_anim)
+        group.start()
+
+        # Prevent GC
+        widget._anim_group = group
 
 
 if __name__ == "__main__":
     app = QApplication([])
-    window = MainWindow()
+    window = FadeSlideScrollArea()
     window.show()
     app.exec()
