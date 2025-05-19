@@ -1,12 +1,71 @@
+import sys
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import components.icons_rc
 from components.addtransactions import AddTransactions
 
+from PySide6.QtCore import (
+    QPropertyAnimation,
+    QPoint,
+    QEasingCurve,
+    QParallelAnimationGroup,
+)
+from PySide6.QtWidgets import QGraphicsOpacityEffect
+
+
+class FadeSlideInAnimator:
+    def __init__(self, distance=30, duration=500, easing=QEasingCurve.OutCubic):
+        self.distance = distance
+        self.duration = duration
+        self.easing = easing
+
+    def animate(self, widget):
+        # Apply opacity effect if not already set
+        if not isinstance(widget.graphicsEffect(), QGraphicsOpacityEffect):
+            opacity_effect = QGraphicsOpacityEffect()
+            widget.setGraphicsEffect(opacity_effect)
+            widget._opacity_effect = opacity_effect
+        else:
+            opacity_effect = widget.graphicsEffect()
+
+        # Set initial opacity
+        opacity_effect.setOpacity(0.0)
+
+        # Fade-in animation
+        fade_anim = QPropertyAnimation(opacity_effect, b"opacity")
+        fade_anim.setDuration(self.duration)
+        fade_anim.setStartValue(0.0)
+        fade_anim.setEndValue(1.0)
+
+        # Slide-in animation
+        original_pos = widget.pos()
+        start_pos = original_pos - QPoint(self.distance, 0)
+
+        slide_anim = QPropertyAnimation(widget, b"pos")
+        slide_anim.setDuration(self.duration)
+        slide_anim.setStartValue(start_pos)
+        slide_anim.setEndValue(original_pos)
+        slide_anim.setEasingCurve(self.easing)
+
+        # Combine both
+        group = QParallelAnimationGroup()
+        group.addAnimation(fade_anim)
+        group.addAnimation(slide_anim)
+        group.start()
+
+        # Prevent garbage collection
+        widget._anim_group = group
+
 
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
+        QFontDatabase.addApplicationFont("assets/fonts/Inter.ttf")
+        title_icon = QIcon()
+        title_icon.addFile(
+            ":/icons/financedark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
+        )
+        self.setWindowIcon(title_icon)
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1004, 679)
@@ -443,7 +502,7 @@ class Ui_MainWindow(QMainWindow):
             "background-color: rgb(255, 255, 255);\n"
             "border: 1px solid;\n"
             "	border-color: rgb(255, 255, 255);\n"
-            "border-bottom-color: rgb(191, 191, 191);}"
+            "border-bottom-color: rgb(191, 191, 191)};"
         )
         self.horizontalLayout_24 = QHBoxLayout(self.dashboardwidget)
         self.horizontalLayout_24.setSpacing(10)
@@ -662,6 +721,7 @@ class Ui_MainWindow(QMainWindow):
             "background-color: transparent\n"
             ""
         )
+
         self.user.setAlignment(
             Qt.AlignmentFlag.AlignLeading
             | Qt.AlignmentFlag.AlignLeft
@@ -781,7 +841,7 @@ class Ui_MainWindow(QMainWindow):
             "}\n"
             ""
         )
-        self.progressBar.setValue(24)
+        self.progressBar.setValue(70)
         self.progressBar.setTextVisible(False)
 
         self.layout_3.addWidget(self.progressBar)
@@ -1047,6 +1107,7 @@ class Ui_MainWindow(QMainWindow):
         self.activitybox.setStyleSheet(
             "background-color: rgb(108, 68, 100);\n" "border-radius:20\n" ""
         )
+
         self.verticalLayout_10 = QVBoxLayout(self.activitybox)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
         self.verticalLayout_10.setContentsMargins(-1, 6, -1, -1)
@@ -1204,14 +1265,14 @@ class Ui_MainWindow(QMainWindow):
 
         self.tablelayout = QVBoxLayout()
         self.tablelayout.setObjectName("tablelayout")
-        self.tablelayout.setContentsMargins(15, 15, 15, 16)
+        self.tablelayout.setContentsMargins(15, 15, 15, 15)
         self.tablebox = QGroupBox(self.activitybox)
         self.tablebox.setObjectName("tablebox")
         sizePolicy.setHeightForWidth(self.tablebox.sizePolicy().hasHeightForWidth())
         self.tablebox.setSizePolicy(sizePolicy)
         self.tablebox.setMaximumSize(QSize(16777215, 291))
         self.tablebox.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius:20\n" ""
+            "background-color: rgb(255, 255, 255);\n" "border-radius:15\n" ""
         )
         self.verticalLayout_14 = QVBoxLayout(self.tablebox)
         self.verticalLayout_14.setObjectName("verticalLayout_14")
@@ -1232,27 +1293,48 @@ class Ui_MainWindow(QMainWindow):
         self.activities.setModel(self.model)
         self.activities.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.activities.verticalHeader().setVisible(False)
+        self.activities.verticalHeader().setDefaultSectionSize(40)
         self.activities.setAlternatingRowColors(True)
         self.activities.setShowGrid(False)
+        self.activities.setSelectionMode(QTableView.NoSelection)
+        self.activities.setEditTriggers(QTableView.NoEditTriggers)
+
         self.activities.setStyleSheet(
-            "QTableView {\n"
-            "    background-color: #ffffff;\n"
-            "    alternate-background-color: #f2f2f2;\n"
-            "    gridline-color: #d9d9d9;\n"
-            "    selection-background-color: #cce6ff;\n"
-            "    selection-color: #003366;\n"
-            '    font: 12pt "Segoe UI";\n'
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QHeaderView::section {\n"
-            "    background-color: transparent;\n"
-            "    padding: 5px;\n"
-            "    border: 1px solid #ccc;\n"
-            "}\n"
-            "QTableView::item {\n"
-            "    padding: 5px;\n"
-            "}\n"
+            """QTableView {
+    background-color: white;
+    alternate-background-color: #f0f8ff; /* light blue */
+    gridline-color: #dcdcdc;
+    font: 300 12px "Inter";
+    border: none;
+}
+
+
+QTableView::item:hover {
+    background-color: #e0f7fa;  /* light cyan */
+}
+
+
+
+QTableView::item {
+    padding: 8px;
+    color: rgb(105, 104, 104);
+    font: 900 12px "Inter";
+}
+
+QHeaderView::section {
+    font: 500 12px "Inter";
+    background-color: white;
+    color: rgb(92, 91, 91);
+    padding: 5px;
+    border: 1px solid rgb(230, 230, 230);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+"""
         )
+
         self.verticalLayout_14.addWidget(self.activities)
 
         self.tablelayout.addWidget(self.tablebox)
@@ -1271,6 +1353,7 @@ class Ui_MainWindow(QMainWindow):
         self.page_2 = QWidget()
         self.page_2.setObjectName("page_2")
         self.page_2.setStyleSheet("background-color: rgb(255, 255, 255);")
+
         self.verticalLayout_9 = QVBoxLayout(self.page_2)
         self.verticalLayout_9.setObjectName("verticalLayout_9")
         self.verticalLayout_11 = QVBoxLayout()
@@ -1684,8 +1767,8 @@ class Ui_MainWindow(QMainWindow):
         self.homebtn_min.toggled.connect(self.homebtn.setChecked)
         self.analyticsbtn_min.toggled.connect(self.analyticsbtn.setChecked)
         self.reportbtn_min.toggled.connect(self.reportbtn.setChecked)
-        self.menubtn.toggled.connect(self.minsidebar.setVisible)
-        self.menubtn.toggled.connect(self.maxsidebar.setHidden)
+        self.menubtn.toggled.connect(self.maxsidebar.setVisible)
+        self.menubtn.toggled.connect(self.minsidebar.setHidden)
 
         self.tab.setCurrentIndex(0)
 
@@ -1918,11 +2001,9 @@ class Ui_MainWindow(QMainWindow):
     # retranslateUi
 
 
-app = QApplication([])
+app = QApplication(sys.argv)
 window = Ui_MainWindow()
-
 window.setupUi(window)
 window.setWindowTitle(" ")
-window.setWindowIcon(QIcon(""))
 window.show()
 app.exec()
