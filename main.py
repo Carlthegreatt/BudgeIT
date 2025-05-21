@@ -3,6 +3,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import components.icons_rc
+import components.images_rc as images_rc
 from components.addtransactions import AddTransactions
 
 
@@ -156,38 +157,34 @@ class Ui_MainWindow(QMainWindow):
 
         self.verticalLayout_54 = QVBoxLayout()
         self.verticalLayout_54.setSpacing(0)
-        self.verticalLayout_54.setObjectName("verticalLayout_54")
-        self.verticalLayout_54.setContentsMargins(0, 30, 0, 30)
-        self.logomin = QLabel(self.minsidebar)
-        self.logomin.setObjectName("logomin")
-        sizePolicy = QSizePolicy(
-            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred
-        )
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.logomin.sizePolicy().hasHeightForWidth())
-        self.logomin.setSizePolicy(sizePolicy)
-        font = QFont()
-        font.setFamilies(["Inter"])
-        font.setBold(True)
-        font.setItalic(False)
-        self.logomin.setFont(font)
-        self.logomin.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            "color: rgb(245, 245, 245);\n"
-            'font: 700  20px "Inter";\n'
-            "background-color: transparent\n"
-            "\n"
-            ""
-        )
-        self.logomin.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.verticalLayout_54.setObjectName(u"verticalLayout_54")
+        self.verticalLayout_54.setContentsMargins(0, 15, 0, 15)
+        self.minlogowidget = QWidget(self.minsidebar)
+        self.minlogowidget.setObjectName(u"minlogowidget")
+        self.horizontalLayout = QHBoxLayout(self.minlogowidget)
+        self.horizontalLayout.setSpacing(0)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.minlogo = QLabel(self.minlogowidget)
+        self.minlogo.setObjectName(u"minlogo")
+        self.minlogo.setMaximumSize(QSize(50, 50))
+        self.minlogo.setPixmap(QPixmap(u":/images/logomin.png"))
+        self.minlogo.setScaledContents(True)
+        self.minlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_54.addWidget(self.logomin)
+        self.horizontalLayout.addWidget(self.minlogo)
+
+
+        self.verticalLayout_54.addWidget(self.minlogowidget)
+
 
         self.verticalLayout_52.addLayout(self.verticalLayout_54)
 
         self.homebtn_min = QToolButton(self.minsidebar)
         self.homebtn_min.setObjectName("homebtn_min")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.homebtn_min.sizePolicy().hasHeightForWidth())
         self.homebtn_min.setSizePolicy(sizePolicy)
         self.homebtn_min.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
@@ -322,31 +319,28 @@ class Ui_MainWindow(QMainWindow):
         self.verticalLayout_30 = QVBoxLayout()
         self.verticalLayout_30.setSpacing(0)
         self.verticalLayout_30.setObjectName("verticalLayout_30")
-        self.verticalLayout_32 = QVBoxLayout()
-        self.verticalLayout_32.setObjectName("verticalLayout_32")
-
-        self.verticalLayout_30.addLayout(self.verticalLayout_32)
 
         self.verticalLayout_50 = QVBoxLayout()
         self.verticalLayout_50.setSpacing(0)
         self.verticalLayout_50.setObjectName("verticalLayout_50")
-        self.verticalLayout_50.setContentsMargins(0, 30, 0, 30)
-        self.logo = QLabel(self.maxsidebar)
-        self.logo.setObjectName("logo")
-        sizePolicy.setHeightForWidth(self.logo.sizePolicy().hasHeightForWidth())
-        self.logo.setSizePolicy(sizePolicy)
-        self.logo.setFont(font)
-        self.logo.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            "color: rgb(245, 245, 245);\n"
-            'font: 700  20px "Inter";\n'
-            "background-color: transparent\n"
-            "\n"
-            ""
-        )
-        self.logo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.verticalLayout_50.setContentsMargins(0, 15, 0, 15)
+        self.maxlogowidget = QWidget(self.maxsidebar)
+        self.maxlogowidget.setObjectName(u"maxlogowidget")
+        self.horizontalLayout_2 = QHBoxLayout(self.maxlogowidget)
+        self.horizontalLayout_2.setSpacing(0)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.maxlogo = QLabel(self.maxlogowidget)
+        self.maxlogo.setObjectName(u"maxlogo")
+        self.maxlogo.setMaximumSize(QSize(120, 50))
+        self.maxlogo.setPixmap(QPixmap(u":/images/logomax.png"))
+        self.maxlogo.setScaledContents(True)
+        self.maxlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_50.addWidget(self.logo)
+        self.horizontalLayout_2.addWidget(self.maxlogo)
+
+
+        self.verticalLayout_50.addWidget(self.maxlogowidget)
 
         self.verticalLayout_30.addLayout(self.verticalLayout_50)
 
@@ -518,11 +512,11 @@ class Ui_MainWindow(QMainWindow):
         self.menulabel.setObjectName("menulabel")
         sizePolicy1.setHeightForWidth(self.menulabel.sizePolicy().hasHeightForWidth())
         self.menulabel.setSizePolicy(sizePolicy1)
-        font1 = QFont()
-        font1.setFamilies(["Inter"])
-        font1.setWeight(QFont.Medium)
-        font1.setItalic(False)
-        self.menulabel.setFont(font1)
+        inter = QFont()
+        inter.setFamilies(["Inter"])
+        inter.setWeight(QFont.Medium)
+        inter.setItalic(False)
+        self.menulabel.setFont(inter)
         self.menulabel.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
             'font: 500 20px "Inter";\n'
@@ -662,7 +656,7 @@ class Ui_MainWindow(QMainWindow):
         self.user.setObjectName("user")
         sizePolicy1.setHeightForWidth(self.user.sizePolicy().hasHeightForWidth())
         self.user.setSizePolicy(sizePolicy1)
-        self.user.setFont(font)
+        self.user.setFont(inter)
         self.user.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
             'font: 700 40px "Inter";\n'
@@ -1071,7 +1065,7 @@ class Ui_MainWindow(QMainWindow):
         sizePolicy4.setVerticalStretch(0)
         sizePolicy4.setHeightForWidth(self.activitylbl.sizePolicy().hasHeightForWidth())
         self.activitylbl.setSizePolicy(sizePolicy4)
-        self.activitylbl.setFont(font)
+        self.activitylbl.setFont(inter)
         self.activitylbl.setStyleSheet(
             "color: rgb(254, 250, 250);\n" 'font: 700 30px "Inter";'
         )
@@ -1731,7 +1725,7 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "MainWindow", None)
         )
 
-        self.logomin.setText(QCoreApplication.translate("MainWindow", "B", None))
+      
         self.homebtn_min.setText(
             QCoreApplication.translate("MainWindow", "   Dashboard", None)
         )
@@ -1742,7 +1736,7 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "   Reports", None)
         )
 
-        self.logo.setText(QCoreApplication.translate("MainWindow", "BudgeIT", None))
+       
         self.homebtn.setText(
             QCoreApplication.translate("MainWindow", "   Dashboard", None)
         )
