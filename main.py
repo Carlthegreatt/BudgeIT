@@ -12,7 +12,7 @@ class Ui_MainWindow(QMainWindow):
         QFontDatabase.addApplicationFont("assets/fonts/Inter.ttf")
         title_icon = QIcon()
         title_icon.addFile(
-            ":/icons/financedark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
+            ":/images/logomin.png", QSize(), QIcon.Mode.Active, QIcon.State.On
         )
         self.setWindowIcon(title_icon)
         if not MainWindow.objectName():
@@ -167,10 +167,11 @@ class Ui_MainWindow(QMainWindow):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.minlogo = QLabel(self.minlogowidget)
         self.minlogo.setObjectName(u"minlogo")
-        self.minlogo.setMaximumSize(QSize(50, 50))
+        self.minlogo.setMaximumSize(QSize(50, 45))
         self.minlogo.setPixmap(QPixmap(u":/images/logomin.png"))
         self.minlogo.setScaledContents(True)
         self.minlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        
 
         self.horizontalLayout.addWidget(self.minlogo)
 
@@ -332,7 +333,7 @@ class Ui_MainWindow(QMainWindow):
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.maxlogo = QLabel(self.maxlogowidget)
         self.maxlogo.setObjectName(u"maxlogo")
-        self.maxlogo.setMaximumSize(QSize(120, 50))
+        self.maxlogo.setMaximumSize(QSize(120, 45))
         self.maxlogo.setPixmap(QPixmap(u":/images/logomax.png"))
         self.maxlogo.setScaledContents(True)
         self.maxlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
