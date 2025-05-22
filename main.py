@@ -3,7 +3,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import components.icons_rc
-import components.images_rc as images_rc
+import components.images_rc
 from components.addtransactions import AddTransactions
 from budget_window import BudgetWindow
 
