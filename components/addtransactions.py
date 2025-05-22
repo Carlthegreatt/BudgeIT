@@ -1,6 +1,6 @@
 from PySide6.QtCore import Qt, QDate
 from PySide6.QtGui import QStandardItem, QStandardItemModel
-from PySide6.QtWidgets import QLineEdit, QComboBox
+from PySide6.QtWidgets import QLineEdit, QComboBox, QMessageBox
 
 
 class AddTransactions:
@@ -17,33 +17,60 @@ class AddTransactions:
         self.__model = model
 
     def add_entry(self):
+        # Validate inputs
         amount = self.__amountedit.text().strip()
         description = self.__descriptionedit.text().strip()
         category = self.__categorycombo.currentText()
-        current_date = QDate.currentDate().toString("yyyy-MM-dd")
+
+        # Validate empty fields
+        if not amount or not description:
+            QMessageBox.warning(
+                None,
+                "Invalid Input",
+                "Please fill in both amount and description fields.",
+            )
+            return
 
         try:
             # Remove currency symbol and convert to float
             amount = float(amount.replace("₱", "").replace(",", "").strip())
+
+            # Validate amount is positive
+            if amount <= 0:
+                QMessageBox.warning(
+                    None, "Invalid Amount", "Amount must be greater than zero."
+                )
+                return
+
         except ValueError:
-            print("Invalid input: Amount must be a valid number.")
+            QMessageBox.warning(
+                None, "Invalid Amount", "Please enter a valid number for the amount."
+            )
             return
 
-        # Create table row
-        row = [
-            QStandardItem(current_date),
-            QStandardItem(
-                f"₱ {amount:,.2f}"
-            ),  # Format amount with currency symbol and commas
-            QStandardItem(description),
-            QStandardItem(category),
-        ]
-        for item in row:
-            item.setTextAlignment(Qt.AlignCenter)
+        # Get current date
+        current_date = QDate.currentDate().toString("yyyy-MM-dd")
 
-        self.__model.appendRow(row)
+        try:
+            # Create table row
+            row = [
+                QStandardItem(current_date),
+                QStandardItem(f"₱ {amount:,.2f}"),
+                QStandardItem(description),
+                QStandardItem(category),
+            ]
 
-        # Clear inputs
-        self.__amountedit.clear()
-        self.__descriptionedit.clear()
-        self.__categorycombo.setCurrentIndex(0)
+            # Set alignment
+            for item in row:
+                item.setTextAlignment(Qt.AlignCenter)
+
+            # Add row to model
+            self.__model.appendRow(row)
+
+            # Clear inputs on success
+            self.__amountedit.clear()
+            self.__descriptionedit.clear()
+            self.__categorycombo.setCurrentIndex(0)
+
+        except Exception as e:
+            QMessageBox.critical(None, "Error", f"Failed to add transaction: {str(e)}")
