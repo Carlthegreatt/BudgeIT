@@ -168,7 +168,7 @@ class Ui_MainWindow(QMainWindow):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.minlogo = QLabel(self.minlogowidget)
         self.minlogo.setObjectName(u"minlogo")
-        self.minlogo.setMaximumSize(QSize(50, 45))
+        self.minlogo.setMaximumSize(QSize(50, 40))
         self.minlogo.setPixmap(QPixmap(u":/images/logomin.png"))
         self.minlogo.setScaledContents(True)
         self.minlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -334,7 +334,7 @@ class Ui_MainWindow(QMainWindow):
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.maxlogo = QLabel(self.maxlogowidget)
         self.maxlogo.setObjectName(u"maxlogo")
-        self.maxlogo.setMaximumSize(QSize(120, 45))
+        self.maxlogo.setMaximumSize(QSize(110, 40))
         self.maxlogo.setPixmap(QPixmap(u":/images/logomax.png"))
         self.maxlogo.setScaledContents(True)
         self.maxlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1926,6 +1926,8 @@ QHeaderView::section {
         self.groupBox_13.setTitle("")
 
     # retranslateUi
+
+
     #helper functions
     def update_menu_label(self, index):
         if index == 0:

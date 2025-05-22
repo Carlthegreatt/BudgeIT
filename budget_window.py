@@ -7,12 +7,12 @@ class BudgetWindow(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.setWindowTitle("Budget Categories")
+        self.setWindowTitle(" ")
 
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(519, 443)
+        Form.setFixedSize(550, 415)
         self.verticalLayout = QVBoxLayout(Form)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -71,7 +71,7 @@ class BudgetWindow(QDialog):
 "        border: 1px solid #dcdcdc;\n"
 "        border-radius: 6px;\n"
 "        gridline-color: #e6e6e6;\n"
-"        font: 200 14px \"Inter\";\n"
+"        font: 300 12px \"Inter\";\n"
 "    }\n"
 "\n"
 "    QHeaderView::section {\n"
@@ -86,6 +86,7 @@ class BudgetWindow(QDialog):
 "    QTableView::item {\n"
 "        padding: 6px;\n"
 "        border: none;\n"
+
 "        color: #2c2c2c;\n"
 "    }\n"
 "\n"
@@ -140,7 +141,7 @@ class BudgetWindow(QDialog):
 "")
         self.model = QStandardItemModel()
         self.model.setHorizontalHeaderLabels(
-            ["Categories", "Total Budget", "Remaining Budget"]
+            ["Categories", "Set Budget", "Remaining Budget"]
         )
         self.budgettable.setModel(self.model)
         self.budgettable.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
@@ -152,14 +153,18 @@ class BudgetWindow(QDialog):
         self.budgettable.setFocusPolicy(Qt.NoFocus)
         self.budgettable.horizontalHeader().setFocusPolicy(Qt.NoFocus)
         self.budgettable.verticalHeader().setVisible(False)
-        row = [
-            QStandardItem("Food"),
-            QStandardItem(""),
-            QStandardItem("500"),
-        ]
-        for item in row:
-            item.setTextAlignment(Qt.AlignCenter)
-        self.model.appendRow(row)
+        categories = ["Food", "Utilities", "Health & Wellness", "Personal & Lifestyle", "Education", "Transportation", "Others"]
+        for category in categories:
+            row = [
+                QStandardItem(category),
+                QStandardItem(""),
+                QStandardItem(""),
+            ]
+            for item in row:
+                item.setTextAlignment(Qt.AlignCenter)
+            self.model.appendRow(row)
+        
+        
 
         self.budgettable.setCornerButtonEnabled(False)
 
