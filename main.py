@@ -5,6 +5,7 @@ from PySide6.QtWidgets import *
 import components.icons_rc
 import components.images_rc as images_rc
 from components.addtransactions import AddTransactions
+from budget_window import BudgetWindow
 
 
 class Ui_MainWindow(QMainWindow):
@@ -794,6 +795,7 @@ class Ui_MainWindow(QMainWindow):
         self.viewcategorybtn.setMinimumSize(QSize(50, 50))
         self.viewcategorybtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.viewcategorybtn.setAutoFillBackground(False)
+        self.viewcategorybtn.clicked.connect(lambda: self.budget_window())
         self.viewcategorybtn.setStyleSheet(
             "\n"
             "QToolButton {\n"
@@ -905,6 +907,7 @@ class Ui_MainWindow(QMainWindow):
         self.savingsbtn.setMinimumSize(QSize(50, 50))
         self.savingsbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.savingsbtn.setAutoFillBackground(False)
+        
         self.savingsbtn.setStyleSheet(
             "QToolButton{\n"
             "\n"
@@ -1241,7 +1244,8 @@ class Ui_MainWindow(QMainWindow):
         self.activities.setShowGrid(False)
         self.activities.setSelectionMode(QTableView.NoSelection)
         self.activities.setEditTriggers(QTableView.NoEditTriggers)
-
+        self.activities.setFocusPolicy(Qt.NoFocus)
+        self.activities.horizontalHeader().setFocusPolicy(Qt.NoFocus)
         self.activities.setStyleSheet(
             """QTableView {
     background-color: white;
@@ -1498,7 +1502,8 @@ QHeaderView::section {
         self.horizontalLayout_10.addWidget(self.comboBox_15)
 
         self.editbudgetbtn_11 = QPushButton(self.incomebox_34)
-        self.editbudgetbtn_11.setObjectName("editbudgetbtn_11")
+        
+        self.editbudgetbtn_11.clicked.connect(lambda: self.budget_window())
         sizePolicy.setHeightForWidth(
             self.editbudgetbtn_11.sizePolicy().hasHeightForWidth()
         )
@@ -1703,23 +1708,6 @@ QHeaderView::section {
         self.maxsidebar.hide()
         self.minsidebar.show()
         self.sidebar_expanded = True
-
-    def update_menu_label(self, index):
-        if index == 0:
-            self.menulabel.setText("Dashboard")
-        elif index == 1:
-            self.menulabel.setText("Analytics")
-        elif index == 2:
-            self.menulabel.setText("Reports")
-
-    def toggle_sidebar(self):
-        if self.sidebar_expanded:
-            self.maxsidebar.hide()
-            self.minsidebar.show()
-        else:
-            self.minsidebar.hide()
-            self.maxsidebar.show()
-        self.sidebar_expanded = not self.sidebar_expanded
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(
@@ -1938,6 +1926,30 @@ QHeaderView::section {
         self.groupBox_13.setTitle("")
 
     # retranslateUi
+    #helper functions
+    def update_menu_label(self, index):
+        if index == 0:
+            self.menulabel.setText("Dashboard")
+        elif index == 1:
+            self.menulabel.setText("Analytics")
+        elif index == 2:
+            self.menulabel.setText("Reports")
+
+    def toggle_sidebar(self):
+        if self.sidebar_expanded:
+            self.maxsidebar.hide()
+            self.minsidebar.show()
+        else:
+            self.minsidebar.hide()
+            self.maxsidebar.show()
+        self.sidebar_expanded = not self.sidebar_expanded
+    
+    def budget_window(self):
+        dialog = BudgetWindow(self)
+        dialog.setWindowModality(Qt.ApplicationModal)
+        dialog.show()
+        dialog.exec()
+
 
 
 app = QApplication(sys.argv)
