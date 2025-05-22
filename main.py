@@ -10,15 +10,7 @@ from budget_window import BudgetWindow
 
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
-        # Try to load custom font
-        try:
-            font_id = QFontDatabase.addApplicationFont("assets/fonts/Inter.ttf")
-            if font_id == -1:
-                print("Warning: Failed to load Inter font, falling back to system font")
-        except Exception as e:
-            print(f"Error loading font: {str(e)}")
-
-        # Set window icon
+        QFontDatabase.addApplicationFont("assets/fonts/Inter.ttf")
         title_icon = QIcon()
         title_icon.addFile(
             ":/images/logomin.png", QSize(), QIcon.Mode.Active, QIcon.State.On
@@ -1776,19 +1768,6 @@ QHeaderView::section {
 
         self.tab.addWidget(self.page_2)
 
-        self.verticalLayout.addWidget(self.tab)
-
-        self.verticalLayout_2.addLayout(self.verticalLayout)
-
-        self.horizontalLayout_6.addWidget(self.tabframe)
-
-        MainWindow.setCentralWidget(self.centralwidget)
-
-        self.retranslateUi(MainWindow)
-
-        QMetaObject.connectSlotsByName(MainWindow)
-
-        # start of page 3
         self.page_3 = QWidget()
         self.page_3.setObjectName("page_3")
         self.page_3.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -1877,43 +1856,6 @@ QHeaderView::section {
         self.comboBox_15.setFrame(True)
 
         self.horizontalLayout_10.addWidget(self.comboBox_15)
-
-        self.editbudgetbtn_11 = QPushButton(self.incomebox_34)
-
-        self.editbudgetbtn_11.clicked.connect(lambda: self.budget_window())
-        sizePolicy.setHeightForWidth(
-            self.editbudgetbtn_11.sizePolicy().hasHeightForWidth()
-        )
-        self.editbudgetbtn_11.setSizePolicy(sizePolicy)
-        self.editbudgetbtn_11.setMaximumSize(QSize(70, 34))
-        self.editbudgetbtn_11.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.editbudgetbtn_11.setAutoFillBackground(False)
-        self.editbudgetbtn_11.setStyleSheet(
-            "\n"
-            "\n"
-            "\n"
-            "QPushButton {\n"
-            "	background-color: rgb(108, 68, 100);\n"
-            "	color: rgb(254, 250, 250);\n"
-            "border-color: rgb(244, 212, 212);\n"
-            "text-align: center;\n"
-            " font-size: 10px;\n"
-            "border-radius: 5;\n"
-            "  \n"
-            "\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "\n"
-            "	background-color: rgb(231, 201, 201);\n"
-            "	border-color: rgb(231, 201, 201);\n"
-            "	border: 2px solid rgb(231, 201, 201);\n"
-            "   \n"
-            "}"
-        )
-        self.editbudgetbtn_11.setCheckable(True)
-        self.editbudgetbtn_11.setFlat(True)
-
-        self.horizontalLayout_10.addWidget(self.editbudgetbtn_11)
 
         self.verticalLayout_24 = QVBoxLayout()
         self.verticalLayout_24.setObjectName("verticalLayout_24")
@@ -2087,10 +2029,11 @@ QHeaderView::section {
         self.sidebar_expanded = True
 
     def retranslateUi(self, MainWindow):
+
         MainWindow.setWindowTitle(
             QCoreApplication.translate("MainWindow", "MainWindow", None)
         )
-
+        self.minlogo.setText("")
         self.homebtn_min.setText(
             QCoreApplication.translate("MainWindow", "   Dashboard", None)
         )
@@ -2100,7 +2043,7 @@ QHeaderView::section {
         self.reportbtn_min.setText(
             QCoreApplication.translate("MainWindow", "   Reports", None)
         )
-
+        self.maxlogo.setText("")
         self.homebtn.setText(
             QCoreApplication.translate("MainWindow", "   Dashboard", None)
         )
@@ -2116,23 +2059,17 @@ QHeaderView::section {
         self.menubtn.setText(
             QCoreApplication.translate("MainWindow", "PushButton", None)
         )
-        if self.tab.currentIndex() == 0:
-            self.menulabel.setText(
-                QCoreApplication.translate("MainWindow", "Dashboard", None)
-            )
-        elif self.tab.currentIndex() == 1:
-            self.menulabel.setText(
-                QCoreApplication.translate("MainWindow", "Analytics", None)
-            )
-        elif self.tab.currentIndex() == 2:
-            self.menulabel.setText(
-                QCoreApplication.translate("MainWindow", "Reports", None)
-            )
+        self.menulabel.setText(
+            QCoreApplication.translate("MainWindow", "Dashboard", None)
+        )
         self.notificationsbtn.setText(
             QCoreApplication.translate("MainWindow", "...", None)
         )
         self.profilebtn.setText(QCoreApplication.translate("MainWindow", "...", None))
         self.morebtn.setText(QCoreApplication.translate("MainWindow", "...", None))
+        # if QT_CONFIG(accessibility)
+        self.tab.setAccessibleDescription("")
+        # endif // QT_CONFIG(accessibility)
         self.greethello.setText(
             QCoreApplication.translate("MainWindow", "Hello,", None)
         )
@@ -2159,17 +2096,17 @@ QHeaderView::section {
         )
         self.expensebox.setTitle("")
         self.expensevalue.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 00.00", None)
+            QCoreApplication.translate("MainWindow", "\u20b1 44340.00", None)
         )
         self.expenselbl.setText(
-            QCoreApplication.translate("MainWindow", "Total Expense", None)
+            QCoreApplication.translate("MainWindow", "Expense", None)
         )
         self.incomebox.setTitle("")
         self.incomevalue.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 00.00", None)
+            QCoreApplication.translate("MainWindow", "\u20b1 44300.00", None)
         )
         self.incomelbl.setText(
-            QCoreApplication.translate("MainWindow", "Total Income", None)
+            QCoreApplication.translate("MainWindow", "Monthly Income", None)
         )
         self.activitybox.setTitle("")
         self.activitylbl.setText(
@@ -2212,8 +2149,6 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "Add Transaction", None)
         )
         self.tablebox.setTitle("")
-
-        # page2
         self.overallbudgetbox.setTitle("")
         self.overallbudgetvalue.setText(
             QCoreApplication.translate("MainWindow", "\u20b1 54320.00", None)
@@ -2274,30 +2209,13 @@ QHeaderView::section {
             self.menulabel.setText("Reports")
 
     def toggle_sidebar(self):
-        try:
-            # Block signals during animation to prevent race conditions
-            self.menubtn.blockSignals(True)
-
-            if self.sidebar_expanded:
-                # Hide max sidebar first
-                self.maxsidebar.hide()
-                # Then show min sidebar
-                self.minsidebar.show()
-            else:
-                # Hide min sidebar first
-                self.minsidebar.hide()
-                # Then show max sidebar
-                self.maxsidebar.show()
-
-            # Toggle state
-            self.sidebar_expanded = not self.sidebar_expanded
-
-        except Exception as e:
-            print(f"Error toggling sidebar: {str(e)}")
-
-        finally:
-            # Always unblock signals
-            self.menubtn.blockSignals(False)
+        if self.sidebar_expanded:
+            self.maxsidebar.hide()
+            self.minsidebar.show()
+        else:
+            self.minsidebar.hide()
+            self.maxsidebar.show()
+        self.sidebar_expanded = not self.sidebar_expanded
 
     def budget_window(self):
         dialog = BudgetWindow(self)
@@ -2305,40 +2223,10 @@ QHeaderView::section {
         dialog.show()
         dialog.exec()
 
-    def cleanup(self):
-        """Clean up resources before closing"""
-        try:
-            # Disconnect all signals
-            self.homebtn.toggled.disconnect()
-            self.analyticsbtn.toggled.disconnect()
-            self.reportbtn.toggled.disconnect()
-            self.homebtn_min.toggled.disconnect()
-            self.analyticsbtn_min.toggled.disconnect()
-            self.reportbtn_min.toggled.disconnect()
-            self.menubtn.toggled.disconnect()
 
-            # Clear models
-            if hasattr(self, "model"):
-                self.model.clear()
-
-            # Delete widgets explicitly
-            self.activities.setModel(None)
-            self.activities.deleteLater()
-
-        except Exception as e:
-            print(f"Error during cleanup: {str(e)}")
-
-    def closeEvent(self, event):
-        """Handle window close event"""
-        self.cleanup()
-        super().closeEvent(event)
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(window)
-    window.setWindowTitle("BudgeIT")
-    window.show()
-    sys.exit(app.exec())
+app = QApplication(sys.argv)
+window = Ui_MainWindow()
+window.setupUi(window)
+window.setWindowTitle(" ")
+window.show()
+app.exec()
