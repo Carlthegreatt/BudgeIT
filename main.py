@@ -10,7 +10,15 @@ from budget_window import BudgetWindow
 
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
-        QFontDatabase.addApplicationFont("assets/fonts/Inter.ttf")
+        # Try to load custom font
+        try:
+            font_id = QFontDatabase.addApplicationFont("assets/fonts/Inter.ttf")
+            if font_id == -1:
+                print("Warning: Failed to load Inter font, falling back to system font")
+        except Exception as e:
+            print(f"Error loading font: {str(e)}")
+
+        # Set window icon
         title_icon = QIcon()
         title_icon.addFile(
             ":/images/logomin.png", QSize(), QIcon.Mode.Active, QIcon.State.On
@@ -158,33 +166,32 @@ class Ui_MainWindow(QMainWindow):
 
         self.verticalLayout_54 = QVBoxLayout()
         self.verticalLayout_54.setSpacing(0)
-        self.verticalLayout_54.setObjectName(u"verticalLayout_54")
+        self.verticalLayout_54.setObjectName("verticalLayout_54")
         self.verticalLayout_54.setContentsMargins(0, 15, 0, 15)
         self.minlogowidget = QWidget(self.minsidebar)
-        self.minlogowidget.setObjectName(u"minlogowidget")
+        self.minlogowidget.setObjectName("minlogowidget")
         self.horizontalLayout = QHBoxLayout(self.minlogowidget)
         self.horizontalLayout.setSpacing(0)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.minlogo = QLabel(self.minlogowidget)
-        self.minlogo.setObjectName(u"minlogo")
+        self.minlogo.setObjectName("minlogo")
         self.minlogo.setMaximumSize(QSize(50, 40))
-        self.minlogo.setPixmap(QPixmap(u":/images/logomin.png"))
+        self.minlogo.setPixmap(QPixmap(":/images/logomin.png"))
         self.minlogo.setScaledContents(True)
         self.minlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        
 
         self.horizontalLayout.addWidget(self.minlogo)
 
-
         self.verticalLayout_54.addWidget(self.minlogowidget)
-
 
         self.verticalLayout_52.addLayout(self.verticalLayout_54)
 
         self.homebtn_min = QToolButton(self.minsidebar)
         self.homebtn_min.setObjectName("homebtn_min")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy = QSizePolicy(
+            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.homebtn_min.sizePolicy().hasHeightForWidth())
@@ -327,20 +334,19 @@ class Ui_MainWindow(QMainWindow):
         self.verticalLayout_50.setObjectName("verticalLayout_50")
         self.verticalLayout_50.setContentsMargins(0, 15, 0, 15)
         self.maxlogowidget = QWidget(self.maxsidebar)
-        self.maxlogowidget.setObjectName(u"maxlogowidget")
+        self.maxlogowidget.setObjectName("maxlogowidget")
         self.horizontalLayout_2 = QHBoxLayout(self.maxlogowidget)
         self.horizontalLayout_2.setSpacing(0)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.maxlogo = QLabel(self.maxlogowidget)
-        self.maxlogo.setObjectName(u"maxlogo")
+        self.maxlogo.setObjectName("maxlogo")
         self.maxlogo.setMaximumSize(QSize(110, 40))
-        self.maxlogo.setPixmap(QPixmap(u":/images/logomax.png"))
+        self.maxlogo.setPixmap(QPixmap(":/images/logomax.png"))
         self.maxlogo.setScaledContents(True)
         self.maxlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_2.addWidget(self.maxlogo)
-
 
         self.verticalLayout_50.addWidget(self.maxlogowidget)
 
@@ -901,13 +907,12 @@ class Ui_MainWindow(QMainWindow):
         )
 
         self.hlayout7.addItem(self.horizontalSpacer_2)
-
         self.savingsbtn = QToolButton(self.savingsbox_3)
         self.savingsbtn.setObjectName("savingsbtn")
         self.savingsbtn.setMinimumSize(QSize(50, 50))
         self.savingsbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.savingsbtn.setAutoFillBackground(False)
-        
+
         self.savingsbtn.setStyleSheet(
             "QToolButton{\n"
             "\n"
@@ -974,16 +979,17 @@ class Ui_MainWindow(QMainWindow):
         self.expensevalue.setMaximumSize(QSize(16777215, 50))
         self.expensevalue.setFont(font2)
         self.expensevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 30px "inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 20px "inter";\n' ""
         )
         self.expensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.expensevalue.setWordWrap(True)
+        self.expensevalue.setWordWrap(False)
 
         self.horizontalLayout_9.addWidget(self.expensevalue)
 
         self.expenselbl = QLabel(self.expensebox)
         self.expenselbl.setObjectName("expenselbl")
-        self.expenselbl.setMaximumSize(QSize(16777215, 20))
+        self.expenselbl.setMaximumSize(QSize(16777215, 50))
+        self.expenselbl.setWordWrap(True)
         self.expenselbl.setStyleSheet(
             "color: rgb(250, 250, 250);\n"
             'font: 600 16px "Inter";\n'
@@ -1019,16 +1025,17 @@ class Ui_MainWindow(QMainWindow):
         self.incomevalue.setMaximumSize(QSize(16777215, 50))
         self.incomevalue.setFont(font2)
         self.incomevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 30px "inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 20px "inter";\n' ""
         )
         self.incomevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.incomevalue.setWordWrap(True)
+        self.incomevalue.setWordWrap(False)
 
         self.horizontalLayout_12.addWidget(self.incomevalue)
 
         self.incomelbl = QLabel(self.incomebox)
         self.incomelbl.setObjectName("incomelbl")
-        self.incomelbl.setMaximumSize(QSize(16777215, 20))
+        self.incomelbl.setMaximumSize(QSize(16777215, 50))
+        self.incomelbl.setWordWrap(True)
         self.incomelbl.setStyleSheet(
             "color: rgb(250, 250, 250);\n"
             'font: 600 16px "Inter";\n'
@@ -1296,12 +1303,6 @@ QHeaderView::section {
         self.page_2.setStyleSheet("")
         self.verticalLayout_15 = QVBoxLayout(self.page_2)
         self.verticalLayout_15.setObjectName("verticalLayout_15")
-        font5 = QFont()
-        font5.setFamilies(["Inter"])
-        font5.setPointSize(30)
-        font5.setBold(True)
-        font5.setItalic(False)
-
         self.scrollArea_2 = QScrollArea(self.page_2)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollArea_2.setStyleSheet(
@@ -1337,74 +1338,437 @@ QHeaderView::section {
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_4 = QWidget()
         self.scrollAreaWidgetContents_4.setObjectName("scrollAreaWidgetContents_4")
-        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 737, 826))
+        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 756, 707))
         self.verticalLayout_16 = QVBoxLayout(self.scrollAreaWidgetContents_4)
         self.verticalLayout_16.setObjectName("verticalLayout_16")
-        self.verticalLayout_16.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_14 = QHBoxLayout()
+        self.horizontalLayout_14.setObjectName("horizontalLayout_14")
+        self.horizontalLayout_14.setContentsMargins(10, -1, 10, 0)
+        self.overallbudgetbox = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.overallbudgetbox.setObjectName("overallbudgetbox")
+        self.overallbudgetbox.setMinimumSize(QSize(300, 80))
+        self.overallbudgetbox.setMaximumSize(QSize(16777215, 80))
+        self.overallbudgetbox.setFont(inter)
+        self.overallbudgetbox.setStyleSheet(
+            "text-align: center;\n"
+            "background-color: rgb(167, 83, 115);\n"
+            "border-radius: 20px"
+        )
+        self.verticalLayout_32 = QVBoxLayout(self.overallbudgetbox)
+        self.verticalLayout_32.setObjectName("verticalLayout_32")
+        self.horizontalLayout_18 = QHBoxLayout()
+        self.horizontalLayout_18.setSpacing(20)
+        self.horizontalLayout_18.setObjectName("horizontalLayout_18")
+        self.horizontalLayout_18.setContentsMargins(40, -1, 30, 0)
+        self.overallbudgetvalue = QLabel(self.overallbudgetbox)
+        self.overallbudgetvalue.setObjectName("overallbudgetvalue")
+        sizePolicy.setHeightForWidth(
+            self.overallbudgetvalue.sizePolicy().hasHeightForWidth()
+        )
+        self.overallbudgetvalue.setSizePolicy(sizePolicy)
+        self.overallbudgetvalue.setMaximumSize(QSize(16777215, 50))
+        self.overallbudgetvalue.setFont(font3)
+        self.overallbudgetvalue.setStyleSheet(
+            "color: rgb(250, 250, 250);\n" 'font: 700 15px "inter";\n' ""
+        )
+        self.overallbudgetvalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.overallbudgetvalue.setWordWrap(False)
+
+        self.horizontalLayout_18.addWidget(self.overallbudgetvalue)
+
+        self.overallbudgetlbl = QLabel(self.overallbudgetbox)
+        self.overallbudgetlbl.setObjectName("overallbudgetlbl")
+        self.overallbudgetlbl.setMaximumSize(QSize(16777215, 50))
+        self.overallbudgetlbl.setStyleSheet(
+            "color: rgb(250, 250, 250);\n"
+            'font: 600 16px "Inter";\n'
+            "text-align: center;"
+        )
+        self.overallbudgetlbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.overallbudgetlbl.setWordWrap(True)
+
+        self.horizontalLayout_18.addWidget(self.overallbudgetlbl)
+
+        self.verticalLayout_32.addLayout(self.horizontalLayout_18)
+
+        self.horizontalLayout_14.addWidget(self.overallbudgetbox)
+
+        self.expensebox_3 = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.expensebox_3.setObjectName("expensebox_3")
+        self.expensebox_3.setMinimumSize(QSize(300, 80))
+        self.expensebox_3.setMaximumSize(QSize(16777215, 80))
+        self.expensebox_3.setFont(inter)
+        self.expensebox_3.setStyleSheet(
+            "text-align: center;\n"
+            "background-color: rgb(167, 83, 115);\n"
+            "border-radius: 20px"
+        )
+        self.verticalLayout_33 = QVBoxLayout(self.expensebox_3)
+        self.verticalLayout_33.setObjectName("verticalLayout_33")
+        self.horizontalLayout_22 = QHBoxLayout()
+        self.horizontalLayout_22.setSpacing(20)
+        self.horizontalLayout_22.setObjectName("horizontalLayout_22")
+        self.horizontalLayout_22.setContentsMargins(40, -1, 30, 0)
+        self.totalexpensevalue = QLabel(self.expensebox_3)
+        self.totalexpensevalue.setObjectName("totalexpensevalue")
+        sizePolicy.setHeightForWidth(
+            self.totalexpensevalue.sizePolicy().hasHeightForWidth()
+        )
+        self.totalexpensevalue.setSizePolicy(sizePolicy)
+        self.totalexpensevalue.setMaximumSize(QSize(16777215, 50))
+        self.totalexpensevalue.setFont(font3)
+        self.totalexpensevalue.setStyleSheet(
+            "color: rgb(250, 250, 250);\n" 'font: 700 15px "inter";\n' ""
+        )
+        self.totalexpensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.totalexpensevalue.setWordWrap(False)
+
+        self.horizontalLayout_22.addWidget(self.totalexpensevalue)
+
+        self.totalexpenselbl = QLabel(self.expensebox_3)
+        self.totalexpenselbl.setObjectName("totalexpenselbl")
+        self.totalexpenselbl.setMaximumSize(QSize(16777215, 50))
+        self.totalexpenselbl.setStyleSheet(
+            "color: rgb(250, 250, 250);\n"
+            'font: 600 16px "Inter";\n'
+            "text-align: center;"
+        )
+        self.totalexpenselbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.totalexpenselbl.setWordWrap(True)
+
+        self.horizontalLayout_22.addWidget(self.totalexpenselbl)
+
+        self.verticalLayout_33.addLayout(self.horizontalLayout_22)
+
+        self.horizontalLayout_14.addWidget(self.expensebox_3)
+
+        self.verticalLayout_16.addLayout(self.horizontalLayout_14)
+
+        self.horizontalLayout_21 = QHBoxLayout()
+        self.horizontalLayout_21.setObjectName("horizontalLayout_21")
+        self.horizontalLayout_21.setContentsMargins(10, -1, 10, 10)
+        self.accumulatedsavingsbox = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.accumulatedsavingsbox.setObjectName("accumulatedsavingsbox")
+        self.accumulatedsavingsbox.setMinimumSize(QSize(300, 80))
+        self.accumulatedsavingsbox.setMaximumSize(QSize(16777215, 80))
+        self.accumulatedsavingsbox.setFont(inter)
+        self.accumulatedsavingsbox.setStyleSheet(
+            "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 20px"
+        )
+        self.verticalLayout_34 = QVBoxLayout(self.accumulatedsavingsbox)
+        self.verticalLayout_34.setObjectName("verticalLayout_34")
+        self.horizontalLayout_23 = QHBoxLayout()
+        self.horizontalLayout_23.setSpacing(20)
+        self.horizontalLayout_23.setObjectName("horizontalLayout_23")
+        self.horizontalLayout_23.setContentsMargins(40, -1, 30, 0)
+        self.accumulatedsavingvalue = QLabel(self.accumulatedsavingsbox)
+        self.accumulatedsavingvalue.setObjectName("accumulatedsavingvalue")
+        sizePolicy.setHeightForWidth(
+            self.accumulatedsavingvalue.sizePolicy().hasHeightForWidth()
+        )
+        self.accumulatedsavingvalue.setSizePolicy(sizePolicy)
+        self.accumulatedsavingvalue.setMaximumSize(QSize(16777215, 50))
+        self.accumulatedsavingvalue.setFont(font3)
+        self.accumulatedsavingvalue.setStyleSheet(
+            "color: rgb(167, 83, 115);\n" 'font: 700 15px "inter";\n' ""
+        )
+        self.accumulatedsavingvalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.accumulatedsavingvalue.setWordWrap(False)
+
+        self.horizontalLayout_23.addWidget(self.accumulatedsavingvalue)
+
+        self.accumulatedsavingslbl = QLabel(self.accumulatedsavingsbox)
+        self.accumulatedsavingslbl.setObjectName("accumulatedsavingslbl")
+        self.accumulatedsavingslbl.setMaximumSize(QSize(16777215, 50))
+        self.accumulatedsavingslbl.setStyleSheet(
+            "color: rgb(167, 83, 115);\n"
+            'font: 600 16px "Inter";\n'
+            "text-align: center;"
+        )
+        self.accumulatedsavingslbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.accumulatedsavingslbl.setWordWrap(True)
+
+        self.horizontalLayout_23.addWidget(self.accumulatedsavingslbl)
+
+        self.verticalLayout_34.addLayout(self.horizontalLayout_23)
+
+        self.horizontalLayout_21.addWidget(self.accumulatedsavingsbox)
+
+        self.totalincomebox = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.totalincomebox.setObjectName("totalincomebox")
+        self.totalincomebox.setMinimumSize(QSize(300, 80))
+        self.totalincomebox.setMaximumSize(QSize(16777215, 80))
+        self.totalincomebox.setFont(inter)
+        self.totalincomebox.setStyleSheet(
+            "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 20px"
+        )
+        self.verticalLayout_35 = QVBoxLayout(self.totalincomebox)
+        self.verticalLayout_35.setObjectName("verticalLayout_35")
+        self.horizontalLayout_25 = QHBoxLayout()
+        self.horizontalLayout_25.setSpacing(20)
+        self.horizontalLayout_25.setObjectName("horizontalLayout_25")
+        self.horizontalLayout_25.setContentsMargins(40, -1, 30, 0)
+        self.totalincomevalue = QLabel(self.totalincomebox)
+        self.totalincomevalue.setObjectName("totalincomevalue")
+        sizePolicy.setHeightForWidth(
+            self.totalincomevalue.sizePolicy().hasHeightForWidth()
+        )
+        self.totalincomevalue.setSizePolicy(sizePolicy)
+        self.totalincomevalue.setMaximumSize(QSize(16777215, 50))
+        self.totalincomevalue.setFont(font3)
+        self.totalincomevalue.setStyleSheet(
+            "color: rgb(166, 83, 115);\n" 'font: 700 15px "inter";\n' ""
+        )
+        self.totalincomevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.totalincomevalue.setWordWrap(False)
+
+        self.horizontalLayout_25.addWidget(self.totalincomevalue)
+
+        self.totalincomelbl = QLabel(self.totalincomebox)
+        self.totalincomelbl.setObjectName("totalincomelbl")
+        self.totalincomelbl.setMaximumSize(QSize(16777215, 50))
+        self.totalincomelbl.setStyleSheet(
+            "color: rgb(167, 83, 115);\n"
+            'font: 600 16px "Inter";\n'
+            "text-align: center;"
+        )
+        self.totalincomelbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.totalincomelbl.setWordWrap(True)
+
+        self.horizontalLayout_25.addWidget(self.totalincomelbl)
+
+        self.verticalLayout_35.addLayout(self.horizontalLayout_25)
+
+        self.horizontalLayout_21.addWidget(self.totalincomebox)
+
+        self.verticalLayout_16.addLayout(self.horizontalLayout_21)
+
         self.horizontalLayout_19 = QHBoxLayout()
         self.horizontalLayout_19.setObjectName("horizontalLayout_19")
-        self.horizontalLayout_19.setContentsMargins(25, -1, 20, -1)
-        self.groupBox_9 = QGroupBox(self.scrollAreaWidgetContents_4)
-        self.groupBox_9.setObjectName("groupBox_9")
-        sizePolicy.setHeightForWidth(self.groupBox_9.sizePolicy().hasHeightForWidth())
-        self.groupBox_9.setSizePolicy(sizePolicy)
-        self.groupBox_9.setMinimumSize(QSize(300, 247))
-        self.groupBox_9.setStyleSheet(
+        self.horizontalLayout_19.setContentsMargins(10, -1, 10, -1)
+        self.transactionsummarybox = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.transactionsummarybox.setObjectName("transactionsummarybox")
+        sizePolicy.setHeightForWidth(
+            self.transactionsummarybox.sizePolicy().hasHeightForWidth()
+        )
+        self.transactionsummarybox.setSizePolicy(sizePolicy)
+        self.transactionsummarybox.setMinimumSize(QSize(300, 247))
+        self.transactionsummarybox.setStyleSheet(
             "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
         )
-
-        self.horizontalLayout_19.addWidget(self.groupBox_9)
-
-        self.groupBox_10 = QGroupBox(self.scrollAreaWidgetContents_4)
-        self.groupBox_10.setObjectName("groupBox_10")
-        self.groupBox_10.setMinimumSize(QSize(300, 247))
-        self.groupBox_10.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+        self.verticalLayout_12 = QVBoxLayout(self.transactionsummarybox)
+        self.verticalLayout_12.setObjectName("verticalLayout_12")
+        self.horizontalLayout_30 = QHBoxLayout()
+        self.horizontalLayout_30.setObjectName("horizontalLayout_30")
+        self.horizontalLayout_30.setContentsMargins(10, 10, -1, -1)
+        self.transactionsummary = QLabel(self.transactionsummarybox)
+        self.transactionsummary.setObjectName("transactionsummary")
+        sizePolicy1.setHeightForWidth(
+            self.transactionsummary.sizePolicy().hasHeightForWidth()
+        )
+        self.transactionsummary.setSizePolicy(sizePolicy1)
+        self.transactionsummary.setFont(inter)
+        self.transactionsummary.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
+            'font: 500 15px "Inter";\n'
+            "background-color: transparent\n"
+            ""
+        )
+        self.transactionsummary.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
         )
 
-        self.horizontalLayout_19.addWidget(self.groupBox_10)
+        self.horizontalLayout_30.addWidget(self.transactionsummary)
+
+        self.horizontalSpacer_4 = QSpacerItem(
+            40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum
+        )
+
+        self.horizontalLayout_30.addItem(self.horizontalSpacer_4)
+
+        self.verticalLayout_12.addLayout(self.horizontalLayout_30)
+
+        self.transactionsummarywidget = QWidget(self.transactionsummarybox)
+        self.transactionsummarywidget.setObjectName("transactionsummarywidget")
+
+        self.verticalLayout_12.addWidget(self.transactionsummarywidget)
+
+        self.horizontalLayout_19.addWidget(self.transactionsummarybox)
+
+        self.budgetsummarybox = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.budgetsummarybox.setObjectName("budgetsummarybox")
+        self.budgetsummarybox.setMinimumSize(QSize(300, 247))
+        self.budgetsummarybox.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+        )
+        self.verticalLayout_13 = QVBoxLayout(self.budgetsummarybox)
+        self.verticalLayout_13.setObjectName("verticalLayout_13")
+        self.horizontalLayout_27 = QHBoxLayout()
+        self.horizontalLayout_27.setObjectName("horizontalLayout_27")
+        self.horizontalLayout_27.setContentsMargins(10, 10, -1, -1)
+        self.budgetsummarylbl = QLabel(self.budgetsummarybox)
+        self.budgetsummarylbl.setObjectName("budgetsummarylbl")
+        sizePolicy1.setHeightForWidth(
+            self.budgetsummarylbl.sizePolicy().hasHeightForWidth()
+        )
+        self.budgetsummarylbl.setSizePolicy(sizePolicy1)
+        self.budgetsummarylbl.setFont(inter)
+        self.budgetsummarylbl.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
+            'font: 500 15px "Inter";\n'
+            "background-color: transparent\n"
+            ""
+        )
+        self.budgetsummarylbl.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
+        )
+
+        self.horizontalLayout_27.addWidget(self.budgetsummarylbl)
+
+        self.horizontalSpacer_5 = QSpacerItem(
+            40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum
+        )
+
+        self.horizontalLayout_27.addItem(self.horizontalSpacer_5)
+
+        self.verticalLayout_13.addLayout(self.horizontalLayout_27)
+
+        self.budgetsummarywidget = QWidget(self.budgetsummarybox)
+        self.budgetsummarywidget.setObjectName("budgetsummarywidget")
+
+        self.verticalLayout_13.addWidget(self.budgetsummarywidget)
+
+        self.horizontalLayout_19.addWidget(self.budgetsummarybox)
 
         self.verticalLayout_16.addLayout(self.horizontalLayout_19)
 
         self.horizontalLayout_20 = QHBoxLayout()
         self.horizontalLayout_20.setObjectName("horizontalLayout_20")
-        self.horizontalLayout_20.setContentsMargins(25, -1, 20, -1)
-        self.groupBox_11 = QGroupBox(self.scrollAreaWidgetContents_4)
-        self.groupBox_11.setObjectName("groupBox_11")
-        self.groupBox_11.setMinimumSize(QSize(300, 247))
-        self.groupBox_11.setStyleSheet(
+        self.horizontalLayout_20.setContentsMargins(10, -1, 10, -1)
+        self.youractivitybox = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.youractivitybox.setObjectName("youractivitybox")
+        self.youractivitybox.setStyleSheet(
             "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
         )
-
-        self.horizontalLayout_20.addWidget(self.groupBox_11)
-
-        self.groupBox_12 = QGroupBox(self.scrollAreaWidgetContents_4)
-        self.groupBox_12.setObjectName("groupBox_12")
-        sizePolicy.setHeightForWidth(self.groupBox_12.sizePolicy().hasHeightForWidth())
-        self.groupBox_12.setSizePolicy(sizePolicy)
-        self.groupBox_12.setMinimumSize(QSize(300, 247))
-        self.groupBox_12.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+        self.verticalLayout_18 = QVBoxLayout(self.youractivitybox)
+        self.verticalLayout_18.setObjectName("verticalLayout_18")
+        self.horizontalLayout_29 = QHBoxLayout()
+        self.horizontalLayout_29.setObjectName("horizontalLayout_29")
+        self.horizontalLayout_29.setContentsMargins(10, 10, -1, -1)
+        self.youractivitylbl = QLabel(self.youractivitybox)
+        self.youractivitylbl.setObjectName("youractivitylbl")
+        sizePolicy1.setHeightForWidth(
+            self.youractivitylbl.sizePolicy().hasHeightForWidth()
+        )
+        self.youractivitylbl.setSizePolicy(sizePolicy1)
+        self.youractivitylbl.setFont(inter)
+        self.youractivitylbl.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
+            'font: 500 15px "Inter";\n'
+            "background-color: transparent\n"
+            ""
+        )
+        self.youractivitylbl.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
         )
 
-        self.horizontalLayout_20.addWidget(self.groupBox_12)
+        self.horizontalLayout_29.addWidget(self.youractivitylbl)
+
+        self.horizontalSpacer_6 = QSpacerItem(
+            40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum
+        )
+
+        self.horizontalLayout_29.addItem(self.horizontalSpacer_6)
+
+        self.verticalLayout_18.addLayout(self.horizontalLayout_29)
+
+        self.youractivitywidget = QWidget(self.youractivitybox)
+        self.youractivitywidget.setObjectName("youractivitywidget")
+
+        self.verticalLayout_18.addWidget(self.youractivitywidget)
+
+        self.horizontalLayout_20.addWidget(self.youractivitybox)
+
+        self.totaltransactionbox = QGroupBox(self.scrollAreaWidgetContents_4)
+        self.totaltransactionbox.setObjectName("totaltransactionbox")
+        sizePolicy.setHeightForWidth(
+            self.totaltransactionbox.sizePolicy().hasHeightForWidth()
+        )
+        self.totaltransactionbox.setSizePolicy(sizePolicy)
+        self.totaltransactionbox.setMinimumSize(QSize(300, 247))
+        self.totaltransactionbox.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+        )
+        self.verticalLayout_17 = QVBoxLayout(self.totaltransactionbox)
+        self.verticalLayout_17.setObjectName("verticalLayout_17")
+        self.horizontalLayout_28 = QHBoxLayout()
+        self.horizontalLayout_28.setObjectName("horizontalLayout_28")
+        self.horizontalLayout_28.setContentsMargins(10, 10, -1, -1)
+        self.totaltransactionlbl = QLabel(self.totaltransactionbox)
+        self.totaltransactionlbl.setObjectName("totaltransactionlbl")
+        sizePolicy1.setHeightForWidth(
+            self.totaltransactionlbl.sizePolicy().hasHeightForWidth()
+        )
+        self.totaltransactionlbl.setSizePolicy(sizePolicy1)
+        self.totaltransactionlbl.setFont(inter)
+        self.totaltransactionlbl.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
+            'font: 500 15px "Inter";\n'
+            "background-color: transparent\n"
+            ""
+        )
+        self.totaltransactionlbl.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
+        )
+
+        self.horizontalLayout_28.addWidget(self.totaltransactionlbl)
+
+        self.horizontalSpacer_7 = QSpacerItem(
+            40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum
+        )
+
+        self.horizontalLayout_28.addItem(self.horizontalSpacer_7)
+
+        self.verticalLayout_17.addLayout(self.horizontalLayout_28)
+
+        self.totaltransactionwidget = QWidget(self.totaltransactionbox)
+        self.totaltransactionwidget.setObjectName("totaltransactionwidget")
+        self.horizontalLayout_26 = QHBoxLayout(self.totaltransactionwidget)
+        self.horizontalLayout_26.setObjectName("horizontalLayout_26")
+        self.totaltransactionvalue = QLabel(self.totaltransactionwidget)
+        self.totaltransactionvalue.setObjectName("totaltransactionvalue")
+        sizePolicy1.setHeightForWidth(
+            self.totaltransactionvalue.sizePolicy().hasHeightForWidth()
+        )
+        self.totaltransactionvalue.setSizePolicy(sizePolicy1)
+        self.totaltransactionvalue.setFont(font2)
+        self.totaltransactionvalue.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
+            'font: 700 45px "Inter";\n'
+            "background-color: transparent\n"
+            ""
+        )
+        self.totaltransactionvalue.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
+        )
+
+        self.horizontalLayout_26.addWidget(self.totaltransactionvalue)
+
+        self.verticalLayout_17.addWidget(self.totaltransactionwidget)
+
+        self.horizontalLayout_20.addWidget(self.totaltransactionbox)
 
         self.verticalLayout_16.addLayout(self.horizontalLayout_20)
-
-        self.horizontalLayout_21 = QHBoxLayout()
-        self.horizontalLayout_21.setObjectName("horizontalLayout_21")
-        self.horizontalLayout_21.setContentsMargins(25, -1, 20, 50)
-        self.groupBox_13 = QGroupBox(self.scrollAreaWidgetContents_4)
-        self.groupBox_13.setObjectName("groupBox_13")
-        self.groupBox_13.setMinimumSize(QSize(300, 247))
-        self.groupBox_13.setMaximumSize(QSize(800, 247))
-        self.groupBox_13.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
-        )
-
-        self.horizontalLayout_21.addWidget(self.groupBox_13)
-
-        self.verticalLayout_16.addLayout(self.horizontalLayout_21)
 
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_4)
 
@@ -1412,6 +1776,19 @@ QHeaderView::section {
 
         self.tab.addWidget(self.page_2)
 
+        self.verticalLayout.addWidget(self.tab)
+
+        self.verticalLayout_2.addLayout(self.verticalLayout)
+
+        self.horizontalLayout_6.addWidget(self.tabframe)
+
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.retranslateUi(MainWindow)
+
+        QMetaObject.connectSlotsByName(MainWindow)
+
+        # start of page 3
         self.page_3 = QWidget()
         self.page_3.setObjectName("page_3")
         self.page_3.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -1502,7 +1879,7 @@ QHeaderView::section {
         self.horizontalLayout_10.addWidget(self.comboBox_15)
 
         self.editbudgetbtn_11 = QPushButton(self.incomebox_34)
-        
+
         self.editbudgetbtn_11.clicked.connect(lambda: self.budget_window())
         sizePolicy.setHeightForWidth(
             self.editbudgetbtn_11.sizePolicy().hasHeightForWidth()
@@ -1547,11 +1924,11 @@ QHeaderView::section {
             self.greetuser_16.sizePolicy().hasHeightForWidth()
         )
         self.greetuser_16.setSizePolicy(sizePolicy1)
-        font4 = QFont()
-        font4.setFamilies(["Inter"])
-        font4.setWeight(QFont.DemiBold)
-        font4.setItalic(False)
-        self.greetuser_16.setFont(font4)
+        inter = QFont()
+        inter.setFamilies(["Inter"])
+        inter.setWeight(QFont.DemiBold)
+        inter.setItalic(False)
+        self.greetuser_16.setFont(inter)
         self.greetuser_16.setStyleSheet(
             "\n"
             "color: rgb(254, 250, 250);\n"
@@ -1714,7 +2091,6 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "MainWindow", None)
         )
 
-      
         self.homebtn_min.setText(
             QCoreApplication.translate("MainWindow", "   Dashboard", None)
         )
@@ -1725,7 +2101,6 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "   Reports", None)
         )
 
-       
         self.homebtn.setText(
             QCoreApplication.translate("MainWindow", "   Dashboard", None)
         )
@@ -1837,98 +2212,59 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "Add Transaction", None)
         )
         self.tablebox.setTitle("")
-        self.incomebox_34.setTitle("")
-        self.comboBox_14.setItemText(
-            0, QCoreApplication.translate("MainWindow", "January", None)
-        )
-        self.comboBox_14.setItemText(
-            1, QCoreApplication.translate("MainWindow", "February", None)
-        )
 
-        self.comboBox_14.setPlaceholderText(
-            QCoreApplication.translate("MainWindow", "Month", None)
+        # page2
+        self.overallbudgetbox.setTitle("")
+        self.overallbudgetvalue.setText(
+            QCoreApplication.translate("MainWindow", "\u20b1 54320.00", None)
         )
-        self.comboBox_15.setItemText(
-            0, QCoreApplication.translate("MainWindow", "Food", None)
+        self.overallbudgetlbl.setText(
+            QCoreApplication.translate("MainWindow", "Overall Budget", None)
         )
-        self.comboBox_15.setItemText(
-            1, QCoreApplication.translate("MainWindow", "Utilities", None)
+        self.expensebox_3.setTitle("")
+        self.totalexpensevalue.setText(
+            QCoreApplication.translate("MainWindow", "\u20b1 450.00", None)
         )
-        self.comboBox_15.setItemText(
-            2, QCoreApplication.translate("MainWindow", "Health & Wellness", None)
+        self.totalexpenselbl.setText(
+            QCoreApplication.translate("MainWindow", "Total Expense", None)
         )
-        self.comboBox_15.setItemText(
-            3, QCoreApplication.translate("MainWindow", "Personal & Lifestyle", None)
+        self.accumulatedsavingsbox.setTitle("")
+        self.accumulatedsavingvalue.setText(
+            QCoreApplication.translate("MainWindow", "\u20b1 554.00", None)
         )
-        self.comboBox_15.setItemText(
-            4, QCoreApplication.translate("MainWindow", "Education", None)
+        self.accumulatedsavingslbl.setText(
+            QCoreApplication.translate("MainWindow", "Accumulated Savings", None)
         )
-        self.comboBox_15.setItemText(
-            5, QCoreApplication.translate("MainWindow", "Transportation", None)
+        self.totalincomebox.setTitle("")
+        self.totalincomevalue.setText(
+            QCoreApplication.translate("MainWindow", "\u20b1 44350.00", None)
         )
-        self.comboBox_15.setItemText(
-            6, QCoreApplication.translate("MainWindow", "Others", None)
+        self.totalincomelbl.setText(
+            QCoreApplication.translate("MainWindow", "Total Income", None)
         )
-
-        self.comboBox_15.setPlaceholderText(
-            QCoreApplication.translate("MainWindow", "Year", None)
+        self.transactionsummarybox.setTitle("")
+        self.transactionsummary.setText(
+            QCoreApplication.translate("MainWindow", "Transactions Summary", None)
         )
-        self.editbudgetbtn_11.setText(
-            QCoreApplication.translate("MainWindow", "View", None)
+        self.budgetsummarybox.setTitle("")
+        self.budgetsummarylbl.setText(
+            QCoreApplication.translate("MainWindow", "Budget Summary", None)
         )
-        self.greetuser_16.setText(
-            QCoreApplication.translate("MainWindow", "Periodic Report", None)
+        self.youractivitybox.setTitle("")
+        self.youractivitylbl.setText(
+            QCoreApplication.translate("MainWindow", "Your Activity", None)
         )
-        self.groupBox_8.setTitle("")
-        self.incomebox_38.setTitle("")
-        ___qtablewidgetitem = self.tableWidget_2.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(
-            QCoreApplication.translate("MainWindow", "New Column", None)
+        self.totaltransactionbox.setTitle("")
+        self.totaltransactionlbl.setText(
+            QCoreApplication.translate("MainWindow", "Total Transactons", None)
         )
-        ___qtablewidgetitem1 = self.tableWidget_2.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(
-            QCoreApplication.translate("MainWindow", "New Column", None)
+        self.totaltransactionvalue.setText(
+            QCoreApplication.translate("MainWindow", "204", None)
         )
-        ___qtablewidgetitem2 = self.tableWidget_2.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(
-            QCoreApplication.translate("MainWindow", "New Column", None)
-        )
-        ___qtablewidgetitem3 = self.tableWidget_2.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(
-            QCoreApplication.translate("MainWindow", "New Column", None)
-        )
-        ___qtablewidgetitem4 = self.tableWidget_2.verticalHeaderItem(0)
-        ___qtablewidgetitem4.setText(
-            QCoreApplication.translate("MainWindow", "New Row", None)
-        )
-        ___qtablewidgetitem5 = self.tableWidget_2.verticalHeaderItem(1)
-        ___qtablewidgetitem5.setText(
-            QCoreApplication.translate("MainWindow", "New Row", None)
-        )
-        ___qtablewidgetitem6 = self.tableWidget_2.verticalHeaderItem(2)
-        ___qtablewidgetitem6.setText(
-            QCoreApplication.translate("MainWindow", "New Row", None)
-        )
-        ___qtablewidgetitem7 = self.tableWidget_2.verticalHeaderItem(3)
-        ___qtablewidgetitem7.setText(
-            QCoreApplication.translate("MainWindow", "New Row", None)
-        )
-        ___qtablewidgetitem8 = self.tableWidget_2.verticalHeaderItem(4)
-        ___qtablewidgetitem8.setText(
-            QCoreApplication.translate("MainWindow", "New Row", None)
-        )
-        self.incomebox_39.setTitle("")
-        self.incomebox_40.setTitle("")
-        self.groupBox_9.setTitle("")
-        self.groupBox_10.setTitle("")
-        self.groupBox_11.setTitle("")
-        self.groupBox_12.setTitle("")
-        self.groupBox_13.setTitle("")
 
     # retranslateUi
 
-
-    #helper functions
+    # helper functions
     def update_menu_label(self, index):
         if index == 0:
             self.menulabel.setText("Dashboard")
@@ -1938,25 +2274,71 @@ QHeaderView::section {
             self.menulabel.setText("Reports")
 
     def toggle_sidebar(self):
-        if self.sidebar_expanded:
-            self.maxsidebar.hide()
-            self.minsidebar.show()
-        else:
-            self.minsidebar.hide()
-            self.maxsidebar.show()
-        self.sidebar_expanded = not self.sidebar_expanded
-    
+        try:
+            # Block signals during animation to prevent race conditions
+            self.menubtn.blockSignals(True)
+
+            if self.sidebar_expanded:
+                # Hide max sidebar first
+                self.maxsidebar.hide()
+                # Then show min sidebar
+                self.minsidebar.show()
+            else:
+                # Hide min sidebar first
+                self.minsidebar.hide()
+                # Then show max sidebar
+                self.maxsidebar.show()
+
+            # Toggle state
+            self.sidebar_expanded = not self.sidebar_expanded
+
+        except Exception as e:
+            print(f"Error toggling sidebar: {str(e)}")
+
+        finally:
+            # Always unblock signals
+            self.menubtn.blockSignals(False)
+
     def budget_window(self):
         dialog = BudgetWindow(self)
         dialog.setWindowModality(Qt.ApplicationModal)
         dialog.show()
         dialog.exec()
 
+    def cleanup(self):
+        """Clean up resources before closing"""
+        try:
+            # Disconnect all signals
+            self.homebtn.toggled.disconnect()
+            self.analyticsbtn.toggled.disconnect()
+            self.reportbtn.toggled.disconnect()
+            self.homebtn_min.toggled.disconnect()
+            self.analyticsbtn_min.toggled.disconnect()
+            self.reportbtn_min.toggled.disconnect()
+            self.menubtn.toggled.disconnect()
+
+            # Clear models
+            if hasattr(self, "model"):
+                self.model.clear()
+
+            # Delete widgets explicitly
+            self.activities.setModel(None)
+            self.activities.deleteLater()
+
+        except Exception as e:
+            print(f"Error during cleanup: {str(e)}")
+
+    def closeEvent(self, event):
+        """Handle window close event"""
+        self.cleanup()
+        super().closeEvent(event)
 
 
-app = QApplication(sys.argv)
-window = Ui_MainWindow()
-window.setupUi(window)
-window.setWindowTitle(" ")
-window.show()
-app.exec()
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(window)
+    window.setWindowTitle("BudgeIT")
+    window.show()
+    sys.exit(app.exec())
