@@ -1,0 +1,23 @@
+<RCC>
+  <qresource prefix="/">
+    <file>analytics_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg</file>
+    <file>analyticsdark.svg</file>
+    <file>analyticslight.svg</file>
+    <file>dashboarddark.svg</file>
+    <file>dashboardlight.svg</file>
+    <file>financedark.svg</file>
+    <file>logoutlight.svg</file>
+    <file>menudark.svg</file>
+    <file>menulight.svg</file>
+    <file>monitoringdark.svg</file>
+    <file>monitoringlight.svg</file>
+    <file>morelight.svg</file>
+    <file>morepurple.svg</file>
+    <file>notificationdark.svg</file>
+    <file>profiledark.svg</file>
+    <file>savingsdark.svg</file>
+    <file>savingslight.svg</file>
+    <file>trendinglight.svg</file>
+    <file>walletlight.svg</file>
+  </qresource>
+</RCC>

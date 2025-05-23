@@ -2041,14 +2041,15 @@ QHeaderView::section {
 
         self.horizontalLayout_4.addWidget(self.yearcombo)
 
-        self.submitbtn = QPushButton(self.scrollAreaWidgetContents_3)
-        self.submitbtn.setObjectName("submitbtn")
-        sizePolicy5.setHeightForWidth(self.submitbtn.sizePolicy().hasHeightForWidth())
-        self.submitbtn.setSizePolicy(sizePolicy5)
-        self.submitbtn.setMinimumSize(QSize(20, 34))
-        self.submitbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.submitbtn.setAutoFillBackground(False)
-        self.submitbtn.setStyleSheet(
+        self.viewbtn = QPushButton(self.scrollAreaWidgetContents_3)
+        self.viewbtn.setObjectName("viewbtn")
+        sizePolicy5.setHeightForWidth(self.viewbtn.sizePolicy().hasHeightForWidth())
+        self.viewbtn.setSizePolicy(sizePolicy5)
+        self.viewbtn.setMinimumSize(QSize(20, 34))
+        self.viewbtn.setMaximumSize(QSize(90, 34))
+        self.viewbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.viewbtn.setAutoFillBackground(False)
+        self.viewbtn.setStyleSheet(
             "\n"
             "\n"
             "\n"
@@ -2076,10 +2077,10 @@ QHeaderView::section {
             "   \n"
             "}"
         )
-        self.submitbtn.setCheckable(True)
-        self.submitbtn.setFlat(True)
+        self.viewbtn.setCheckable(True)
+        self.viewbtn.setFlat(True)
 
-        self.horizontalLayout_4.addWidget(self.submitbtn)
+        self.horizontalLayout_4.addWidget(self.viewbtn)
 
         self.horizontalLayout_3.addLayout(self.horizontalLayout_4)
 
@@ -2841,7 +2842,7 @@ QHeaderView::section {
         self.yearcombo.setPlaceholderText(
             QCoreApplication.translate("MainWindow", "Year", None)
         )
-        self.submitbtn.setText(QCoreApplication.translate("MainWindow", "Submit", None))
+        self.viewbtn.setText(QCoreApplication.translate("MainWindow", "View", None))
         self.monthlyreport_lbl.setText(
             QCoreApplication.translate("MainWindow", "Monthly Report", None)
         )
@@ -2890,7 +2891,7 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "\u20b1 450.00", None)
         )
         self.totalexpenselbl.setText(
-            QCoreApplication.translate("MainWindow", "Total Expense", None)
+            QCoreApplication.translate("MainWindow", "Amount Spent", None)
         )
         self.accumulatedsavingsbox.setTitle("")
         self.accumulatedsavingvalue.setText(
@@ -2920,7 +2921,7 @@ QHeaderView::section {
         )
         self.totaltransactionbox.setTitle("")
         self.totaltransactionlbl.setText(
-            QCoreApplication.translate("MainWindow", "Total Transactons", None)
+            QCoreApplication.translate("MainWindow", "Total Transactions", None)
         )
         self.totaltransactionvalue.setText(
             QCoreApplication.translate("MainWindow", "204", None)

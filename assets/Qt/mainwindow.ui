@@ -258,7 +258,7 @@ QToolButton:disabled {
                       <string/>
                      </property>
                      <property name="pixmap">
-                      <pixmap resource="images.qrc">:/images/logo (2).png</pixmap>
+                      <pixmap resource="../images/images.qrc">:/logomin.png</pixmap>
                      </property>
                      <property name="scaledContents">
                       <bool>true</bool>
@@ -531,7 +531,7 @@ QToolButton:disabled {
                       <string/>
                      </property>
                      <property name="pixmap">
-                      <pixmap resource="images.qrc">:/images/logomax.png</pixmap>
+                      <pixmap resource="../images/images.qrc">:/logomax.png</pixmap>
                      </property>
                      <property name="scaledContents">
                       <bool>true</bool>
@@ -564,7 +564,7 @@ QToolButton:disabled {
                  <string>   Dashboard</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset resource="../icons/icons.qrc">
                   <normaloff>:/dashboardlight.svg</normaloff>
                   <activeon>:/dashboarddark.svg</activeon>
                   <selectedon>:/dashboarddark.svg</selectedon>:/dashboardlight.svg</iconset>
@@ -604,7 +604,7 @@ QToolButton:disabled {
                  <string>   Analytics</string>
                 </property>
                 <property name="icon">
-                 <iconset resource="icons.qrc">
+                 <iconset resource="../icons/icons.qrc">
                   <normaloff>:/analyticslight.svg</normaloff>
                   <activeon>:/analyticsdark.svg</activeon>:/analyticslight.svg</iconset>
                 </property>
@@ -832,7 +832,7 @@ QToolButton:hover {
                    <string>PushButton</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="icons.qrc">
+                   <iconset resource="../icons/icons.qrc">
                     <normaloff>:/menudark.svg</normaloff>:/menudark.svg</iconset>
                   </property>
                   <property name="iconSize">
@@ -928,8 +928,8 @@ border: none;
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset>
-                <normaloff>:/icons/notificationdark.svg</normaloff>:/icons/notificationdark.svg</iconset>
+               <iconset resource="../icons/icons.qrc">
+                <normaloff>:/notificationdark.svg</normaloff>:/notificationdark.svg</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -951,8 +951,8 @@ border: none;
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset>
-                <normaloff>:/icons/profiledark.svg</normaloff>:/icons/profiledark.svg</iconset>
+               <iconset resource="../icons/icons.qrc">
+                <normaloff>:/profiledark.svg</normaloff>:/profiledark.svg</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -974,8 +974,8 @@ border: none;
                <string>...</string>
               </property>
               <property name="icon">
-               <iconset>
-                <normaloff>:/icons/morepurple.svg</normaloff>:/icons/morepurple.svg</iconset>
+               <iconset resource="../icons/icons.qrc">
+                <normaloff>:/morepurple.svg</normaloff>:/morepurple.svg</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -1067,7 +1067,7 @@ QScrollBar::sub-line:vertical {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>779</width>
+                  <width>652</width>
                   <height>821</height>
                  </rect>
                 </property>
@@ -1199,7 +1199,7 @@ border-radius: 30px;
                           </property>
                           <property name="styleSheet">
                            <string notr="true">color: rgb(108, 68, 100);
-font: 700 18px &quot;Inter&quot;;</string>
+font: 600 18px &quot;Inter&quot;;</string>
                           </property>
                           <property name="text">
                            <string>Current Budget</string>
@@ -1361,7 +1361,7 @@ QToolButton:hover {
                            <string>View Category</string>
                           </property>
                           <property name="icon">
-                           <iconset resource="icons.qrc">
+                           <iconset resource="../icons/icons.qrc">
                             <normaloff>:/walletlight.svg</normaloff>:/walletlight.svg</iconset>
                           </property>
                           <property name="iconSize">
@@ -1547,7 +1547,7 @@ QToolButton:hover {
                            <string>View Category</string>
                           </property>
                           <property name="icon">
-                           <iconset resource="icons.qrc">
+                           <iconset resource="../icons/icons.qrc">
                             <normaloff>:/savingslight.svg</normaloff>:/savingslight.svg</iconset>
                           </property>
                           <property name="iconSize">
@@ -1670,7 +1670,7 @@ font: 600 16px &quot;Inter&quot;;
 text-align: center;</string>
                           </property>
                           <property name="text">
-                           <string>Expense</string>
+                           <string>Amount Spent</string>
                           </property>
                           <property name="alignment">
                            <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -2143,9 +2143,15 @@ border-radius:20
               <number>0</number>
              </property>
              <item>
-              <widget class="QScrollArea" name="scrollArea">
+              <widget class="QScrollArea" name="scrollArea_3">
+               <property name="minimumSize">
+                <size>
+                 <width>60</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="verticalScrollBarPolicy">
-                <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+                <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
                </property>
                <property name="horizontalScrollBarPolicy">
                 <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
@@ -2153,13 +2159,13 @@ border-radius:20
                <property name="widgetResizable">
                 <bool>true</bool>
                </property>
-               <widget class="QWidget" name="scrollAreaWidgetContents">
+               <widget class="QWidget" name="scrollAreaWidgetContents_3">
                 <property name="geometry">
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>777</width>
-                  <height>786</height>
+                  <width>680</width>
+                  <height>787</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -2168,24 +2174,39 @@ border-radius:20
                  </property>
                  <item>
                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                   <property name="spacing">
+                    <number>20</number>
+                   </property>
                    <property name="leftMargin">
-                    <number>60</number>
+                    <number>40</number>
                    </property>
                    <property name="rightMargin">
-                    <number>60</number>
+                    <number>40</number>
                    </property>
                    <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_4">
                      <property name="spacing">
-                      <number>10</number>
+                      <number>5</number>
+                     </property>
+                     <property name="leftMargin">
+                      <number>0</number>
+                     </property>
+                     <property name="rightMargin">
+                      <number>0</number>
                      </property>
                      <item>
-                      <widget class="QComboBox" name="categorycombo_3">
+                      <widget class="QComboBox" name="monthcombo">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>100</width>
+                         <height>0</height>
+                        </size>
                        </property>
                        <property name="styleSheet">
                         <string notr="true">QComboBox{
@@ -2306,12 +2327,18 @@ QScrollBar::sub-line:vertical {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="categorycombo_4">
+                      <widget class="QComboBox" name="daycombo">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>60</width>
+                         <height>0</height>
+                        </size>
                        </property>
                        <property name="styleSheet">
                         <string notr="true">QComboBox{
@@ -2526,12 +2553,18 @@ QScrollBar::sub-line:vertical {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QComboBox" name="categorycombo_5">
+                      <widget class="QComboBox" name="yearcombo">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>60</width>
+                         <height>0</height>
+                        </size>
                        </property>
                        <property name="styleSheet">
                         <string notr="true">QComboBox{
@@ -2601,7 +2634,7 @@ QScrollBar::sub-line:vertical {
                       </widget>
                      </item>
                      <item>
-                      <widget class="QPushButton" name="addtransbtn_3">
+                      <widget class="QPushButton" name="submitbtn">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                          <horstretch>0</horstretch>
@@ -2610,7 +2643,7 @@ QScrollBar::sub-line:vertical {
                        </property>
                        <property name="minimumSize">
                         <size>
-                         <width>90</width>
+                         <width>20</width>
                          <height>34</height>
                         </size>
                        </property>
@@ -2661,6 +2694,36 @@ QPushButton:hover {
                      </item>
                     </layout>
                    </item>
+                   <item>
+                    <widget class="QLabel" name="monthlyreport_lbl">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Inter</family>
+                       <pointsize>-1</pointsize>
+                       <italic>false</italic>
+                       <fontweight>DemiBold</fontweight>
+                      </font>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">color: rgb(108, 68, 100);
+font: 600 30px &quot;Inter&quot;;
+background-color: transparent
+</string>
+                     </property>
+                     <property name="text">
+                      <string>Monthly Report</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </item>
                  <item>
@@ -2668,7 +2731,7 @@ QPushButton:hover {
                    <property name="currentIndex">
                     <number>0</number>
                    </property>
-                   <widget class="QWidget" name="page">
+                   <widget class="QWidget" name="page_4">
                     <layout class="QVBoxLayout" name="verticalLayout_6">
                      <item>
                       <widget class="QWidget" name="widget" native="true">
@@ -2691,7 +2754,329 @@ border-radius: 30
                        </property>
                        <layout class="QVBoxLayout" name="verticalLayout_11">
                         <item>
-                         <widget class="QWidget" name="widget_3" native="true">
+                         <layout class="QHBoxLayout" name="horizontalLayout_35">
+                          <property name="leftMargin">
+                           <number>20</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>10</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>20</number>
+                          </property>
+                          <item>
+                           <widget class="QGroupBox" name="budgetreport">
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>80</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <pointsize>12</pointsize>
+                             </font>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">text-align: center;
+background-color: #f4d4d4;
+border-radius: 15px</string>
+                            </property>
+                            <property name="title">
+                             <string/>
+                            </property>
+                            <layout class="QVBoxLayout" name="verticalLayout_38">
+                             <item>
+                              <layout class="QHBoxLayout" name="horizontalLayout_36">
+                               <property name="spacing">
+                                <number>5</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>20</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>20</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>0</number>
+                               </property>
+                               <item>
+                                <widget class="QLabel" name="budgetreport_value">
+                                 <property name="sizePolicy">
+                                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                   <horstretch>0</horstretch>
+                                   <verstretch>0</verstretch>
+                                  </sizepolicy>
+                                 </property>
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>16777215</width>
+                                   <height>50</height>
+                                  </size>
+                                 </property>
+                                 <property name="font">
+                                  <font>
+                                   <family>inter</family>
+                                   <pointsize>-1</pointsize>
+                                   <italic>false</italic>
+                                   <bold>true</bold>
+                                  </font>
+                                 </property>
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(167, 83, 115);
+font: 700 13px &quot;inter&quot;;
+</string>
+                                 </property>
+                                 <property name="text">
+                                  <string>₱ 3254.00</string>
+                                 </property>
+                                 <property name="alignment">
+                                  <set>Qt::AlignmentFlag::AlignCenter</set>
+                                 </property>
+                                 <property name="wordWrap">
+                                  <bool>false</bool>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLabel" name="budgetlbl">
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>16777215</width>
+                                   <height>50</height>
+                                  </size>
+                                 </property>
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(167, 83, 115);
+font: 600 12px &quot;Inter&quot;;
+text-align: center;</string>
+                                 </property>
+                                 <property name="text">
+                                  <string>Budget</string>
+                                 </property>
+                                 <property name="alignment">
+                                  <set>Qt::AlignmentFlag::AlignCenter</set>
+                                 </property>
+                                 <property name="wordWrap">
+                                  <bool>true</bool>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QGroupBox" name="savingsreport">
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>80</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <pointsize>12</pointsize>
+                             </font>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">text-align: center;
+background-color: #f4d4d4;
+border-radius: 15px</string>
+                            </property>
+                            <property name="title">
+                             <string/>
+                            </property>
+                            <layout class="QVBoxLayout" name="verticalLayout_39">
+                             <item>
+                              <layout class="QHBoxLayout" name="horizontalLayout_37">
+                               <property name="spacing">
+                                <number>5</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>20</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>20</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>0</number>
+                               </property>
+                               <item>
+                                <widget class="QLabel" name="savingsreport_value">
+                                 <property name="sizePolicy">
+                                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                   <horstretch>0</horstretch>
+                                   <verstretch>0</verstretch>
+                                  </sizepolicy>
+                                 </property>
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>16777215</width>
+                                   <height>50</height>
+                                  </size>
+                                 </property>
+                                 <property name="font">
+                                  <font>
+                                   <family>inter</family>
+                                   <pointsize>-1</pointsize>
+                                   <italic>false</italic>
+                                   <bold>true</bold>
+                                  </font>
+                                 </property>
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(167, 83, 115);
+font: 700 13px &quot;inter&quot;;
+</string>
+                                 </property>
+                                 <property name="text">
+                                  <string>₱ 554.00</string>
+                                 </property>
+                                 <property name="alignment">
+                                  <set>Qt::AlignmentFlag::AlignCenter</set>
+                                 </property>
+                                 <property name="wordWrap">
+                                  <bool>false</bool>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLabel" name="savingslbl_2">
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>16777215</width>
+                                   <height>50</height>
+                                  </size>
+                                 </property>
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(167, 83, 115);
+font: 600 12px &quot;Inter&quot;;
+text-align: center;</string>
+                                 </property>
+                                 <property name="text">
+                                  <string>Savings</string>
+                                 </property>
+                                 <property name="alignment">
+                                  <set>Qt::AlignmentFlag::AlignCenter</set>
+                                 </property>
+                                 <property name="wordWrap">
+                                  <bool>true</bool>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QGroupBox" name="expensereport">
+                            <property name="maximumSize">
+                             <size>
+                              <width>16777215</width>
+                              <height>80</height>
+                             </size>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <pointsize>12</pointsize>
+                             </font>
+                            </property>
+                            <property name="styleSheet">
+                             <string notr="true">text-align: center;
+background-color: #f4d4d4;
+border-radius: 15px</string>
+                            </property>
+                            <property name="title">
+                             <string/>
+                            </property>
+                            <layout class="QVBoxLayout" name="verticalLayout_40">
+                             <item>
+                              <layout class="QHBoxLayout" name="horizontalLayout_38">
+                               <property name="spacing">
+                                <number>5</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>20</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>20</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>0</number>
+                               </property>
+                               <item>
+                                <widget class="QLabel" name="expensereport_value">
+                                 <property name="sizePolicy">
+                                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                   <horstretch>0</horstretch>
+                                   <verstretch>0</verstretch>
+                                  </sizepolicy>
+                                 </property>
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>16777215</width>
+                                   <height>50</height>
+                                  </size>
+                                 </property>
+                                 <property name="font">
+                                  <font>
+                                   <family>inter</family>
+                                   <pointsize>-1</pointsize>
+                                   <italic>false</italic>
+                                   <bold>true</bold>
+                                  </font>
+                                 </property>
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(167, 83, 115);
+font: 700 13px &quot;inter&quot;;
+</string>
+                                 </property>
+                                 <property name="text">
+                                  <string>₱ 854.00</string>
+                                 </property>
+                                 <property name="alignment">
+                                  <set>Qt::AlignmentFlag::AlignCenter</set>
+                                 </property>
+                                 <property name="wordWrap">
+                                  <bool>false</bool>
+                                 </property>
+                                </widget>
+                               </item>
+                               <item>
+                                <widget class="QLabel" name="expenselbl_2">
+                                 <property name="maximumSize">
+                                  <size>
+                                   <width>16777215</width>
+                                   <height>50</height>
+                                  </size>
+                                 </property>
+                                 <property name="styleSheet">
+                                  <string notr="true">color: rgb(167, 83, 115);
+font: 600 12px &quot;Inter&quot;;
+text-align: center;</string>
+                                 </property>
+                                 <property name="text">
+                                  <string>Amount Spent</string>
+                                 </property>
+                                 <property name="alignment">
+                                  <set>Qt::AlignmentFlag::AlignCenter</set>
+                                 </property>
+                                 <property name="wordWrap">
+                                  <bool>true</bool>
+                                 </property>
+                                </widget>
+                               </item>
+                              </layout>
+                             </item>
+                            </layout>
+                           </widget>
+                          </item>
+                         </layout>
+                        </item>
+                        <item>
+                         <widget class="QWidget" name="graphwidget" native="true">
                           <property name="minimumSize">
                            <size>
                             <width>0</width>
@@ -2705,13 +3090,176 @@ border-radius: 30
                            </size>
                           </property>
                           <layout class="QHBoxLayout" name="horizontalLayout_11">
+                           <property name="spacing">
+                            <number>10</number>
+                           </property>
                            <item>
                             <layout class="QHBoxLayout" name="horizontalLayout_10">
                              <item>
-                              <widget class="QWidget" name="widget_4" native="true"/>
+                              <widget class="QGroupBox" name="transactionsummarybox_2">
+                               <property name="sizePolicy">
+                                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                 <horstretch>0</horstretch>
+                                 <verstretch>0</verstretch>
+                                </sizepolicy>
+                               </property>
+                               <property name="minimumSize">
+                                <size>
+                                 <width>300</width>
+                                 <height>247</height>
+                                </size>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 15</string>
+                               </property>
+                               <property name="title">
+                                <string/>
+                               </property>
+                               <layout class="QVBoxLayout" name="verticalLayout_22">
+                                <item>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_32">
+                                  <property name="leftMargin">
+                                   <number>10</number>
+                                  </property>
+                                  <property name="topMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <item>
+                                   <widget class="QLabel" name="transactionsummary_2">
+                                    <property name="sizePolicy">
+                                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                      <horstretch>0</horstretch>
+                                      <verstretch>0</verstretch>
+                                     </sizepolicy>
+                                    </property>
+                                    <property name="font">
+                                     <font>
+                                      <family>Inter</family>
+                                      <pointsize>-1</pointsize>
+                                      <italic>false</italic>
+                                      <fontweight>Medium</fontweight>
+                                     </font>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(108, 68, 100);
+font: 500 15px &quot;Inter&quot;;
+background-color: transparent
+</string>
+                                    </property>
+                                    <property name="text">
+                                     <string>Transactions Summary</string>
+                                    </property>
+                                    <property name="alignment">
+                                     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <spacer name="horizontalSpacer_8">
+                                    <property name="orientation">
+                                     <enum>Qt::Orientation::Horizontal</enum>
+                                    </property>
+                                    <property name="sizeHint" stdset="0">
+                                     <size>
+                                      <width>40</width>
+                                      <height>20</height>
+                                     </size>
+                                    </property>
+                                   </spacer>
+                                  </item>
+                                 </layout>
+                                </item>
+                                <item>
+                                 <widget class="QWidget" name="transactionreport_widget" native="true">
+                                  <layout class="QVBoxLayout" name="verticalLayout_23"/>
+                                 </widget>
+                                </item>
+                               </layout>
+                              </widget>
                              </item>
                              <item>
-                              <widget class="QWidget" name="widget_5" native="true"/>
+                              <widget class="QGroupBox" name="transactionsummarybox_3">
+                               <property name="sizePolicy">
+                                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                 <horstretch>0</horstretch>
+                                 <verstretch>0</verstretch>
+                                </sizepolicy>
+                               </property>
+                               <property name="minimumSize">
+                                <size>
+                                 <width>300</width>
+                                 <height>247</height>
+                                </size>
+                               </property>
+                               <property name="styleSheet">
+                                <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 15</string>
+                               </property>
+                               <property name="title">
+                                <string/>
+                               </property>
+                               <layout class="QVBoxLayout" name="verticalLayout_36">
+                                <item>
+                                 <layout class="QHBoxLayout" name="horizontalLayout_34">
+                                  <property name="leftMargin">
+                                   <number>10</number>
+                                  </property>
+                                  <property name="topMargin">
+                                   <number>0</number>
+                                  </property>
+                                  <item>
+                                   <widget class="QLabel" name="budgetsummary">
+                                    <property name="sizePolicy">
+                                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                                      <horstretch>0</horstretch>
+                                      <verstretch>0</verstretch>
+                                     </sizepolicy>
+                                    </property>
+                                    <property name="font">
+                                     <font>
+                                      <family>Inter</family>
+                                      <pointsize>-1</pointsize>
+                                      <italic>false</italic>
+                                      <fontweight>Medium</fontweight>
+                                     </font>
+                                    </property>
+                                    <property name="styleSheet">
+                                     <string notr="true">color: rgb(108, 68, 100);
+font: 500 15px &quot;Inter&quot;;
+background-color: transparent
+</string>
+                                    </property>
+                                    <property name="text">
+                                     <string>Budget Summary</string>
+                                    </property>
+                                    <property name="alignment">
+                                     <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+                                    </property>
+                                   </widget>
+                                  </item>
+                                  <item>
+                                   <spacer name="horizontalSpacer_10">
+                                    <property name="orientation">
+                                     <enum>Qt::Orientation::Horizontal</enum>
+                                    </property>
+                                    <property name="sizeHint" stdset="0">
+                                     <size>
+                                      <width>40</width>
+                                      <height>20</height>
+                                     </size>
+                                    </property>
+                                   </spacer>
+                                  </item>
+                                 </layout>
+                                </item>
+                                <item>
+                                 <widget class="QWidget" name="budgetreport_widget" native="true">
+                                  <layout class="QVBoxLayout" name="verticalLayout_37"/>
+                                 </widget>
+                                </item>
+                               </layout>
+                              </widget>
                              </item>
                             </layout>
                            </item>
@@ -2729,7 +3277,7 @@ border-radius: 30
                              <number>30</number>
                             </property>
                             <item>
-                             <widget class="QLabel" name="user_2">
+                             <widget class="QLabel" name="translbl_2">
                               <property name="sizePolicy">
                                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                                 <horstretch>0</horstretch>
@@ -2741,12 +3289,12 @@ border-radius: 30
                                 <family>Inter</family>
                                 <pointsize>-1</pointsize>
                                 <italic>false</italic>
-                                <bold>true</bold>
+                                <fontweight>DemiBold</fontweight>
                                </font>
                               </property>
                               <property name="styleSheet">
                                <string notr="true">color: rgb(108, 68, 100);
-font: 700 40px &quot;Inter&quot;;
+font: 600 30px &quot;Inter&quot;;
 background-color: transparent
 </string>
                               </property>
@@ -2782,42 +3330,41 @@ background-color: transparent
                              <number>20</number>
                             </property>
                             <item>
-                             <widget class="QGroupBox" name="totalbudgetbox_2">
-                              <property name="minimumSize">
-                               <size>
-                                <width>300</width>
-                                <height>120</height>
-                               </size>
-                              </property>
+                             <widget class="QWidget" name="transwidgetbox" native="true">
                               <property name="styleSheet">
-                               <string notr="true">background-color: rgb(244, 212, 212);
-
-border-radius: 30px;
-
-</string>
+                               <string notr="true">background-color: rgb(167, 83, 115);</string>
                               </property>
-                              <property name="title">
-                               <string/>
-                              </property>
-                              <layout class="QVBoxLayout" name="verticalLayout_27">
+                              <layout class="QVBoxLayout" name="verticalLayout_20">
+                               <property name="spacing">
+                                <number>15</number>
+                               </property>
+                               <property name="leftMargin">
+                                <number>15</number>
+                               </property>
+                               <property name="topMargin">
+                                <number>15</number>
+                               </property>
+                               <property name="rightMargin">
+                                <number>15</number>
+                               </property>
+                               <property name="bottomMargin">
+                                <number>15</number>
+                               </property>
                                <item>
-                                <widget class="QTableView" name="activities_2">
-                                 <property name="sizePolicy">
-                                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                                   <horstretch>0</horstretch>
-                                   <verstretch>0</verstretch>
-                                  </sizepolicy>
-                                 </property>
+                                <widget class="QWidget" name="transtableviewwidget" native="true">
                                  <property name="styleSheet">
-                                  <string notr="true">background-color: rgb(255, 255, 255);
-border-radius: 20</string>
+                                  <string notr="true">background-color:rgb(255, 255, 255);
+border-radius: 25</string>
                                  </property>
-                                 <attribute name="horizontalHeaderCascadingSectionResizes">
-                                  <bool>true</bool>
-                                 </attribute>
-                                 <attribute name="horizontalHeaderDefaultSectionSize">
-                                  <number>120</number>
-                                 </attribute>
+                                 <layout class="QVBoxLayout" name="verticalLayout_21">
+                                  <item>
+                                   <widget class="QTableView" name="transactionstableView">
+                                    <attribute name="horizontalHeaderCascadingSectionResizes">
+                                     <bool>false</bool>
+                                    </attribute>
+                                   </widget>
+                                  </item>
+                                 </layout>
                                 </widget>
                                </item>
                               </layout>
@@ -2832,10 +3379,10 @@ border-radius: 20</string>
                      </item>
                     </layout>
                    </widget>
-                   <widget class="QWidget" name="page_4">
+                   <widget class="QWidget" name="no_available_report_page">
                     <layout class="QVBoxLayout" name="verticalLayout_7">
                      <item>
-                      <widget class="QWidget" name="widget_2" native="true">
+                      <widget class="QWidget" name="noavailablereportwidget" native="true">
                        <property name="styleSheet">
                         <string notr="true">background-color: rgb(254, 254, 254);
 border-radius: 30
@@ -2843,7 +3390,7 @@ border-radius: 30
                        </property>
                        <layout class="QHBoxLayout" name="horizontalLayout_5">
                         <item>
-                         <widget class="QLabel" name="user_3">
+                         <widget class="QLabel" name="noavailablereportlbl">
                           <property name="sizePolicy">
                            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                             <horstretch>0</horstretch>
@@ -2977,7 +3524,7 @@ border-radius: 20px</string>
                       <item>
                        <layout class="QHBoxLayout" name="horizontalLayout_18">
                         <property name="spacing">
-                         <number>20</number>
+                         <number>0</number>
                         </property>
                         <property name="leftMargin">
                          <number>40</number>
@@ -3208,7 +3755,7 @@ border-radius: 20px</string>
                       <item>
                        <layout class="QHBoxLayout" name="horizontalLayout_23">
                         <property name="spacing">
-                         <number>20</number>
+                         <number>0</number>
                         </property>
                         <property name="leftMargin">
                          <number>40</number>
@@ -3481,7 +4028,9 @@ background-color: transparent
                        </layout>
                       </item>
                       <item>
-                       <widget class="QWidget" name="transactionsummarywidget" native="true"/>
+                       <widget class="QWidget" name="transactionsummarywidget" native="true">
+                        <layout class="QVBoxLayout" name="verticalLayout_19"/>
+                       </widget>
                       </item>
                      </layout>
                     </widget>
@@ -3773,12 +4322,8 @@ background-color: transparent
   </widget>
  </widget>
  <resources>
-  <include location="../../../Qt/6.9.0/mingw_64/bin/icons.qrc"/>
-  <include location="icons.qrc"/>
-  <include location="../../../Qt/6.9.0/mingw_64/bin/images.qrc"/>
-  <include location="../../../Qt/6.9.0/mingw_64/bin/dsad.qrc"/>
-  <include location="images.qrc"/>
-  <include location="../../../../Users/shane VAN/.designer/backup/images.qrc"/>
+  <include location="../icons/icons.qrc"/>
+  <include location="../images/images.qrc"/>
  </resources>
  <connections/>
  <buttongroups>
