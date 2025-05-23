@@ -997,7 +997,7 @@ border: none;
             <string notr="true">background-color: rgb(245, 245, 245);</string>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="page_1">
             <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -2164,7 +2164,7 @@ border-radius:20
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>680</width>
+                  <width>760</width>
                   <height>787</height>
                  </rect>
                 </property>
@@ -3274,7 +3274,7 @@ background-color: transparent
                           <item>
                            <layout class="QHBoxLayout" name="horizontalLayout_7">
                             <property name="leftMargin">
-                             <number>30</number>
+                             <number>50</number>
                             </property>
                             <item>
                              <widget class="QLabel" name="translbl_2">
