@@ -2393,7 +2393,7 @@ QHeaderView::section {
         self.verticalLayout_9.setContentsMargins(-1, -1, -1, 20)
         self.horizontalLayout_7 = QHBoxLayout()
         self.horizontalLayout_7.setObjectName("horizontalLayout_7")
-        self.horizontalLayout_7.setContentsMargins(30, -1, -1, -1)
+        self.horizontalLayout_7.setContentsMargins(50, -1, -1, -1)
         self.translbl_2 = QLabel(self.widget)
         self.translbl_2.setObjectName("translbl_2")
         sizePolicy1.setHeightForWidth(self.translbl_2.sizePolicy().hasHeightForWidth())

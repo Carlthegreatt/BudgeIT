@@ -1067,7 +1067,7 @@ QScrollBar::sub-line:vertical {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>652</width>
+                  <width>779</width>
                   <height>821</height>
                  </rect>
                 </property>
@@ -2729,7 +2729,7 @@ background-color: transparent
                  <item>
                   <widget class="QStackedWidget" name="stackedWidget">
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <widget class="QWidget" name="page_4">
                     <layout class="QVBoxLayout" name="verticalLayout_6">

@@ -6,6 +6,9 @@ import components.icons_rc
 import components.images_rc
 from components.addtransactions import AddTransactions
 from budget_window import BudgetWindow
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import matplotlib.pyplot as plt
+from components.datamanager import DataManager, sample_transactions
 
 
 class Ui_MainWindow(QMainWindow):
@@ -699,7 +702,7 @@ class Ui_MainWindow(QMainWindow):
         self.totalbudgetlbl.setMinimumSize(QSize(0, 30))
         self.totalbudgetlbl.setMaximumSize(QSize(16777215, 25))
         self.totalbudgetlbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n" 'font: 700 18px "Inter";'
+            "color: rgb(108, 68, 100);\n" 'font: 600 18px "Inter";'
         )
         self.totalbudgetlbl.setTextFormat(Qt.TextFormat.MarkdownText)
         self.totalbudgetlbl.setScaledContents(False)
@@ -1544,12 +1547,13 @@ QHeaderView::section {
             self.transactionsummarybox.sizePolicy().hasHeightForWidth()
         )
         self.transactionsummarybox.setSizePolicy(sizePolicy)
-        self.transactionsummarybox.setMinimumSize(QSize(300, 247))
+        self.transactionsummarybox.setMinimumSize(QSize(300, 300))
         self.transactionsummarybox.setStyleSheet(
             "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
         )
         self.verticalLayout_12 = QVBoxLayout(self.transactionsummarybox)
         self.verticalLayout_12.setObjectName("verticalLayout_12")
+
         self.horizontalLayout_30 = QHBoxLayout()
         self.horizontalLayout_30.setObjectName("horizontalLayout_30")
         self.horizontalLayout_30.setContentsMargins(10, 10, -1, -1)
@@ -1584,7 +1588,26 @@ QHeaderView::section {
 
         self.transactionsummarywidget = QWidget(self.transactionsummarybox)
         self.transactionsummarywidget.setObjectName("transactionsummarywidget")
+        self.transactionsummarywidget.setMinimumSize(
+            QSize(0, 250)
+        )  # Set minimum height
+        self.transactionsummarywidget.setStyleSheet(
+            """
+            QWidget {
+                background-color: rgb(255, 255, 255);
+                border: none;
+            }
+        """
+        )
+        self.horizontalLayout_transactionsummary = QHBoxLayout(
+            self.transactionsummarywidget
+        )
+        self.horizontalLayout_transactionsummary.setObjectName(
+            "horizontalLayout_transactionsummary"
+        )
+        self.horizontalLayout_transactionsummary.setContentsMargins(0, 0, 0, 0)
 
+        self.add_graph_to_widget(self.transactionsummarywidget)
         self.verticalLayout_12.addWidget(self.transactionsummarywidget)
 
         self.horizontalLayout_19.addWidget(self.transactionsummarybox)
@@ -1631,6 +1654,13 @@ QHeaderView::section {
 
         self.budgetsummarywidget = QWidget(self.budgetsummarybox)
         self.budgetsummarywidget.setObjectName("budgetsummarywidget")
+        self.horizontalLayout_budgetsummary = QHBoxLayout(self.budgetsummarywidget)
+        self.horizontalLayout_budgetsummary.setObjectName(
+            "horizontalLayout_budgetsummary"
+        )
+        self.horizontalLayout_budgetsummary.setContentsMargins(0, 0, 0, 0)
+
+        self.add_graph_to_budget_summary(self.budgetsummarywidget)
 
         self.verticalLayout_13.addWidget(self.budgetsummarywidget)
 
@@ -1693,7 +1723,7 @@ QHeaderView::section {
             self.totaltransactionbox.sizePolicy().hasHeightForWidth()
         )
         self.totaltransactionbox.setSizePolicy(sizePolicy)
-        self.totaltransactionbox.setMinimumSize(QSize(300, 247))
+        self.totaltransactionbox.setMinimumSize(QSize(300, 300))
         self.totaltransactionbox.setStyleSheet(
             "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
         )
@@ -1770,35 +1800,51 @@ QHeaderView::section {
 
         self.page_3 = QWidget()
         self.page_3.setObjectName("page_3")
-        self.page_3.setStyleSheet("background-color: rgb(255, 255, 255);")
-
-        self.verticalLayout_9 = QVBoxLayout(self.page_3)
-        self.verticalLayout_9.setObjectName("verticalLayout_9")
-        self.verticalLayout_11 = QVBoxLayout()
-        self.verticalLayout_11.setObjectName("verticalLayout_11")
-        self.verticalLayout_11.setContentsMargins(10, 15, 10, -1)
-        self.horizontalLayout_7 = QHBoxLayout()
-        self.horizontalLayout_7.setSpacing(120)
-        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
-        self.horizontalLayout_7.setContentsMargins(-1, 10, -1, 10)
-        self.incomebox_34 = QGroupBox(self.page_3)
-        self.incomebox_34.setObjectName("incomebox_34")
-        self.incomebox_34.setMinimumSize(QSize(720, 70))
-        self.incomebox_34.setMaximumSize(QSize(700, 70))
-        self.incomebox_34.setStyleSheet(
-            "background-color: rgb(167, 83, 115);\n" "border-radius:20\n" ""
+        self.verticalLayout_4 = QVBoxLayout(self.page_3)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.scrollArea_3 = QScrollArea(self.page_3)
+        self.scrollArea_3.setObjectName("scrollArea_3")
+        self.scrollArea_3.setMinimumSize(QSize(60, 0))
+        self.scrollArea_3.setVerticalScrollBarPolicy(
+            Qt.ScrollBarPolicy.ScrollBarAsNeeded
         )
-        self.verticalLayout_19 = QVBoxLayout(self.incomebox_34)
-        self.verticalLayout_19.setObjectName("verticalLayout_19")
-        self.verticalLayout_19.setContentsMargins(15, -1, 20, -1)
-        self.horizontalLayout_10 = QHBoxLayout()
-        self.horizontalLayout_10.setSpacing(5)
-        self.horizontalLayout_10.setObjectName("horizontalLayout_10")
-        self.comboBox_14 = QComboBox(self.incomebox_34)
-        self.comboBox_14.addItem("")
-        self.comboBox_14.addItem("")
-        self.comboBox_14.setObjectName("comboBox_14")
-        self.comboBox_14.setStyleSheet(
+        self.scrollArea_3.setHorizontalScrollBarPolicy(
+            Qt.ScrollBarPolicy.ScrollBarAlwaysOff
+        )
+        self.scrollArea_3.setWidgetResizable(True)
+        self.scrollAreaWidgetContents_3 = QWidget()
+        self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 760, 787))
+        self.verticalLayout_5 = QVBoxLayout(self.scrollAreaWidgetContents_3)
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(-1, 15, -1, -1)
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setSpacing(20)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.horizontalLayout_3.setContentsMargins(40, -1, 40, -1)
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setSpacing(5)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.horizontalLayout_4.setContentsMargins(0, -1, 0, -1)
+        self.monthcombo = QComboBox(self.scrollAreaWidgetContents_3)
+        self.monthcombo.addItem("")
+        self.monthcombo.addItem("")
+        self.monthcombo.addItem("")
+        self.monthcombo.addItem("")
+        self.monthcombo.addItem("")
+        self.monthcombo.addItem("")
+        self.monthcombo.addItem("")
+        self.monthcombo.addItem("")
+        self.monthcombo.addItem("")
+        self.monthcombo.addItem("")
+        self.monthcombo.addItem("")
+        self.monthcombo.addItem("")
+        self.monthcombo.setObjectName("monthcombo")
+        sizePolicy5.setHeightForWidth(self.monthcombo.sizePolicy().hasHeightForWidth())
+        self.monthcombo.setSizePolicy(sizePolicy5)
+        self.monthcombo.setMinimumSize(QSize(100, 0))
+        self.monthcombo.setStyleSheet(
             "QComboBox{\n"
             "	color: rgb(167, 83, 115);\n"
             "	alternate-background-color: rgb(240, 240, 240);\n"
@@ -1816,23 +1862,77 @@ QHeaderView::section {
             "QComboBox::drop-down {\n"
             "    border: none;\n"
             "    background: transparent;\n"
+            "}\n"
+            "\n"
+            "QComboBox QAbstractItemView {\n"
+            "            background-color: #ffffff;\n"
+            "            color: #000000; \n"
+            "\n"
+            "            }\n"
+            "\n"
+            "QScrollBar:vertical {\n"
+            "    \n"
+            "    background-color: rgb(245, 245, 245);\n"
+            "    width: 5px;\n"
+            "    margin: 0px 0px 0px 0px;\n"
+            "	border: none\n"
+            "	\n"
+            "}\n"
+            "\n"
+            "QScrollBar::handle:vertical {\n"
+            "    background: rgb(80, 51, 74);\n"
+            "    min-height: 20px;\n"
+            "    border-radius: 10000px;\n"
+            "}\n"
+            "\n"
+            "QScrollBar::add-line:vertical,\n"
+            "QScrollBar::sub-line:vertical {\n"
+            "    background: none;\n"
+            "    height: 0px;\n"
             "}"
         )
-        self.comboBox_14.setEditable(False)
-        self.comboBox_14.setFrame(True)
+        self.monthcombo.setEditable(False)
+        self.monthcombo.setFrame(True)
 
-        self.horizontalLayout_10.addWidget(self.comboBox_14)
+        self.horizontalLayout_4.addWidget(self.monthcombo)
 
-        self.comboBox_15 = QComboBox(self.incomebox_34)
-        self.comboBox_15.addItem("")
-        self.comboBox_15.addItem("")
-        self.comboBox_15.addItem("")
-        self.comboBox_15.addItem("")
-        self.comboBox_15.addItem("")
-        self.comboBox_15.addItem("")
-        self.comboBox_15.addItem("")
-        self.comboBox_15.setObjectName("comboBox_15")
-        self.comboBox_15.setStyleSheet(
+        self.daycombo = QComboBox(self.scrollAreaWidgetContents_3)
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.addItem("")
+        self.daycombo.setObjectName("daycombo")
+        sizePolicy5.setHeightForWidth(self.daycombo.sizePolicy().hasHeightForWidth())
+        self.daycombo.setSizePolicy(sizePolicy5)
+        self.daycombo.setMinimumSize(QSize(60, 0))
+        self.daycombo.setStyleSheet(
             "QComboBox{\n"
             "	color: rgb(167, 83, 115);\n"
             "	alternate-background-color: rgb(240, 240, 240);\n"
@@ -1850,153 +1950,600 @@ QHeaderView::section {
             "QComboBox::drop-down {\n"
             "    border: none;\n"
             "    background: transparent;\n"
+            "}\n"
+            "\n"
+            "QComboBox QAbstractItemView {\n"
+            "            background-color: #ffffff;\n"
+            "            color: #000000; \n"
+            "            }\n"
+            "\n"
+            "QScrollBar:vertical {\n"
+            "    \n"
+            "    background-color: rgb(245, 245, 245);\n"
+            "    width: 5px;\n"
+            "    margin: 0px 0px 0px 0px;\n"
+            "	border: none\n"
+            "	\n"
+            "}\n"
+            "\n"
+            "QScrollBar::handle:vertical {\n"
+            "    background: rgb(80, 51, 74);\n"
+            "    min-height: 20px;\n"
+            "    border-radius: 10000px;\n"
+            "}\n"
+            "\n"
+            "QScrollBar::add-line:vertical,\n"
+            "QScrollBar::sub-line:vertical {\n"
+            "    background: none;\n"
+            "    height: 0px;\n"
             "}"
         )
-        self.comboBox_15.setEditable(False)
-        self.comboBox_15.setFrame(True)
+        self.daycombo.setEditable(False)
+        self.daycombo.setFrame(True)
 
-        self.horizontalLayout_10.addWidget(self.comboBox_15)
+        self.horizontalLayout_4.addWidget(self.daycombo)
 
-        self.verticalLayout_24 = QVBoxLayout()
-        self.verticalLayout_24.setObjectName("verticalLayout_24")
-        self.verticalLayout_24.setContentsMargins(30, -1, 10, -1)
-        self.greetuser_16 = QLabel(self.incomebox_34)
-        self.greetuser_16.setObjectName("greetuser_16")
+        self.yearcombo = QComboBox(self.scrollAreaWidgetContents_3)
+        self.yearcombo.addItem("")
+        self.yearcombo.addItem("")
+        self.yearcombo.setObjectName("yearcombo")
+        sizePolicy5.setHeightForWidth(self.yearcombo.sizePolicy().hasHeightForWidth())
+        self.yearcombo.setSizePolicy(sizePolicy5)
+        self.yearcombo.setMinimumSize(QSize(60, 0))
+        self.yearcombo.setStyleSheet(
+            "QComboBox{\n"
+            "	color: rgb(167, 83, 115);\n"
+            "	alternate-background-color: rgb(240, 240, 240);\n"
+            "				\n"
+            "	background-color: rgb(254, 250, 250);\n"
+            "                padding: 8px;\n"
+            "                border: 1px solid #ccc;\n"
+            "                border-radius: 7px;\n"
+            "                font-size: 10px;\n"
+            "\n"
+            "\n"
+            "            }\n"
+            "\n"
+            "\n"
+            "QComboBox::drop-down {\n"
+            "    border: none;\n"
+            "    background: transparent;\n"
+            "}\n"
+            "\n"
+            "QComboBox QAbstractItemView {\n"
+            "            background-color: #ffffff;\n"
+            "            color: #000000; \n"
+            "            }\n"
+            "\n"
+            "QScrollBar:vertical {\n"
+            "    \n"
+            "    background-color: rgb(245, 245, 245);\n"
+            "    width: 5px;\n"
+            "    margin: 0px 0px 0px 0px;\n"
+            "	border: none\n"
+            "	\n"
+            "}\n"
+            "\n"
+            "QScrollBar::handle:vertical {\n"
+            "    background: rgb(80, 51, 74);\n"
+            "    min-height: 20px;\n"
+            "    border-radius: 10000px;\n"
+            "}\n"
+            "\n"
+            "QScrollBar::add-line:vertical,\n"
+            "QScrollBar::sub-line:vertical {\n"
+            "    background: none;\n"
+            "    height: 0px;\n"
+            "}"
+        )
+        self.yearcombo.setEditable(False)
+        self.yearcombo.setFrame(True)
+
+        self.horizontalLayout_4.addWidget(self.yearcombo)
+
+        self.viewbtn = QPushButton(self.scrollAreaWidgetContents_3)
+        self.viewbtn.setObjectName("viewbtn")
+        sizePolicy5.setHeightForWidth(self.viewbtn.sizePolicy().hasHeightForWidth())
+        self.viewbtn.setSizePolicy(sizePolicy5)
+        self.viewbtn.setMinimumSize(QSize(20, 34))
+        self.viewbtn.setMaximumSize(QSize(90, 34))
+        self.viewbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.viewbtn.setAutoFillBackground(False)
+        self.viewbtn.setStyleSheet(
+            "\n"
+            "\n"
+            "\n"
+            "QPushButton {\n"
+            "	\n"
+            "	\n"
+            "	\n"
+            "	color: rgb(245, 245, 245);\n"
+            "	background-color: rgb(167, 83, 115);\n"
+            "	border: 1px solid #ccc;\n"
+            "    border-radius: 7px;\n"
+            "	border-color: rgb(144, 72, 99);\n"
+            "text-align: center;\n"
+            " font-size: 10px;\n"
+            "\n"
+            "\n"
+            "  \n"
+            "\n"
+            "}\n"
+            "QPushButton:hover {\n"
+            "\n"
+            "	\n"
+            "	background-color: rgb(138, 69, 95);\n"
+            "	\n"
+            "   \n"
+            "}"
+        )
+        self.viewbtn.setCheckable(True)
+        self.viewbtn.setFlat(True)
+
+        self.horizontalLayout_4.addWidget(self.viewbtn)
+
+        self.horizontalLayout_3.addLayout(self.horizontalLayout_4)
+
+        self.monthlyreport_lbl = QLabel(self.scrollAreaWidgetContents_3)
+        self.monthlyreport_lbl.setObjectName("monthlyreport_lbl")
         sizePolicy1.setHeightForWidth(
-            self.greetuser_16.sizePolicy().hasHeightForWidth()
+            self.monthlyreport_lbl.sizePolicy().hasHeightForWidth()
         )
-        self.greetuser_16.setSizePolicy(sizePolicy1)
-        inter = QFont()
-        inter.setFamilies(["Inter"])
-        inter.setWeight(QFont.DemiBold)
-        inter.setItalic(False)
-        self.greetuser_16.setFont(inter)
-        self.greetuser_16.setStyleSheet(
-            "\n"
-            "color: rgb(254, 250, 250);\n"
+        self.monthlyreport_lbl.setSizePolicy(sizePolicy1)
+        font5 = QFont()
+        font5.setFamilies(["Inter"])
+        font5.setWeight(QFont.DemiBold)
+        font5.setItalic(False)
+        self.monthlyreport_lbl.setFont(font5)
+        self.monthlyreport_lbl.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
             'font: 600 30px "Inter";\n'
             "background-color: transparent\n"
             ""
         )
-        self.greetuser_16.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.verticalLayout_24.addWidget(self.greetuser_16)
-
-        self.horizontalLayout_10.addLayout(self.verticalLayout_24)
-
-        self.verticalLayout_19.addLayout(self.horizontalLayout_10)
-
-        self.horizontalLayout_7.addWidget(self.incomebox_34)
-
-        self.verticalLayout_11.addLayout(self.horizontalLayout_7)
-
-        self.scrollArea_4 = QScrollArea(self.page_3)
-        self.scrollArea_4.setObjectName("scrollArea_4")
-        self.scrollArea_4.setStyleSheet(
-            "background-color: transparent;\n" "border-radius: 10;\n" "border: none;"
+        self.monthlyreport_lbl.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
         )
-        self.scrollArea_4.setVerticalScrollBarPolicy(
-            Qt.ScrollBarPolicy.ScrollBarAlwaysOff
+
+        self.horizontalLayout_3.addWidget(self.monthlyreport_lbl)
+
+        self.verticalLayout_5.addLayout(self.horizontalLayout_3)
+
+        self.stackedWidget = QStackedWidget(self.scrollAreaWidgetContents_3)
+        self.stackedWidget.setObjectName("stackedWidget")
+        self.page_4 = QWidget()
+        self.page_4.setObjectName("page_4")
+        self.verticalLayout_6 = QVBoxLayout(self.page_4)
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
+        self.widget = QWidget(self.page_4)
+        self.widget.setObjectName("widget")
+        self.widget.setMinimumSize(QSize(0, 700))
+        self.widget.setMaximumSize(QSize(16777215, 900))
+        self.widget.setStyleSheet(
+            "background-color: rgb(254, 254, 254);\n" "border-radius: 30\n" ""
         )
-        self.scrollArea_4.setWidgetResizable(True)
-        self.scrollAreaWidgetContents_3 = QWidget()
-        self.scrollAreaWidgetContents_3.setObjectName("scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 722, 540))
-        self.scrollAreaWidgetContents_3.setStyleSheet("border-radius:15")
-        self.verticalLayout_13 = QVBoxLayout(self.scrollAreaWidgetContents_3)
-        self.verticalLayout_13.setObjectName("verticalLayout_13")
-        self.verticalLayout_13.setContentsMargins(20, 20, 20, 20)
-        self.groupBox_8 = QGroupBox(self.scrollAreaWidgetContents_3)
-        self.groupBox_8.setObjectName("groupBox_8")
-        self.groupBox_8.setMinimumSize(QSize(0, 500))
-        self.groupBox_8.setStyleSheet(
-            "background-color: rgb(254, 250, 250);\n" "border-radius: 25"
+        self.verticalLayout_11 = QVBoxLayout(self.widget)
+        self.verticalLayout_11.setObjectName("verticalLayout_11")
+        self.horizontalLayout_35 = QHBoxLayout()
+        self.horizontalLayout_35.setObjectName("horizontalLayout_35")
+        self.horizontalLayout_35.setContentsMargins(20, 10, 20, -1)
+        self.budgetreport = QGroupBox(self.widget)
+        self.budgetreport.setObjectName("budgetreport")
+        self.budgetreport.setMaximumSize(QSize(16777215, 80))
+        self.budgetreport.setFont(inter)
+        self.budgetreport.setStyleSheet(
+            "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
         )
-        self.verticalLayout_27 = QVBoxLayout(self.groupBox_8)
-        self.verticalLayout_27.setObjectName("verticalLayout_27")
-        self.incomebox_38 = QGroupBox(self.groupBox_8)
-        self.incomebox_38.setObjectName("incomebox_38")
-        self.incomebox_38.setMinimumSize(QSize(0, 200))
-        self.incomebox_38.setMaximumSize(QSize(16777215, 500))
-        self.incomebox_38.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n"
-            "border-color: rgb(229, 229, 229);\n"
-            "border-radius:20;\n"
-            "border: 1px solid\n"
+        self.verticalLayout_38 = QVBoxLayout(self.budgetreport)
+        self.verticalLayout_38.setObjectName("verticalLayout_38")
+        self.horizontalLayout_36 = QHBoxLayout()
+        self.horizontalLayout_36.setSpacing(5)
+        self.horizontalLayout_36.setObjectName("horizontalLayout_36")
+        self.horizontalLayout_36.setContentsMargins(20, -1, 20, 0)
+        self.budgetreport_value = QLabel(self.budgetreport)
+        self.budgetreport_value.setObjectName("budgetreport_value")
+        sizePolicy.setHeightForWidth(
+            self.budgetreport_value.sizePolicy().hasHeightForWidth()
+        )
+        self.budgetreport_value.setSizePolicy(sizePolicy)
+        self.budgetreport_value.setMaximumSize(QSize(16777215, 50))
+        self.budgetreport_value.setFont(font3)
+        self.budgetreport_value.setStyleSheet(
+            "color: rgb(167, 83, 115);\n" 'font: 700 13px "inter";\n' ""
+        )
+        self.budgetreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.budgetreport_value.setWordWrap(False)
+
+        self.horizontalLayout_36.addWidget(self.budgetreport_value)
+
+        self.budgetlbl = QLabel(self.budgetreport)
+        self.budgetlbl.setObjectName("budgetlbl")
+        self.budgetlbl.setMaximumSize(QSize(16777215, 50))
+        self.budgetlbl.setStyleSheet(
+            "color: rgb(167, 83, 115);\n"
+            'font: 600 12px "Inter";\n'
+            "text-align: center;"
+        )
+        self.budgetlbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.budgetlbl.setWordWrap(True)
+
+        self.horizontalLayout_36.addWidget(self.budgetlbl)
+
+        self.verticalLayout_38.addLayout(self.horizontalLayout_36)
+
+        self.horizontalLayout_35.addWidget(self.budgetreport)
+
+        self.savingsreport = QGroupBox(self.widget)
+        self.savingsreport.setObjectName("savingsreport")
+        self.savingsreport.setMaximumSize(QSize(16777215, 80))
+        self.savingsreport.setFont(inter)
+        self.savingsreport.setStyleSheet(
+            "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
+        )
+        self.verticalLayout_39 = QVBoxLayout(self.savingsreport)
+        self.verticalLayout_39.setObjectName("verticalLayout_39")
+        self.horizontalLayout_37 = QHBoxLayout()
+        self.horizontalLayout_37.setSpacing(5)
+        self.horizontalLayout_37.setObjectName("horizontalLayout_37")
+        self.horizontalLayout_37.setContentsMargins(20, -1, 20, 0)
+        self.savingsreport_value = QLabel(self.savingsreport)
+        self.savingsreport_value.setObjectName("savingsreport_value")
+        sizePolicy.setHeightForWidth(
+            self.savingsreport_value.sizePolicy().hasHeightForWidth()
+        )
+        self.savingsreport_value.setSizePolicy(sizePolicy)
+        self.savingsreport_value.setMaximumSize(QSize(16777215, 50))
+        self.savingsreport_value.setFont(font3)
+        self.savingsreport_value.setStyleSheet(
+            "color: rgb(167, 83, 115);\n" 'font: 700 13px "inter";\n' ""
+        )
+        self.savingsreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.savingsreport_value.setWordWrap(False)
+
+        self.horizontalLayout_37.addWidget(self.savingsreport_value)
+
+        self.savingslbl_2 = QLabel(self.savingsreport)
+        self.savingslbl_2.setObjectName("savingslbl_2")
+        self.savingslbl_2.setMaximumSize(QSize(16777215, 50))
+        self.savingslbl_2.setStyleSheet(
+            "color: rgb(167, 83, 115);\n"
+            'font: 600 12px "Inter";\n'
+            "text-align: center;"
+        )
+        self.savingslbl_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.savingslbl_2.setWordWrap(True)
+
+        self.horizontalLayout_37.addWidget(self.savingslbl_2)
+
+        self.verticalLayout_39.addLayout(self.horizontalLayout_37)
+
+        self.horizontalLayout_35.addWidget(self.savingsreport)
+
+        self.expensereport = QGroupBox(self.widget)
+        self.expensereport.setObjectName("expensereport")
+        self.expensereport.setMaximumSize(QSize(16777215, 80))
+        self.expensereport.setFont(inter)
+        self.expensereport.setStyleSheet(
+            "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
+        )
+        self.verticalLayout_40 = QVBoxLayout(self.expensereport)
+        self.verticalLayout_40.setObjectName("verticalLayout_40")
+        self.horizontalLayout_38 = QHBoxLayout()
+        self.horizontalLayout_38.setSpacing(5)
+        self.horizontalLayout_38.setObjectName("horizontalLayout_38")
+        self.horizontalLayout_38.setContentsMargins(20, -1, 20, 0)
+        self.expensereport_value = QLabel(self.expensereport)
+        self.expensereport_value.setObjectName("expensereport_value")
+        sizePolicy.setHeightForWidth(
+            self.expensereport_value.sizePolicy().hasHeightForWidth()
+        )
+        self.expensereport_value.setSizePolicy(sizePolicy)
+        self.expensereport_value.setMaximumSize(QSize(16777215, 50))
+        self.expensereport_value.setFont(font3)
+        self.expensereport_value.setStyleSheet(
+            "color: rgb(167, 83, 115);\n" 'font: 700 13px "inter";\n' ""
+        )
+        self.expensereport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.expensereport_value.setWordWrap(False)
+
+        self.horizontalLayout_38.addWidget(self.expensereport_value)
+
+        self.expenselbl_2 = QLabel(self.expensereport)
+        self.expenselbl_2.setObjectName("expenselbl_2")
+        self.expenselbl_2.setMaximumSize(QSize(16777215, 50))
+        self.expenselbl_2.setStyleSheet(
+            "color: rgb(167, 83, 115);\n"
+            'font: 600 12px "Inter";\n'
+            "text-align: center;"
+        )
+        self.expenselbl_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.expenselbl_2.setWordWrap(True)
+
+        self.horizontalLayout_38.addWidget(self.expenselbl_2)
+
+        self.verticalLayout_40.addLayout(self.horizontalLayout_38)
+
+        self.horizontalLayout_35.addWidget(self.expensereport)
+
+        self.verticalLayout_11.addLayout(self.horizontalLayout_35)
+
+        self.graphwidget = QWidget(self.widget)
+        self.graphwidget.setObjectName("graphwidget")
+        self.graphwidget.setMinimumSize(QSize(0, 200))
+        self.graphwidget.setMaximumSize(QSize(16777215, 200))
+        self.horizontalLayout_11 = QHBoxLayout(self.graphwidget)
+        self.horizontalLayout_11.setSpacing(10)
+        self.horizontalLayout_11.setObjectName("horizontalLayout_11")
+        self.horizontalLayout_10 = QHBoxLayout()
+        self.horizontalLayout_10.setObjectName("horizontalLayout_10")
+        self.transactionsummarybox_2 = QGroupBox(self.graphwidget)
+        self.transactionsummarybox_2.setObjectName("transactionsummarybox_2")
+        sizePolicy.setHeightForWidth(
+            self.transactionsummarybox_2.sizePolicy().hasHeightForWidth()
+        )
+        self.transactionsummarybox_2.setSizePolicy(sizePolicy)
+        self.transactionsummarybox_2.setMinimumSize(QSize(300, 247))
+        self.transactionsummarybox_2.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+        )
+        self.verticalLayout_22 = QVBoxLayout(self.transactionsummarybox_2)
+        self.verticalLayout_22.setObjectName("verticalLayout_22")
+        self.horizontalLayout_32 = QHBoxLayout()
+        self.horizontalLayout_32.setObjectName("horizontalLayout_32")
+        self.horizontalLayout_32.setContentsMargins(10, 0, -1, -1)
+        self.transactionsummary_2 = QLabel(self.transactionsummarybox_2)
+        self.transactionsummary_2.setObjectName("transactionsummary_2")
+        sizePolicy1.setHeightForWidth(
+            self.transactionsummary_2.sizePolicy().hasHeightForWidth()
+        )
+        self.transactionsummary_2.setSizePolicy(sizePolicy1)
+        self.transactionsummary_2.setFont(inter)
+        self.transactionsummary_2.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
+            'font: 500 15px "Inter";\n'
+            "background-color: transparent\n"
             ""
         )
-        self.verticalLayout_33 = QVBoxLayout(self.incomebox_38)
-        self.verticalLayout_33.setObjectName("verticalLayout_33")
-        self.verticalLayout_33.setContentsMargins(15, -1, 20, -1)
-        self.tableWidget_2 = QTableWidget(self.incomebox_38)
-        if self.tableWidget_2.columnCount() < 4:
-            self.tableWidget_2.setColumnCount(4)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.tableWidget_2.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.tableWidget_2.setHorizontalHeaderItem(1, __qtablewidgetitem1)
-        __qtablewidgetitem2 = QTableWidgetItem()
-        self.tableWidget_2.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        __qtablewidgetitem3 = QTableWidgetItem()
-        self.tableWidget_2.setHorizontalHeaderItem(3, __qtablewidgetitem3)
-        if self.tableWidget_2.rowCount() < 5:
-            self.tableWidget_2.setRowCount(5)
-        __qtablewidgetitem4 = QTableWidgetItem()
-        self.tableWidget_2.setVerticalHeaderItem(0, __qtablewidgetitem4)
-        __qtablewidgetitem5 = QTableWidgetItem()
-        self.tableWidget_2.setVerticalHeaderItem(1, __qtablewidgetitem5)
-        __qtablewidgetitem6 = QTableWidgetItem()
-        self.tableWidget_2.setVerticalHeaderItem(2, __qtablewidgetitem6)
-        __qtablewidgetitem7 = QTableWidgetItem()
-        self.tableWidget_2.setVerticalHeaderItem(3, __qtablewidgetitem7)
-        __qtablewidgetitem8 = QTableWidgetItem()
-        self.tableWidget_2.setVerticalHeaderItem(4, __qtablewidgetitem8)
-        self.tableWidget_2.setObjectName("tableWidget_2")
+        self.transactionsummary_2.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
+        )
+
+        self.horizontalLayout_32.addWidget(self.transactionsummary_2)
+
+        self.horizontalSpacer_8 = QSpacerItem(
+            40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum
+        )
+
+        self.horizontalLayout_32.addItem(self.horizontalSpacer_8)
+
+        self.verticalLayout_22.addLayout(self.horizontalLayout_32)
+
+        self.transactionreport_widget = QWidget(self.transactionsummarybox_2)
+        self.transactionreport_widget.setObjectName("transactionreport_widget")
+        self.verticalLayout_23 = QVBoxLayout(self.transactionreport_widget)
+        self.verticalLayout_23.setObjectName("verticalLayout_23")
+
+        self.verticalLayout_22.addWidget(self.transactionreport_widget)
+
+        self.horizontalLayout_10.addWidget(self.transactionsummarybox_2)
+
+        self.transactionsummarybox_3 = QGroupBox(self.graphwidget)
+        self.transactionsummarybox_3.setObjectName("transactionsummarybox_3")
         sizePolicy.setHeightForWidth(
-            self.tableWidget_2.sizePolicy().hasHeightForWidth()
+            self.transactionsummarybox_3.sizePolicy().hasHeightForWidth()
         )
-        self.tableWidget_2.setSizePolicy(sizePolicy)
-        self.tableWidget_2.horizontalHeader().setCascadingSectionResizes(False)
-
-        self.verticalLayout_33.addWidget(self.tableWidget_2)
-
-        self.verticalLayout_27.addWidget(self.incomebox_38)
-
-        self.horizontalLayout_18 = QHBoxLayout()
-        self.horizontalLayout_18.setObjectName("horizontalLayout_18")
-        self.incomebox_39 = QGroupBox(self.groupBox_8)
-        self.incomebox_39.setObjectName("incomebox_39")
-        self.incomebox_39.setMinimumSize(QSize(0, 200))
-        self.incomebox_39.setStyleSheet(
-            "background-color: rgb(167, 83, 115);\n" "border-radius:20\n" ""
+        self.transactionsummarybox_3.setSizePolicy(sizePolicy)
+        self.transactionsummarybox_3.setMinimumSize(QSize(300, 247))
+        self.transactionsummarybox_3.setStyleSheet(
+            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
         )
-        self.verticalLayout_56 = QVBoxLayout(self.incomebox_39)
-        self.verticalLayout_56.setObjectName("verticalLayout_56")
-        self.verticalLayout_56.setContentsMargins(15, -1, 20, -1)
-
-        self.horizontalLayout_18.addWidget(self.incomebox_39)
-
-        self.incomebox_40 = QGroupBox(self.groupBox_8)
-        self.incomebox_40.setObjectName("incomebox_40")
-        self.incomebox_40.setMinimumSize(QSize(0, 200))
-        self.incomebox_40.setStyleSheet(
-            "background-color: rgb(167, 83, 115);\n" "border-radius:20\n" ""
+        self.verticalLayout_36 = QVBoxLayout(self.transactionsummarybox_3)
+        self.verticalLayout_36.setObjectName("verticalLayout_36")
+        self.horizontalLayout_34 = QHBoxLayout()
+        self.horizontalLayout_34.setObjectName("horizontalLayout_34")
+        self.horizontalLayout_34.setContentsMargins(10, 0, -1, -1)
+        self.budgetsummary = QLabel(self.transactionsummarybox_3)
+        self.budgetsummary.setObjectName("budgetsummary")
+        sizePolicy1.setHeightForWidth(
+            self.budgetsummary.sizePolicy().hasHeightForWidth()
         )
-        self.verticalLayout_57 = QVBoxLayout(self.incomebox_40)
-        self.verticalLayout_57.setObjectName("verticalLayout_57")
-        self.verticalLayout_57.setContentsMargins(15, -1, 20, -1)
+        self.budgetsummary.setSizePolicy(sizePolicy1)
+        self.budgetsummary.setFont(inter)
+        self.budgetsummary.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
+            'font: 500 15px "Inter";\n'
+            "background-color: transparent\n"
+            ""
+        )
+        self.budgetsummary.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
+        )
 
-        self.horizontalLayout_18.addWidget(self.incomebox_40)
+        self.horizontalLayout_34.addWidget(self.budgetsummary)
 
-        self.verticalLayout_27.addLayout(self.horizontalLayout_18)
+        self.horizontalSpacer_10 = QSpacerItem(
+            40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum
+        )
 
-        self.verticalLayout_13.addWidget(self.groupBox_8)
+        self.horizontalLayout_34.addItem(self.horizontalSpacer_10)
 
-        self.scrollArea_4.setWidget(self.scrollAreaWidgetContents_3)
+        self.verticalLayout_36.addLayout(self.horizontalLayout_34)
 
-        self.verticalLayout_11.addWidget(self.scrollArea_4)
+        self.budgetreport_widget = QWidget(self.transactionsummarybox_3)
+        self.budgetreport_widget.setObjectName("budgetreport_widget")
+        self.verticalLayout_37 = QVBoxLayout(self.budgetreport_widget)
+        self.verticalLayout_37.setObjectName("verticalLayout_37")
 
-        self.verticalLayout_9.addLayout(self.verticalLayout_11)
+        self.verticalLayout_36.addWidget(self.budgetreport_widget)
+
+        self.horizontalLayout_10.addWidget(self.transactionsummarybox_3)
+
+        self.horizontalLayout_11.addLayout(self.horizontalLayout_10)
+
+        self.verticalLayout_11.addWidget(self.graphwidget)
+
+        self.verticalLayout_9 = QVBoxLayout()
+        self.verticalLayout_9.setObjectName("verticalLayout_9")
+        self.verticalLayout_9.setContentsMargins(-1, -1, -1, 20)
+        self.horizontalLayout_7 = QHBoxLayout()
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.horizontalLayout_7.setContentsMargins(50, -1, -1, -1)
+        self.translbl_2 = QLabel(self.widget)
+        self.translbl_2.setObjectName("translbl_2")
+        sizePolicy1.setHeightForWidth(self.translbl_2.sizePolicy().hasHeightForWidth())
+        self.translbl_2.setSizePolicy(sizePolicy1)
+        self.translbl_2.setFont(font5)
+        self.translbl_2.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
+            'font: 600 30px "Inter";\n'
+            "background-color: transparent\n"
+            ""
+        )
+        self.translbl_2.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
+        )
+
+        self.horizontalLayout_7.addWidget(self.translbl_2)
+
+        self.horizontalSpacer_3 = QSpacerItem(
+            40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum
+        )
+
+        self.horizontalLayout_7.addItem(self.horizontalSpacer_3)
+
+        self.verticalLayout_9.addLayout(self.horizontalLayout_7)
+
+        self.verticalLayout_8 = QVBoxLayout()
+        self.verticalLayout_8.setObjectName("verticalLayout_8")
+        self.verticalLayout_8.setContentsMargins(20, -1, 20, -1)
+        self.transwidgetbox = QWidget(self.widget)
+        self.transwidgetbox.setObjectName("transwidgetbox")
+        self.transwidgetbox.setStyleSheet("background-color: rgb(167, 83, 115);")
+        self.verticalLayout_20 = QVBoxLayout(self.transwidgetbox)
+        self.verticalLayout_20.setSpacing(15)
+        self.verticalLayout_20.setObjectName("verticalLayout_20")
+        self.verticalLayout_20.setContentsMargins(15, 15, 15, 15)
+        self.transtableviewwidget = QWidget(self.transwidgetbox)
+        self.transtableviewwidget.setObjectName("transtableviewwidget")
+        self.transtableviewwidget.setStyleSheet(
+            "background-color:rgb(255, 255, 255);\n" "border-radius: 25"
+        )
+        self.verticalLayout_21 = QVBoxLayout(self.transtableviewwidget)
+        self.verticalLayout_21.setObjectName("verticalLayout_21")
+        self.transactions = QTableView()
+        self.model_1 = QStandardItemModel()
+
+        self.model_1.setHorizontalHeaderLabels(
+            ["Date", "Amount", "Description", "Category"]
+        )
+        self.transactions.setModel(self.model_1)
+        self.transactions.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.transactions.verticalHeader().setVisible(False)
+        self.transactions.verticalHeader().setDefaultSectionSize(40)
+        self.transactions.setAlternatingRowColors(True)
+        self.transactions.setShowGrid(False)
+        self.transactions.setSelectionMode(QTableView.NoSelection)
+        self.transactions.setEditTriggers(QTableView.NoEditTriggers)
+        self.transactions.setFocusPolicy(Qt.NoFocus)
+        self.transactions.horizontalHeader().setFocusPolicy(Qt.NoFocus)
+        self.transactions.setStyleSheet(
+            """QTableView {
+    background-color: white;
+    alternate-background-color: #f0f8ff; /* light blue */
+    gridline-color: #dcdcdc;
+    font: 300 12px "Inter";
+    border: none;
+}
+
+
+QTableView::item:hover {
+    background-color: #e0f7fa;  /* light cyan */
+}
+
+
+
+QTableView::item {
+    padding: 8px;
+    color: rgb(105, 104, 104);
+    font: 900 12px "Inter";
+}
+
+QHeaderView::section {
+    font: 500 12px "Inter";
+    background-color: white;
+    color: rgb(92, 91, 91);
+    padding: 5px;
+    border: 1px solid rgb(230, 230, 230);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+"""
+        )
+
+        self.verticalLayout_21.addWidget(self.transactions)
+
+        self.verticalLayout_20.addWidget(self.transtableviewwidget)
+
+        self.verticalLayout_8.addWidget(self.transwidgetbox)
+
+        self.verticalLayout_9.addLayout(self.verticalLayout_8)
+
+        self.verticalLayout_11.addLayout(self.verticalLayout_9)
+
+        self.verticalLayout_6.addWidget(self.widget)
+
+        self.stackedWidget.addWidget(self.page_4)
+        self.no_available_report_page = QWidget()
+        self.no_available_report_page.setObjectName("no_available_report_page")
+        self.verticalLayout_7 = QVBoxLayout(self.no_available_report_page)
+        self.verticalLayout_7.setObjectName("verticalLayout_7")
+        self.noavailablereportwidget = QWidget(self.no_available_report_page)
+        self.noavailablereportwidget.setObjectName("noavailablereportwidget")
+        self.noavailablereportwidget.setStyleSheet(
+            "background-color: rgb(254, 254, 254);\n" "border-radius: 30\n" ""
+        )
+        self.horizontalLayout_5 = QHBoxLayout(self.noavailablereportwidget)
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.noavailablereportlbl = QLabel(self.noavailablereportwidget)
+        self.noavailablereportlbl.setObjectName("noavailablereportlbl")
+        sizePolicy1.setHeightForWidth(
+            self.noavailablereportlbl.sizePolicy().hasHeightForWidth()
+        )
+        self.noavailablereportlbl.setSizePolicy(sizePolicy1)
+        self.noavailablereportlbl.setFont(font5)
+        self.noavailablereportlbl.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
+            'font: 600 20px "Inter";\n'
+            "background-color: transparent\n"
+            ""
+        )
+        self.noavailablereportlbl.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
+        )
+
+        self.horizontalLayout_5.addWidget(self.noavailablereportlbl)
+
+        self.verticalLayout_7.addWidget(self.noavailablereportwidget)
+
+        self.stackedWidget.addWidget(self.no_available_report_page)
+
+        self.verticalLayout_5.addWidget(self.stackedWidget)
+
+        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
+
+        self.verticalLayout_4.addWidget(self.scrollArea_3)
 
         self.tab.addWidget(self.page_3)
 
@@ -2029,7 +2576,6 @@ QHeaderView::section {
         self.sidebar_expanded = True
 
     def retranslateUi(self, MainWindow):
-
         MainWindow.setWindowTitle(
             QCoreApplication.translate("MainWindow", "MainWindow", None)
         )
@@ -2099,7 +2645,7 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "\u20b1 44340.00", None)
         )
         self.expenselbl.setText(
-            QCoreApplication.translate("MainWindow", "Expense", None)
+            QCoreApplication.translate("MainWindow", "Amount Spent", None)
         )
         self.incomebox.setTitle("")
         self.incomevalue.setText(
@@ -2149,6 +2695,190 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "Add Transaction", None)
         )
         self.tablebox.setTitle("")
+        self.monthcombo.setItemText(
+            0, QCoreApplication.translate("MainWindow", "January", None)
+        )
+        self.monthcombo.setItemText(
+            1, QCoreApplication.translate("MainWindow", "February", None)
+        )
+        self.monthcombo.setItemText(
+            2, QCoreApplication.translate("MainWindow", "March", None)
+        )
+        self.monthcombo.setItemText(
+            3, QCoreApplication.translate("MainWindow", "April", None)
+        )
+        self.monthcombo.setItemText(
+            4, QCoreApplication.translate("MainWindow", "May", None)
+        )
+        self.monthcombo.setItemText(
+            5, QCoreApplication.translate("MainWindow", "June", None)
+        )
+        self.monthcombo.setItemText(
+            6, QCoreApplication.translate("MainWindow", "July", None)
+        )
+        self.monthcombo.setItemText(
+            7, QCoreApplication.translate("MainWindow", "August", None)
+        )
+        self.monthcombo.setItemText(
+            8, QCoreApplication.translate("MainWindow", "September", None)
+        )
+        self.monthcombo.setItemText(
+            9, QCoreApplication.translate("MainWindow", "October", None)
+        )
+        self.monthcombo.setItemText(
+            10, QCoreApplication.translate("MainWindow", "November", None)
+        )
+        self.monthcombo.setItemText(
+            11, QCoreApplication.translate("MainWindow", "December", None)
+        )
+
+        self.monthcombo.setPlaceholderText(
+            QCoreApplication.translate("MainWindow", "Month", None)
+        )
+        self.daycombo.setItemText(
+            0, QCoreApplication.translate("MainWindow", "01", None)
+        )
+        self.daycombo.setItemText(
+            1, QCoreApplication.translate("MainWindow", "02", None)
+        )
+        self.daycombo.setItemText(
+            2, QCoreApplication.translate("MainWindow", "03", None)
+        )
+        self.daycombo.setItemText(
+            3, QCoreApplication.translate("MainWindow", "04", None)
+        )
+        self.daycombo.setItemText(
+            4, QCoreApplication.translate("MainWindow", "05", None)
+        )
+        self.daycombo.setItemText(
+            5, QCoreApplication.translate("MainWindow", "06", None)
+        )
+        self.daycombo.setItemText(
+            6, QCoreApplication.translate("MainWindow", "07", None)
+        )
+        self.daycombo.setItemText(
+            7, QCoreApplication.translate("MainWindow", "08", None)
+        )
+        self.daycombo.setItemText(
+            8, QCoreApplication.translate("MainWindow", "09", None)
+        )
+        self.daycombo.setItemText(
+            9, QCoreApplication.translate("MainWindow", "10", None)
+        )
+        self.daycombo.setItemText(
+            10, QCoreApplication.translate("MainWindow", "11", None)
+        )
+        self.daycombo.setItemText(
+            11, QCoreApplication.translate("MainWindow", "12", None)
+        )
+        self.daycombo.setItemText(
+            12, QCoreApplication.translate("MainWindow", "13", None)
+        )
+        self.daycombo.setItemText(
+            13, QCoreApplication.translate("MainWindow", "14", None)
+        )
+        self.daycombo.setItemText(
+            14, QCoreApplication.translate("MainWindow", "15", None)
+        )
+        self.daycombo.setItemText(
+            15, QCoreApplication.translate("MainWindow", "16", None)
+        )
+        self.daycombo.setItemText(
+            16, QCoreApplication.translate("MainWindow", "17", None)
+        )
+        self.daycombo.setItemText(
+            17, QCoreApplication.translate("MainWindow", "18", None)
+        )
+        self.daycombo.setItemText(
+            18, QCoreApplication.translate("MainWindow", "19", None)
+        )
+        self.daycombo.setItemText(
+            19, QCoreApplication.translate("MainWindow", "20", None)
+        )
+        self.daycombo.setItemText(
+            20, QCoreApplication.translate("MainWindow", "21", None)
+        )
+        self.daycombo.setItemText(
+            21, QCoreApplication.translate("MainWindow", "22", None)
+        )
+        self.daycombo.setItemText(
+            22, QCoreApplication.translate("MainWindow", "23", None)
+        )
+        self.daycombo.setItemText(
+            23, QCoreApplication.translate("MainWindow", "24", None)
+        )
+        self.daycombo.setItemText(
+            24, QCoreApplication.translate("MainWindow", "25", None)
+        )
+        self.daycombo.setItemText(
+            25, QCoreApplication.translate("MainWindow", "26", None)
+        )
+        self.daycombo.setItemText(
+            26, QCoreApplication.translate("MainWindow", "27", None)
+        )
+        self.daycombo.setItemText(
+            27, QCoreApplication.translate("MainWindow", "28", None)
+        )
+        self.daycombo.setItemText(
+            28, QCoreApplication.translate("MainWindow", "29", None)
+        )
+        self.daycombo.setItemText(
+            29, QCoreApplication.translate("MainWindow", "30", None)
+        )
+        self.daycombo.setItemText(
+            30, QCoreApplication.translate("MainWindow", "31", None)
+        )
+
+        self.daycombo.setPlaceholderText(
+            QCoreApplication.translate("MainWindow", "Day", None)
+        )
+        self.yearcombo.setItemText(
+            0, QCoreApplication.translate("MainWindow", "2024", None)
+        )
+        self.yearcombo.setItemText(
+            1, QCoreApplication.translate("MainWindow", "2025", None)
+        )
+
+        self.yearcombo.setPlaceholderText(
+            QCoreApplication.translate("MainWindow", "Year", None)
+        )
+        self.viewbtn.setText(QCoreApplication.translate("MainWindow", "View", None))
+        self.monthlyreport_lbl.setText(
+            QCoreApplication.translate("MainWindow", "Monthly Report", None)
+        )
+        self.budgetreport.setTitle("")
+        self.budgetreport_value.setText(
+            QCoreApplication.translate("MainWindow", "\u20b1 3254.00", None)
+        )
+        self.budgetlbl.setText(QCoreApplication.translate("MainWindow", "Budget", None))
+        self.savingsreport.setTitle("")
+        self.savingsreport_value.setText(
+            QCoreApplication.translate("MainWindow", "\u20b1 554.00", None)
+        )
+        self.savingslbl_2.setText(
+            QCoreApplication.translate("MainWindow", "Savings", None)
+        )
+        self.expensereport.setTitle("")
+        self.expensereport_value.setText(
+            QCoreApplication.translate("MainWindow", "\u20b1 854.00", None)
+        )
+        self.expenselbl_2.setText(
+            QCoreApplication.translate("MainWindow", "Amount Spent", None)
+        )
+        self.transactionsummarybox_2.setTitle("")
+        self.transactionsummary_2.setText(
+            QCoreApplication.translate("MainWindow", "Transactions Summary", None)
+        )
+        self.transactionsummarybox_3.setTitle("")
+        self.budgetsummary.setText(
+            QCoreApplication.translate("MainWindow", "Budget Summary", None)
+        )
+        self.translbl_2.setText(
+            QCoreApplication.translate("MainWindow", "Transactions", None)
+        )
+        self.noavailablereportlbl.setText(
+            QCoreApplication.translate("MainWindow", "No Available Report", None)
+        )
         self.overallbudgetbox.setTitle("")
         self.overallbudgetvalue.setText(
             QCoreApplication.translate("MainWindow", "\u20b1 54320.00", None)
@@ -2161,7 +2891,7 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "\u20b1 450.00", None)
         )
         self.totalexpenselbl.setText(
-            QCoreApplication.translate("MainWindow", "Total Expense", None)
+            QCoreApplication.translate("MainWindow", "Amount Spent", None)
         )
         self.accumulatedsavingsbox.setTitle("")
         self.accumulatedsavingvalue.setText(
@@ -2191,7 +2921,7 @@ QHeaderView::section {
         )
         self.totaltransactionbox.setTitle("")
         self.totaltransactionlbl.setText(
-            QCoreApplication.translate("MainWindow", "Total Transactons", None)
+            QCoreApplication.translate("MainWindow", "Total Transactions", None)
         )
         self.totaltransactionvalue.setText(
             QCoreApplication.translate("MainWindow", "204", None)
@@ -2222,6 +2952,114 @@ QHeaderView::section {
         dialog.setWindowModality(Qt.ApplicationModal)
         dialog.show()
         dialog.exec()
+
+    def add_graph_to_widget(self, widget: QWidget):
+        # Create DataManager instance with sample data
+        data_manager = DataManager(sample_transactions)
+
+        # Clear any existing plots and create new figure
+        plt.close("all")
+        fig = plt.figure(figsize=(4, 3), dpi=100)
+        ax = fig.add_subplot(111)
+
+        # Get statistics from DataManager
+        stats = data_manager.get_statistics(20000)  # Example total income
+        category_data = stats["Category Percentage and amount"]
+
+        # Extract data for plotting
+        categories = list(category_data.keys())
+        amounts = [data[1] for data in category_data.values()]
+
+        # Create bar chart with styling
+        bars = ax.bar(categories, amounts, color="#a75373")
+
+        # Customize the appearance
+        ax.set_xlabel("Category", fontsize=7, labelpad=8)
+        ax.set_ylabel("Amount Spent", fontsize=7, labelpad=8)
+
+        # Rotate and align the tick labels so they look better
+        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", fontsize=7)
+        plt.setp(ax.get_yticklabels(), fontsize=7)
+
+        # Add some padding between the axis and the labels
+        ax.tick_params(axis="x", which="major", pad=5)
+
+        # Adjust layout to prevent label cutoff
+        fig.tight_layout()
+
+        # Convert to Qt canvas
+        canvas = FigureCanvas(fig)
+        canvas.setMinimumSize(300, 200)
+
+        # Get the existing layout
+        layout = widget.layout()
+
+        # Clear any existing widgets in the layout
+        if layout:
+            while layout.count():
+                item = layout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
+
+            # Add the canvas to the existing layout
+            layout.addWidget(canvas)
+        # Force the widget to update
+        widget.update()
+        canvas.draw()
+
+    def add_graph_to_budget_summary(self, widget: QWidget):
+        # Create DataManager instance with sample data
+        data_manager = DataManager(sample_transactions)
+
+        # Clear any existing plots and create new figure
+        plt.close("all")
+        fig = plt.figure(figsize=(4, 3), dpi=100)
+        ax = fig.add_subplot(111)
+
+        # Get statistics from DataManager
+        stats = data_manager.get_statistics(20000)  # Example total income
+        category_data = stats["Category Percentage and amount"]
+
+        # Extract data for plotting
+        categories = list(category_data.keys())
+        percentages = [float(data[0]) for data in category_data.values()]
+
+        # Create pie chart with styling
+        wedges, texts, autotexts = ax.pie(
+            percentages,
+            labels=categories,
+            autopct="%1.1f%%",
+            startangle=140,
+            colors=["#a75373", "#6c4464", "#d46a92", "#904863", "#f4d4d4"],
+        )
+
+        # Style the labels and percentages
+        plt.setp(texts, size=7)
+        plt.setp(autotexts, size=7)
+
+        # Adjust layout to prevent label cutoff
+        fig.tight_layout()
+
+        # Convert to Qt canvas
+        canvas = FigureCanvas(fig)
+        canvas.setMinimumSize(300, 200)
+
+        # Get the existing layout
+        layout = widget.layout()
+
+        # Clear any existing widgets in the layout
+        if layout:
+            while layout.count():
+                item = layout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
+
+            # Add the canvas to the existing layout
+            layout.addWidget(canvas)
+
+        # Force the widget to update
+        widget.update()
+        canvas.draw()
 
 
 app = QApplication(sys.argv)
