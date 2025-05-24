@@ -1,7 +1,7 @@
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
-from components.icons_rc import *
+from assets.icons.icons_rc import *
 from components.ui import *
 
 
@@ -832,7 +832,6 @@ QToolButton:hover {
             "QPushButton:hover {\n"
             "\n"
             "		background-color: rgb(138, 69, 95);\n"
-           
             "   \n"
             "}"
         )
