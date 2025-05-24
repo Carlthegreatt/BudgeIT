@@ -1828,6 +1828,7 @@ QHeaderView::section {
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.horizontalLayout_4.setContentsMargins(0, -1, 0, -1)
         self.monthcombo = QComboBox(self.scrollAreaWidgetContents_3)
+        self.monthcombo.setPlaceholderText("Month")
         self.monthcombo.addItem("")
         self.monthcombo.addItem("")
         self.monthcombo.addItem("")
@@ -1897,6 +1898,7 @@ QHeaderView::section {
         self.horizontalLayout_4.addWidget(self.monthcombo)
 
         self.daycombo = QComboBox(self.scrollAreaWidgetContents_3)
+        self.daycombo.setPlaceholderText("Day")
         self.daycombo.addItem("")
         self.daycombo.addItem("")
         self.daycombo.addItem("")
@@ -1980,10 +1982,10 @@ QHeaderView::section {
         )
         self.daycombo.setEditable(False)
         self.daycombo.setFrame(True)
-
         self.horizontalLayout_4.addWidget(self.daycombo)
 
         self.yearcombo = QComboBox(self.scrollAreaWidgetContents_3)
+        self.yearcombo.setPlaceholderText("Year")
         self.yearcombo.addItem("")
         self.yearcombo.addItem("")
         self.yearcombo.setObjectName("yearcombo")
