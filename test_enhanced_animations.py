@@ -1,4 +1,3 @@
-import os
 import sys
 from PySide6.QtCore import *
 from PySide6.QtGui import *
@@ -10,28 +9,15 @@ from budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from components.datamanager import DataManager, sample_transactions
-from signoutwindow import SignOutWindow
 
 
 class Ui_MainWindow(QMainWindow):
     def setupUi(self, MainWindow):
-        font_path = os.path.join(
-            os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
-        )
-        font_id = QFontDatabase.addApplicationFont(font_path)
-
-        if font_id != -1:
-            font_families = QFontDatabase.applicationFontFamilies(font_id)
-            if font_families:
-                app_font = QFont(font_families[0])
-                QApplication.setFont(app_font)
-            else:
-                print("Font loaded, but no families found.")
-        else:
-            print("Failed to load font.")
-
+        QFontDatabase.addApplicationFont("assets/fonts/Inter.ttf")
         title_icon = QIcon()
-        title_icon.addFile(":/logomin.png", QSize(), QIcon.Mode.Active, QIcon.State.On)
+        title_icon.addFile(
+            ":/images/logomin.png", QSize(), QIcon.Mode.Active, QIcon.State.On
+        )
         self.setWindowIcon(title_icon)
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
@@ -186,7 +172,7 @@ class Ui_MainWindow(QMainWindow):
         self.minlogo = QLabel(self.minlogowidget)
         self.minlogo.setObjectName("minlogo")
         self.minlogo.setMaximumSize(QSize(50, 40))
-        self.minlogo.setPixmap(QPixmap(":/logomin.png"))
+        self.minlogo.setPixmap(QPixmap(":/images/logomin.png"))
         self.minlogo.setScaledContents(True)
         self.minlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -351,7 +337,7 @@ class Ui_MainWindow(QMainWindow):
         self.maxlogo = QLabel(self.maxlogowidget)
         self.maxlogo.setObjectName("maxlogo")
         self.maxlogo.setMaximumSize(QSize(110, 40))
-        self.maxlogo.setPixmap(QPixmap(":/logomax.png"))
+        self.maxlogo.setPixmap(QPixmap(":/images/logomax.png"))
         self.maxlogo.setScaledContents(True)
         self.maxlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -431,7 +417,6 @@ class Ui_MainWindow(QMainWindow):
         self.logoutbtn.setCheckable(False)
         self.logoutbtn.setChecked(False)
         self.logoutbtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
-        self.logoutbtn.clicked.connect(lambda: self.signoutwindow())
 
         self.verticalLayout_30.addWidget(self.logoutbtn)
 
@@ -530,11 +515,11 @@ class Ui_MainWindow(QMainWindow):
         self.menulabel.setObjectName("menulabel")
         sizePolicy1.setHeightForWidth(self.menulabel.sizePolicy().hasHeightForWidth())
         self.menulabel.setSizePolicy(sizePolicy1)
-        Inter = QFont()
-        Inter.setFamilies(["Inter"])
-        Inter.setWeight(QFont.Medium)
-        Inter.setItalic(False)
-        self.menulabel.setFont(Inter)
+        inter = QFont()
+        inter.setFamilies(["Inter"])
+        inter.setWeight(QFont.Medium)
+        inter.setItalic(False)
+        self.menulabel.setFont(inter)
         self.menulabel.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
             'font: 500 20px "Inter";\n'
@@ -674,7 +659,7 @@ class Ui_MainWindow(QMainWindow):
         self.user.setObjectName("user")
         sizePolicy1.setHeightForWidth(self.user.sizePolicy().hasHeightForWidth())
         self.user.setSizePolicy(sizePolicy1)
-        self.user.setFont(Inter)
+        self.user.setFont(inter)
         self.user.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
             'font: 700 40px "Inter";\n'
@@ -738,14 +723,14 @@ class Ui_MainWindow(QMainWindow):
         self.budgetvalue = QLabel(self.totalbudgetbox)
         self.budgetvalue.setObjectName("budgetvalue")
         font2 = QFont()
-        font2.setFamilies(["Inter"])
+        font2.setFamilies(["inter"])
         font2.setBold(True)
         font2.setItalic(False)
         self.budgetvalue.setFont(font2)
         self.budgetvalue.setStyleSheet(
             "color: rgb(167, 83, 115);\n"
             "background:transparent;\n"
-            'font: 700 45px "Inter";\n'
+            'font: 700 45px "inter";\n'
             ""
         )
         self.budgetvalue.setFrameShape(QFrame.Shape.NoFrame)
@@ -897,7 +882,7 @@ class Ui_MainWindow(QMainWindow):
         self.savingsvalue.setStyleSheet(
             "color: rgb(212, 106, 146);\n"
             "background-color: transparent;\n"
-            'font: 700 45px "Inter";\n'
+            'font: 700 45px "inter";\n'
             ""
         )
         self.savingsvalue.setFrameShape(QFrame.Shape.NoFrame)
@@ -989,7 +974,7 @@ class Ui_MainWindow(QMainWindow):
         self.expensevalue.setMaximumSize(QSize(16777215, 50))
         self.expensevalue.setFont(font2)
         self.expensevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 20px "Inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 20px "inter";\n' ""
         )
         self.expensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.expensevalue.setWordWrap(False)
@@ -1035,7 +1020,7 @@ class Ui_MainWindow(QMainWindow):
         self.incomevalue.setMaximumSize(QSize(16777215, 50))
         self.incomevalue.setFont(font2)
         self.incomevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 20px "Inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 20px "inter";\n' ""
         )
         self.incomevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.incomevalue.setWordWrap(False)
@@ -1086,7 +1071,7 @@ class Ui_MainWindow(QMainWindow):
         sizePolicy4.setVerticalStretch(0)
         sizePolicy4.setHeightForWidth(self.activitylbl.sizePolicy().hasHeightForWidth())
         self.activitylbl.setSizePolicy(sizePolicy4)
-        self.activitylbl.setFont(Inter)
+        self.activitylbl.setFont(inter)
         self.activitylbl.setStyleSheet(
             "color: rgb(254, 250, 250);\n" 'font: 700 30px "Inter";'
         )
@@ -1137,7 +1122,13 @@ class Ui_MainWindow(QMainWindow):
 
         self.categorycombo = QComboBox(self.activitybox)
         self.categorycombo.setPlaceholderText("Category")
-
+        self.categorycombo.addItem("")
+        self.categorycombo.addItem("")
+        self.categorycombo.addItem("")
+        self.categorycombo.addItem("")
+        self.categorycombo.addItem("")
+        self.categorycombo.addItem("")
+        self.categorycombo.addItem("")
         self.categorycombo.setObjectName("categorycombo")
         sizePolicy5.setHeightForWidth(
             self.categorycombo.sizePolicy().hasHeightForWidth()
@@ -1352,7 +1343,7 @@ QHeaderView::section {
         self.overallbudgetbox.setObjectName("overallbudgetbox")
         self.overallbudgetbox.setMinimumSize(QSize(300, 80))
         self.overallbudgetbox.setMaximumSize(QSize(16777215, 80))
-        self.overallbudgetbox.setFont(Inter)
+        self.overallbudgetbox.setFont(inter)
         self.overallbudgetbox.setStyleSheet(
             "text-align: center;\n"
             "background-color: rgb(167, 83, 115);\n"
@@ -1373,7 +1364,7 @@ QHeaderView::section {
         self.overallbudgetvalue.setMaximumSize(QSize(16777215, 50))
         self.overallbudgetvalue.setFont(font3)
         self.overallbudgetvalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 15px "Inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 15px "inter";\n' ""
         )
         self.overallbudgetvalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.overallbudgetvalue.setWordWrap(False)
@@ -1401,7 +1392,7 @@ QHeaderView::section {
         self.expensebox_3.setObjectName("expensebox_3")
         self.expensebox_3.setMinimumSize(QSize(300, 80))
         self.expensebox_3.setMaximumSize(QSize(16777215, 80))
-        self.expensebox_3.setFont(Inter)
+        self.expensebox_3.setFont(inter)
         self.expensebox_3.setStyleSheet(
             "text-align: center;\n"
             "background-color: rgb(167, 83, 115);\n"
@@ -1422,7 +1413,7 @@ QHeaderView::section {
         self.totalexpensevalue.setMaximumSize(QSize(16777215, 50))
         self.totalexpensevalue.setFont(font3)
         self.totalexpensevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 15px "Inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 15px "inter";\n' ""
         )
         self.totalexpensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.totalexpensevalue.setWordWrap(False)
@@ -1455,7 +1446,7 @@ QHeaderView::section {
         self.accumulatedsavingsbox.setObjectName("accumulatedsavingsbox")
         self.accumulatedsavingsbox.setMinimumSize(QSize(300, 80))
         self.accumulatedsavingsbox.setMaximumSize(QSize(16777215, 80))
-        self.accumulatedsavingsbox.setFont(Inter)
+        self.accumulatedsavingsbox.setFont(inter)
         self.accumulatedsavingsbox.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 20px"
         )
@@ -1474,7 +1465,7 @@ QHeaderView::section {
         self.accumulatedsavingvalue.setMaximumSize(QSize(16777215, 50))
         self.accumulatedsavingvalue.setFont(font3)
         self.accumulatedsavingvalue.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 15px "Inter";\n' ""
+            "color: rgb(167, 83, 115);\n" 'font: 700 15px "inter";\n' ""
         )
         self.accumulatedsavingvalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.accumulatedsavingvalue.setWordWrap(False)
@@ -1502,7 +1493,7 @@ QHeaderView::section {
         self.totalincomebox.setObjectName("totalincomebox")
         self.totalincomebox.setMinimumSize(QSize(300, 80))
         self.totalincomebox.setMaximumSize(QSize(16777215, 80))
-        self.totalincomebox.setFont(Inter)
+        self.totalincomebox.setFont(inter)
         self.totalincomebox.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 20px"
         )
@@ -1521,7 +1512,7 @@ QHeaderView::section {
         self.totalincomevalue.setMaximumSize(QSize(16777215, 50))
         self.totalincomevalue.setFont(font3)
         self.totalincomevalue.setStyleSheet(
-            "color: rgb(166, 83, 115);\n" 'font: 700 15px "Inter";\n' ""
+            "color: rgb(166, 83, 115);\n" 'font: 700 15px "inter";\n' ""
         )
         self.totalincomevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.totalincomevalue.setWordWrap(False)
@@ -1572,7 +1563,7 @@ QHeaderView::section {
             self.transactionsummary.sizePolicy().hasHeightForWidth()
         )
         self.transactionsummary.setSizePolicy(sizePolicy1)
-        self.transactionsummary.setFont(Inter)
+        self.transactionsummary.setFont(inter)
         self.transactionsummary.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
             'font: 500 15px "Inter";\n'
@@ -1638,7 +1629,7 @@ QHeaderView::section {
             self.budgetsummarylbl.sizePolicy().hasHeightForWidth()
         )
         self.budgetsummarylbl.setSizePolicy(sizePolicy1)
-        self.budgetsummarylbl.setFont(Inter)
+        self.budgetsummarylbl.setFont(inter)
         self.budgetsummarylbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
             'font: 500 15px "Inter";\n'
@@ -1696,7 +1687,7 @@ QHeaderView::section {
             self.youractivitylbl.sizePolicy().hasHeightForWidth()
         )
         self.youractivitylbl.setSizePolicy(sizePolicy1)
-        self.youractivitylbl.setFont(Inter)
+        self.youractivitylbl.setFont(inter)
         self.youractivitylbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
             'font: 500 15px "Inter";\n'
@@ -1747,7 +1738,7 @@ QHeaderView::section {
             self.totaltransactionlbl.sizePolicy().hasHeightForWidth()
         )
         self.totaltransactionlbl.setSizePolicy(sizePolicy1)
-        self.totaltransactionlbl.setFont(Inter)
+        self.totaltransactionlbl.setFont(inter)
         self.totaltransactionlbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
             'font: 500 15px "Inter";\n'
@@ -2143,7 +2134,7 @@ QHeaderView::section {
         self.budgetreport = QGroupBox(self.widget)
         self.budgetreport.setObjectName("budgetreport")
         self.budgetreport.setMaximumSize(QSize(16777215, 80))
-        self.budgetreport.setFont(Inter)
+        self.budgetreport.setFont(inter)
         self.budgetreport.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
         )
@@ -2162,7 +2153,7 @@ QHeaderView::section {
         self.budgetreport_value.setMaximumSize(QSize(16777215, 50))
         self.budgetreport_value.setFont(font3)
         self.budgetreport_value.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 13px "Inter";\n' ""
+            "color: rgb(167, 83, 115);\n" 'font: 700 13px "inter";\n' ""
         )
         self.budgetreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.budgetreport_value.setWordWrap(False)
@@ -2189,7 +2180,7 @@ QHeaderView::section {
         self.savingsreport = QGroupBox(self.widget)
         self.savingsreport.setObjectName("savingsreport")
         self.savingsreport.setMaximumSize(QSize(16777215, 80))
-        self.savingsreport.setFont(Inter)
+        self.savingsreport.setFont(inter)
         self.savingsreport.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
         )
@@ -2208,7 +2199,7 @@ QHeaderView::section {
         self.savingsreport_value.setMaximumSize(QSize(16777215, 50))
         self.savingsreport_value.setFont(font3)
         self.savingsreport_value.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 13px "Inter";\n' ""
+            "color: rgb(167, 83, 115);\n" 'font: 700 13px "inter";\n' ""
         )
         self.savingsreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.savingsreport_value.setWordWrap(False)
@@ -2235,7 +2226,7 @@ QHeaderView::section {
         self.expensereport = QGroupBox(self.widget)
         self.expensereport.setObjectName("expensereport")
         self.expensereport.setMaximumSize(QSize(16777215, 80))
-        self.expensereport.setFont(Inter)
+        self.expensereport.setFont(inter)
         self.expensereport.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
         )
@@ -2254,7 +2245,7 @@ QHeaderView::section {
         self.expensereport_value.setMaximumSize(QSize(16777215, 50))
         self.expensereport_value.setFont(font3)
         self.expensereport_value.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 13px "Inter";\n' ""
+            "color: rgb(167, 83, 115);\n" 'font: 700 13px "inter";\n' ""
         )
         self.expensereport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.expensereport_value.setWordWrap(False)
@@ -2310,7 +2301,7 @@ QHeaderView::section {
             self.transactionsummary_2.sizePolicy().hasHeightForWidth()
         )
         self.transactionsummary_2.setSizePolicy(sizePolicy1)
-        self.transactionsummary_2.setFont(Inter)
+        self.transactionsummary_2.setFont(inter)
         self.transactionsummary_2.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
             'font: 500 15px "Inter";\n'
@@ -2363,7 +2354,7 @@ QHeaderView::section {
             self.budgetsummary.sizePolicy().hasHeightForWidth()
         )
         self.budgetsummary.setSizePolicy(sizePolicy1)
-        self.budgetsummary.setFont(Inter)
+        self.budgetsummary.setFont(inter)
         self.budgetsummary.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
             'font: 500 15px "Inter";\n'
@@ -2578,26 +2569,8 @@ QHeaderView::section {
 
         self.tab.setCurrentIndex(0)
 
-        # Initialize fade animations for each page
-        self.fade_effects = []
-        for i in range(3):  # 3 pages: Dashboard, Analytics, Reports
-            fade_effect = QGraphicsOpacityEffect()
-            fade_animation = QPropertyAnimation(fade_effect, b"opacity")
-            fade_animation.setDuration(500)  # 500ms fade duration
-            fade_animation.setStartValue(0.0)
-            fade_animation.setEndValue(1.0)
-            fade_effect.setOpacity(1.0)  # Start with full opacity
-            self.fade_effects.append((fade_effect, fade_animation))
-
-        # Add connection for tab changes with fade animation
-        self.tab.currentChanged.connect(self.handle_page_change)
-
-        # Initialize the first page with fade effect
-        initial_widget = self.tab.widget(0)  # Dashboard page
-        if initial_widget and len(self.fade_effects) > 0:
-            fade_effect, _ = self.fade_effects[0]
-            initial_widget.setGraphicsEffect(fade_effect)
-            fade_effect.setOpacity(1.0)  # Start visible for the initial page
+        # Add connection for tab changes
+        self.tab.currentChanged.connect(self.update_menu_label)
 
         QMetaObject.connectSlotsByName(MainWindow)
         self.maxsidebar.hide()
@@ -2648,7 +2621,7 @@ QHeaderView::section {
         self.greethello.setText(
             QCoreApplication.translate("MainWindow", "Hello,", None)
         )
-        self.user.setText(QCoreApplication.translate("MainWindow", "User", None))
+        self.user.setText(QCoreApplication.translate("MainWindow", "Oscar Pol", None))
         self.totalbudgetbox.setTitle("")
         self.totalbudgetlbl.setText(
             QCoreApplication.translate("MainWindow", "Current Budget", None)
@@ -2982,131 +2955,59 @@ QHeaderView::section {
         dialog.show()
         dialog.exec()
 
-    def signoutwindow(self):
-        dialog = SignOutWindow(self)
-        dialog.setWindowModality(Qt.ApplicationModal)
-        dialog.show()
-        dialog.exec()
-
     def add_graph_to_widget(self, widget: QWidget):
-        try:
-            # Create DataManager instance with sample data
-            data_manager = DataManager(sample_transactions)
+        # Create DataManager instance with sample data
+        data_manager = DataManager(sample_transactions)
 
-            # Clear any existing plots to prevent memory leaks
-            plt.close("all")
+        # Clear any existing plots and create new figure
+        plt.close("all")
+        fig = plt.figure(figsize=(4, 3), dpi=100)
+        ax = fig.add_subplot(111)
 
-            # Create new figure with optimized settings
-            fig = plt.figure(figsize=(4, 3), dpi=100, facecolor="white")
-            ax = fig.add_subplot(111)
+        # Get statistics from DataManager
+        stats = data_manager.get_statistics(20000)  # Example total income
+        category_data = stats["Category Percentage and amount"]
 
-            # Get statistics from DataManager
-            stats = data_manager.get_statistics(20000)  # Example total income
-            category_data = stats["Category Percentage and amount"]
+        # Extract data for plotting
+        categories = list(category_data.keys())
+        amounts = [data[1] for data in category_data.values()]
 
-            # Validate data before plotting
-            if not category_data:
-                print("Warning: No category data available for graph")
-                return
+        # Create bar chart with styling
+        bars = ax.bar(categories, amounts, color="#a75373")
 
-            # Extract data for plotting
-            categories = list(category_data.keys())
-            amounts = [data[1] for data in category_data.values()]
+        # Customize the appearance
+        ax.set_xlabel("Category", fontsize=7, labelpad=8)
+        ax.set_ylabel("Amount Spent", fontsize=7, labelpad=8)
 
-            # Validate amounts
-            if not amounts or all(amount == 0 for amount in amounts):
-                # Show placeholder for empty data
-                ax.text(
-                    0.5,
-                    0.5,
-                    "No Data Available",
-                    horizontalalignment="center",
-                    verticalalignment="center",
-                    transform=ax.transAxes,
-                    fontsize=12,
-                    color="gray",
-                )
-                ax.set_xlim(0, 1)
-                ax.set_ylim(0, 1)
-                ax.set_xticks([])
-                ax.set_yticks([])
-            else:
-                # Create bar chart with improved styling
-                bars = ax.bar(
-                    categories,
-                    amounts,
-                    color="#a75373",
-                    edgecolor="white",
-                    linewidth=0.5,
-                )
+        # Rotate and align the tick labels so they look better
+        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", fontsize=7)
+        plt.setp(ax.get_yticklabels(), fontsize=7)
 
-                # Add value labels on top of bars
-                for bar, amount in zip(bars, amounts):
-                    height = bar.get_height()
-                    ax.text(
-                        bar.get_x() + bar.get_width() / 2.0,
-                        height + max(amounts) * 0.01,
-                        f"₱{amount:.0f}",
-                        ha="center",
-                        va="bottom",
-                        fontsize=6,
-                    )
+        # Add some padding between the axis and the labels
+        ax.tick_params(axis="x", which="major", pad=5)
 
-                # Customize the appearance
-                ax.set_xlabel("Category", fontsize=8, labelpad=8, color="#333")
-                ax.set_ylabel("Amount Spent (₱)", fontsize=8, labelpad=8, color="#333")
-                ax.set_title("Spending by Category", fontsize=9, color="#333", pad=10)
+        # Adjust layout to prevent label cutoff
+        fig.tight_layout()
 
-                # Rotate and align the tick labels
-                plt.setp(ax.get_xticklabels(), rotation=45, ha="right", fontsize=7)
-                plt.setp(ax.get_yticklabels(), fontsize=7)
+        # Convert to Qt canvas
+        canvas = FigureCanvas(fig)
+        canvas.setMinimumSize(300, 200)
 
-                # Style the axes
-                ax.spines["top"].set_visible(False)
-                ax.spines["right"].set_visible(False)
-                ax.spines["left"].set_color("#ddd")
-                ax.spines["bottom"].set_color("#ddd")
-                ax.tick_params(colors="#666", labelsize=7)
-                ax.grid(True, linestyle="--", alpha=0.3, color="#ccc")
+        # Get the existing layout
+        layout = widget.layout()
 
-            # Adjust layout to prevent label cutoff
-            fig.tight_layout(pad=2.0)
+        # Clear any existing widgets in the layout
+        if layout:
+            while layout.count():
+                item = layout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
 
-            # Convert to Qt canvas
-            canvas = FigureCanvas(fig)
-            canvas.setMinimumSize(300, 200)
-            canvas.setStyleSheet("background-color: white;")
-
-            # Get the existing layout and clear it safely
-            layout = widget.layout()
-            if layout:
-                # Clear existing widgets
-                while layout.count():
-                    item = layout.takeAt(0)
-                    if item.widget():
-                        item.widget().deleteLater()
-
-                # Add the new canvas
-                layout.addWidget(canvas)
-            else:
-                # Create layout if it doesn't exist
-                layout = QVBoxLayout(widget)
-                layout.setContentsMargins(0, 0, 0, 0)
-                layout.addWidget(canvas)
-
-            # Force update and draw
-            widget.update()
-            canvas.draw()
-            print(f"Successfully created bar chart with {len(categories)} categories")
-
-        except Exception as e:
-            print(f"Error creating bar chart: {str(e)}")
-            # Create error placeholder
-            if hasattr(widget, "layout") and widget.layout():
-                error_label = QLabel(f"Chart Error: {str(e)[:50]}...")
-                error_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-                error_label.setStyleSheet("color: red; font-size: 10px;")
-                widget.layout().addWidget(error_label)
+            # Add the canvas to the existing layout
+            layout.addWidget(canvas)
+        # Force the widget to update
+        widget.update()
+        canvas.draw()
 
     def add_graph_to_budget_summary(self, widget: QWidget):
         # Create DataManager instance with sample data
@@ -3161,19 +3062,6 @@ QHeaderView::section {
         # Force the widget to update
         widget.update()
         canvas.draw()
-
-    def handle_page_change(self, index):
-        # Update menu label
-        self.update_menu_label(index)
-
-        # Apply fade animation for the current page
-        current_widget = self.tab.widget(index)
-        if current_widget and index < len(self.fade_effects):
-            fade_effect, fade_animation = self.fade_effects[index]
-            current_widget.setGraphicsEffect(fade_effect)
-            # Reset opacity to 0 then animate to 1 for fade-in effect
-            fade_effect.setOpacity(0.0)
-            fade_animation.start()
 
 
 app = QApplication(sys.argv)
