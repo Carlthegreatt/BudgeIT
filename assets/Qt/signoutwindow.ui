@@ -53,7 +53,7 @@
       <number>0</number>
      </property>
      <item>
-      <spacer name="horizontalSpacer_5">
+      <spacer name="horizontalSpacer_1">
        <property name="orientation">
         <enum>Qt::Orientation::Horizontal</enum>
        </property>
@@ -66,7 +66,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QLabel" name="budgetlbl_6">
+      <widget class="QLabel" name="logomax">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -114,7 +114,7 @@ background-color: transparent
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_6">
+      <spacer name="horizontalSpacer_5">
        <property name="orientation">
         <enum>Qt::Orientation::Horizontal</enum>
        </property>
@@ -131,14 +131,14 @@ background-color: transparent
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="verticalLayout_1">
        <property name="spacing">
         <number>0</number>
        </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
-          <spacer name="horizontalSpacer_11">
+          <spacer name="horizontalSpacer_6">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
            </property>
@@ -151,7 +151,7 @@ background-color: transparent
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="budgetlbl_7">
+          <widget class="QLabel" name="signoutlbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -201,7 +201,7 @@ background-color: transparent
           <number>0</number>
          </property>
          <item>
-          <spacer name="horizontalSpacer_13">
+          <spacer name="horizontalSpacer_11">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
            </property>
@@ -214,7 +214,7 @@ background-color: transparent
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="budgetlbl_8">
+          <widget class="QLabel" name="confirmationlbl">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -244,7 +244,7 @@ background-color: transparent
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_14">
+          <spacer name="horizontalSpacer_13">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
            </property>
@@ -271,7 +271,7 @@ background-color: transparent
       <number>50</number>
      </property>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_9">
+      <layout class="QHBoxLayout" name="horizontalLayout_1">
        <property name="spacing">
         <number>5</number>
        </property>
@@ -279,7 +279,7 @@ background-color: transparent
         <number>0</number>
        </property>
        <item>
-        <widget class="QToolButton" name="toolButton">
+        <widget class="QToolButton" name="signoutbtn">
          <property name="minimumSize">
           <size>
            <width>130</width>
@@ -326,7 +326,7 @@ QToolButton:hover {
         </widget>
        </item>
        <item>
-        <widget class="QToolButton" name="toolButton_2">
+        <widget class="QToolButton" name="cancelbtn">
          <property name="minimumSize">
           <size>
            <width>130</width>
