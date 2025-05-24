@@ -31,13 +31,13 @@ class AuthManager:
     
     # This function will register a user by inserting their username and password into the database
     def register(self, username, password):
-        cursor.execute("INSERT INTO test (username, password) VALUES (?,?)", (username, password))
-        connect.commit()
+        self.cursor.execute("INSERT INTO test (username, password) VALUES (%s,%s)", (username, password))
+        self.connect.commit()
         
     # This function will log in a user by checking if the username and password match an entry in the database
     # If they match, it will create a User object and return it
     def login(self, username, password):
-        cursor.execute("SELECT * FROM test WHERE username = ? AND password = ?", (username, password))
+        self.cursor.execute("SELECT * FROM test WHERE username = %s AND password = %s", (username, password))
         data = cursor.fetchone()
         user = User(data[0], data[1])
         currentuser = user.username
