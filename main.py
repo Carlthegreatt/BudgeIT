@@ -2,8 +2,8 @@ import sys
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-import components.icons_rc
-import components.images_rc
+import assets.icons.icons_rc
+import assets.images.images_rc
 from components.addtransactions import AddTransactions
 from budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -3015,7 +3015,7 @@ QHeaderView::section {
 
         # Clear any existing plots and create new figure
         plt.close("all")
-        fig = plt.figure(figsize=(4, 3), dpi=100)
+        fig = plt.figure(figsize=(3, 3), dpi=100)
         ax = fig.add_subplot(111)
 
         # Get statistics from DataManager
