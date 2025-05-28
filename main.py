@@ -10,7 +10,7 @@ from budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from components.datamanager import DataManager, sample_transactions
-from signoutwindow import SignOutWindow
+from components.signoutwindow import SignOutWindow
 
 
 class Ui_MainWindow(QMainWindow):
@@ -1144,6 +1144,7 @@ class Ui_MainWindow(QMainWindow):
         self.categorycombo.addItem("")
         self.categorycombo.addItem("")
         self.categorycombo.addItem("")
+
         self.categorycombo.setObjectName("categorycombo")
         sizePolicy5.setHeightForWidth(
             self.categorycombo.sizePolicy().hasHeightForWidth()
