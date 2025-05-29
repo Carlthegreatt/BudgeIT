@@ -1,54 +1,7 @@
-#########################################################################
-
 import sys
-from PySide6.QtCore import (
-    QCoreApplication,
-    QDate,
-    QDateTime,
-    QLocale,
-    QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
-    QTime,
-    QUrl,
-    Qt,
-    QPropertyAnimation,
-    QEasingCurve,
-    QTimer,
-    QSequentialAnimationGroup,
-)
-from PySide6.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QGradient,
-    QIcon,
-    QImage,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
-    QTransform,
-)
-from PySide6.QtWidgets import (
-    QApplication,
-    QHBoxLayout,
-    QLabel,
-    QMainWindow,
-    QSizePolicy,
-    QSpacerItem,
-    QToolButton,
-    QVBoxLayout,
-    QWidget,
-    QGraphicsOpacityEffect,
-)
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
 from sign import SignEntry
 
 
@@ -91,7 +44,7 @@ class AnimatedMainWindow(QMainWindow):
         self.label_2.setObjectName("label_2")
         self.label_2.setMinimumSize(QSize(91, 35))
         self.label_2.setMaximumSize(QSize(91, 35))
-        self.label_2.setPixmap(QPixmap("../images/logomax.png"))
+        self.label_2.setPixmap(QPixmap("assets/images/logomax.png"))
         self.label_2.setScaledContents(True)
         self.horizontalLayout.addWidget(self.label_2)
 
@@ -524,7 +477,7 @@ QWidget {
 def main():
     app = QApplication(sys.argv)
     window = AnimatedMainWindow()
-    window.setWindowTitle("BudgeIT - Smart Finance Tracking")
+    window.setWindowTitle(" ")
     window.show()
     return app.exec()
 

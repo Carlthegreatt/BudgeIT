@@ -537,7 +537,7 @@ class Ui_MainWindow(QMainWindow):
         self.menulabel.setFont(Inter)
         self.menulabel.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 500 20px "Inter";\n'
+            'font: 500 14px "Inter";\n'
             "background-color: transparent;\n"
             "border: none;\n"
             ""
@@ -665,7 +665,7 @@ class Ui_MainWindow(QMainWindow):
         self.greethello.setStyleSheet(
             "color: rgb(212, 106, 146);\n"
             "background-color: transparent;\n"
-            'font: 600 20px "Inter";'
+            'font: 600 18px "Inter";'
         )
 
         self.greetlayout.addWidget(self.greethello)
@@ -677,7 +677,7 @@ class Ui_MainWindow(QMainWindow):
         self.user.setFont(Inter)
         self.user.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 700 40px "Inter";\n'
+            'font: 700 30px "Inter";\n'
             "background-color: transparent\n"
             ""
         )
@@ -702,7 +702,7 @@ class Ui_MainWindow(QMainWindow):
         self.totalbudgetbox.setStyleSheet(
             "background-color: rgb(244, 212, 212);\n"
             "\n"
-            "border-radius: 30px;\n"
+            "border-radius: 20px;\n"
             "\n"
             ""
         )
@@ -717,7 +717,7 @@ class Ui_MainWindow(QMainWindow):
         self.totalbudgetlbl.setMinimumSize(QSize(0, 30))
         self.totalbudgetlbl.setMaximumSize(QSize(16777215, 25))
         self.totalbudgetlbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n" 'font: 600 18px "Inter";'
+            "color: rgb(108, 68, 100);\n" 'font: 600 16px "Inter";'
         )
         self.totalbudgetlbl.setTextFormat(Qt.TextFormat.MarkdownText)
         self.totalbudgetlbl.setScaledContents(False)
@@ -851,7 +851,7 @@ class Ui_MainWindow(QMainWindow):
         self.savingsbox_3.setObjectName("savingsbox_3")
         self.savingsbox_3.setMinimumSize(QSize(300, 120))
         self.savingsbox_3.setStyleSheet(
-            "background-color: rgb(244, 212, 212);\n" "border-radius:30px;\n" "\n" ""
+            "background-color: rgb(244, 212, 212);\n" "border-radius:20px;\n" "\n" ""
         )
         self.verticalLayout_28 = QVBoxLayout(self.savingsbox_3)
         self.verticalLayout_28.setObjectName("verticalLayout_28")
@@ -864,7 +864,7 @@ class Ui_MainWindow(QMainWindow):
         self.savingslbl.setMinimumSize(QSize(0, 30))
         self.savingslbl.setMaximumSize(QSize(16777215, 25))
         self.savingslbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n" 'font: 600 18px "Inter";'
+            "color: rgb(108, 68, 100);\n" 'font: 600 16px "Inter";'
         )
         self.savingslbl.setTextFormat(Qt.TextFormat.MarkdownText)
         self.savingslbl.setScaledContents(False)
@@ -1088,7 +1088,7 @@ class Ui_MainWindow(QMainWindow):
         self.activitylbl.setSizePolicy(sizePolicy4)
         self.activitylbl.setFont(Inter)
         self.activitylbl.setStyleSheet(
-            "color: rgb(254, 250, 250);\n" 'font: 700 30px "Inter";'
+            "color: rgb(254, 250, 250);\n" 'font: 700 20px "Inter";'
         )
 
         self.horizontalLayout_13.addWidget(self.activitylbl)
@@ -1910,7 +1910,6 @@ QHeaderView::section {
         )
         self.monthcombo.setEditable(False)
         self.monthcombo.setFrame(True)
-
         self.horizontalLayout_4.addWidget(self.monthcombo)
 
         self.daycombo = QComboBox(self.scrollAreaWidgetContents_3)
@@ -2115,7 +2114,7 @@ QHeaderView::section {
         self.monthlyreport_lbl.setFont(font5)
         self.monthlyreport_lbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 600 30px "Inter";\n'
+            'font: 600 20px "Inter";\n'
             "background-color: transparent\n"
             ""
         )
@@ -2419,7 +2418,7 @@ QHeaderView::section {
         self.translbl_2.setFont(font5)
         self.translbl_2.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 600 30px "Inter";\n'
+            'font: 600 20px "Inter";\n'
             "background-color: transparent\n"
             ""
         )

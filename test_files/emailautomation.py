@@ -1,12 +1,26 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import mysql.connector
+
+# Connect to the database
+conn = mysql.connector.connect(
+    host="localhost",  # or your host, e.g., '127.0.0.1'
+    user="root",  # your MySQL username
+    password="09082005",  # your MySQL password
+    database="airbnb",  # your database name
+)
+
+cursor = conn.cursor()
 
 
 def send_email():
     sender_email = "blancaflorcarlferros@gmail.com"
-    receiver_email = "blancaflorcarlferros@gmail.com"
-    password = "irbx vimg qyke uopr"
+    cursor.execute("SELECT email, id FROM users")
+    for i in cursor.fetchall():
+        receiver_email = i[0]
+        id = i[1]
+        password = "irbx vimg qyke uopr"
 
     # Create the email
     message = MIMEMultipart("alternative")
