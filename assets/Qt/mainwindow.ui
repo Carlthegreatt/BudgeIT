@@ -430,7 +430,7 @@ QToolButton {
     padding: 10px 20px;
     text-align: left;
    
-    font: 500 13px &quot;Inter&quot;;
+    font: 500 12px &quot;Inter&quot;;
     icon-size: 20px 20px;
 }
 
@@ -888,7 +888,7 @@ QToolButton:hover {
                 </property>
                 <property name="styleSheet">
                  <string notr="true">color: rgb(108, 68, 100);
-font: 500 20px &quot;Inter&quot;;
+font: 500 14px &quot;Inter&quot;;
 background-color: transparent;
 border: none;
 </string>
@@ -1068,7 +1068,7 @@ QScrollBar::sub-line:vertical {
                   <x>0</x>
                   <y>0</y>
                   <width>779</width>
-                  <height>821</height>
+                  <height>792</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -1106,7 +1106,7 @@ QScrollBar::sub-line:vertical {
                      <property name="styleSheet">
                       <string notr="true">color: rgb(212, 106, 146);
 background-color: transparent;
-font: 600 20px &quot;Inter&quot;;</string>
+font: 600 18px &quot;Inter&quot;;</string>
                      </property>
                      <property name="text">
                       <string>Hello,</string>
@@ -1131,7 +1131,7 @@ font: 600 20px &quot;Inter&quot;;</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true">color: rgb(108, 68, 100);
-font: 700 40px &quot;Inter&quot;;
+font: 700 32px &quot;Inter&quot;;
 background-color: transparent
 </string>
                      </property>
@@ -1199,7 +1199,7 @@ border-radius: 30px;
                           </property>
                           <property name="styleSheet">
                            <string notr="true">color: rgb(108, 68, 100);
-font: 600 18px &quot;Inter&quot;;</string>
+font: 600 14px &quot;Inter&quot;;</string>
                           </property>
                           <property name="text">
                            <string>Current Budget</string>
@@ -1238,7 +1238,7 @@ font: 600 18px &quot;Inter&quot;;</string>
                           <property name="styleSheet">
                            <string notr="true">color: rgb(167, 83, 115);
 background:transparent;
-font: 700 45px &quot;inter&quot;;
+font: 700 32px &quot;inter&quot;;
 </string>
                           </property>
                           <property name="frameShape">
@@ -1422,7 +1422,7 @@ border-radius:30px;
                           </property>
                           <property name="styleSheet">
                            <string notr="true">color: rgb(108, 68, 100);
-font: 600 18px &quot;Inter&quot;;</string>
+font: 600 14px &quot;Inter&quot;;</string>
                           </property>
                           <property name="text">
                            <string>Savings</string>
@@ -1467,7 +1467,7 @@ font: 600 18px &quot;Inter&quot;;</string>
                           <property name="styleSheet">
                            <string notr="true">color: rgb(212, 106, 146);
 background-color: transparent;
-font: 700 45px &quot;inter&quot;;
+font: 700 32px &quot;inter&quot;;
 </string>
                           </property>
                           <property name="frameShape">
@@ -1642,7 +1642,7 @@ border-radius: 20px</string>
                           </property>
                           <property name="styleSheet">
                            <string notr="true">color: rgb(250, 250, 250);
-font: 700 20px &quot;inter&quot;;
+font: 700 18px &quot;inter&quot;;
 </string>
                           </property>
                           <property name="text">
@@ -1666,7 +1666,7 @@ font: 700 20px &quot;inter&quot;;
                           </property>
                           <property name="styleSheet">
                            <string notr="true">color: rgb(250, 250, 250);
-font: 600 16px &quot;Inter&quot;;
+font: 600 14px &quot;Inter&quot;;
 text-align: center;</string>
                           </property>
                           <property name="text">
@@ -1745,7 +1745,7 @@ border-radius: 20px</string>
                           </property>
                           <property name="styleSheet">
                            <string notr="true">color: rgb(250, 250, 250);
-font: 700 20px &quot;inter&quot;;
+font: 700 18px &quot;inter&quot;;
 </string>
                           </property>
                           <property name="text">
@@ -1772,7 +1772,7 @@ font: 700 20px &quot;inter&quot;;
                           </property>
                           <property name="styleSheet">
                            <string notr="true">color: rgb(250, 250, 250);
-font: 600 16px &quot;Inter&quot;;
+font: 600 14px &quot;Inter&quot;;
 text-align: center;</string>
                           </property>
                           <property name="text">
@@ -1859,7 +1859,7 @@ border-radius:20
                           </property>
                           <property name="styleSheet">
                            <string notr="true">color: rgb(254, 250, 250);
-font: 700 30px &quot;Inter&quot;;</string>
+font: 700 32px &quot;Inter&quot;;</string>
                           </property>
                           <property name="text">
                            <string>Recent Activity</string>
