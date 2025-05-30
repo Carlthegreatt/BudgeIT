@@ -6,20 +6,24 @@ connect = mysql.connector.connect(
   password="Janmarco.100",
   database="Users"
 )
-
 cursor = connect.cursor()
 
 cursor.execute("""CREATE TABLE IF NOT EXISTS test(
+               user_id INT AUTO_INCREMENT PRIMARY KEY,
                username text,
-               password text)""")
+               password text,
+               email text)""")
 
 connect.commit()
 
-
+'''
 class User():
-    def __init__(self, username, password):
+    def __init__(self, username, password, email):
         self.username = username
         self.password = password
+        self.email = email
+'''
+
 
     
 
@@ -30,17 +34,21 @@ class AuthManager:
         self.connect = connect
     
     # This function will register a user by inserting their username and password into the database
-    def register(self, username, password):
-        self.cursor.execute("INSERT INTO test (username, password) VALUES (%s,%s)", (username, password))
-        self.connect.commit()
+    def register(self, username, password, confirmPassword, email):
+        if password != confirmPassword:
+            print("Passwords do not match.")
+            return
+            #add a code to handle the case where passwords do not match
+        else:
+            self.cursor.execute("INSERT INTO test (username, password, email) VALUES (%s,%s,%s)", (username, password, email))
+            self.connect.commit()
         
     # This function will log in a user by checking if the username and password match an entry in the database
     # If they match, it will create a User object and return it
-    def login(self, username, password):
-        self.cursor.execute("SELECT * FROM test WHERE username = %s AND password = %s", (username, password))
+    def login(self, email, password):
+        self.cursor.execute("SELECT * FROM test WHERE email = %s AND password = %s", (email, password))
         data = cursor.fetchone()
-        user = User(data[0], data[1])
-        currentuser = user.username
+        print(data)
 
 
 
@@ -48,16 +56,18 @@ class AuthManager:
 #Test code
 while True:
     authorizationManager = AuthManager(connect, cursor)
-    select = int(input('enter 1 for reguster, 2 for login'))
+    select = int(input('enter 1 for register, 2 for login'))
     if select == 1:
         username = input('enter username')
         password = input('enter password')
-        authorizationManager.register(username, password)
+        confirmPassword = input('confirm password')
+        email = input('enter email')
+        authorizationManager.register(username, password, confirmPassword, email)
 
     elif select == 2:
-        username = input('enter username')
+        email = input('enter email')
         password = input('enter password')
-        authorizationManager.login(username, password)
+        authorizationManager.login(email, password)
 
 
 
