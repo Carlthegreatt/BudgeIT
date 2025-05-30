@@ -313,7 +313,7 @@ QWidget {
             color: white;
             border: none;
             border-radius: 5px;
-            font: 500 16px "Inter";
+            font: 500 14px "Inter";
         }
         QToolButton:hover {
             background: qlineargradient(

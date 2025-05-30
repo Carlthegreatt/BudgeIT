@@ -62,16 +62,16 @@ class Ui_MainWindow(QMainWindow):
             "    \n"
             "	background-color: rgb(43, 27, 40);\n"
             "    border: none;\n"
-            "    padding: 10px 20px;\n"
+            "    padding: 10px 18px;\n"
             "    text-align: left;\n"
             "   \n"
-            '    font: 500 13px "Inter";\n'
-            "    icon-size: 20px 20px;\n"
+            '    font: 500 12px "Inter";\n'
+            "    icon-size: 18px 18px;\n"
             "}\n"
             "\n"
             "QToolButton:hover {\n"
             "    qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 20px 20px;\n"
+            "    qproperty-iconSize: 18px 18px;\n"
             " \n"
             "	color: rgb(75, 47, 69);\n"
             "	background-color: rgb(245, 245, 245);\n"
@@ -79,7 +79,7 @@ class Ui_MainWindow(QMainWindow):
             "\n"
             "QToolButton:pressed {\n"
             "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 20px 20px;\n"
+            "    qproperty-iconSize: 18px 18px;\n"
             "    color: rgb(75, 47, 69);\n"
             "	background-color: rgb(245, 245, 245);\n"
             "    padding-left: 25px;\n"
@@ -87,7 +87,7 @@ class Ui_MainWindow(QMainWindow):
             "\n"
             "QToolButton:checked {\n"
             "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 20px 20px;\n"
+            "    qproperty-iconSize: 18px 18px;\n"
             "    color: rgb(75, 47, 69);\n"
             "	background-color: rgb(245, 245, 245);\n"
             "}\n"
@@ -118,16 +118,16 @@ class Ui_MainWindow(QMainWindow):
             "    \n"
             "	background-color: rgb(43, 27, 40);\n"
             "    border: none;\n"
-            "    padding: 10px 20px;\n"
+            "    padding: 10px 18px;\n"
             "    text-align: left;\n"
             "   \n"
-            '    font: 500 13px "Inter";\n'
-            "    icon-size: 20px 20px;\n"
+            '    font: 500 12px "Inter";\n'
+            "    icon-size: 18px 18px;\n"
             "}\n"
             "\n"
             "QToolButton:hover {\n"
             "    qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 20px 20px;\n"
+            "    qproperty-iconSize: 18px 18px;\n"
             " \n"
             "	color: rgb(75, 47, 69);\n"
             "	background-color: rgb(245, 245, 245);\n"
@@ -135,7 +135,7 @@ class Ui_MainWindow(QMainWindow):
             "\n"
             "QToolButton:pressed {\n"
             "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 20px 20px;\n"
+            "    qproperty-iconSize: 18px 18px;\n"
             "    color: rgb(75, 47, 69);\n"
             "	background-color: rgb(245, 245, 245);\n"
             "    padding-left: 25px;\n"
@@ -143,7 +143,7 @@ class Ui_MainWindow(QMainWindow):
             "\n"
             "QToolButton:checked {\n"
             "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 20px 20px;\n"
+            "    qproperty-iconSize: 18px 18px;\n"
             "    color: rgb(75, 47, 69);\n"
             "	background-color: rgb(245, 245, 245);\n"
             "}\n"
@@ -294,16 +294,16 @@ class Ui_MainWindow(QMainWindow):
             "    \n"
             "	background-color: rgb(43, 27, 40);\n"
             "    border: none;\n"
-            "    padding: 10px 20px;\n"
+            "    padding: 10px 18px;\n"
             "    text-align: left;\n"
             "   \n"
-            '    font: 500 13px "Inter";\n'
-            "    icon-size: 20px 20px;\n"
+            '    font: 500 12px "Inter";\n'
+            "    icon-size: 18px 18px;\n"
             "}\n"
             "\n"
             "QToolButton:hover {\n"
             "    qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 20px 20px;\n"
+            "    qproperty-iconSize: 18px 18px;\n"
             " \n"
             "	color: rgb(75, 47, 69);\n"
             "	background-color: rgb(245, 245, 245);\n"
@@ -311,7 +311,7 @@ class Ui_MainWindow(QMainWindow):
             "\n"
             "QToolButton:pressed {\n"
             "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 20px 20px;\n"
+            "    qproperty-iconSize: 18px 18px;\n"
             "    color: rgb(75, 47, 69);\n"
             "	background-color: rgb(245, 245, 245);\n"
             "    padding-left: 25px;\n"
@@ -319,7 +319,7 @@ class Ui_MainWindow(QMainWindow):
             "\n"
             "QToolButton:checked {\n"
             "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 20px 20px;\n"
+            "    qproperty-iconSize: 18px 18px;\n"
             "    color: rgb(75, 47, 69);\n"
             "	background-color: rgb(245, 245, 245);\n"
             "}\n"
@@ -629,7 +629,7 @@ class Ui_MainWindow(QMainWindow):
             "\n"
             "QScrollBar::handle:vertical {\n"
             "    background: rgb(80, 51, 74);\n"
-            "    min-height: 20px;\n"
+            "    min-height: 18px;\n"
             "    border-radius: 10000px;\n"
             "}\n"
             "\n"
@@ -677,7 +677,7 @@ class Ui_MainWindow(QMainWindow):
         self.user.setFont(Inter)
         self.user.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 700 30px "Inter";\n'
+            'font: 700 32px "Inter";\n'
             "background-color: transparent\n"
             ""
         )
@@ -702,7 +702,7 @@ class Ui_MainWindow(QMainWindow):
         self.totalbudgetbox.setStyleSheet(
             "background-color: rgb(244, 212, 212);\n"
             "\n"
-            "border-radius: 20px;\n"
+            "border-radius: 18px;\n"
             "\n"
             ""
         )
@@ -717,7 +717,7 @@ class Ui_MainWindow(QMainWindow):
         self.totalbudgetlbl.setMinimumSize(QSize(0, 30))
         self.totalbudgetlbl.setMaximumSize(QSize(16777215, 25))
         self.totalbudgetlbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n" 'font: 600 16px "Inter";'
+            "color: rgb(108, 68, 100);\n" 'font: 600 14px "Inter";'
         )
         self.totalbudgetlbl.setTextFormat(Qt.TextFormat.MarkdownText)
         self.totalbudgetlbl.setScaledContents(False)
@@ -745,7 +745,7 @@ class Ui_MainWindow(QMainWindow):
         self.budgetvalue.setStyleSheet(
             "color: rgb(167, 83, 115);\n"
             "background:transparent;\n"
-            'font: 700 45px "Inter";\n'
+            'font: 700 32px "Inter";\n'
             ""
         )
         self.budgetvalue.setFrameShape(QFrame.Shape.NoFrame)
@@ -851,7 +851,7 @@ class Ui_MainWindow(QMainWindow):
         self.savingsbox_3.setObjectName("savingsbox_3")
         self.savingsbox_3.setMinimumSize(QSize(300, 120))
         self.savingsbox_3.setStyleSheet(
-            "background-color: rgb(244, 212, 212);\n" "border-radius:20px;\n" "\n" ""
+            "background-color: rgb(244, 212, 212);\n" "border-radius:18px;\n" "\n" ""
         )
         self.verticalLayout_28 = QVBoxLayout(self.savingsbox_3)
         self.verticalLayout_28.setObjectName("verticalLayout_28")
@@ -864,7 +864,7 @@ class Ui_MainWindow(QMainWindow):
         self.savingslbl.setMinimumSize(QSize(0, 30))
         self.savingslbl.setMaximumSize(QSize(16777215, 25))
         self.savingslbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n" 'font: 600 16px "Inter";'
+            "color: rgb(108, 68, 100);\n" 'font: 600 14px "Inter";'
         )
         self.savingslbl.setTextFormat(Qt.TextFormat.MarkdownText)
         self.savingslbl.setScaledContents(False)
@@ -897,7 +897,7 @@ class Ui_MainWindow(QMainWindow):
         self.savingsvalue.setStyleSheet(
             "color: rgb(212, 106, 146);\n"
             "background-color: transparent;\n"
-            'font: 700 45px "Inter";\n'
+            'font: 700 32px "Inter";\n'
             ""
         )
         self.savingsvalue.setFrameShape(QFrame.Shape.NoFrame)
@@ -974,7 +974,7 @@ class Ui_MainWindow(QMainWindow):
         self.expensebox.setStyleSheet(
             "text-align: center;\n"
             "background-color: rgb(167, 83, 115);\n"
-            "border-radius: 20px"
+            "border-radius: 18px"
         )
         self.verticalLayout_31 = QVBoxLayout(self.expensebox)
         self.verticalLayout_31.setObjectName("verticalLayout_31")
@@ -989,7 +989,7 @@ class Ui_MainWindow(QMainWindow):
         self.expensevalue.setMaximumSize(QSize(16777215, 50))
         self.expensevalue.setFont(font2)
         self.expensevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 20px "Inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 18px "Inter";\n' ""
         )
         self.expensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.expensevalue.setWordWrap(False)
@@ -1002,7 +1002,7 @@ class Ui_MainWindow(QMainWindow):
         self.expenselbl.setWordWrap(True)
         self.expenselbl.setStyleSheet(
             "color: rgb(250, 250, 250);\n"
-            'font: 600 16px "Inter";\n'
+            'font: 600 14px "Inter";\n'
             "text-align: center;"
         )
         self.expenselbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1020,7 +1020,7 @@ class Ui_MainWindow(QMainWindow):
         self.incomebox.setStyleSheet(
             "text-align: center;\n"
             "background-color: rgb(167, 83, 115);\n"
-            "border-radius: 20px"
+            "border-radius: 18px"
         )
         self.verticalLayout_55 = QVBoxLayout(self.incomebox)
         self.verticalLayout_55.setObjectName("verticalLayout_55")
@@ -1035,7 +1035,7 @@ class Ui_MainWindow(QMainWindow):
         self.incomevalue.setMaximumSize(QSize(16777215, 50))
         self.incomevalue.setFont(font2)
         self.incomevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 20px "Inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 18px "Inter";\n' ""
         )
         self.incomevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.incomevalue.setWordWrap(False)
@@ -1048,7 +1048,7 @@ class Ui_MainWindow(QMainWindow):
         self.incomelbl.setWordWrap(True)
         self.incomelbl.setStyleSheet(
             "color: rgb(250, 250, 250);\n"
-            'font: 600 16px "Inter";\n'
+            'font: 600 14px "Inter";\n'
             "text-align: center;"
         )
         self.incomelbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1088,7 +1088,7 @@ class Ui_MainWindow(QMainWindow):
         self.activitylbl.setSizePolicy(sizePolicy4)
         self.activitylbl.setFont(Inter)
         self.activitylbl.setStyleSheet(
-            "color: rgb(254, 250, 250);\n" 'font: 700 20px "Inter";'
+            "color: rgb(254, 250, 250);\n" 'font: 700 32px "Inter";'
         )
 
         self.horizontalLayout_13.addWidget(self.activitylbl)
@@ -1332,7 +1332,7 @@ QHeaderView::section {
             "\n"
             "QScrollBar::handle:vertical {\n"
             "    background: rgb(80, 51, 74);\n"
-            "    min-height: 20px;\n"
+            "    min-height: 18px;\n"
             "    border-radius: 10000px;\n"
             "}\n"
             "\n"
@@ -1363,7 +1363,7 @@ QHeaderView::section {
         self.overallbudgetbox.setStyleSheet(
             "text-align: center;\n"
             "background-color: rgb(167, 83, 115);\n"
-            "border-radius: 20px"
+            "border-radius: 18px"
         )
         self.verticalLayout_32 = QVBoxLayout(self.overallbudgetbox)
         self.verticalLayout_32.setObjectName("verticalLayout_32")
@@ -1392,7 +1392,7 @@ QHeaderView::section {
         self.overallbudgetlbl.setMaximumSize(QSize(16777215, 50))
         self.overallbudgetlbl.setStyleSheet(
             "color: rgb(250, 250, 250);\n"
-            'font: 600 16px "Inter";\n'
+            'font: 600 14px "Inter";\n'
             "text-align: center;"
         )
         self.overallbudgetlbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1412,7 +1412,7 @@ QHeaderView::section {
         self.expensebox_3.setStyleSheet(
             "text-align: center;\n"
             "background-color: rgb(167, 83, 115);\n"
-            "border-radius: 20px"
+            "border-radius: 18px"
         )
         self.verticalLayout_33 = QVBoxLayout(self.expensebox_3)
         self.verticalLayout_33.setObjectName("verticalLayout_33")
@@ -1441,7 +1441,7 @@ QHeaderView::section {
         self.totalexpenselbl.setMaximumSize(QSize(16777215, 50))
         self.totalexpenselbl.setStyleSheet(
             "color: rgb(250, 250, 250);\n"
-            'font: 600 16px "Inter";\n'
+            'font: 600 14px "Inter";\n'
             "text-align: center;"
         )
         self.totalexpenselbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1464,7 +1464,7 @@ QHeaderView::section {
         self.accumulatedsavingsbox.setMaximumSize(QSize(16777215, 80))
         self.accumulatedsavingsbox.setFont(Inter)
         self.accumulatedsavingsbox.setStyleSheet(
-            "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 20px"
+            "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 18px"
         )
         self.verticalLayout_34 = QVBoxLayout(self.accumulatedsavingsbox)
         self.verticalLayout_34.setObjectName("verticalLayout_34")
@@ -1493,7 +1493,7 @@ QHeaderView::section {
         self.accumulatedsavingslbl.setMaximumSize(QSize(16777215, 50))
         self.accumulatedsavingslbl.setStyleSheet(
             "color: rgb(167, 83, 115);\n"
-            'font: 600 16px "Inter";\n'
+            'font: 600 14px "Inter";\n'
             "text-align: center;"
         )
         self.accumulatedsavingslbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1511,7 +1511,7 @@ QHeaderView::section {
         self.totalincomebox.setMaximumSize(QSize(16777215, 80))
         self.totalincomebox.setFont(Inter)
         self.totalincomebox.setStyleSheet(
-            "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 20px"
+            "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 18px"
         )
         self.verticalLayout_35 = QVBoxLayout(self.totalincomebox)
         self.verticalLayout_35.setObjectName("verticalLayout_35")
@@ -1540,7 +1540,7 @@ QHeaderView::section {
         self.totalincomelbl.setMaximumSize(QSize(16777215, 50))
         self.totalincomelbl.setStyleSheet(
             "color: rgb(167, 83, 115);\n"
-            'font: 600 16px "Inter";\n'
+            'font: 600 14px "Inter";\n'
             "text-align: center;"
         )
         self.totalincomelbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1790,7 +1790,7 @@ QHeaderView::section {
         self.totaltransactionvalue.setFont(font2)
         self.totaltransactionvalue.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 700 45px "Inter";\n'
+            'font: 700 32px "Inter";\n'
             "background-color: transparent\n"
             ""
         )
@@ -1898,7 +1898,7 @@ QHeaderView::section {
             "\n"
             "QScrollBar::handle:vertical {\n"
             "    background: rgb(80, 51, 74);\n"
-            "    min-height: 20px;\n"
+            "    min-height: 18px;\n"
             "    border-radius: 10000px;\n"
             "}\n"
             "\n"
@@ -1985,7 +1985,7 @@ QHeaderView::section {
             "\n"
             "QScrollBar::handle:vertical {\n"
             "    background: rgb(80, 51, 74);\n"
-            "    min-height: 20px;\n"
+            "    min-height: 18px;\n"
             "    border-radius: 10000px;\n"
             "}\n"
             "\n"
@@ -2043,7 +2043,7 @@ QHeaderView::section {
             "\n"
             "QScrollBar::handle:vertical {\n"
             "    background: rgb(80, 51, 74);\n"
-            "    min-height: 20px;\n"
+            "    min-height: 18px;\n"
             "    border-radius: 10000px;\n"
             "}\n"
             "\n"
@@ -2114,7 +2114,7 @@ QHeaderView::section {
         self.monthlyreport_lbl.setFont(font5)
         self.monthlyreport_lbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 600 20px "Inter";\n'
+            'font: 600 18px "Inter";\n'
             "background-color: transparent\n"
             ""
         )
@@ -2168,7 +2168,7 @@ QHeaderView::section {
         self.budgetreport_value.setMaximumSize(QSize(16777215, 50))
         self.budgetreport_value.setFont(font3)
         self.budgetreport_value.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 13px "Inter";\n' ""
+            "color: rgb(167, 83, 115);\n" 'font: 700 12px "Inter";\n' ""
         )
         self.budgetreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.budgetreport_value.setWordWrap(False)
@@ -2214,7 +2214,7 @@ QHeaderView::section {
         self.savingsreport_value.setMaximumSize(QSize(16777215, 50))
         self.savingsreport_value.setFont(font3)
         self.savingsreport_value.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 13px "Inter";\n' ""
+            "color: rgb(167, 83, 115);\n" 'font: 700 12px "Inter";\n' ""
         )
         self.savingsreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.savingsreport_value.setWordWrap(False)
@@ -2260,7 +2260,7 @@ QHeaderView::section {
         self.expensereport_value.setMaximumSize(QSize(16777215, 50))
         self.expensereport_value.setFont(font3)
         self.expensereport_value.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 13px "Inter";\n' ""
+            "color: rgb(167, 83, 115);\n" 'font: 700 12px "Inter";\n' ""
         )
         self.expensereport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.expensereport_value.setWordWrap(False)
@@ -2418,7 +2418,7 @@ QHeaderView::section {
         self.translbl_2.setFont(font5)
         self.translbl_2.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 600 20px "Inter";\n'
+            'font: 600 18px "Inter";\n'
             "background-color: transparent\n"
             ""
         )
@@ -2540,7 +2540,7 @@ QHeaderView::section {
         self.noavailablereportlbl.setFont(font5)
         self.noavailablereportlbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 600 20px "Inter";\n'
+            'font: 600 18px "Inter";\n'
             "background-color: transparent\n"
             ""
         )
@@ -3085,9 +3085,10 @@ QHeaderView::section {
         canvas.draw()
 
 
-app = QApplication(sys.argv)
-window = Ui_MainWindow()
-window.setupUi(window)
-window.setWindowTitle(" ")
-window.show()
-app.exec()
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = Ui_MainWindow()
+    window.setupUi(window)
+    window.setWindowTitle(" ")
+    window.show()
+    app.exec()
