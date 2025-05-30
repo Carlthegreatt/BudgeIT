@@ -1,16 +1,34 @@
-import matplotlib.pyplot as plt
+from PySide6.QtWidgets import QDialog, QApplication
+from PySide6.QtCore import Qt
+import sys
 
-# Data
-categories = ["Category A", "Category B", "Category C"]
-values = [10, 25, 7]
 
-# Create horizontal bar chart
-plt.barh(categories, values)
+class RoundedDialog(QDialog):
+    def __init__(self):
+        super().__init__()
 
-# Add labels and title
-plt.xlabel("Values")
-plt.ylabel("Categories")
-plt.title("Horizontal Bar Chart")
+        # Remove title bar and window frame
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.Dialog)
 
-# Show the chart
-plt.show()
+        # Enable translucent background
+        self.setAttribute(Qt.WA_TranslucentBackground)
+
+        # Set fixed size (for demonstration)
+        self.setFixedSize(400, 300)
+
+        # Apply stylesheet with border-radius
+        self.setStyleSheet(
+            """
+            QDialog {
+                background-color: white;
+                border-radius: 20px;
+            }
+        """
+        )
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    dialog = RoundedDialog()
+    dialog.show()
+    sys.exit(app.exec())

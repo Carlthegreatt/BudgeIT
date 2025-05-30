@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>510</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>510</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>500</width>
+    <height>510</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_8">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_7">
+     <property name="spacing">
+      <number>3</number>
+     </property>
+     <property name="leftMargin">
+      <number>20</number>
+     </property>
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="setuplbl">
+       <property name="styleSheet">
+        <string notr="true">color: rgb(108, 68, 100);
+font: 700 40px &quot;Inter&quot;;
+background-color: transparent
+</string>
+       </property>
+       <property name="text">
+        <string>Set up your account</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="requirementlbl">
+         <property name="styleSheet">
+          <string notr="true">color:rgb(167, 83, 115);
+font:500 14px &quot;Inter&quot;;
+background-color: transparent
+</string>
+         </property>
+         <property name="text">
+          <string>Please fill in all fields.</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <property name="bottomMargin">
+        <number>20</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="spacing">
+          <number>20</number>
+         </property>
+         <property name="bottomMargin">
+          <number>10</number>
+         </property>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="spacing">
+            <number>5</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="setlbl">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(166, 166, 166);
+font:500 12px &quot;Inter&quot;;
+background-color: transparent
+</string>
+             </property>
+             <property name="text">
+              <string>Set Monthly Income/Allowance</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="allowanceincomeedit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>180</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLineEdit {
+    background-color: transparent;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding-left: 14px;
+    font: 500 12px &quot;Inter&quot;;
+    color: rgb(108, 68, 103)
+}
+
+QLineEdit:focus {
+    border: 1px solid rgb(255, 157, 160); /* Blue border on focus */
+    background-color: #ffffff;
+    outline: none;
+}
+
+QLineEdit[echoMode=&quot;1&quot;] { /* For password fields */
+    letter-spacing: 2px;
+}
+
+QLineEdit::placeholder {
+    color: rgb(223, 223, 223);
+}
+</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::EchoMode::Normal</enum>
+             </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="readOnly">
+              <bool>false</bool>
+             </property>
+             <property name="placeholderText">
+              <string>e.g. 32900</string>
+             </property>
+             <property name="cursorMoveStyle">
+              <enum>Qt::CursorMoveStyle::LogicalMoveStyle</enum>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="spacing">
+            <number>5</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="monthbudgetlbl">
+             <property name="styleSheet">
+              <string notr="true">color:rgb(166, 166, 166);
+font:500 12px &quot;Inter&quot;;
+background-color: transparent
+</string>
+             </property>
+             <property name="text">
+              <string>This month's budget</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="monthbudgetedit">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>180</width>
+               <height>35</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QLineEdit {
+    background-color: transparent;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding-left: 14px;
+    font: 500 12px &quot;Inter&quot;;
+    color: rgb(108, 68, 103)
+}
+
+QLineEdit:focus {
+    border: 1px solid rgb(255, 157, 160); /* Blue border on focus */
+    background-color: #ffffff;
+    outline: none;
+}
+
+QLineEdit[echoMode=&quot;1&quot;] { /* For password fields */
+    letter-spacing: 2px;
+}
+
+QLineEdit::placeholder {
+    color: rgb(223, 223, 223);
+}
+</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="echoMode">
+              <enum>QLineEdit::EchoMode::Normal</enum>
+             </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="readOnly">
+              <bool>false</bool>
+             </property>
+             <property name="placeholderText">
+              <string>e.g. 12322</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="budgetpercategorylbl">
+           <property name="styleSheet">
+            <string notr="true">color:rgb(166, 166, 166);
+font:500 12px &quot;Inter&quot;;
+background-color: transparent
+</string>
+           </property>
+           <property name="text">
+            <string>Add budget per category</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <property name="spacing">
+            <number>20</number>
+           </property>
+           <property name="bottomMargin">
+            <number>20</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <property name="spacing">
+              <number>8</number>
+             </property>
+             <item>
+              <widget class="QLineEdit" name="foodedit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>180</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLineEdit {
+    background-color: transparent;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding-left: 14px;
+    font: 500 12px &quot;Inter&quot;;
+    color: rgb(108, 68, 103)
+}
+
+QLineEdit:focus {
+    border: 1px solid rgb(255, 157, 160); /* Blue border on focus */
+    background-color: #ffffff;
+    outline: none;
+}
+
+QLineEdit[echoMode=&quot;1&quot;] { /* For password fields */
+    letter-spacing: 2px;
+}
+
+
+</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::EchoMode::Normal</enum>
+               </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Food</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="utilitiesedit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>180</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLineEdit {
+    background-color: transparent;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding-left: 14px;
+    font: 500 12px &quot;Inter&quot;;
+    color: rgb(108, 68, 103)
+}
+
+QLineEdit:focus {
+    border: 1px solid rgb(255, 157, 160); /* Blue border on focus */
+    background-color: #ffffff;
+    outline: none;
+}
+
+QLineEdit[echoMode=&quot;1&quot;] { /* For password fields */
+    letter-spacing: 2px;
+}
+
+QLineEdit::placeholder {
+    color: rgb(223, 223, 223);
+}
+</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::EchoMode::Normal</enum>
+               </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Utilities</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="healthwellnessedit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>180</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLineEdit {
+    background-color: transparent;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding-left: 14px;
+    font: 500 12px &quot;Inter&quot;;
+    color: rgb(108, 68, 103)
+}
+
+QLineEdit:focus {
+    border: 1px solid rgb(255, 157, 160); /* Blue border on focus */
+    background-color: #ffffff;
+    outline: none;
+}
+
+QLineEdit[echoMode=&quot;1&quot;] { /* For password fields */
+    letter-spacing: 2px;
+}
+
+QLineEdit::placeholder {
+    color: rgb(223, 223, 223);
+}
+</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::EchoMode::Normal</enum>
+               </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Health &amp; Wellness</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="personallifestyeedit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>180</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLineEdit {
+    background-color: transparent;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding-left: 14px;
+    font: 500 12px &quot;Inter&quot;;
+    color: rgb(108, 68, 103)
+}
+
+QLineEdit:focus {
+    border: 1px solid rgb(255, 157, 160); /* Blue border on focus */
+    background-color: #ffffff;
+    outline: none;
+}
+
+QLineEdit[echoMode=&quot;1&quot;] { /* For password fields */
+    letter-spacing: 2px;
+}
+
+QLineEdit::placeholder {
+    color: rgb(223, 223, 223);
+}
+</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::EchoMode::Normal</enum>
+               </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Personal &amp; Lifestyle</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <property name="spacing">
+              <number>8</number>
+             </property>
+             <item>
+              <widget class="QLineEdit" name="educationedit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>180</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLineEdit {
+    background-color: transparent;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding-left: 14px;
+    font: 500 12px &quot;Inter&quot;;
+    color: rgb(108, 68, 103)
+}
+
+QLineEdit:focus {
+    border: 1px solid rgb(255, 157, 160); /* Blue border on focus */
+    background-color: #ffffff;
+    outline: none;
+}
+
+QLineEdit[echoMode=&quot;1&quot;] { /* For password fields */
+    letter-spacing: 2px;
+}
+
+QLineEdit::placeholder {
+    color: rgb(223, 223, 223);
+}
+</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::EchoMode::Normal</enum>
+               </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Education</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="transportationedit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>180</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLineEdit {
+    background-color: transparent;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding-left: 14px;
+    font: 500 12px &quot;Inter&quot;;
+    color: rgb(108, 68, 103)
+}
+
+QLineEdit:focus {
+    border: 1px solid rgb(255, 157, 160); /* Blue border on focus */
+    background-color: #ffffff;
+    outline: none;
+}
+
+QLineEdit[echoMode=&quot;1&quot;] { /* For password fields */
+    letter-spacing: 2px;
+}
+
+QLineEdit::placeholder {
+    color: rgb(223, 223, 223);
+}
+</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::EchoMode::Normal</enum>
+               </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Transportation</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="miscellaneousedit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>180</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QLineEdit {
+    background-color: transparent;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    padding-left: 14px;
+    font: 500 12px &quot;Inter&quot;;
+    color: rgb(108, 68, 103)
+}
+
+QLineEdit:focus {
+    border: 1px solid rgb(255, 157, 160); /* Blue border on focus */
+    background-color: #ffffff;
+    outline: none;
+}
+
+QLineEdit[echoMode=&quot;1&quot;] { /* For password fields */
+    letter-spacing: 2px;
+}
+
+QLineEdit::placeholder {
+    color: rgb(223, 223, 223);
+}
+</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::EchoMode::Normal</enum>
+               </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>false</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Miscellaneous</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="submitbtn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">/* Base style for QToolButton */
+QToolButton {
+
+    
+   background: qlineargradient(
+        x1: 0, y1: 1, x2: 1, y2: 0,
+        stop: 0 rgb(255, 130, 136),
+  
+        stop: 1 rgb(244, 212, 212)
+    );
+
+
+    color: white;               /* White text */
+    border: none;
+    border-radius: 10px;
+   
+    font: 500 12px &quot;Inter&quot;;
+   
+
+    transition: background-color 0.3s ease;
+}
+
+/* Hover state */
+QToolButton:hover {
+    background-color: rgb(230, 146, 149)
+}
+
+/* Pressed state */
+QToolButton:pressed {
+    background-color: rgb(144, 72, 101) pressed */
+}
+
+/* Disabled state */
+QToolButton:disabled {
+    background-color: #A6A6A6;  /* Gray background when disabled */
+    color: #666666;
+    cursor: default;
+}
+
+/* Optional: Different style for Sign Up button */
+QToolButton#signUpButton {
+    background-color: #28A745;  /* Green */
+}
+
+QToolButton#signUpButton:hover {
+    background-color: #1E7E34;
+}
+
+QToolButton#signUpButton:pressed {
+    background-color: #155D27;
+}
+</string>
+               </property>
+               <property name="text">
+                <string>Submit</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
