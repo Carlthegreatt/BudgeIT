@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QApplication, QDialog, QHBoxLayout, QLabel,
     QLayout, QScrollArea, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
 
-class features_ui(object):
+class Features_ui(object):
     def setupUi(self, features_ui):
         if not features_ui.objectName():
             features_ui.setObjectName(u"features_ui")
@@ -426,13 +426,4 @@ class features_ui(object):
         self.label_30.setText(QCoreApplication.translate("features_ui", u"Create monthly or weekly budgets tailored to your income and spending habits.", None))
     # retranslateUi
 
-# run the application
-if __name__ == "__main__":
-    import sys
-    app = QApplication(sys.argv)
-    dialog = QDialog()
-    ui = features_ui()
-    ui.setupUi(dialog)
-    dialog.show()
-    sys.exit(app.exec())
     
