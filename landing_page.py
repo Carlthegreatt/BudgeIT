@@ -8,6 +8,7 @@ from components.features import Features_ui
 class AnimatedMainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.features_dialog = None  # Store reference to features dialog
         self.setupUi()
         self.setup_animations()
 
@@ -475,12 +476,20 @@ QWidget {
         window.show()
 
     def open_features(self):
+        # If dialog exists and is visible, close it
+        if self.features_dialog and self.features_dialog.isVisible():
+            self.features_dialog.close()
+            self.features_dialog = None
+            return
+
+        # Otherwise, create and show the dialog
         dialog = QDialog(self)
-        dialog.setWindowFlags(Qt.FramelessWindowHint)  # <-- This removes the title bar
+        dialog.setWindowFlags(Qt.FramelessWindowHint)
         ui = Features_ui()
         ui.setupUi(dialog)
         dialog.setWindowModality(Qt.ApplicationModal)
-        dialog.exec()
+        self.features_dialog = dialog  # Store reference
+        dialog.show()
         
 def main():
     app = QApplication(sys.argv)
