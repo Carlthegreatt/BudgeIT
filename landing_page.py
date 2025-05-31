@@ -3,7 +3,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from sign import SignEntry
-
+from components.features import Features_ui
 
 class AnimatedMainWindow(QMainWindow):
     def __init__(self):
@@ -70,6 +70,7 @@ class AnimatedMainWindow(QMainWindow):
         self.toolButton_9.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.toolButton_9.setStyleSheet(self.get_nav_button_style())
         self.toolButton_9.setText("Features")
+        self.toolButton_9.clicked.connect(lambda: self.open_features())
         self.horizontalLayout.addWidget(self.toolButton_9)
 
         self.toolButton_7 = QToolButton(self.widget_3)
@@ -473,7 +474,14 @@ QWidget {
         window.setWindowModality(Qt.ApplicationModal)
         window.show()
 
-
+    def open_features(self):
+        dialog = QDialog(self)
+        dialog.setWindowFlags(Qt.FramelessWindowHint)  # <-- This removes the title bar
+        ui = Features_ui()
+        ui.setupUi(dialog)
+        dialog.setWindowModality(Qt.ApplicationModal)
+        dialog.exec()
+        
 def main():
     app = QApplication(sys.argv)
     window = AnimatedMainWindow()
