@@ -79,4 +79,4 @@ def update_user_data(
             conn.close()
 
 
-update_user_data(5, 432, 1043, 4343566, 54543, 540)
+update_user_data(6, 432, 1043, 4343566, 54543, 540)
