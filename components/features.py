@@ -18,7 +18,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QDialog, QHBoxLayout, QLabel,
     QLayout, QScrollArea, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
-
+from PySide6.QtCore import QPropertyAnimation, QEasingCurve, QPoint, QTimer
+from PySide6.QtWidgets import QGraphicsOpacityEffect
 class Features_ui(object):
     def setupUi(self, features_ui):
         if not features_ui.objectName():
@@ -400,11 +401,72 @@ class Features_ui(object):
         self.retranslateUi(features_ui)
 
         QMetaObject.connectSlotsByName(features_ui)
-    # setupUi
+        self.retranslateUi(features_ui)
+        QMetaObject.connectSlotsByName(features_ui)
+
+        self.retranslateUi(features_ui)
+        QMetaObject.connectSlotsByName(features_ui)
+        
+        # Start the animation after the UI is set up
+        QTimer.singleShot(100, lambda: self.animate_in(features_ui))
+
+    def animate_in(self, features_ui):
+        widgets = [
+            self.header_container,
+            self.coming_soon_container,
+            self.label_13,
+            self.label_14,
+            self.label_23,
+            self.label_24,
+            self.label_25,
+            self.label_26,
+            self.label_27,
+            self.label_28,
+            self.label_33,
+            self.label_34,
+            self.label_35,
+            self.label_36,
+            self.label_41,
+            self.label_42,
+            self.label_37,
+            self.label_38,
+            self.label_29,
+            self.label_30,
+        ]
+        self._anims = []
+        for i, widget in enumerate(widgets):
+            # Fade-in effect
+            opacity_effect = QGraphicsOpacityEffect(widget)
+            widget.setGraphicsEffect(opacity_effect)
+            opacity_effect.setOpacity(0)
+
+            fade_anim = QPropertyAnimation(opacity_effect, b"opacity", features_ui)
+            fade_anim.setStartValue(0)
+            fade_anim.setEndValue(1)
+            fade_anim.setDuration(400)
+            fade_anim.setEasingCurve(QEasingCurve.OutCubic)
+
+            # Float-up effect
+            orig_pos = widget.pos()
+            start_pos = orig_pos + QPoint(0, 40)
+            widget.move(start_pos)
+            move_anim = QPropertyAnimation(widget, b"pos", features_ui)
+            move_anim.setStartValue(start_pos)
+            move_anim.setEndValue(orig_pos)
+            move_anim.setDuration(400)
+            move_anim.setEasingCurve(QEasingCurve.OutCubic)
+
+            # Start both animations staggered
+            QTimer.singleShot(i * 40, fade_anim.start)
+            QTimer.singleShot(i * 40, move_anim.start)
+
+            self._anims.append(fade_anim)
+            self._anims.append(move_anim)
+        # setupUi
 
     def retranslateUi(self, features_ui):
         features_ui.setWindowTitle(QCoreApplication.translate("features_ui", u"Dialog", None))
-        self.label.setText(QCoreApplication.translate("features_ui", u"features", None))
+        self.label.setText(QCoreApplication.translate("features_ui", u"Features", None))
         self.label_2.setText(QCoreApplication.translate("features_ui", u"Coming soon", None))
         self.label_13.setText(QCoreApplication.translate("features_ui", u"Smart Budget Creation", None))
         self.label_14.setText(QCoreApplication.translate("features_ui", u"Create monthly or weekly budgets tailored to your income and spending habits.", None))
@@ -425,5 +487,4 @@ class Features_ui(object):
         self.label_29.setText(QCoreApplication.translate("features_ui", u"Smart Budget Creation", None))
         self.label_30.setText(QCoreApplication.translate("features_ui", u"Create monthly or weekly budgets tailored to your income and spending habits.", None))
     # retranslateUi
-
     
