@@ -18,6 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QDialog, QHBoxLayout, QLabel,
     QLayout, QScrollArea, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
+from PySide6.QtCore import QPropertyAnimation, QEasingCurve, QPoint, QTimer
 
 class Features_ui(object):
     def setupUi(self, features_ui):
@@ -400,7 +401,49 @@ class Features_ui(object):
         self.retranslateUi(features_ui)
 
         QMetaObject.connectSlotsByName(features_ui)
-    # setupUi
+        self.retranslateUi(features_ui)
+        QMetaObject.connectSlotsByName(features_ui)
+
+        # --- Animation: float elements upwards on open ---
+        QTimer.singleShot(100, lambda: self.animate_in(features_ui))
+
+    def animate_in(self, features_ui):
+        widgets = [
+                self.header_container,
+                self.coming_soon_container,
+                self.label_13,
+                self.label_14,
+                self.label_23,
+                self.label_24,
+                self.label_25,
+                self.label_26,
+                self.label_27,
+                self.label_28,
+                self.label_33,
+                self.label_34,
+                self.label_35,
+                self.label_36,
+                self.label_41,
+                self.label_42,
+                self.label_37,
+                self.label_38,
+                self.label_29,
+                self.label_30,
+        ]
+        self._anims = []
+        for i, widget in enumerate(widgets):
+                orig_pos = widget.pos()
+                start_pos = orig_pos + QPoint(0, 40)
+                widget.move(start_pos)
+                anim = QPropertyAnimation(widget, b"pos", features_ui)
+                anim.setStartValue(start_pos)
+                anim.setEndValue(orig_pos)
+                anim.setDuration(400)
+                anim.setEasingCurve(QEasingCurve.OutCubic)
+                self._anims.append(anim)
+                # Use QTimer.singleShot for staggered start
+                QTimer.singleShot(i * 40, anim.start)
+        # setupUi
 
     def retranslateUi(self, features_ui):
         features_ui.setWindowTitle(QCoreApplication.translate("features_ui", u"Dialog", None))
@@ -425,5 +468,4 @@ class Features_ui(object):
         self.label_29.setText(QCoreApplication.translate("features_ui", u"Smart Budget Creation", None))
         self.label_30.setText(QCoreApplication.translate("features_ui", u"Create monthly or weekly budgets tailored to your income and spending habits.", None))
     # retranslateUi
-
     
