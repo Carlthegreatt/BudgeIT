@@ -6,7 +6,7 @@ from PySide6.QtWidgets import *
 import assets.icons.icons_rc
 import assets.images.images_rc
 from components.addtransactions import AddTransactions
-from budget_window import BudgetWindow
+from components.budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from components.datamanager import DataManager, sample_transactions
