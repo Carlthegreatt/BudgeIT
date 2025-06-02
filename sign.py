@@ -1,6 +1,7 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+from AuthorizationManager import AuthManager
 
 
 class SignEntry(QMainWindow):
@@ -463,7 +464,14 @@ class SignEntry(QMainWindow):
             "}\n"
             ""
         )
-
+        self.signup_btn.clicked.connect(
+            lambda: AuthManager(
+                self.username_line,
+                self.password_line,
+                self.confirm_line,
+                self.email_line,
+            ).signup()
+        )
         self.verticalLayout_6.addWidget(self.signup_btn)
 
         self.verticalLayout_14.addLayout(self.verticalLayout_6)
@@ -804,6 +812,11 @@ class SignEntry(QMainWindow):
             "    background-color: #155D27;\n"
             "}\n"
             ""
+        )
+        self.signin_btn.clicked.connect(
+            lambda: AuthManager(None, None, None, None).signin(
+                self.signin_email_line, self.signin_password_line
+            )
         )
 
         self.verticalLayout_9.addWidget(self.signin_btn)

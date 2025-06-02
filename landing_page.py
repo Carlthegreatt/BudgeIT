@@ -5,6 +5,7 @@ from PySide6.QtWidgets import *
 from sign import SignEntry
 from components.features import Features_ui
 
+
 class AnimatedMainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -490,7 +491,8 @@ QWidget {
         dialog.setWindowModality(Qt.ApplicationModal)
         self.features_dialog = dialog  # Store reference
         dialog.show()
-        
+
+
 def main():
     app = QApplication(sys.argv)
     window = AnimatedMainWindow()

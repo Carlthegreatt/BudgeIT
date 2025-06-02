@@ -2,7 +2,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from assets.icons.icons_rc import *
-from components.ui import *
+from test_files.ui import *
 
 
 class Ui_MainWindow(QMainWindow):
