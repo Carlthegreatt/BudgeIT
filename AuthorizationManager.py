@@ -1,5 +1,6 @@
 import sqlite3
 
+
 connect = sqlite3.connect("accounts.db")
 cursor = connect.cursor()
 
@@ -9,6 +10,23 @@ cursor.execute(
                username TEXT UNIQUE NOT NULL,
                password TEXT NOT NULL,
                email TEXT UNIQUE NOT NULL)"""
+)
+
+cursor.execute(
+    """CREATE TABLE IF NOT EXISTS user_data(
+    data_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    monthly_income INTEGER NOT NULL,
+    monthly_budget INTEGER NOT NULL,
+    food_budget INTEGER NOT NULL,
+    utilities_budget INTEGER NOT NULL,
+    health_wellness_budget INTEGER NOT NULL,
+    personal_lifestyle_budget INTEGER NOT NULL,
+    education_budget INTEGER NOT NULL,
+    transportation_budget INTEGER NOT NULL,
+    miscellaneous_budget INTEGER NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (user_id)
+    )"""
 )
 
 
@@ -58,6 +76,16 @@ class AuthManager:
             self.cursor.execute(
                 "INSERT INTO users (username, password, email) VALUES (?,?,?)",
                 (username, password, email),
+            )
+            self.connect.commit()
+
+            self.cursor.execute("SELECT rowid FROM users ORDER BY rowid DESC LIMIT 1")
+            row = self.cursor.fetchone()
+            last_id = row[0] if row else None
+
+            self.cursor.execute(
+                "INSERT INTO user_data (user_id, monthly_income, monthly_budget, food_budget, utilities_budget, health_wellness_budget, personal_lifestyle_budget, education_budget, transportation_budget, miscellaneous_budget) VALUES (?,?,?,?,?,?,?,?,?,?)",
+                (last_id, 0, 0, 0, 0, 0, 0, 0, 0, 0),
             )
             self.connect.commit()
             print("Registration successful.")

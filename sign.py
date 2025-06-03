@@ -813,11 +813,36 @@ class SignEntry(QMainWindow):
             "}\n"
             ""
         )
-        self.signin_btn.clicked.connect(
-            lambda: AuthManager(None, None, None, None).signin(
+
+        def validate_signin():
+            # Validate email and password fields are not empty
+            if (
+                not self.signin_email_line.text().strip()
+                or not self.signin_password_line.text().strip()
+            ):
+                QMessageBox.warning(
+                    None,
+                    "Invalid Input",
+                    "Please fill in both email and password fields.",
+                )
+                return
+
+            # Attempt signin
+            if AuthManager(None, None, None, None).signin(
                 self.signin_email_line, self.signin_password_line
-            )
-        )
+            ):
+                print("Signin successful")
+                # Navigate to main app page
+                self.close()
+
+            else:
+                QMessageBox.warning(
+                    None,
+                    "Invalid Input",
+                    "Please fill in both email and password fields.",
+                )
+
+        self.signin_btn.clicked.connect(validate_signin)
 
         self.verticalLayout_9.addWidget(self.signin_btn)
 

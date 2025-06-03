@@ -1,5 +1,7 @@
 import sqlite3
-from AuthorizationManager import AuthManager
+
+# Remove the import of AuthManager since we'll implement our own auth methods
+# from AuthorizationManager import AuthManager
 
 # Use the same database as AuthManager for consistency
 connect = sqlite3.connect("accounts.db")
@@ -23,12 +25,92 @@ cursor.execute(
     )"""
 )
 
+# Ensure users table exists (same as in AuthorizationManager)
+cursor.execute(
+    """CREATE TABLE IF NOT EXISTS users(
+               user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+               username TEXT UNIQUE NOT NULL,
+               password TEXT NOT NULL,
+               email TEXT UNIQUE NOT NULL)"""
+)
 
-class UserDataManager(AuthManager):
+
+class UserDataManager:
     def __init__(self, connect, cursor):
-        super().__init__(connect, cursor)
+        self.connect = connect
+        self.cursor = cursor
         self.current_user_id = None  # Track currently logged in user
         self.current_email = None
+
+    def signup(self, username, password, confirm_password, email):
+        """Register a new user"""
+        # Validation
+        if not all([username, password, confirm_password, email]):
+            print("All fields are required.")
+            return False
+
+        if password != confirm_password:
+            print("Passwords do not match.")
+            return False
+
+        # Check if username already exists
+        self.cursor.execute(
+            "SELECT username FROM users WHERE username = ?", (username,)
+        )
+        if self.cursor.fetchone():
+            print("Username already exists.")
+            return False
+
+        # Check if email already exists
+        self.cursor.execute("SELECT email FROM users WHERE email = ?", (email,))
+        if self.cursor.fetchone():
+            print("Email already exists.")
+            return False
+
+        try:
+            self.cursor.execute(
+                "INSERT INTO users (username, password, email) VALUES (?,?,?)",
+                (username, password, email),
+            )
+            self.connect.commit()
+
+            # Get the newly created user's ID
+            self.cursor.execute("SELECT user_id FROM users WHERE email = ?", (email,))
+            result = self.cursor.fetchone()
+            if result:
+                self.current_user_id = result[0]
+                self.current_email = email
+                print(f"Registration successful. User ID: {self.current_user_id}")
+
+            return True
+        except sqlite3.IntegrityError as e:
+            print(f"Database error: {e}")
+            return False
+
+    def signin(self, email, password):
+        """Sign in an existing user"""
+        # Validation
+        if not all([email, password]):
+            print("Email and password are required.")
+            return False
+
+        try:
+            self.cursor.execute(
+                "SELECT user_id, username FROM users WHERE email = ? AND password = ?",
+                (email, password),
+            )
+            data = self.cursor.fetchone()
+            if data:
+                self.current_user_id = data[0]
+                self.current_email = email
+                print(f"Signin successful. Welcome {data[1]} (ID: {data[0]})")
+                return True
+            else:
+                print("Invalid email or password.")
+                return False
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+            return False
 
     def add_user_data(
         self,
@@ -42,7 +124,6 @@ class UserDataManager(AuthManager):
         transportation_budget=0,
         miscellaneous_budget=0,
     ):
-        # Check if user is logged in
         if not self.current_user_id:
             print("Please log in first.")
             return False
@@ -138,38 +219,11 @@ class UserDataManager(AuthManager):
 
 # Example usage with proper session management
 
-username = "car"
-email = "car@gmail.com"
+username = "cal"
+email = "ca1@gmail.com"
 password = "09082005"
 confirm_password = "09082005"
 
 
-def signin(email, password):
-    user_manager = UserDataManager(connect, cursor)
-    if user_manager.signin(email, password):
-        # Add budget data for the logged-in user
-        user_manager.add_user_data()
-        # Retrieve and display user data
-        data = user_manager.get_user_data()
-        if data:
-            print(f"User budget data: {data}")
-
-
-def signup(username, password, confirm_password, email):
-    user_manager = UserDataManager(connect, cursor)
-    if user_manager.signup(username, password, confirm_password, email):
-        print("User signuped successfully.")
-    else:
-        print("User registration failed.")
-
-
-def signout():
-    user_manager = UserDataManager(connect, cursor)
-    user_manager.signout()
-
-
-# signup(username, password, confirm_password, email)
-signin(email, password)
-# signout()
-
-signin("carl1@gmail.com", "0908005")
+user_manager = UserDataManager(connect, cursor)
+user_manager.signup(username, password, confirm_password, email)
