@@ -467,14 +467,7 @@ class SignEntry(QMainWindow):
             "}\n"
             ""
         )
-        self.signup_btn.clicked.connect(
-            lambda: AuthManager(
-                self.username_line,
-                self.password_line,
-                self.confirm_line,
-                self.email_line,
-            ).signup()
-        )
+        self.signup_btn.clicked.connect(lambda: signup_success())
         self.verticalLayout_6.addWidget(self.signup_btn)
 
         self.verticalLayout_14.addLayout(self.verticalLayout_6)
@@ -843,8 +836,8 @@ class SignEntry(QMainWindow):
                 # Close both the sign-in window and the landing page
                 self.close()
                 if hasattr(self, "parent") and self.parent():
-                    QTimer.singleShot(200, self.parent().close)
-                    QTimer.singleShot(200, lambda: BudgetApp().show())
+                    QTimer.singleShot(800, lambda: BudgetApp().show())
+                    QTimer.singleShot(1000, self.parent().close)
 
             else:
                 QMessageBox.warning(
@@ -852,6 +845,35 @@ class SignEntry(QMainWindow):
                     "Invalid Input",
                     "Please fill in both email and password fields.",
                 )
+
+        def signup_success():
+            if (
+                not self.email_line.text().strip()
+                or not self.password_line.text().strip()
+                or not self.username_line.text().strip()
+                or not self.confirm_line.text().strip()
+            ):
+                QMessageBox.warning(
+                    None,
+                    "Invalid Input",
+                    "Please fill in both email and password fields.",
+                )
+                return
+
+            if AuthManager(None, None, None, None).signup(
+                self.email_line,
+                self.password_line,
+                self.username_line,
+                self.confirm_line,
+            ):
+                QMessageBox.information(
+                    None,
+                    "Signup successful",
+                    "You have successfully signed up. Please sign in to continue.",
+                )
+                self.stackedWidget.setCurrentIndex(1)
+                self.signin_email_line.clear()
+                self.signin_password_line.clear()
 
         self.signin_btn.clicked.connect(validate_signin)
 

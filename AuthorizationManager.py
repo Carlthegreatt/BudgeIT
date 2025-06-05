@@ -43,12 +43,12 @@ class AuthManager:
         self.confirm_line_widget = confirm_line
         self.email_line_widget = email_line
 
-    def signup(self):
+    def signup(self, username_line, password_line, confirm_line, email_line):
         # Get values from UI elements
-        username = self.username_line_widget.text().strip()
-        password = self.password_line_widget.text().strip()
-        confirm_password = self.confirm_line_widget.text().strip()
-        email = self.email_line_widget.text().strip()
+        username = username_line.text().strip()
+        password = password_line.text().strip()
+        confirm_password = confirm_line.text().strip()
+        email = email_line.text().strip()
 
         # Validation
         if not all([username, password, confirm_password, email]):
@@ -90,12 +90,6 @@ class AuthManager:
             )
             self.connect.commit()
             print("Registration successful.")
-
-            # Clear form fields
-            self.username_line_widget.clear()
-            self.password_line_widget.clear()
-            self.confirm_line_widget.clear()
-            self.email_line_widget.clear()
 
             return True
         except sqlite3.IntegrityError as e:

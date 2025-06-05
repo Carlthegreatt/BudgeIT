@@ -19,8 +19,8 @@ class BudgetApp(QMainWindow):
         super().__init__(parent)
         self.setupUi(self)
         self.setWindowTitle(" ")
-        QTimer.singleShot(1000, self.show)
-        QTimer.singleShot(1200, lambda: AccountSetup(self).show())
+
+        QTimer.singleShot(600, lambda: AccountSetup(self).show())
 
     def setupUi(self, MainWindow):
         font_path = os.path.join(
