@@ -836,14 +836,14 @@ class SignEntry(QMainWindow):
                 # Close both the sign-in window and the landing page
                 self.close()
                 if hasattr(self, "parent") and self.parent():
-                    QTimer.singleShot(800, lambda: BudgetApp().show())
                     QTimer.singleShot(1000, self.parent().close)
+                    QTimer.singleShot(800, lambda: BudgetApp().show())
 
             else:
                 QMessageBox.warning(
                     None,
                     "Invalid Input",
-                    "Please fill in both email and password fields.",
+                    "Invalid credentials. Please try again.",
                 )
 
         def signup_success():
