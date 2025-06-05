@@ -1,59 +1,6 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'signoutwindowBBkqmE.ui'
-##
-## Created by: Qt User Interface Compiler version 6.9.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
-from PySide6.QtCore import (
-    QCoreApplication,
-    QDate,
-    QDateTime,
-    QLocale,
-    QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
-    QTime,
-    QUrl,
-    Qt,
-    QPropertyAnimation,
-    QEasingCurve,
-)
-from PySide6.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QGradient,
-    QIcon,
-    QImage,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
-    QTransform,
-)
-from PySide6.QtWidgets import (
-    QApplication,
-    QDialog,
-    QHBoxLayout,
-    QLabel,
-    QSizePolicy,
-    QSpacerItem,
-    QToolButton,
-    QVBoxLayout,
-    QWidget,
-)
-import assets.images.images_rc
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
 
 
 class SignOutWindow(QDialog):
@@ -130,13 +77,6 @@ class SignOutWindow(QDialog):
             "background-color: transparent\n"
             ""
         )
-        self.logomax.setPixmap(QPixmap(":/logomax.png"))
-        self.logomax.setScaledContents(True)
-        self.logomax.setAlignment(
-            Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignTop
-        )
-
-        self.horizontalLayout_4.addWidget(self.logomax)
 
         self.horizontalSpacer_5 = QSpacerItem(
             40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum

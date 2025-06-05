@@ -2861,7 +2861,7 @@ QHeaderView::section {
         )
         self.viewbtn.setText(QCoreApplication.translate("MainWindow", "View", None))
         self.monthlyreport_lbl.setText(
-            QCoreApplication.translate("MainWindow", "Monthly Report", None)
+            QCoreApplication.translate("MainWindow", "Filter Report", None)
         )
         self.budgetreport.setTitle("")
         self.budgetreport_value.setText(
