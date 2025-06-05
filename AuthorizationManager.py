@@ -9,7 +9,8 @@ cursor.execute(
                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                username TEXT UNIQUE NOT NULL,
                password TEXT NOT NULL,
-               email TEXT UNIQUE NOT NULL)"""
+               email TEXT UNIQUE NOT NULL,
+               account_setup INTEGER NOT NULL)"""
 )
 
 cursor.execute(
@@ -74,8 +75,8 @@ class AuthManager:
 
         try:
             self.cursor.execute(
-                "INSERT INTO users (username, password, email) VALUES (?,?,?)",
-                (username, password, email),
+                "INSERT INTO users (username, password, email, account_setup) VALUES (?,?,?,?)",
+                (username, password, email, True),
             )
             self.connect.commit()
 

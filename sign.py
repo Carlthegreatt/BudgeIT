@@ -2,6 +2,9 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from AuthorizationManager import AuthManager
+from main import BudgetApp
+from account_setup import AccountSetup
+import sys
 
 
 class SignEntry(QMainWindow):
@@ -841,6 +844,7 @@ class SignEntry(QMainWindow):
                 self.close()
                 if hasattr(self, "parent") and self.parent():
                     QTimer.singleShot(200, self.parent().close)
+                    QTimer.singleShot(200, lambda: BudgetApp().show())
 
             else:
                 QMessageBox.warning(

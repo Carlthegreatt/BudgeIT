@@ -11,9 +11,17 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from components.datamanager import DataManager, sample_transactions
 from components.signoutwindow import SignOutWindow
+from account_setup import AccountSetup
 
 
-class Ui_MainWindow(QMainWindow):
+class BudgetApp(QMainWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self.setWindowTitle(" ")
+        QTimer.singleShot(1000, self.show)
+        QTimer.singleShot(1200, lambda: AccountSetup(self).show())
+
     def setupUi(self, MainWindow):
         font_path = os.path.join(
             os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
@@ -3083,12 +3091,3 @@ QHeaderView::section {
         # Force the widget to update
         widget.update()
         canvas.draw()
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    window = Ui_MainWindow()
-    window.setupUi(window)
-    window.setWindowTitle(" ")
-    window.show()
-    app.exec()
