@@ -832,8 +832,15 @@ class SignEntry(QMainWindow):
                 self.signin_email_line, self.signin_password_line
             ):
                 print("Signin successful")
-                # Navigate to main app page
+                QMessageBox.information(
+                    None,
+                    "Signin successful",
+                    "You have successfully signed in.",
+                )
+                # Close both the sign-in window and the landing page
                 self.close()
+                if hasattr(self, "parent") and self.parent():
+                    QTimer.singleShot(200, self.parent().close)
 
             else:
                 QMessageBox.warning(
