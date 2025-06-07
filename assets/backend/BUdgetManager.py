@@ -4,6 +4,8 @@ from datetime import datetime
 from typing import Optional, Dict, List, Union
 import mysql.connector
 from mysql.connector import Error
+from matplotlib import pyplot as plt
+from collections import defaultdict
 
 
 @dataclass
@@ -279,17 +281,6 @@ class BudgetManager:
         """Destructor to ensure connection is closed"""
         self.close()
 
-
-
-'''
-HEHE copy paste nalangs muna (may binago ako sa get_graph)
-'''
-
-
-
-from datetime import datetime
-from matplotlib import pyplot as plt
-from collections import defaultdict
 
 class DataManager:
     def __init__(self, budget_manager: BudgetManager):
