@@ -6,6 +6,7 @@ from main import BudgetApp
 from account_setup import AccountSetup
 import sys
 from warningEmailAutomation import EmailSender
+import os
 
 
 class SignEntry(QMainWindow):
@@ -16,6 +17,21 @@ class SignEntry(QMainWindow):
         self.setWindowTitle(" ")
 
     def setupUi(self, MainWindow):
+        font_path = os.path.join(
+            os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
+        )
+        font_id = QFontDatabase.addApplicationFont(font_path)
+
+        if font_id != -1:
+            font_families = QFontDatabase.applicationFontFamilies(font_id)
+            if font_families:
+                app_font = QFont(font_families[0])
+                QApplication.setFont(app_font)
+            else:
+                print("Font loaded, but no families found.")
+        else:
+            print("Failed to load font.")
+
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(900, 600)
