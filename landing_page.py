@@ -511,7 +511,7 @@ QWidget {
 
         # Otherwise, create and show the dialog
         dialog = QDialog(self)
-        dialog.setWindowFlags(Qt.FramelessWindowHint)
+
         ui = Team_Dialog()
         ui.setupUi(dialog)
         dialog.setWindowModality(Qt.ApplicationModal)
