@@ -9,7 +9,8 @@ cursor.execute(
                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                username TEXT UNIQUE NOT NULL,
                password TEXT NOT NULL,
-               email TEXT UNIQUE NOT NULL)"""
+               email TEXT UNIQUE NOT NULL,
+               account_setup INTEGER NOT NULL)"""
 )
 
 cursor.execute(
@@ -42,17 +43,26 @@ class AuthManager:
         self.confirm_line_widget = confirm_line
         self.email_line_widget = email_line
 
-    def signup(self):
+    def signup(self, username_line, password_line, confirm_line, email_line):
         # Get values from UI elements
-        username = self.username_line_widget.text().strip()
-        password = self.password_line_widget.text().strip()
-        confirm_password = self.confirm_line_widget.text().strip()
-        email = self.email_line_widget.text().strip()
+        username = username_line.text().strip()
+        password = password_line.text().strip()
+        confirm_password = confirm_line.text().strip()
+        email = email_line.text().strip()
 
         # Validation
         if not all([username, password, confirm_password, email]):
             print("All fields are required.")
             return False
+
+        # Debug password matching
+        print(f"Password length: {len(password)}")
+        print(f"Confirm password length: {len(confirm_password)}")
+        print(f"Passwords match: {password == confirm_password}")
+
+        # Strip whitespace and normalize case for comparison
+        password = password.strip()
+        confirm_password = confirm_password.strip()
 
         if password != confirm_password:
             print("Passwords do not match.")
@@ -74,8 +84,8 @@ class AuthManager:
 
         try:
             self.cursor.execute(
-                "INSERT INTO users (username, password, email) VALUES (?,?,?)",
-                (username, password, email),
+                "INSERT INTO users (username, password, email, account_setup) VALUES (?,?,?,?)",
+                (username, password, email, True),
             )
             self.connect.commit()
 
@@ -89,12 +99,6 @@ class AuthManager:
             )
             self.connect.commit()
             print("Registration successful.")
-
-            # Clear form fields
-            self.username_line_widget.clear()
-            self.password_line_widget.clear()
-            self.confirm_line_widget.clear()
-            self.email_line_widget.clear()
 
             return True
         except sqlite3.IntegrityError as e:

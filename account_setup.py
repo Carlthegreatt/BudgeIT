@@ -3,7 +3,12 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
 
-class Ui_Dialog(object):
+class AccountSetup(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self.setWindowTitle(" ")
+
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName("Dialog")
@@ -512,7 +517,6 @@ class Ui_Dialog(object):
             '    font: 500 12px "Inter";\n'
             "   \n"
             "\n"
-            "    transition: background-color 0.3s ease;\n"
             "}\n"
             "\n"
             "/* Hover state */\n"

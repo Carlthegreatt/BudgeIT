@@ -2,6 +2,11 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from AuthorizationManager import AuthManager
+from main import BudgetApp
+from account_setup import AccountSetup
+import sys
+from emailautomation import EmailSender
+import os
 
 
 class SignEntry(QMainWindow):
@@ -12,6 +17,21 @@ class SignEntry(QMainWindow):
         self.setWindowTitle(" ")
 
     def setupUi(self, MainWindow):
+        font_path = os.path.join(
+            os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
+        )
+        font_id = QFontDatabase.addApplicationFont(font_path)
+
+        if font_id != -1:
+            font_families = QFontDatabase.applicationFontFamilies(font_id)
+            if font_families:
+                app_font = QFont(font_families[0])
+                QApplication.setFont(app_font)
+            else:
+                print("Font loaded, but no families found.")
+        else:
+            print("Failed to load font.")
+
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(900, 600)
@@ -464,14 +484,7 @@ class SignEntry(QMainWindow):
             "}\n"
             ""
         )
-        self.signup_btn.clicked.connect(
-            lambda: AuthManager(
-                self.username_line,
-                self.password_line,
-                self.confirm_line,
-                self.email_line,
-            ).signup()
-        )
+        self.signup_btn.clicked.connect(lambda: signup_success())
         self.verticalLayout_6.addWidget(self.signup_btn)
 
         self.verticalLayout_14.addLayout(self.verticalLayout_6)
@@ -832,15 +845,57 @@ class SignEntry(QMainWindow):
                 self.signin_email_line, self.signin_password_line
             ):
                 print("Signin successful")
-                # Navigate to main app page
+                QMessageBox.information(
+                    None,
+                    "Signin successful",
+                    "You have successfully signed in.",
+                )
+                # Close both the sign-in window and the landing page
                 self.close()
+                if hasattr(self, "parent") and self.parent():
+                    QTimer.singleShot(1000, self.parent().close)
+                    QTimer.singleShot(800, lambda: BudgetApp().show())
 
             else:
                 QMessageBox.warning(
                     None,
                     "Invalid Input",
+                    "Invalid credentials. Please try again.",
+                )
+
+        def signup_success():
+            if (
+                not self.email_line.text().strip()
+                or not self.password_line.text().strip()
+                or not self.username_line.text().strip()
+                or not self.confirm_line.text().strip()
+            ):
+                QMessageBox.warning(
+                    None,
+                    "Invalid Input",
                     "Please fill in both email and password fields.",
                 )
+                return
+
+            if AuthManager(None, None, None, None).signup(
+                self.username_line,
+                self.password_line,
+                self.confirm_line,
+                self.email_line,
+            ):
+                QMessageBox.information(
+                    None,
+                    "Signup successful",
+                    "You have successfully signed up. Please sign in to continue.",
+                )
+                # ...existing code...
+                EmailSender(
+                    self.email_line.text().strip(), self.username_line.text().strip()
+                ).send_email()
+                # ...existing code...
+                self.stackedWidget.setCurrentIndex(1)
+                self.signin_email_line.clear()
+                self.signin_password_line.clear()
 
         self.signin_btn.clicked.connect(validate_signin)
 
