@@ -18,8 +18,5 @@ CREATE TABLE IF NOT EXISTS transactions (
 SELECT * FROM transactions
 
 -- @block
-ALTER TABLE transactions
-DROP COLUMN type;
-
--- @block
 SELECT * FROM budget_settings
+
