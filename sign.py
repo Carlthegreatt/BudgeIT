@@ -5,7 +5,7 @@ from AuthorizationManager import AuthManager
 from main import BudgetApp
 from account_setup import AccountSetup
 import sys
-from test_files.emailautomation import EmailSender
+from emailautomation import EmailSender
 import os
 
 
@@ -889,7 +889,9 @@ class SignEntry(QMainWindow):
                     "You have successfully signed up. Please sign in to continue.",
                 )
                 # ...existing code...
-                EmailSender(self.email_line.text().strip(),self.username_line.text().strip()).send_email()
+                EmailSender(
+                    self.email_line.text().strip(), self.username_line.text().strip()
+                ).send_email()
                 # ...existing code...
                 self.stackedWidget.setCurrentIndex(1)
                 self.signin_email_line.clear()
