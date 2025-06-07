@@ -55,6 +55,15 @@ class AuthManager:
             print("All fields are required.")
             return False
 
+        # Debug password matching
+        print(f"Password length: {len(password)}")
+        print(f"Confirm password length: {len(confirm_password)}")
+        print(f"Passwords match: {password == confirm_password}")
+
+        # Strip whitespace and normalize case for comparison
+        password = password.strip()
+        confirm_password = confirm_password.strip()
+
         if password != confirm_password:
             print("Passwords do not match.")
             return False
