@@ -4,8 +4,9 @@ from email.mime.multipart import MIMEMultipart
 
 
 class EmailSender:
-    def __init__(self, receiver_email):
+    def __init__(self, receiver_email, username):
         self.receiver_email = receiver_email
+        self.username = username
       
 
     def send_email(self):
@@ -27,36 +28,36 @@ class EmailSender:
         <title>Email Template</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <style>
-          body {
+          body {{
             margin: 0;
             padding: 0;
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             background-color: #f4f4f4;
-          }
+          }}
 
-          .container {
+          .container {{
             max-width: 600px;
             margin: 40px auto;
             background-color: #ffffff;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-          }
+          }}
 
-          .header {
+          .header {{
             background-color: #ff7369;
             color: #ffffff;
             padding: 24px;
             text-align: center;
-          }
+          }}
 
-          .content {
+          .content {{
             padding: 24px;
             color: #333333;
             line-height: 1.6;
-          }
+          }}
 
-          .button {
+          .button {{
             display: inline-block;
             padding: 12px 24px;
             margin-top: 20px;
@@ -65,27 +66,27 @@ class EmailSender:
             text-decoration: none;
             border-radius: 4px;
             font-weight: bold;
-          }
+          }}
 
-          .footer {
+          .footer {{
             background-color: #f0f0f0;
             padding: 16px;
             text-align: center;
             font-size: 12px;
             color: #888888;
-          }
+          }}
 
-          @media (max-width: 600px) {
-            .container {
+          @media (max-width: 600px) {{
+            .container {{
               margin: 20px;
-            }
+            }}
 
             .content,
             .header,
-            .footer {
+            .footer {{
               padding: 16px;
-            }
-          }
+            }}
+          }}
         </style>
       </head>
 
@@ -95,7 +96,7 @@ class EmailSender:
             <h1>Warning: low budget!!</h1>
           </div>
           <div class="content">
-            <p style="font-size: 30px; margin: 0px;"><b>You're low on funds!!</b></p>
+            <p style="font-size: 30px; margin: 0px;"><b>{username}!<br>You're running low on funds!</b></p>
             <p>
               Remember to keep track of your budget and expenses before adding a transaction! 
             </p>
@@ -116,9 +117,7 @@ class EmailSender:
         </div>
       </body>
     </html>
-
-
-        """
+        """.format(username=self.username)
         
         # Attach both plain text and HTML versions
         part1 = MIMEText(text_content, "plain")
@@ -133,5 +132,4 @@ class EmailSender:
             server.sendmail('santoschinkit@gmail.com', self.receiver_email, message.as_string())
 
         print("Email sent!")
-        
-# for testing purposes
+ 
