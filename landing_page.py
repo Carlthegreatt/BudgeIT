@@ -4,12 +4,14 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from sign import SignEntry
 from components.features import Features_ui
+from components.about_us import Team_Dialog
 import os
 
 
 class AnimatedMainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.about_us_dialog = None
         self.features_dialog = None  # Store reference to features dialog
         self.setupUi()
         self.setup_animations()
@@ -79,6 +81,7 @@ class AnimatedMainWindow(QMainWindow):
         self.toolButton_6.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.toolButton_6.setStyleSheet(self.get_nav_button_style())
         self.toolButton_6.setText("About us")
+        self.toolButton_6.clicked.connect(lambda: self.open_about_us())
         self.horizontalLayout.addWidget(self.toolButton_6)
 
         self.toolButton_9 = QToolButton(self.widget_3)
@@ -498,11 +501,18 @@ QWidget {
             self.features_dialog.close()
             self.features_dialog = None
             return
+        
+    def open_about_us(self):
+        # If dialog exists and is visible, close it
+        if self.about_us_dialog and self.about_us_dialog.isVisible():
+            self.about_us_dialog.close()
+            self.about_us_dialog = None
+            return
 
         # Otherwise, create and show the dialog
         dialog = QDialog(self)
         dialog.setWindowFlags(Qt.FramelessWindowHint)
-        ui = Features_ui()
+        ui = Team_Dialog()
         ui.setupUi(dialog)
         dialog.setWindowModality(Qt.ApplicationModal)
         self.features_dialog = dialog  # Store reference
