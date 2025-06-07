@@ -4,6 +4,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from sign import SignEntry
 from components.features import Features_ui
+import os
 
 
 class AnimatedMainWindow(QMainWindow):
@@ -14,6 +15,21 @@ class AnimatedMainWindow(QMainWindow):
         self.setup_animations()
 
     def setupUi(self):
+        font_path = os.path.join(
+            os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
+        )
+        font_id = QFontDatabase.addApplicationFont(font_path)
+
+        if font_id != -1:
+            font_families = QFontDatabase.applicationFontFamilies(font_id)
+            if font_families:
+                app_font = QFont(font_families[0])
+                QApplication.setFont(app_font)
+            else:
+                print("Font loaded, but no families found.")
+        else:
+            print("Failed to load font.")
+
         if not self.objectName():
             self.setObjectName("MainWindow")
         self.resize(1000, 640)
