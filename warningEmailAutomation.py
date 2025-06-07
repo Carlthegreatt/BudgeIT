@@ -6,7 +6,6 @@ from email.mime.multipart import MIMEMultipart
 class EmailSender:
     def __init__(self, receiver_email):
         self.receiver_email = receiver_email
-      
 
     def send_email(self):
         # Create the email
@@ -119,7 +118,7 @@ class EmailSender:
 
 
         """
-        
+
         # Attach both plain text and HTML versions
         part1 = MIMEText(text_content, "plain")
         part2 = MIMEText(html_content, "html")
@@ -130,8 +129,11 @@ class EmailSender:
         # Connect to Gmail SMTP server and send email
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login("santoschinkit@gmail.com", "kurh stbm drnd czut")
-            server.sendmail('santoschinkit@gmail.com', self.receiver_email, message.as_string())
+            server.sendmail(
+                "santoschinkit@gmail.com", self.receiver_email, message.as_string()
+            )
 
         print("Email sent!")
-        
+
+
 # for testing purposes
