@@ -861,10 +861,10 @@ class SignEntry(QMainWindow):
                 return
 
             if AuthManager(None, None, None, None).signup(
-                self.email_line,
-                self.password_line,
                 self.username_line,
+                self.password_line,
                 self.confirm_line,
+                self.email_line,
             ):
                 QMessageBox.information(
                     None,
