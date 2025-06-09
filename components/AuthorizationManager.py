@@ -1,5 +1,6 @@
 import sqlite3
-
+from components.emailautomation import EmailSender
+from PySide6.QtWidgets import QMessageBox
 
 connect = sqlite3.connect("accounts.db")
 cursor = connect.cursor()
@@ -80,24 +81,35 @@ class AuthManager:
             return False
 
         try:
-            self.cursor.execute(
-                "INSERT INTO users (username, password, email, account_setup) VALUES (?,?,?,?)",
-                (username, password, email, True),
-            )
-            self.connect.commit()
+            if EmailSender(email, username).send_email():
+                self.cursor.execute(
+                    "INSERT INTO users (username, password, email, account_setup) VALUES (?,?,?,?)",
+                    (username, password, email, True),
+                )
+                self.connect.commit()
 
-            self.cursor.execute("SELECT rowid FROM users ORDER BY rowid DESC LIMIT 1")
-            row = self.cursor.fetchone()
-            last_id = row[0] if row else None
+                self.cursor.execute(
+                    "SELECT rowid FROM users ORDER BY rowid DESC LIMIT 1"
+                )
+                row = self.cursor.fetchone()
+                last_id = row[0] if row else None
 
-            self.cursor.execute(
-                "INSERT INTO user_data (user_id, monthly_income, monthly_budget, food_budget, utilities_budget, health_wellness_budget, personal_lifestyle_budget, education_budget, transportation_budget, miscellaneous_budget) VALUES (?,?,?,?,?,?,?,?,?,?)",
-                (last_id, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-            )
-            self.connect.commit()
-            print("Registration successful.")
+                self.cursor.execute(
+                    "INSERT INTO user_data (user_id, monthly_income, monthly_budget, food_budget, utilities_budget, health_wellness_budget, personal_lifestyle_budget, education_budget, transportation_budget, miscellaneous_budget) VALUES (?,?,?,?,?,?,?,?,?,?)",
+                    (last_id, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                )
+                self.connect.commit()
+                print("Registration successful.")
 
-            return True
+                return True
+            else:
+                QMessageBox.warning(
+                    None,
+                    "Invalid Email",
+                    "Please check your email and try again.",
+                )
+                return False
+
         except sqlite3.IntegrityError as e:
             print(f"Database error: {e}")
             return False

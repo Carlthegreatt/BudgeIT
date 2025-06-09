@@ -896,9 +896,6 @@ class SignEntry(QMainWindow):
                 self.stackedWidget.setCurrentIndex(1)
                 self.signin_email_line.clear()
                 self.signin_password_line.clear()
-                EmailSender(
-                    self.email_line.text().strip(), self.username_line.text().strip()
-                ).send_email()
 
         self.signin_btn.clicked.connect(validate_signin)
 
