@@ -116,29 +116,29 @@ class AuthManager:
             print("Email and password are required.")
             return False
 
-        # Get fresh database connection for signin
-        connect = sqlite3.connect("accounts.db")
-        cursor = connect.cursor()
-
         try:
-            cursor.execute(
+            self.cursor.execute(
                 "SELECT user_id, username FROM users WHERE email = ? AND password = ?",
                 (email, password),
             )
-            data = cursor.fetchone()
+            data = self.cursor.fetchone()
             if data:
                 self.current_user_id = data[0]
-                self.current_email = email
                 print(f"Signin successful. Welcome {data[1]} (ID: {data[0]})")
 
-                # Clear form fields
                 email_widget.clear()
                 password_widget.clear()
 
-                return True
+                return self.get_current_user()
             else:
                 print("Invalid email or password.")
                 return False
-        finally:
-            cursor.close()
-            connect.close()
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+            return False
+
+    def get_current_user(self):
+        if hasattr(self, "current_user_id"):
+            print("from budgetapp")
+            return self.current_user_id
+        return None

@@ -840,11 +840,15 @@ class SignEntry(QMainWindow):
                 )
                 return
 
+            # Create a single AuthManager instance
+            auth_manager = AuthManager(None, None, None, None)
+
             # Attempt signin
-            if AuthManager(None, None, None, None).signin(
+            user_id = auth_manager.signin(
                 self.signin_email_line, self.signin_password_line
-            ):
-                print("Signin successful")
+            )
+            if user_id:
+                print(f"Signin successful, user ID: {user_id}")
                 QMessageBox.information(
                     None,
                     "Signin successful",
@@ -854,8 +858,7 @@ class SignEntry(QMainWindow):
                 self.close()
                 if hasattr(self, "parent") and self.parent():
                     QTimer.singleShot(1000, self.parent().close)
-                    QTimer.singleShot(800, lambda: BudgetApp().show())
-
+                    QTimer.singleShot(800, lambda: BudgetApp(user_id).show())
             else:
                 QMessageBox.warning(
                     None,
@@ -883,14 +886,13 @@ class SignEntry(QMainWindow):
                 self.confirm_line,
                 self.email_line,
             ):
+
                 QMessageBox.information(
                     None,
                     "Signup successful",
                     "You have successfully signed up. Please sign in to continue.",
                 )
-                # ...existing code...
 
-                # ...existing code...
                 self.stackedWidget.setCurrentIndex(1)
                 self.signin_email_line.clear()
                 self.signin_password_line.clear()

@@ -501,7 +501,7 @@ QWidget {
             self.features_dialog.close()
             self.features_dialog = None
             return
-        
+
     def open_about_us(self):
         # If dialog exists and is visible, close it
         if self.about_us_dialog and self.about_us_dialog.isVisible():

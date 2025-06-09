@@ -12,17 +12,33 @@ import matplotlib.pyplot as plt
 from components.datamanager import DataManager, sample_transactions
 from components.signoutwindow import SignOutWindow
 from account_setup import AccountSetup
+from components.AuthorizationManager import AuthManager
+import sqlite3
 
 
 class BudgetApp(QMainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, user_id, parent=None):
         super().__init__(parent)
+        self.user_id = user_id  # Use the passed user_id directly
+        self.connect = sqlite3.connect("accounts.db")
+        self.cursor = self.connect.cursor()
+        print("from budgetapp: user data", self.user_id)
         self.setupUi(self)
         self.setWindowTitle(" ")
 
-        QTimer.singleShot(600, lambda: AccountSetup(self).show())
+        self.cursor.execute(
+            "SELECT * FROM users WHERE user_id = ? AND account_setup = 1",
+            (self.user_id,),
+        )
+        self.user_data = self.cursor.fetchone()
+        if self.user_data:
+            print("successful fetch data")
+            QTimer.singleShot(600, lambda: AccountSetup(self.user_id, self).show())
+        else:
+            print("account already set up")
 
     def setupUi(self, MainWindow):
+        print("from budgetapp setupUi: current user id", self.user_id)
         font_path = os.path.join(
             os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
         )

@@ -4,10 +4,13 @@ from PySide6.QtWidgets import *
 
 
 class AccountSetup(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, user_id, parent=None):
         super().__init__(parent)
+        self.user_id = user_id
         self.setupUi(self)
         self.setWindowTitle(" ")
+        print("from account setup: user id", self.user_id)
+        self.exec()
 
     def setupUi(self, Dialog):
         if not Dialog.objectName():
