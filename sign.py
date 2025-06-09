@@ -1,11 +1,11 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-from AuthorizationManager import AuthManager
+from components.AuthorizationManager import AuthManager
 from main import BudgetApp
 from account_setup import AccountSetup
 import sys
-from emailautomation import EmailSender
+from components.emailautomation import EmailSender
 import os
 
 
@@ -889,13 +889,14 @@ class SignEntry(QMainWindow):
                     "You have successfully signed up. Please sign in to continue.",
                 )
                 # ...existing code...
-                EmailSender(
-                    self.email_line.text().strip(), self.username_line.text().strip()
-                ).send_email()
+
                 # ...existing code...
                 self.stackedWidget.setCurrentIndex(1)
                 self.signin_email_line.clear()
                 self.signin_password_line.clear()
+                EmailSender(
+                    self.email_line.text().strip(), self.username_line.text().strip()
+                ).send_email()
 
         self.signin_btn.clicked.connect(validate_signin)
 

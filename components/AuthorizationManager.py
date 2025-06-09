@@ -36,8 +36,6 @@ class AuthManager:
         # Get database connection
         self.connect = sqlite3.connect("accounts.db")
         self.cursor = self.connect.cursor()
-
-        # Store UI element references
         self.username_line_widget = username_line
         self.password_line_widget = password_line
         self.confirm_line_widget = confirm_line
