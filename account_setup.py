@@ -1,11 +1,14 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+import sqlite3
 
 
 class AccountSetup(QDialog):
     def __init__(self, user_id, parent=None):
         super().__init__(parent)
+        self.connect = sqlite3.connect("accounts.db")
+        self.cursor = self.connect.cursor()
         self.user_id = user_id
         self.setupUi(self)
         self.setWindowTitle(" ")
@@ -554,6 +557,7 @@ class AccountSetup(QDialog):
             "}\n"
             ""
         )
+        self.submitbtn.clicked.connect(self.submit_account_setup)
 
         self.verticalLayout_2.addWidget(self.submitbtn)
 
@@ -582,6 +586,36 @@ class AccountSetup(QDialog):
         self.retranslateUi(Dialog)
 
         QMetaObject.connectSlotsByName(Dialog)
+
+    def submit_account_setup(self):
+        self.cursor.execute(
+            """
+        UPDATE user_data
+        SET monthly_income = ?, monthly_budget = ?, food_budget = ?, utilities_budget = ?, health_wellness_budget = ?, personal_lifestyle_budget = ?, education_budget = ?, transportation_budget = ?, miscellaneous_budget = ?
+        WHERE user_id = ?
+        """,
+            (
+                self.allowanceincomeedit.text(),
+                self.monthbudgetedit.text(),
+                self.foodedit.text(),
+                self.utilitiesedit.text(),
+                self.healthwellnessedit.text(),
+                self.personallifestyeedit.text(),
+                self.educationedit.text(),
+                self.transportationedit.text(),
+                self.miscellaneousedit.text(),
+                self.user_id,
+            ),
+        )
+
+        self.connect.commit()
+        print("account setup successful")
+        self.cursor.execute(
+            "UPDATE users SET account_setup = ? WHERE user_id = ?",
+            (False, self.user_id),
+        )
+        self.connect.commit()
+        self.close()
 
     # setupUi
 

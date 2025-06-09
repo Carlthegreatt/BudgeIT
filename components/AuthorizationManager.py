@@ -15,7 +15,6 @@ cursor.execute(
 
 cursor.execute(
     """CREATE TABLE IF NOT EXISTS user_data(
-    data_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     monthly_income INTEGER NOT NULL,
     monthly_budget INTEGER NOT NULL,
