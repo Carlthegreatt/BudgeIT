@@ -19,7 +19,8 @@ import sqlite3
 class BudgetApp(QMainWindow):
     def __init__(self, user_id, parent=None):
         super().__init__(parent)
-        self.user_id = user_id  # Use the passed user_id directly
+
+        self.user_id = user_id
         self.connect = sqlite3.connect("accounts.db")
         self.cursor = self.connect.cursor()
         print("from budgetapp: user data", self.user_id)
@@ -27,18 +28,30 @@ class BudgetApp(QMainWindow):
         self.setWindowTitle(" ")
 
         self.cursor.execute(
-            "SELECT * FROM users WHERE user_id = ? AND account_setup = 1",
+            "SELECT * FROM users WHERE user_id = ? AND account_setup = 0",
             (self.user_id,),
         )
         self.user_data = self.cursor.fetchone()
+
+        # Create single instance of AccountSetup
+        self.account_setup = AccountSetup(self.user_id, self)
+        self.account_setup.setup_completed.connect(self.refresh_data)
+
         if self.user_data:
-            print("successful fetch data")
-            QTimer.singleShot(600, lambda: AccountSetup(self.user_id, self).show())
+            print("Account setup required")
+            # Show setup dialog if account is not set up
+            QTimer.singleShot(600, self.account_setup.show)
         else:
-            print("account already set up")
+            print("Account already set up")
+            # Refresh data immediately if account is set up
 
     def setupUi(self, MainWindow):
         print("from budgetapp setupUi: current user id", self.user_id)
+        self.cursor.execute(
+            "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
+        )
+        self.user_data = self.cursor.fetchone()
+
         font_path = os.path.join(
             os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
         )
@@ -706,6 +719,10 @@ class BudgetApp(QMainWindow):
             ""
         )
 
+        self.cursor.execute("SELECT * FROM users WHERE user_id = ?", (self.user_id,))
+        self.user_details = self.cursor.fetchone()
+        self.user.setText(str(self.user_details[1]))
+
         self.user.setAlignment(
             Qt.AlignmentFlag.AlignLeading
             | Qt.AlignmentFlag.AlignLeft
@@ -772,9 +789,11 @@ class BudgetApp(QMainWindow):
             'font: 700 32px "Inter";\n'
             ""
         )
+
         self.budgetvalue.setFrameShape(QFrame.Shape.NoFrame)
         self.budgetvalue.setFrameShadow(QFrame.Shadow.Sunken)
         self.budgetvalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.budgetvalue.setText(f"₱{self.user_data[4]:,.2f}")
 
         self.layout_2.addWidget(self.budgetvalue)
 
@@ -924,10 +943,12 @@ class BudgetApp(QMainWindow):
             'font: 700 32px "Inter";\n'
             ""
         )
+
         self.savingsvalue.setFrameShape(QFrame.Shape.NoFrame)
         self.savingsvalue.setFrameShadow(QFrame.Shadow.Sunken)
         self.savingsvalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.savingsvalue.setWordWrap(True)
+        self.savingsvalue.setText(f"₱{self.user_data[1]:,.2f}")
 
         self.layout_6.addWidget(self.savingsvalue)
 
@@ -1017,6 +1038,7 @@ class BudgetApp(QMainWindow):
         )
         self.expensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.expensevalue.setWordWrap(False)
+        self.expensevalue.setText(f"₱{self.user_data[2]:,.2f}")
 
         self.horizontalLayout_9.addWidget(self.expensevalue)
 
@@ -1061,8 +1083,10 @@ class BudgetApp(QMainWindow):
         self.incomevalue.setStyleSheet(
             "color: rgb(250, 250, 250);\n" 'font: 700 18px "Inter";\n' ""
         )
+
         self.incomevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.incomevalue.setWordWrap(False)
+        self.incomevalue.setText(f"₱{self.user_data[1]:,.2f}")
 
         self.horizontalLayout_12.addWidget(self.incomevalue)
 
@@ -1457,6 +1481,7 @@ QHeaderView::section {
         )
         self.totalexpensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.totalexpensevalue.setWordWrap(False)
+        self.totalexpensevalue.setText(f"₱{self.user_data[6]:,.2f}")
 
         self.horizontalLayout_22.addWidget(self.totalexpensevalue)
 
@@ -2660,14 +2685,12 @@ QHeaderView::section {
         self.greethello.setText(
             QCoreApplication.translate("MainWindow", "Hello,", None)
         )
-        self.user.setText(QCoreApplication.translate("MainWindow", "User", None))
+
         self.totalbudgetbox.setTitle("")
         self.totalbudgetlbl.setText(
             QCoreApplication.translate("MainWindow", "Current Budget", None)
         )
-        self.budgetvalue.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 54300.00", None)
-        )
+
         self.viewcategorybtn.setText(
             QCoreApplication.translate("MainWindow", "View Category", None)
         )
@@ -2675,23 +2698,15 @@ QHeaderView::section {
         self.savingslbl.setText(
             QCoreApplication.translate("MainWindow", "Savings", None)
         )
-        self.savingsvalue.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 34500.00", None)
-        )
         self.savingsbtn.setText(
             QCoreApplication.translate("MainWindow", "View Category", None)
         )
         self.expensebox.setTitle("")
-        self.expensevalue.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 44340.00", None)
-        )
+
         self.expenselbl.setText(
             QCoreApplication.translate("MainWindow", "Amount Spent", None)
         )
         self.incomebox.setTitle("")
-        self.incomevalue.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 44300.00", None)
-        )
         self.incomelbl.setText(
             QCoreApplication.translate("MainWindow", "Monthly Income", None)
         )
@@ -2928,9 +2943,7 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "Overall Budget", None)
         )
         self.expensebox_3.setTitle("")
-        self.totalexpensevalue.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 450.00", None)
-        )
+
         self.totalexpenselbl.setText(
             QCoreApplication.translate("MainWindow", "Amount Spent", None)
         )
@@ -3107,3 +3120,56 @@ QHeaderView::section {
         # Force the widget to update
         widget.update()
         canvas.draw()
+
+    def refresh_data(self):
+        """Refresh all user data and UI elements after account setup"""
+        try:
+            print("Starting data refresh...")
+            # Fetch latest user data
+            self.cursor.execute(
+                "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
+            )
+            self.user_data = self.cursor.fetchone()
+
+            if self.user_data:
+                print(f"User data fetched: {self.user_data}")
+
+                # Update income and budget values
+                monthly_income = float(self.user_data[3])
+                monthly_budget = float(self.user_data[4])
+
+                # Update UI elements with proper formatting
+                self.savingsvalue.setText(f"₱{self.user_data[1]:,.2f}")
+                self.incomevalue.setText(f"₱{monthly_income:,.2f}")
+                self.budgetvalue.setText(f"₱{monthly_budget:,.2f}")
+
+                # Update other budget-related values
+                self.overallbudgetvalue.setText(f"₱{monthly_budget:,.2f}")
+                self.totalincomevalue.setText(f"₱{monthly_income:,.2f}")
+
+                # Update category budgets
+                food_budget = float(self.user_data[9])
+                utilities_budget = float(self.user_data[10])
+                health_budget = float(self.user_data[11])
+                personal_budget = float(self.user_data[12])
+                education_budget = float(self.user_data[13])
+                transportation_budget = float(self.user_data[14])
+                misc_budget = float(self.user_data[15])
+
+                # Update expense and savings values
+                self.totalexpensevalue.setText(f"₱{float(self.user_data[6]):,.2f}")
+                self.accumulatedsavingvalue.setText(f"₱{float(self.user_data[5]):,.2f}")
+
+                # Refresh graphs with new data
+                # self.add_graph_to_widget(self.graph_widget)
+                # self.add_graph_to_budget_summary(self.summary_widget)
+
+                print("Data refresh completed successfully")
+            else:
+                print("No user data found during refresh")
+
+        except Exception as e:
+            print(f"Error during data refresh: {e}")
+            QMessageBox.warning(
+                self, "Refresh Error", "Failed to refresh data. Please try again."
+            )

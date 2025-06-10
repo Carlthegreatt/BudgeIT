@@ -2,13 +2,57 @@ import sys
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+from components.AuthorizationManager import get_db_connection
 
 
 class BudgetWindow(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.parent = parent
         self.setupUi(self)
-        self.setWindowTitle(" ")
+        self.setWindowTitle("Budget Overview")
+        self.load_budget_data()
+
+    def load_budget_data(self):
+        """Load budget data from database and update table"""
+        if not hasattr(self.parent, "user_id"):
+            return
+
+        with get_db_connection() as connect:
+            cursor = connect.cursor()
+            cursor.execute(
+                "SELECT * FROM user_data WHERE user_id = ?", (self.parent.user_id,)
+            )
+            user_data = cursor.fetchone()
+
+            if user_data:
+                # Update table with budget data
+                categories = [
+                    "Food",
+                    "Utilities",
+                    "Health & Wellness",
+                    "Personal & Lifestyle",
+                    "Education",
+                    "Transportation",
+                    "Others",
+                ]
+
+                budget_values = [
+                    user_data[3],  # food_budget
+                    user_data[4],  # utilities_budget
+                    user_data[5],  # health_wellness_budget
+                    user_data[6],  # personal_lifestyle_budget
+                    user_data[7],  # education_budget
+                    user_data[8],  # transportation_budget
+                    user_data[9],  # miscellaneous_budget
+                ]
+
+                for i, (category, budget) in enumerate(zip(categories, budget_values)):
+                    self.model.setItem(i, 0, QStandardItem(category))
+                    self.model.setItem(i, 1, QStandardItem(f"₱{float(budget):,.2f}"))
+                    self.model.setItem(
+                        i, 2, QStandardItem(f"₱{float(budget):,.2f}")
+                    )  # Initially remaining = budget
 
     def setupUi(self, Form):
         if not Form.objectName():

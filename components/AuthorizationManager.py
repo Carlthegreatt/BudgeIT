@@ -1,34 +1,52 @@
 import sqlite3
 from components.emailautomation import EmailSender
 from PySide6.QtWidgets import QMessageBox
+from contextlib import contextmanager
 
-connect = sqlite3.connect("accounts.db")
-cursor = connect.cursor()
 
-cursor.execute(
-    """CREATE TABLE IF NOT EXISTS users(
-               user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-               username TEXT UNIQUE NOT NULL,
-               password TEXT NOT NULL,
-               email TEXT UNIQUE NOT NULL,
-               account_setup INTEGER NOT NULL)"""
-)
+@contextmanager
+def get_db_connection():
+    connect = sqlite3.connect("accounts.db")
+    try:
+        yield connect
+    finally:
+        connect.close()
 
-cursor.execute(
-    """CREATE TABLE IF NOT EXISTS user_data(
-    user_id INTEGER NOT NULL,
-    monthly_income INTEGER NOT NULL,
-    monthly_budget INTEGER NOT NULL,
-    food_budget INTEGER NOT NULL,
-    utilities_budget INTEGER NOT NULL,
-    health_wellness_budget INTEGER NOT NULL,
-    personal_lifestyle_budget INTEGER NOT NULL,
-    education_budget INTEGER NOT NULL,
-    transportation_budget INTEGER NOT NULL,
-    miscellaneous_budget INTEGER NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (user_id)
-    )"""
-)
+
+# Initialize database schema
+with get_db_connection() as connect:
+    cursor = connect.cursor()
+    cursor.execute(
+        """CREATE TABLE IF NOT EXISTS users(
+                   user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                   username TEXT UNIQUE NOT NULL,
+                   password TEXT NOT NULL,
+                   email TEXT UNIQUE NOT NULL,
+                   account_setup INTEGER NOT NULL)"""
+    )
+
+    cursor.execute(
+        """CREATE TABLE IF NOT EXISTS user_data(
+        user_id INTEGER NOT NULL,
+        monthly_savings INTEGER NOT NULL,
+        monthly_expenses INTEGER NOT NULL,
+        monthly_income INTEGER NOT NULL,
+        monthly_budget INTEGER NOT NULL,
+        total_savings INTEGER NOT NULL,
+        total_expenses INTEGER NOT NULL,
+        total_income INTEGER NOT NULL,
+        total_budget INTEGER NOT NULL,
+        food_budget INTEGER NOT NULL,
+        utilities_budget INTEGER NOT NULL,
+        health_wellness_budget INTEGER NOT NULL,
+        personal_lifestyle_budget INTEGER NOT NULL,
+        education_budget INTEGER NOT NULL,
+        transportation_budget INTEGER NOT NULL,
+        miscellaneous_budget INTEGER NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users (user_id)
+        )"""
+    )
+    connect.commit()
 
 
 class AuthManager:
@@ -40,6 +58,12 @@ class AuthManager:
         self.password_line_widget = password_line
         self.confirm_line_widget = confirm_line
         self.email_line_widget = email_line
+
+    def __del__(self):
+        if hasattr(self, "cursor"):
+            self.cursor.close()
+        if hasattr(self, "connect"):
+            self.connect.close()
 
     def signup(self, username_line, password_line, confirm_line, email_line):
         # Get values from UI elements
@@ -82,25 +106,26 @@ class AuthManager:
 
         try:
             if EmailSender(email, username).send_email():
-                self.cursor.execute(
-                    "INSERT INTO users (username, password, email, account_setup) VALUES (?,?,?,?)",
-                    (username, password, email, True),
-                )
-                self.connect.commit()
+                with get_db_connection() as connect:
+                    cursor = connect.cursor()
+                    cursor.execute(
+                        "INSERT INTO users (username, password, email, account_setup) VALUES (?,?,?,?)",
+                        (username, password, email, False),
+                    )
+                    connect.commit()
 
-                self.cursor.execute(
-                    "SELECT rowid FROM users ORDER BY rowid DESC LIMIT 1"
-                )
-                row = self.cursor.fetchone()
-                last_id = row[0] if row else None
+                    cursor.execute(
+                        "SELECT rowid FROM users ORDER BY rowid DESC LIMIT 1"
+                    )
+                    row = cursor.fetchone()
+                    last_id = row[0] if row else None
 
-                self.cursor.execute(
-                    "INSERT INTO user_data (user_id, monthly_income, monthly_budget, food_budget, utilities_budget, health_wellness_budget, personal_lifestyle_budget, education_budget, transportation_budget, miscellaneous_budget) VALUES (?,?,?,?,?,?,?,?,?,?)",
-                    (last_id, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-                )
-                self.connect.commit()
+                    cursor.execute(
+                        "INSERT INTO user_data (user_id, monthly_savings, monthly_expenses, monthly_income, monthly_budget, total_savings, total_expenses, total_income, total_budget, food_budget, utilities_budget, health_wellness_budget, personal_lifestyle_budget, education_budget, transportation_budget, miscellaneous_budget) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                        (last_id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                    )
+                    connect.commit()
                 print("Registration successful.")
-
                 return True
             else:
                 QMessageBox.warning(
@@ -113,9 +138,6 @@ class AuthManager:
         except sqlite3.IntegrityError as e:
             print(f"Database error: {e}")
             return False
-        finally:
-            self.cursor.close()
-            self.connect.close()
 
     def signin(self, email_widget, password_widget):
         # Get values from UI elements

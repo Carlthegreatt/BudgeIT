@@ -2,9 +2,13 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sqlite3
+from components.AuthorizationManager import get_db_connection
 
 
 class AccountSetup(QDialog):
+    # Define a signal to be emitted when setup is complete
+    setup_completed = Signal()
+
     def __init__(self, user_id, parent=None):
         super().__init__(parent)
         self.connect = sqlite3.connect("accounts.db")
@@ -13,7 +17,11 @@ class AccountSetup(QDialog):
         self.setupUi(self)
         self.setWindowTitle(" ")
         print("from account setup: user id", self.user_id)
-        self.exec()
+
+    def show(self):
+        """Show the dialog and set it as modal"""
+        self.setWindowModality(Qt.ApplicationModal)
+        super().show()
 
     def setupUi(self, Dialog):
         if not Dialog.objectName():
@@ -588,13 +596,20 @@ class AccountSetup(QDialog):
         QMetaObject.connectSlotsByName(Dialog)
 
     def submit_account_setup(self):
-        self.cursor.execute(
-            """
-        UPDATE user_data
-        SET monthly_income = ?, monthly_budget = ?, food_budget = ?, utilities_budget = ?, health_wellness_budget = ?, personal_lifestyle_budget = ?, education_budget = ?, transportation_budget = ?, miscellaneous_budget = ?
-        WHERE user_id = ?
-        """,
-            (
+        try:
+            # First fetch the user data
+            with get_db_connection() as connect:
+                cursor = connect.cursor()
+                cursor.execute(
+                    "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
+                )
+                self.user_data = cursor.fetchone()
+
+                if not self.user_data:
+                    QMessageBox.warning(self, "Error", "User data not found.")
+                    return
+
+            values = [
                 self.allowanceincomeedit.text(),
                 self.monthbudgetedit.text(),
                 self.foodedit.text(),
@@ -604,18 +619,88 @@ class AccountSetup(QDialog):
                 self.educationedit.text(),
                 self.transportationedit.text(),
                 self.miscellaneousedit.text(),
-                self.user_id,
-            ),
-        )
+            ]
+            monthly_savings = float(self.allowanceincomeedit.text()) - float(
+                self.user_data[6]
+            )
+            total_income = 0 + float(self.allowanceincomeedit.text())
+            total_budget = 0 + float(self.monthbudgetedit.text())
+            total_savings = 0 + (
+                float(self.allowanceincomeedit.text()) - float(self.user_data[6])
+            )
+            total_values = [
+                total_income,
+                monthly_savings,
+                total_budget,
+                total_savings,
+            ]
 
-        self.connect.commit()
-        print("account setup successful")
-        self.cursor.execute(
-            "UPDATE users SET account_setup = ? WHERE user_id = ?",
-            (False, self.user_id),
-        )
-        self.connect.commit()
-        self.close()
+            # Check if any field is empty
+            if not all(values):
+                QMessageBox.warning(
+                    self, "Validation Error", "Please fill in all fields."
+                )
+                return
+
+            # Validate numeric values
+            try:
+                [float(v) for v in values]
+            except ValueError:
+                QMessageBox.warning(
+                    self, "Validation Error", "All fields must contain valid numbers."
+                )
+                return
+
+            with get_db_connection() as connect:
+                cursor = connect.cursor()
+                # Update user_data table with budget values
+                cursor.execute(
+                    """
+                    UPDATE user_data
+                    SET monthly_income = ?, monthly_budget = ?, food_budget = ?, 
+                        utilities_budget = ?, health_wellness_budget = ?, 
+                        personal_lifestyle_budget = ?, education_budget = ?, 
+                        transportation_budget = ?, miscellaneous_budget = ?
+                    WHERE user_id = ?
+                    """,
+                    (*values, self.user_id),
+                )
+
+                # Update user_data table with total values
+                cursor.execute(
+                    """
+                    UPDATE user_data 
+                    SET total_income = ?, monthly_savings = ?, total_budget = ?, total_savings = ?
+                    WHERE user_id = ?
+                    """,
+                    (*total_values, self.user_id),
+                )
+
+                connect.commit()
+                print("Account setup successful - user_data updated")
+
+                # Update users table
+                cursor.execute(
+                    "UPDATE users SET account_setup = ? WHERE user_id = ?",
+                    (True, self.user_id),  # Set to True since setup is complete
+                )
+                connect.commit()
+                print("Account setup successful - users table updated")
+
+                # Emit the signal before closing
+                self.setup_completed.emit()
+                print("Setup completed signal emitted")
+
+                # Close the dialog
+                self.accept()
+
+        except Exception as e:
+            print(f"Error in account setup: {e}")
+            QMessageBox.warning(
+                self,
+                "Setup Error",
+                "There was an error saving your account setup. Please try again.",
+            )
 
     # setupUi
 

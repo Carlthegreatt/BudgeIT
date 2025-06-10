@@ -854,11 +854,14 @@ class SignEntry(QMainWindow):
                     "Signin successful",
                     "You have successfully signed in.",
                 )
-                # Close both the sign-in window and the landing page
-                self.close()
+                # Create BudgetApp first
+                budget_app = BudgetApp(user_id)
+                # Then close windows
                 if hasattr(self, "parent") and self.parent():
-                    QTimer.singleShot(1000, self.parent().close)
-                    QTimer.singleShot(800, lambda: BudgetApp(user_id).show())
+                    self.parent().close()
+                self.close()
+                # Finally show BudgetApp
+                budget_app.show()
             else:
                 QMessageBox.warning(
                     None,
