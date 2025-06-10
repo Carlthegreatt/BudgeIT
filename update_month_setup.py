@@ -5,17 +5,14 @@ import sqlite3
 from components.AuthorizationManager import get_db_connection
 
 
-class AccountSetup(QDialog):
-    # Define a signal to be emitted when setup is complete
-    setup_completed = Signal()
-
+class UpdateMonthSetup(QDialog):
     def __init__(self, user_id, current_month, parent=None):
         super().__init__(parent)
         self.user_id = user_id
         self.current_month = current_month
         self.setupUi(self)
         self.setWindowTitle(" ")
-        print("from account setup: user id", self.user_id)
+        print("from update month setup: user id", self.user_id)
 
     def show(self):
         """Show the dialog and set it as modal"""
@@ -646,6 +643,14 @@ class AccountSetup(QDialog):
                 total_budget = float(self.monthbudgetedit.text())
                 total_savings = monthly_savings
 
+                # Calculate monthly expenses as sum of all budget categories
+                monthly_expenses = sum(
+                    float(v) for v in values[2:]
+                )  # Sum all budget categories
+
+                # Calculate total expenses (same as monthly expenses for now)
+                total_expenses = monthly_expenses
+
                 total_values = [
                     total_income,
                     monthly_savings,
@@ -653,78 +658,61 @@ class AccountSetup(QDialog):
                     total_savings,
                 ]
 
-                if self.user_data:
-                    # Update existing record
-                    cursor.execute(
-                        """
-                        UPDATE user_data SET
-                            monthly_income = ?,
-                            monthly_budget = ?,
-                            food_budget = ?,
-                            utilities_budget = ?,
-                            health_wellness_budget = ?,
-                            personal_lifestyle_budget = ?,
-                            education_budget = ?,
-                            transportation_budget = ?,
-                            miscellaneous_budget = ?,
-                            report_date = ?,
-                            total_income = ?,
-                            monthly_savings = ?,
-                            total_budget = ?,
-                            total_savings = ?
-                        WHERE user_id = ?
-                        """,
-                        (*values, self.current_month, *total_values, self.user_id),
-                    )
-                else:
-                    # Insert new record
-                    cursor.execute(
-                        """
-                        INSERT INTO user_data (
-                            user_id,
-                            monthly_income,
-                            monthly_budget,
-                            food_budget,
-                            utilities_budget,
-                            health_wellness_budget,
-                            personal_lifestyle_budget,
-                            education_budget,
-                            transportation_budget,
-                            miscellaneous_budget,
-                            report_date,
-                            total_income,
-                            monthly_savings,
-                            total_budget,
-                            total_savings
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                        """,
-                        (self.user_id, *values, self.current_month, *total_values),
-                    )
-
-                connect.commit()
-                print("Account setup successful - user_data updated")
-
-                # Update users table
                 cursor.execute(
-                    "UPDATE users SET account_setup = ? WHERE user_id = ?",
-                    (True, self.user_id),
+                    """
+                    INSERT INTO user_data (
+                        user_id,
+                        monthly_savings,
+                        monthly_expenses,
+                        monthly_income,
+                        monthly_budget,
+                        total_savings,
+                        total_expenses,
+                        total_income,
+                        total_budget,
+                        food_budget,
+                        utilities_budget,
+                        health_wellness_budget,
+                        personal_lifestyle_budget,
+                        education_budget,
+                        transportation_budget,
+                        miscellaneous_budget,
+                        report_date
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        self.user_id,
+                        monthly_savings,
+                        monthly_expenses,
+                        float(values[0]),  # monthly_income
+                        float(values[1]),  # monthly_budget
+                        total_savings,
+                        total_expenses,
+                        total_income,
+                        total_budget,
+                        float(values[2]),  # food_budget
+                        float(values[3]),  # utilities_budget
+                        float(values[4]),  # health_wellness_budget
+                        float(values[5]),  # personal_lifestyle_budget
+                        float(values[6]),  # education_budget
+                        float(values[7]),  # transportation_budget
+                        float(values[8]),  # miscellaneous_budget
+                        self.current_month,
+                    ),
                 )
-                connect.commit()
-                print("Account setup successful - users table updated")
 
-                # Emit the signal before closing
-                self.setup_completed.emit()
-                print("Setup completed signal emitted")
+                connect.commit()
+                print("Update month setup successful - user_data updated")
 
                 # Close the dialog
                 self.accept()
 
         except Exception as e:
-            print(f"Error in account setup: {e}")
+            print(f"Error in update month setup: {e}")
             QMessageBox.warning(
                 self,
                 "Setup Error",
-                "There was an error saving your account setup. Please try again.",
+                "There was an error saving your monthly account setup. Please try again.",
             )
 
     # setupUi

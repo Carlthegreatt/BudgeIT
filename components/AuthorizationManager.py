@@ -2,6 +2,7 @@ import sqlite3
 from components.emailautomation import EmailSender
 from PySide6.QtWidgets import QMessageBox
 from contextlib import contextmanager
+from datetime import datetime
 
 
 @contextmanager
@@ -15,6 +16,8 @@ def get_db_connection():
 
 # Initialize database schema
 with get_db_connection() as connect:
+    report_date = datetime.today().strftime("%Y-%m")
+
     cursor = connect.cursor()
     cursor.execute(
         """CREATE TABLE IF NOT EXISTS users(
@@ -27,6 +30,7 @@ with get_db_connection() as connect:
 
     cursor.execute(
         """CREATE TABLE IF NOT EXISTS user_data(
+        record_id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER NOT NULL,
         monthly_savings INTEGER NOT NULL,
         monthly_expenses INTEGER NOT NULL,
@@ -43,6 +47,7 @@ with get_db_connection() as connect:
         education_budget INTEGER NOT NULL,
         transportation_budget INTEGER NOT NULL,
         miscellaneous_budget INTEGER NOT NULL,
+        report_date TEXT NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users (user_id)
         )"""
     )
@@ -121,8 +126,26 @@ class AuthManager:
                     last_id = row[0] if row else None
 
                     cursor.execute(
-                        "INSERT INTO user_data (user_id, monthly_savings, monthly_expenses, monthly_income, monthly_budget, total_savings, total_expenses, total_income, total_budget, food_budget, utilities_budget, health_wellness_budget, personal_lifestyle_budget, education_budget, transportation_budget, miscellaneous_budget) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                        (last_id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                        "INSERT INTO user_data (user_id, monthly_savings, monthly_expenses, monthly_income, monthly_budget, total_savings, total_expenses, total_income, total_budget, food_budget, utilities_budget, health_wellness_budget, personal_lifestyle_budget, education_budget, transportation_budget, miscellaneous_budget, report_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                        (
+                            last_id,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            report_date,
+                        ),
                     )
                     connect.commit()
                 print("Registration successful.")

@@ -12,38 +12,43 @@ import matplotlib.pyplot as plt
 from components.datamanager import DataManager, sample_transactions
 from components.signoutwindow import SignOutWindow
 from account_setup import AccountSetup
-from components.AuthorizationManager import AuthManager
 import sqlite3
+from database_manager import *
+from update_month_setup import UpdateMonthSetup
 
 
 class BudgetApp(QMainWindow):
     def __init__(self, user_id, parent=None):
         super().__init__(parent)
-
         self.user_id = user_id
         self.connect = sqlite3.connect("accounts.db")
         self.cursor = self.connect.cursor()
         print("from budgetapp: user data", self.user_id)
         self.setupUi(self)
         self.setWindowTitle(" ")
-
         self.cursor.execute(
             "SELECT * FROM users WHERE user_id = ? AND account_setup = 0",
             (self.user_id,),
         )
         self.user_data = self.cursor.fetchone()
 
-        # Create single instance of AccountSetup
-        self.account_setup = AccountSetup(self.user_id, self)
+        self.account_setup = AccountSetup(
+            self.user_id, datetime.today().strftime("%Y-%m")
+        )
         self.account_setup.setup_completed.connect(self.refresh_data)
-
         if self.user_data:
             print("Account setup required")
-            # Show setup dialog if account is not set up
             QTimer.singleShot(600, self.account_setup.show)
+
         else:
             print("Account already set up")
-            # Refresh data immediately if account is set up
+            self.refresh_data()
+
+            if check_monthly_reset(self.user_id):
+                self.update_month_setup = UpdateMonthSetup(
+                    self.user_id, datetime.today().strftime("%Y-%m")
+                )
+                self.update_month_setup.show()
 
     def setupUi(self, MainWindow):
         print("from budgetapp setupUi: current user id", self.user_id)
@@ -3173,3 +3178,6 @@ QHeaderView::section {
             QMessageBox.warning(
                 self, "Refresh Error", "Failed to refresh data. Please try again."
             )
+
+        self.cursor.close()
+        self.connect.close()
