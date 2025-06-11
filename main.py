@@ -49,6 +49,7 @@ class BudgetApp(QMainWindow):
                     self.user_id, datetime.today().strftime("%Y-%m")
                 )
                 self.update_month_setup.show()
+        print("Now in main")
 
     def setupUi(self, MainWindow):
         print("from budgetapp setupUi: current user id", self.user_id)
@@ -1155,15 +1156,15 @@ class BudgetApp(QMainWindow):
         sizePolicy5.setVerticalStretch(0)
         sizePolicy5.setHeightForWidth(self.amountedit.sizePolicy().hasHeightForWidth())
         self.amountedit.setSizePolicy(sizePolicy5)
-        self.amountedit.setStyleSheet(
-            "QLineEdit {\n"
-            "	background-color: rgb(254, 250, 250);\n"
-            "                padding: 8px;\n"
-            "                border: 1px solid #ccc;\n"
-            "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
-            "            }"
-        )
+        self.amountedit.setStyleSheet(u"QLineEdit {\n"
+"	background-color: rgb(254, 250, 250);\n"
+"                padding: 8px;\n"
+"                border: 1px solid #ccc;\n"
+"                border-radius: 7px;\n"
+"                font-size: 10px;\n"
+"color: rgb(167, 83, 115);\n"
+"font-weight: bold\n"
+"            }")
 
         self.horizontalLayout_13.addWidget(self.amountedit)
 
@@ -1173,18 +1174,19 @@ class BudgetApp(QMainWindow):
             self.descriptionedit.sizePolicy().hasHeightForWidth()
         )
         self.descriptionedit.setSizePolicy(sizePolicy5)
-        self.descriptionedit.setStyleSheet(
-            "QLineEdit {\n"
-            "	\n"
-            "	\n"
-            "					background-color: rgb(254, 250, 250);\n"
-            "                padding: 8px;\n"
-            "                border: 1px solid #ccc;\n"
-            "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
-            "\n"
-            "            }"
-        )
+        self.descriptionedit.setStyleSheet(u"QLineEdit {\n"
+"	\n"
+"	\n"
+"					background-color: rgb(254, 250, 250);\n"
+"                padding: 8px;\n"
+"                border: 1px solid #ccc;\n"
+"                border-radius: 7px;\n"
+"                font-size: 10px;\n"
+"				color: rgb(167, 83, 115);\n"
+"font-weight:bold;\n"
+"\n"
+"            }\n"
+"")
 
         self.horizontalLayout_13.addWidget(self.descriptionedit)
 
