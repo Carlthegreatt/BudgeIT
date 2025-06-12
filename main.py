@@ -57,7 +57,7 @@ class BudgetApp(QMainWindow):
             "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
         )
         self.user_data = self.cursor.fetchone()
-
+        print(self.user_data)
         font_path = os.path.join(
             os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
         )
@@ -3155,17 +3155,17 @@ QHeaderView::section {
                 self.totalincomevalue.setText(f"₱{monthly_income:,.2f}")
 
                 # Update category budgets
-                food_budget = float(self.user_data[9])
-                utilities_budget = float(self.user_data[10])
-                health_budget = float(self.user_data[11])
-                personal_budget = float(self.user_data[12])
-                education_budget = float(self.user_data[13])
-                transportation_budget = float(self.user_data[14])
-                misc_budget = float(self.user_data[15])
+                food_budget = float(self.user_data[10])
+                utilities_budget = float(self.user_data[11])
+                health_budget = float(self.user_data[12])
+                personal_budget = float(self.user_data[13])
+                education_budget = float(self.user_data[14])
+                transportation_budget = float(self.user_data[15])
+                misc_budget = float(self.user_data[16])
 
                 # Update expense and savings values
-                self.totalexpensevalue.setText(f"₱{float(self.user_data[6]):,.2f}")
-                self.accumulatedsavingvalue.setText(f"₱{float(self.user_data[5]):,.2f}")
+                self.totalexpensevalue.setText(f"₱{float(self.user_data[7]):,.2f}")
+                self.accumulatedsavingvalue.setText(f"₱{float(self.user_data[6]):,.2f}")
 
                 # Refresh graphs with new data
                 # self.add_graph_to_widget(self.graph_widget)
