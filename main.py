@@ -810,54 +810,72 @@ class BudgetApp(QMainWindow):
         self.verticalLayout_25.addLayout(self.layout_2)
 
         self.layout_3 = QHBoxLayout()
-        self.layout_3.setSpacing(20)
+        self.layout_3.setSpacing(10)
         self.layout_3.setObjectName("layout_3")
         self.layout_3.setContentsMargins(20, -1, -1, -1)
-        self.progressBar = QProgressBar(self.totalbudgetbox)
-        self.progressBar.setObjectName("progressBar")
+        self.horizontalLayout_39 = QHBoxLayout()
+        self.horizontalLayout_39.setSpacing(10)
+        self.horizontalLayout_39.setObjectName("horizontalLayout_39")
+        self.horizontalLayout_39.setContentsMargins(-1, 10, -1, 10)
+        self.progressBar_2 = QProgressBar(self.totalbudgetbox)
+        self.progressBar_2.setObjectName("progressBar_2")
         sizePolicy2 = QSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
         )
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.progressBar.sizePolicy().hasHeightForWidth())
-        self.progressBar.setSizePolicy(sizePolicy2)
-        self.progressBar.setMinimumSize(QSize(0, 0))
-        self.progressBar.setMaximumSize(QSize(16777215, 20))
-        self.progressBar.setStyleSheet(
+        sizePolicy2.setHeightForWidth(
+            self.progressBar_2.sizePolicy().hasHeightForWidth()
+        )
+        self.progressBar_2.setSizePolicy(sizePolicy2)
+        self.progressBar_2.setMinimumSize(QSize(0, 0))
+        self.progressBar_2.setMaximumSize(QSize(16777215, 13))
+        self.progressBar_2.setStyleSheet(
             "QProgressBar {\n"
-            "	\n"
-            "	\n"
             "	background-color: rgb(245, 245, 245);\n"
-            "	\n"
-            "	\n"
-            "	\n"
-            "	\n"
-            "	\n"
             "	color: rgb(245, 245, 245);\n"
-            ' 	font: 600 7pt "Inter";\n'
-            "    \n"
-            "    border-radius: 10px;\n"
+            ' 	font: 600 4pt "Inter";\n'
+            "    border-radius: 5px;\n"
             "    text-align: left;\n"
             "}\n"
-            "\n"
             "QProgressBar::chunk {\n"
             "    background: QLinearGradient(\n"
             "        x1: 0, y1: 0,\n"
             "        x2: 1, y2: 0,\n"
-            "	\n"
             "        stop: 0 #6c4464\n"
-            "\n"
             "        stop: 1 #a75373\n"
             "    );\n"
-            "    border-radius: 9px;\n"
+            "    border-radius: 5px;\n"
             "}\n"
             ""
         )
-        self.progressBar.setValue(70)
-        self.progressBar.setTextVisible(False)
+        self.progressBar_2.setValue(24)
+        self.progressBar_2.setTextVisible(False)
+        self.progressBar_2.setOrientation(Qt.Orientation.Horizontal)
+        self.progressBar_2.setInvertedAppearance(False)
 
-        self.layout_3.addWidget(self.progressBar)
+        self.horizontalLayout_39.addWidget(self.progressBar_2)
+
+        self.remainingbudget = QLabel(self.totalbudgetbox)
+        self.remainingbudget.setObjectName("remainingbudget")
+        self.remainingbudget.setMaximumSize(QSize(16777215, 50))
+        self.remainingbudget.setStyleSheet(
+            "color: rgb(222, 111, 153);\n"
+            'font: 500 12px "Inter";\n'
+            "text-align: center;\n"
+            ""
+        )
+        self.remainingbudget.setAlignment(
+            Qt.AlignmentFlag.AlignRight
+            | Qt.AlignmentFlag.AlignTrailing
+            | Qt.AlignmentFlag.AlignVCenter
+        )
+        self.remainingbudget.setWordWrap(False)
+        self.remainingbudget.setText(f"₱{self.user_data[5]:,.2f} Remaining")
+
+        self.horizontalLayout_39.addWidget(self.remainingbudget)
+
+        self.layout_3.addLayout(self.horizontalLayout_39)
 
         self.viewcategorybtn = QToolButton(self.totalbudgetbox)
         self.viewcategorybtn.setObjectName("viewcategorybtn")
@@ -2765,7 +2783,7 @@ QHeaderView::section {
             5, QCoreApplication.translate("MainWindow", "Transportation", None)
         )
         self.categorycombo.setItemText(
-            6, QCoreApplication.translate("MainWindow", "Others", None)
+            6, QCoreApplication.translate("MainWindow", "Miscellaneous", None)
         )
 
         self.categorycombo.setPlaceholderText(

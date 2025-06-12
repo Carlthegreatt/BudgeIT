@@ -164,6 +164,12 @@ class AddTransactions(Transaction):
                 )
                 self.__connect.commit()
 
+                cursor.execute(
+                    """UPDATE remaining_budgets SET remaining_monthly_savings = remaining_monthly_savings - ? WHERE user_id = ? AND report_date = ?""",
+                    (amount, self.__user_id, report_date),
+                )
+                self.__connect.commit()
+
                 # Clear inputs on success
                 self.__amountedit.clear()
                 self.__descriptionedit.clear()
