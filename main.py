@@ -1046,7 +1046,7 @@ class BudgetApp(QMainWindow):
         )
         self.expensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.expensevalue.setWordWrap(False)
-        self.expensevalue.setText(f"₱{self.user_data[2]:,.2f}")
+        self.expensevalue.setText(f"₱{self.user_data[3]:,.2f}")
 
         self.horizontalLayout_9.addWidget(self.expensevalue)
 
@@ -3158,6 +3158,7 @@ QHeaderView::section {
                 # Update income and budget values
                 monthly_income = float(self.user_data[4])
                 monthly_budget = float(self.user_data[5])
+                monthly_expenses = float(self.user_data[3])
 
                 # Update UI elements with proper formatting
                 self.savingsvalue.setText(f"₱{self.user_data[2]:,.2f}")
@@ -3198,6 +3199,7 @@ QHeaderView::section {
                 )
                 self.totalincomevalue.setText(f"₱{float(self.total_income):,.2f}")
                 self.overallbudgetvalue.setText(f"₱{float(self.total_budget):,.2f}")
+                self.expensevalue.setText(f"₱{float(monthly_expenses):,.2f}")
 
                 # Refresh graphs with new data
                 # self.add_graph_to_widget(self.graph_widget)
@@ -3212,9 +3214,6 @@ QHeaderView::section {
             QMessageBox.warning(
                 self, "Refresh Error", "Failed to refresh data. Please try again."
             )
-
-        self.cursor.close()
-        self.connect.close()
 
     def refresh_model(self):
         """Refresh the activities model with latest transactions"""
@@ -3238,3 +3237,4 @@ QHeaderView::section {
         )
         if add_trans.add_entry():
             self.refresh_model()
+            self.refresh_data()

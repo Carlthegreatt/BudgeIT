@@ -1,78 +1,91 @@
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
-import sqlite3
+from PySide6.QtWidgets import (
+    QApplication,
+    QWidget,
+    QPushButton,
+    QLabel,
+    QVBoxLayout,
+    QGraphicsOpacityEffect,
+)
+from PySide6.QtCore import QPropertyAnimation, QTimer, Qt, QEasingCurve, QPoint
 
-user_id = 2
-start_date = datetime(2024, 7, 1)  # 12 months starting July 2024
 
-yearly_data = []
+class MainWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Fade-In Popup Text")
+        self.setFixedSize(400, 300)
 
-for i in range(12):
-    date = start_date + relativedelta(months=i)
-    report_date = date.strftime("%Y-%m")
+        # Main layout (for button)
+        layout = QVBoxLayout(self)
 
-    monthly_income = 20000 + (i % 3) * 500  # slight variation
-    monthly_expenses = 12000 + (i % 4) * 300
-    monthly_savings = monthly_income - monthly_expenses
-    monthly_budget = monthly_income - 1000  # assume fixed goal
+        # Button
+        self.button = QPushButton("Show Message")
+        self.button.clicked.connect(self.show_popup)
+        layout.addWidget(self.button)
 
-    # simple proportional breakdown of the budget
-    food_budget = 0.25 * monthly_budget
-    utilities_budget = 0.10 * monthly_budget
-    health_budget = 0.05 * monthly_budget
-    lifestyle_budget = 0.08 * monthly_budget
-    education_budget = 0.15 * monthly_budget
-    transport_budget = 0.12 * monthly_budget
-    misc_budget = monthly_budget - (
-        food_budget
-        + utilities_budget
-        + health_budget
-        + lifestyle_budget
-        + education_budget
-        + transport_budget
-    )
-
-    yearly_data.append(
-        (
-            user_id,
-            round(monthly_savings, 2),
-            round(monthly_expenses, 2),
-            round(monthly_income, 2),
-            round(monthly_budget, 2),
-            round(food_budget, 2),
-            round(utilities_budget, 2),
-            round(health_budget, 2),
-            round(lifestyle_budget, 2),
-            round(education_budget, 2),
-            round(transport_budget, 2),
-            round(misc_budget, 2),
-            report_date,
+        # Create the label for popup (not in layout, just floating on window)
+        self.popup = QLabel("This is a popup!", self)
+        self.popup.setStyleSheet(
+            "color: black; font-size: 16px; background: transparent;"
         )
-    )
+        self.popup.adjustSize()
+        self.popup.setVisible(False)  # Start hidden
+
+        # Set opacity effect
+        self.opacity = QGraphicsOpacityEffect(self.popup)
+        self.popup.setGraphicsEffect(self.opacity)
+        self.opacity.setOpacity(0)
+
+        # Fade in animation
+        self.fade_in = QPropertyAnimation(self.opacity, b"opacity")
+        self.fade_in.setDuration(500)
+        self.fade_in.setStartValue(0)
+        self.fade_in.setEndValue(1)
+        self.fade_in.setEasingCurve(QEasingCurve.InOutQuad)
+
+        # Fade out animation
+        self.fade_out = QPropertyAnimation(self.opacity, b"opacity")
+        self.fade_out.setDuration(500)
+        self.fade_out.setStartValue(1)
+        self.fade_out.setEndValue(0)
+        self.fade_out.setEasingCurve(QEasingCurve.InOutQuad)
+
+        # Move animation
+        self.move_anim = QPropertyAnimation(self.popup, b"pos")
+        self.move_anim.setDuration(500)
+        self.move_anim.setEasingCurve(QEasingCurve.OutQuad)
+
+    def show_popup(self):
+        # Set initial position in the center
+        x = (self.width() - self.popup.width()) // 2
+        y = self.height() // 2
+        self.popup.move(x, y)
+        self.popup.setVisible(True)
+        self.opacity.setOpacity(0)
+
+        # Start fade-in
+        self.fade_in.start()
+
+        # After delay, start fade-out and move-up
+        QTimer.singleShot(1500, self.fade_and_move)
+
+    def fade_and_move(self):
+        # Current and new position (move up by 30px)
+        current_pos = self.popup.pos()
+        end_pos = QPoint(current_pos.x(), current_pos.y() - 30)
+
+        self.move_anim.setStartValue(current_pos)
+        self.move_anim.setEndValue(end_pos)
+
+        self.fade_out.start()
+        self.move_anim.start()
+
+        # Hide after animation finishes
+        self.fade_out.finished.connect(lambda: self.popup.setVisible(False))
 
 
-insert_query = """
-    INSERT INTO user_data (
-        user_id,
-        monthly_savings,
-        monthly_expenses,
-        monthly_income,
-        monthly_budget,
-        food_budget,
-        utilities_budget,
-        health_wellness_budget,
-        personal_lifestyle_budget,
-        education_budget,
-        transportation_budget,
-        miscellaneous_budget,
-        report_date
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-"""
-dummy_user = "INSERT INTO users (username, password, email, account_setup) VALUES ('dei', '123456', 'dei@gmail.com', 1)"
-
-connection = sqlite3.connect("accounts.db")
-cursor = connection.cursor()
-
-cursor.execute(dummy_user)
-cursor.executemany(insert_query, yearly_data)
-connection.commit()
+if __name__ == "__main__":
+    app = QApplication([])
+    window = MainWindow()
+    window.show()
+    app.exec()

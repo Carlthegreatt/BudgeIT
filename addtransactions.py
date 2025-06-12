@@ -84,12 +84,19 @@ class AddTransactions(Transaction):
 
         # Get current date
         current_date = QDate.currentDate().toString("yyyy-MM-dd")
+        report_date = QDate.currentDate().toString("yyyy-MM")
 
         try:
             # Insert into database
             cursor.execute(
                 "INSERT INTO transactions (user_id, transaction_date, amount, description, category) VALUES (?, ?, ?, ?, ?)",
                 (self.__user_id, current_date, amount, description, category),
+            )
+            self.__connect.commit()
+
+            cursor.execute(
+                "UPDATE user_data SET monthly_expenses = monthly_expenses + ? WHERE user_id = ? AND report_date = ?",
+                (amount, self.__user_id, report_date),
             )
             self.__connect.commit()
 
