@@ -666,10 +666,6 @@ class UpdateMonthSetup(QDialog):
                         monthly_expenses,
                         monthly_income,
                         monthly_budget,
-                        total_savings,
-                        total_expenses,
-                        total_income,
-                        total_budget,
                         food_budget,
                         utilities_budget,
                         health_wellness_budget,
@@ -678,7 +674,7 @@ class UpdateMonthSetup(QDialog):
                         transportation_budget,
                         miscellaneous_budget,
                         report_date
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """,
                     (
                         self.user_id,
@@ -686,10 +682,6 @@ class UpdateMonthSetup(QDialog):
                         monthly_expenses,
                         float(values[0]),  # monthly_income
                         float(values[1]),  # monthly_budget
-                        total_savings,
-                        total_expenses,
-                        total_income,
-                        total_budget,
                         float(values[2]),  # food_budget
                         float(values[3]),  # utilities_budget
                         float(values[4]),  # health_wellness_budget
@@ -720,7 +712,7 @@ class UpdateMonthSetup(QDialog):
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", "Dialog", None))
         self.setuplbl.setText(
-            QCoreApplication.translate("Dialog", "Set up your account", None)
+            QCoreApplication.translate("Dialog", "Set Up Your Monthly Budget", None)
         )
         self.requirementlbl.setText(
             QCoreApplication.translate("Dialog", "Please fill in all fields.", None)

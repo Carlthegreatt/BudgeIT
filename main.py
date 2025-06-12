@@ -10,7 +10,7 @@ from components.budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from components.datamanager import DataManager, sample_transactions
-from components.signoutwindow import SignOutWindow
+from signoutwindow import SignOutWindow
 from account_setup import AccountSetup
 import sqlite3
 from database_manager import *
@@ -953,7 +953,7 @@ class BudgetApp(QMainWindow):
         self.savingsvalue.setFrameShadow(QFrame.Shadow.Sunken)
         self.savingsvalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.savingsvalue.setWordWrap(True)
-        self.savingsvalue.setText(f"₱{self.user_data[1]:,.2f}")
+        self.savingsvalue.setText(f"₱{self.user_data[2]:,.2f}")
 
         self.layout_6.addWidget(self.savingsvalue)
 
@@ -1091,7 +1091,7 @@ class BudgetApp(QMainWindow):
 
         self.incomevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.incomevalue.setWordWrap(False)
-        self.incomevalue.setText(f"₱{self.user_data[1]:,.2f}")
+        self.incomevalue.setText(f"₱{self.user_data[4]:,.2f}")
 
         self.horizontalLayout_12.addWidget(self.incomevalue)
 
@@ -1968,7 +1968,6 @@ QHeaderView::section {
 
         self.daycombo = QComboBox(self.scrollAreaWidgetContents_3)
         self.daycombo.setPlaceholderText("Day")
-        self.daycombo.addItem("")
         self.daycombo.addItem("")
         self.daycombo.addItem("")
         self.daycombo.addItem("")
@@ -3014,9 +3013,14 @@ QHeaderView::section {
 
     def signoutwindow(self):
         dialog = SignOutWindow(self)
-        dialog.setWindowModality(Qt.ApplicationModal)
+        dialog.signOutRequested.connect(self.show_sign_in)
         dialog.show()
-        dialog.exec()
+
+    def show_sign_in(self):
+        from user_sign import SignEntry
+
+        self.signin = SignEntry()
+        self.signin.show()
 
     def add_graph_to_widget(self, widget: QWidget):
         # Create DataManager instance with sample data
@@ -3140,11 +3144,11 @@ QHeaderView::section {
                 print(f"User data fetched: {self.user_data}")
 
                 # Update income and budget values
-                monthly_income = float(self.user_data[3])
-                monthly_budget = float(self.user_data[4])
+                monthly_income = float(self.user_data[4])
+                monthly_budget = float(self.user_data[5])
 
                 # Update UI elements with proper formatting
-                self.savingsvalue.setText(f"₱{self.user_data[1]:,.2f}")
+                self.savingsvalue.setText(f"₱{self.user_data[2]:,.2f}")
                 self.incomevalue.setText(f"₱{monthly_income:,.2f}")
                 self.budgetvalue.setText(f"₱{monthly_budget:,.2f}")
 
@@ -3153,17 +3157,17 @@ QHeaderView::section {
                 self.totalincomevalue.setText(f"₱{monthly_income:,.2f}")
 
                 # Update category budgets
-                food_budget = float(self.user_data[9])
-                utilities_budget = float(self.user_data[10])
-                health_budget = float(self.user_data[11])
-                personal_budget = float(self.user_data[12])
-                education_budget = float(self.user_data[13])
-                transportation_budget = float(self.user_data[14])
-                misc_budget = float(self.user_data[15])
+                food_budget = float(self.user_data[6])
+                utilities_budget = float(self.user_data[7])
+                health_budget = float(self.user_data[8])
+                personal_budget = float(self.user_data[9])
+                education_budget = float(self.user_data[10])
+                transportation_budget = float(self.user_data[11])
+                misc_budget = float(self.user_data[12])
 
                 # Update expense and savings values
-                self.totalexpensevalue.setText(f"₱{float(self.user_data[6]):,.2f}")
-                self.accumulatedsavingvalue.setText(f"₱{float(self.user_data[5]):,.2f}")
+                # self.totalexpensevalue.setText(f"₱{float(self.user_data[7]):,.2f}")
+                # self.accumulatedsavingvalue.setText(f"₱{float(self.user_data[8]):,.2f}")
 
                 # Refresh graphs with new data
                 # self.add_graph_to_widget(self.graph_widget)

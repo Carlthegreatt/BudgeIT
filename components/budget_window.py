@@ -38,13 +38,13 @@ class BudgetWindow(QDialog):
                 ]
 
                 budget_values = [
-                    user_data[3],  # food_budget
-                    user_data[4],  # utilities_budget
-                    user_data[5],  # health_wellness_budget
-                    user_data[6],  # personal_lifestyle_budget
-                    user_data[7],  # education_budget
-                    user_data[8],  # transportation_budget
-                    user_data[9],  # miscellaneous_budget
+                    user_data[6],  # food_budget
+                    user_data[7],  # utilities_budget
+                    user_data[8],  # health_wellness_budget
+                    user_data[9],  # personal_lifestyle_budget
+                    user_data[10],  # education_budget
+                    user_data[11],  # transportation_budget
+                    user_data[12],  # miscellaneous_budget
                 ]
 
                 for i, (category, budget) in enumerate(zip(categories, budget_values)):

@@ -14,7 +14,6 @@ def get_db_connection():
         connect.close()
 
 
-# Initialize database schema
 with get_db_connection() as connect:
     report_date = datetime.today().strftime("%Y-%m")
 
@@ -36,10 +35,6 @@ with get_db_connection() as connect:
         monthly_expenses INTEGER NOT NULL,
         monthly_income INTEGER NOT NULL,
         monthly_budget INTEGER NOT NULL,
-        total_savings INTEGER NOT NULL,
-        total_expenses INTEGER NOT NULL,
-        total_income INTEGER NOT NULL,
-        total_budget INTEGER NOT NULL,
         food_budget INTEGER NOT NULL,
         utilities_budget INTEGER NOT NULL,
         health_wellness_budget INTEGER NOT NULL,
@@ -126,13 +121,9 @@ class AuthManager:
                     last_id = row[0] if row else None
 
                     cursor.execute(
-                        "INSERT INTO user_data (user_id, monthly_savings, monthly_expenses, monthly_income, monthly_budget, total_savings, total_expenses, total_income, total_budget, food_budget, utilities_budget, health_wellness_budget, personal_lifestyle_budget, education_budget, transportation_budget, miscellaneous_budget, report_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                        "INSERT INTO user_data (user_id, monthly_savings, monthly_expenses, monthly_income, monthly_budget, food_budget, utilities_budget, health_wellness_budget, personal_lifestyle_budget, education_budget, transportation_budget, miscellaneous_budget, report_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
                         (
                             last_id,
-                            0,
-                            0,
-                            0,
-                            0,
                             0,
                             0,
                             0,

@@ -6,7 +6,6 @@ from components.AuthorizationManager import get_db_connection
 
 
 class AccountSetup(QDialog):
-    # Define a signal to be emitted when setup is complete
     setup_completed = Signal()
 
     def __init__(self, user_id, current_month, parent=None):
@@ -595,37 +594,11 @@ class AccountSetup(QDialog):
         QMetaObject.connectSlotsByName(Dialog)
 
     def submit_account_setup(self):
+
         try:
-            # First get all the input values
-            values = [
-                self.allowanceincomeedit.text(),
-                self.monthbudgetedit.text(),
-                self.foodedit.text(),
-                self.utilitiesedit.text(),
-                self.healthwellnessedit.text(),
-                self.personallifestyeedit.text(),
-                self.educationedit.text(),
-                self.transportationedit.text(),
-                self.miscellaneousedit.text(),
-            ]
-
-            # Check if any field is empty
-            if not all(values):
-                QMessageBox.warning(
-                    self, "Validation Error", "Please fill in all fields."
-                )
-                return
-
-            # Validate numeric values
-            try:
-                [float(v) for v in values]
-            except ValueError:
-                QMessageBox.warning(
-                    self, "Validation Error", "All fields must contain valid numbers."
-                )
-                return
 
             with get_db_connection() as connect:
+
                 cursor = connect.cursor()
 
                 # First check if user_data exists for this user
@@ -634,24 +607,35 @@ class AccountSetup(QDialog):
                 )
                 self.user_data = cursor.fetchone()
 
-                # Calculate totals
-                if self.user_data:
-                    monthly_savings = float(self.allowanceincomeedit.text()) - float(
-                        self.user_data[6]
-                    )
-                else:
-                    monthly_savings = float(self.allowanceincomeedit.text())
-
-                total_income = float(self.allowanceincomeedit.text())
-                total_budget = float(self.monthbudgetedit.text())
-                total_savings = monthly_savings
-
-                total_values = [
-                    total_income,
-                    monthly_savings,
-                    total_budget,
-                    total_savings,
+                values = [
+                    self.allowanceincomeedit.text(),
+                    self.monthbudgetedit.text(),
+                    self.foodedit.text(),
+                    self.utilitiesedit.text(),
+                    self.healthwellnessedit.text(),
+                    self.personallifestyeedit.text(),
+                    self.educationedit.text(),
+                    self.transportationedit.text(),
+                    self.miscellaneousedit.text(),
+                    float(self.allowanceincomeedit.text()) - float(self.user_data[6]),
                 ]
+
+                if not all(values):
+                    QMessageBox.warning(
+                        self, "Validation Error", "Please fill in all fields."
+                    )
+                    return
+
+                # Validate numeric values
+                try:
+                    [float(v) for v in values]
+                except ValueError:
+                    QMessageBox.warning(
+                        self,
+                        "Validation Error",
+                        "All fields must contain valid numbers.",
+                    )
+                    return
 
                 if self.user_data:
                     # Update existing record
@@ -667,14 +651,11 @@ class AccountSetup(QDialog):
                             education_budget = ?,
                             transportation_budget = ?,
                             miscellaneous_budget = ?,
-                            report_date = ?,
-                            total_income = ?,
                             monthly_savings = ?,
-                            total_budget = ?,
-                            total_savings = ?
+                            report_date = ?
                         WHERE user_id = ?
                         """,
-                        (*values, self.current_month, *total_values, self.user_id),
+                        (*values, self.current_month, self.user_id),
                     )
                 else:
                     # Insert new record
@@ -691,14 +672,11 @@ class AccountSetup(QDialog):
                             education_budget,
                             transportation_budget,
                             miscellaneous_budget,
-                            report_date,
-                            total_income,
                             monthly_savings,
-                            total_budget,
-                            total_savings
-                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            report_date
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """,
-                        (self.user_id, *values, self.current_month, *total_values),
+                        (self.user_id, *values, self.current_month),
                     )
 
                 connect.commit()

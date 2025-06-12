@@ -1,15 +1,19 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
+import sys
+import os
 
 
 class SignOutWindow(QDialog):
+    # Add a signal for sign out
+    signOutRequested = Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
         self.setWindowTitle(" ")
-        # Initialize opacity to 0 for fade-in effect
+
         self.setWindowOpacity(0.0)
 
     def setupUi(self, Dialog):
@@ -208,11 +212,12 @@ class SignOutWindow(QDialog):
             "}"
         )
 
+        self.signoutbtn.clicked.connect(self.signout)
         self.horizontalLayout_1.addWidget(self.signoutbtn)
 
         self.cancelbtn = QToolButton(self.widget)
         self.cancelbtn.setObjectName("cancelbtn")
-        self.cancelbtn.clicked.connect(Dialog.close)
+        self.cancelbtn.clicked.connect(self.cancel)
         self.cancelbtn.setMinimumSize(QSize(130, 34))
         self.cancelbtn.setMaximumSize(QSize(130, 34))
         self.cancelbtn.setStyleSheet(
@@ -297,3 +302,11 @@ class SignOutWindow(QDialog):
         self.scale_anim.start()
 
         super().showEvent(event)
+
+    def signout(self):
+        self.close()
+        self.parent().close()
+        self.signOutRequested.emit()  # Emit signal instead of creating SignEntry directly
+
+    def cancel(self):
+        self.close()

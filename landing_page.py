@@ -2,7 +2,7 @@ import sys
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-from sign import SignEntry
+from user_sign import SignEntry
 from components.features import Features_ui
 from components.about_us import Team_Dialog
 import os
