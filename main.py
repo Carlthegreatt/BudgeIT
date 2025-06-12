@@ -49,6 +49,7 @@ class BudgetApp(QMainWindow):
                     self.user_id, datetime.today().strftime("%Y-%m")
                 )
                 self.update_month_setup.show()
+        print("Now in main")
 
     def setupUi(self, MainWindow):
         print("from budgetapp setupUi: current user id", self.user_id)
@@ -56,7 +57,7 @@ class BudgetApp(QMainWindow):
             "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
         )
         self.user_data = self.cursor.fetchone()
-
+        print(self.user_data)
         font_path = os.path.join(
             os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
         )
@@ -1162,6 +1163,8 @@ class BudgetApp(QMainWindow):
             "                border: 1px solid #ccc;\n"
             "                border-radius: 7px;\n"
             "                font-size: 10px;\n"
+            "color: rgb(167, 83, 115);\n"
+            "font-weight: bold\n"
             "            }"
         )
 
@@ -1182,8 +1185,11 @@ class BudgetApp(QMainWindow):
             "                border: 1px solid #ccc;\n"
             "                border-radius: 7px;\n"
             "                font-size: 10px;\n"
+            "				color: rgb(167, 83, 115);\n"
+            "font-weight:bold;\n"
             "\n"
-            "            }"
+            "            }\n"
+            ""
         )
 
         self.horizontalLayout_13.addWidget(self.descriptionedit)
