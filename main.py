@@ -34,10 +34,8 @@ class BudgetApp(QMainWindow):
             (self.user_id,),
         )
         self.user_data = self.cursor.fetchone()
-
-        self.account_setup = AccountSetup(
-            self.user_id, datetime.today().strftime("%Y-%m")
-        )
+        self.current_month = datetime.today().strftime("%Y-%m")
+        self.account_setup = AccountSetup(self.user_id, self.current_month)
         self.account_setup.setup_completed.connect(self.refresh_data)
         if self.user_data:
             print("Account setup required")
@@ -3191,20 +3189,15 @@ QHeaderView::section {
                 monthly_budget = float(self.user_data[5])
                 monthly_expenses = float(self.user_data[3])
                 monthly_savings = float(self.remaining_budgets[3])
+                remaining_monthly_budget = float(self.remaining_budgets[4])
 
                 # Update UI elements with proper formatting
                 self.savingsvalue.setText(f"₱{monthly_savings:,.2f}")
                 self.incomevalue.setText(f"₱{monthly_income:,.2f}")
                 self.budgetvalue.setText(f"₱{monthly_budget:,.2f}")
-
-                # Update category budgets
-                food_budget = float(self.user_data[6])
-                utilities_budget = float(self.user_data[7])
-                health_budget = float(self.user_data[8])
-                personal_budget = float(self.user_data[9])
-                education_budget = float(self.user_data[10])
-                transportation_budget = float(self.user_data[11])
-                misc_budget = float(self.user_data[12])
+                self.remainingbudget.setText(
+                    f"₱{remaining_monthly_budget:,.2f} Remaining"
+                )
 
                 # Update expense and savings values
                 self.cursor.execute(

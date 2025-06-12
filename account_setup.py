@@ -678,10 +678,14 @@ class AccountSetup(QDialog):
                         )
 
                         cursor.execute(
-                            "UPDATE remaining_budgets SET remaining_income = ?, remaining_monthly_savings = ?, remaining_food_budget = ?, remaining_utilities_budget = ?, remaining_health_wellness_budget = ?, remaining_personal_lifestyle_budget = ?, remaining_education_budget = ?, remaining_transportation_budget = ?, remaining_miscellaneous_budget = ?, report_date = ? WHERE user_id = ?",
+                            "UPDATE remaining_budgets SET remaining_income = ?, remaining_monthly_savings = ?, remaining_monthly_budget = ?, remaining_food_budget = ?, remaining_utilities_budget = ?, remaining_health_wellness_budget = ?, remaining_personal_lifestyle_budget = ?, remaining_education_budget = ?, remaining_transportation_budget = ?, remaining_miscellaneous_budget = ?, report_date = ? WHERE user_id = ?",
                             (
                                 self.allowanceincomeedit.text(),
                                 self.allowanceincomeedit.text(),
+                                self.budgetvalue.text()
+                                .replace("₱", "")
+                                .replace(",", "")
+                                .strip(),
                                 self.foodedit.text(),
                                 self.utilitiesedit.text(),
                                 self.healthwellnessedit.text(),
@@ -720,11 +724,15 @@ class AccountSetup(QDialog):
                         )
 
                         cursor.execute(
-                            "INSERT INTO remaining_budgets (user_id, remaining_income, remaining_monthly_savings, remaining_food_budget, remaining_utilities_budget, remaining_health_wellness_budget, remaining_personal_lifestyle_budget, remaining_education_budget, remaining_transportation_budget, remaining_miscellaneous_budget, report_date) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                            "INSERT INTO remaining_budgets (user_id, remaining_income, remaining_monthly_savings, remaining_monthly_budget, remaining_food_budget, remaining_utilities_budget, remaining_health_wellness_budget, remaining_personal_lifestyle_budget, remaining_education_budget, remaining_transportation_budget, remaining_miscellaneous_budget, report_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
                             (
                                 self.user_id,
                                 self.allowanceincomeedit.text(),
                                 self.allowanceincomeedit.text(),
+                                self.budgetvalue.text()
+                                .replace("₱", "")
+                                .replace(",", "")
+                                .strip(),
                                 self.foodedit.text(),
                                 self.utilitiesedit.text(),
                                 self.healthwellnessedit.text(),

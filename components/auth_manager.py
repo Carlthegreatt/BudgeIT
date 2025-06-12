@@ -53,6 +53,7 @@ with get_db_connection() as connect:
         user_id INTEGER NOT NULL,
         remaining_income INTEGER NOT NULL,
         remaining_monthly_savings INTEGER NOT NULL,
+        remaining_monthly_budget INTEGER NOT NULL,
         remaining_food_budget INTEGER NOT NULL,
         remaining_utilities_budget INTEGER NOT NULL,
         remaining_health_wellness_budget INTEGER NOT NULL,
@@ -179,8 +180,8 @@ class AuthManager:
                     )
 
                     cursor.execute(
-                        "INSERT INTO remaining_budgets (user_id, remaining_income, remaining_monthly_savings, remaining_food_budget, remaining_utilities_budget, remaining_health_wellness_budget, remaining_personal_lifestyle_budget, remaining_education_budget, remaining_transportation_budget, remaining_miscellaneous_budget, report_date) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
-                        (last_id, 0, 0, 0, 0, 0, 0, 0, 0, 0, report_date),
+                        "INSERT INTO remaining_budgets (user_id, remaining_income, remaining_monthly_savings, remaining_monthly_budget, remaining_food_budget, remaining_utilities_budget, remaining_health_wellness_budget, remaining_personal_lifestyle_budget, remaining_education_budget, remaining_transportation_budget, remaining_miscellaneous_budget, report_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                        (last_id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, report_date),
                     )
 
                     connect.commit()

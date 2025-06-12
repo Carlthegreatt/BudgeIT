@@ -57,13 +57,13 @@ class BudgetWindow(QDialog):
                 ]
 
                 remaining_values = [
-                    remaining_data[4],  # remaining_food_budget
-                    remaining_data[5],  # remaining_utilities_budget
-                    remaining_data[6],  # remaining_health_wellness_budget
-                    remaining_data[7],  # remaining_personal_lifestyle_budget
-                    remaining_data[8],  # remaining_education_budget
-                    remaining_data[9],  # remaining_transportation_budget
-                    remaining_data[10],  # remaining_miscellaneous_budget
+                    remaining_data[5],  # remaining_food_budget
+                    remaining_data[6],  # remaining_utilities_budget
+                    remaining_data[7],  # remaining_health_wellness_budget
+                    remaining_data[8],  # remaining_personal_lifestyle_budget
+                    remaining_data[9],  # remaining_education_budget
+                    remaining_data[10],  # remaining_transportation_budget
+                    remaining_data[11],  # remaining_miscellaneous_budget
                 ]
 
                 for i, (category, budget, remaining) in enumerate(
