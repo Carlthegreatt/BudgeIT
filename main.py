@@ -10,13 +10,14 @@ from components.budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from components.datamanager import DataManager, sample_transactions
-from signoutwindow import SignOutWindow
+from components.signoutwindow import SignOutWindow
 from account_setup import AccountSetup
 import sqlite3
 from database_manager import *
-from update_month_setup import UpdateMonthSetup
+from components.update_month_setup import UpdateMonthSetup
 from PySide6.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
 from components.pesoquerymodel import PesoQueryModel
+from components.fade_popup import FadePopup
 
 
 class BudgetApp(QMainWindow):
@@ -52,6 +53,7 @@ class BudgetApp(QMainWindow):
                 )
                 self.update_month_setup.show()
         print("Now in main")
+        self.popup = FadePopup(self)
 
     def setupUi(self, MainWindow):
         print("from budgetapp setupUi: current user id", self.user_id)
@@ -1315,13 +1317,18 @@ class BudgetApp(QMainWindow):
             sys.exit(-1)
 
         self.activities_model = PesoQueryModel()
-        self.activities_model.setQuery(
+        query = QSqlQuery()
+        query.prepare(
             """
             SELECT transaction_date, amount, description, category
             FROM transactions
+            WHERE user_id = ?
             ORDER BY data_id DESC
         """
         )
+        query.addBindValue(self.user_id)
+        query.exec_()
+        self.activities_model.setQuery(query)
 
         self.activities_model.setHeaderData(0, Qt.Horizontal, "Date")
         self.activities_model.setHeaderData(1, Qt.Horizontal, "Amount")
@@ -3152,6 +3159,12 @@ QHeaderView::section {
             )
             self.user_data = self.cursor.fetchone()
 
+            self.cursor.execute(
+                "SELECT * FROM remaining_budgets WHERE user_id = ? AND report_date = ?",
+                (self.user_id, current_month),
+            )
+            self.remaining_budgets = self.cursor.fetchone()
+
             if self.user_data:
                 print(f"User data fetched: {self.user_data}")
 
@@ -3159,9 +3172,10 @@ QHeaderView::section {
                 monthly_income = float(self.user_data[4])
                 monthly_budget = float(self.user_data[5])
                 monthly_expenses = float(self.user_data[3])
+                monthly_savings = float(self.remaining_budgets[3])
 
                 # Update UI elements with proper formatting
-                self.savingsvalue.setText(f"₱{self.user_data[2]:,.2f}")
+                self.savingsvalue.setText(f"₱{monthly_savings:,.2f}")
                 self.incomevalue.setText(f"₱{monthly_income:,.2f}")
                 self.budgetvalue.setText(f"₱{monthly_budget:,.2f}")
 
@@ -3238,3 +3252,10 @@ QHeaderView::section {
         if add_trans.add_entry():
             self.refresh_model()
             self.refresh_data()
+            self.show_message("Transaction added")
+
+    def show_message(self, text):
+        # Calculate center position
+        x = (self.width() - self.popup.width()) // 2
+        y = self.height() // 2
+        self.popup.show_popup(text, x, y)
