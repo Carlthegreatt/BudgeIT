@@ -632,25 +632,15 @@ class UpdateMonthSetup(QDialog):
                 self.user_data = cursor.fetchone()
 
                 # Calculate totals
-                if self.user_data:
-                    monthly_savings = float(self.allowanceincomeedit.text()) - float(
-                        self.user_data[6]
-                    )
-                else:
-                    monthly_savings = float(self.allowanceincomeedit.text())
+
+                monthly_savings = float(self.allowanceincomeedit.text())
 
                 total_income = float(self.allowanceincomeedit.text())
                 total_budget = float(self.monthbudgetedit.text())
                 total_savings = monthly_savings
 
                 # Calculate monthly expenses as sum of all budget categories
-                monthly_expenses = sum(
-                    float(v) for v in values[2:]
-                )  # Sum all budget categories
-
-                # Calculate total expenses (same as monthly expenses for now)
-                total_expenses = monthly_expenses
-
+                monthly_expenses = 0
                 total_values = [
                     total_income,
                     monthly_savings,
