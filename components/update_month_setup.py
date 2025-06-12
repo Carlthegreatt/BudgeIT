@@ -1,60 +1,33 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'account_setupoQYBSm.ui'
-##
-## Created by: Qt User Interface Compiler version 6.9.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
-from PySide6.QtCore import (
-    QCoreApplication,
-    QDate,
-    QDateTime,
-    QLocale,
-    QMetaObject,
-    QObject,
-    QPoint,
-    QRect,
-    QSize,
-    QTime,
-    QUrl,
-    Qt,
-)
-from PySide6.QtGui import (
-    QBrush,
-    QColor,
-    QConicalGradient,
-    QCursor,
-    QFont,
-    QFontDatabase,
-    QGradient,
-    QIcon,
-    QImage,
-    QKeySequence,
-    QLinearGradient,
-    QPainter,
-    QPalette,
-    QPixmap,
-    QRadialGradient,
-    QTransform,
-)
-from PySide6.QtWidgets import (
-    QApplication,
-    QDialog,
-    QHBoxLayout,
-    QLabel,
-    QLineEdit,
-    QSizePolicy,
-    QSpacerItem,
-    QToolButton,
-    QVBoxLayout,
-    QWidget,
-)
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
+import sqlite3
+from components.auth_manager import get_db_connection
 
 
-class Ui_Dialog(object):
+class UpdateMonthSetup(QDialog):
+    def __init__(self, user_id, current_month, parent=None):
+        super().__init__(parent)
+        self.user_id = user_id
+        self.current_month = current_month
+        self.setupUi(self)
+        self.setWindowTitle(" ")
+        self.inputs = [
+            self.foodedit,
+            self.utilitiesedit,
+            self.healthwellnessedit,
+            self.personallifestyeedit,
+            self.educationedit,
+            self.transportationedit,
+            self.miscellaneousedit,
+        ]
+        print("from update month setup: user id", self.user_id)
+
+    def show(self):
+        """Show the dialog and set it as modal"""
+        self.setWindowModality(Qt.ApplicationModal)
+        super().show()
+
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName("Dialog")
@@ -77,7 +50,7 @@ class Ui_Dialog(object):
         self.setuplbl.setObjectName("setuplbl")
         self.setuplbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 700 40px "Inter";\n'
+            'font: 700 30px "Inter";\n'
             "background-color: transparent\n"
             ""
         )
@@ -200,11 +173,12 @@ class Ui_Dialog(object):
         self.budgetvalue.setMaximumSize(QSize(180, 16777215))
         self.budgetvalue.setStyleSheet(
             "color: white;\n"
-            'font: 600 18px "Inter";\n'
+            'font: 600 16px "Inter";\n'
             "background-color: rgb(167, 83, 115);\n"
             "border-radius: 10px\n"
             ""
         )
+        self.budgetvalue.setText(f"₱{0.00:,.2f}")
         self.budgetvalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.verticalLayout_4.addWidget(self.budgetvalue)
@@ -539,7 +513,6 @@ class Ui_Dialog(object):
             '    font: 500 12px "Inter";\n'
             "   \n"
             "\n"
-            "    transition: background-color 0.3s ease;\n"
             "}\n"
             "\n"
             "/* Hover state */\n"
@@ -574,6 +547,7 @@ class Ui_Dialog(object):
             "}\n"
             ""
         )
+        self.submitbtn.clicked.connect(self.submit_account_setup)
 
         self.verticalLayout_2.addWidget(self.submitbtn)
 
@@ -603,12 +577,241 @@ class Ui_Dialog(object):
 
         QMetaObject.connectSlotsByName(Dialog)
 
+        self.allowanceincomeedit.textChanged.connect(self.update_sum)
+        self.foodedit.textChanged.connect(self.update_sum)
+        self.utilitiesedit.textChanged.connect(self.update_sum)
+        self.healthwellnessedit.textChanged.connect(self.update_sum)
+        self.personallifestyeedit.textChanged.connect(self.update_sum)
+        self.educationedit.textChanged.connect(self.update_sum)
+        self.transportationedit.textChanged.connect(self.update_sum)
+        self.miscellaneousedit.textChanged.connect(self.update_sum)
+
+    def submit_account_setup(self):
+        try:
+
+            with get_db_connection() as connect:
+
+                income = float(self.allowanceincomeedit.text())
+                budget = float(
+                    self.budgetvalue.text().replace("₱", "").replace(",", "").strip()
+                )
+
+                print(f"Debug - Income: {income}, Budget: {budget}")
+
+                if income < budget:
+                    print(f"Debug - Income ({income}) is less than budget ({budget})")
+                    QMessageBox.warning(
+                        self,
+                        "Validation Error",
+                        "Your allowance/income is less than your budget. Please adjust your budget.",
+                    )
+                    return
+                else:
+                    cursor = connect.cursor()
+
+                    # First check if user_data exists for this user
+                    cursor.execute(
+                        "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
+                    )
+                    self.user_data = cursor.fetchone()
+
+                    values = [
+                        self.allowanceincomeedit.text(),
+                        self.budgetvalue.text()
+                        .replace("₱", "")
+                        .replace(",", "")
+                        .strip(),
+                        self.foodedit.text().strip(),
+                        self.utilitiesedit.text().strip(),
+                        self.healthwellnessedit.text().strip(),
+                        self.personallifestyeedit.text().strip(),
+                        self.educationedit.text().strip(),
+                        self.transportationedit.text().strip(),
+                        self.miscellaneousedit.text().strip(),
+                        float(self.allowanceincomeedit.text())
+                        - float(self.user_data[6]),
+                    ]
+
+                    if not all(values):
+                        QMessageBox.warning(
+                            self, "Validation Error", "Please fill in all fields."
+                        )
+                        return
+
+                    # Validate numeric values
+                    try:
+                        [float(v) for v in values]
+                    except ValueError:
+                        QMessageBox.warning(
+                            self,
+                            "Validation Error",
+                            "All fields must contain valid numbers.",
+                        )
+                        return
+
+                    if self.user_data:
+                        # Debug logging
+                        print(f"Inserting new month data for user_id: {self.user_id}")
+                        print(f"Monthly income: {self.allowanceincomeedit.text()}")
+                        print(f"Monthly budget: {self.budgetvalue.text()}")
+                        print(f"Current month: {self.current_month}")
+
+                        # Insert new record for the month
+                        cursor.execute(
+                            """
+                            INSERT INTO user_data (
+                                user_id,
+                                monthly_income,
+                                monthly_budget,
+                                food_budget,
+                                utilities_budget,
+                                health_wellness_budget,
+                                personal_lifestyle_budget,
+                                education_budget,
+                                transportation_budget,
+                                miscellaneous_budget,
+                                monthly_savings,
+                                monthly_expenses,
+                                report_date
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            """,
+                            (
+                                self.user_id,
+                                float(self.allowanceincomeedit.text()),
+                                float(
+                                    self.budgetvalue.text()
+                                    .replace("₱", "")
+                                    .replace(",", "")
+                                    .strip()
+                                ),
+                                float(self.foodedit.text().strip()),
+                                float(self.utilitiesedit.text().strip()),
+                                float(self.healthwellnessedit.text().strip()),
+                                float(self.personallifestyeedit.text().strip()),
+                                float(self.educationedit.text().strip()),
+                                float(self.transportationedit.text().strip()),
+                                float(self.miscellaneousedit.text().strip()),
+                                float(self.allowanceincomeedit.text())
+                                - float(
+                                    self.budgetvalue.text()
+                                    .replace("₱", "")
+                                    .replace(",", "")
+                                    .strip()
+                                ),
+                                0,  # Default value for monthly_expenses
+                                self.current_month,
+                            ),
+                        )
+
+                        # Insert new record for remaining budgets
+                        cursor.execute(
+                            """
+                            INSERT INTO remaining_budgets (
+                                user_id,
+                                remaining_income,
+                                remaining_monthly_savings,
+                                remaining_food_budget,
+                                remaining_utilities_budget,
+                                remaining_health_wellness_budget,
+                                remaining_personal_lifestyle_budget,
+                                remaining_education_budget,
+                                remaining_transportation_budget,
+                                remaining_miscellaneous_budget,
+                                report_date
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            """,
+                            (
+                                self.user_id,
+                                float(self.allowanceincomeedit.text()),
+                                float(self.allowanceincomeedit.text()),
+                                float(self.foodedit.text().strip()),
+                                float(self.utilitiesedit.text().strip()),
+                                float(self.healthwellnessedit.text().strip()),
+                                float(self.personallifestyeedit.text().strip()),
+                                float(self.educationedit.text().strip()),
+                                float(self.transportationedit.text().strip()),
+                                float(self.miscellaneousedit.text().strip()),
+                                self.current_month,
+                            ),
+                        )
+                    else:
+                        # Insert new record
+                        cursor.execute(
+                            """
+                            INSERT INTO user_data (
+                                user_id,
+                                monthly_income,
+                                food_budget,
+                                utilities_budget,
+                                health_wellness_budget,
+                                personal_lifestyle_budget,
+                                education_budget,
+                                transportation_budget,
+                                miscellaneous_budget,
+                                monthly_savings,
+                                monthly_budget,
+                                report_date
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            """,
+                            (
+                                self.user_id,
+                                *values,
+                                self.current_month,
+                            ),
+                        )
+
+                        cursor.execute(
+                            "INSERT INTO remaining_budgets (user_id, remaining_income, remaining_monthly_savings, remaining_food_budget, remaining_utilities_budget, remaining_health_wellness_budget, remaining_personal_lifestyle_budget, remaining_education_budget, remaining_transportation_budget, remaining_miscellaneous_budget, report_date) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+                            (
+                                self.user_id,
+                                self.allowanceincomeedit.text(),
+                                self.allowanceincomeedit.text(),
+                                self.foodedit.text(),
+                                self.utilitiesedit.text(),
+                                self.healthwellnessedit.text(),
+                                self.personallifestyeedit.text(),
+                                self.educationedit.text(),
+                                self.transportationedit.text(),
+                                self.miscellaneousedit.text(),
+                                self.current_month,
+                            ),
+                        )
+
+                    connect.commit()
+                    print("Account monthly setup successful - user_data updated")
+
+                    # Emit the signal before closing
+
+                    print("Setup completed signal emitted")
+
+                    # Close the dialog
+                    self.accept()
+
+        except Exception as e:
+            print(f"Error in monthly account setup: {e}")
+            QMessageBox.warning(
+                self,
+                "Setup Error",
+                "There was an error saving your monthly account setup. Please try again.",
+            )
+
+    def update_sum(self):
+        total = 0.0
+        for text_edit in self.inputs:
+            try:
+                value = float(text_edit.text())
+                total += value
+            except ValueError:
+                continue  # Ignore non-numeric input
+
+        self.budgetvalue.setText(f"₱{total:,.2f}")
+
     # setupUi
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", "Dialog", None))
         self.setuplbl.setText(
-            QCoreApplication.translate("Dialog", "Set up your account", None)
+            QCoreApplication.translate("Dialog", "Set Up Your Monthly Budget", None)
         )
         self.requirementlbl.setText(
             QCoreApplication.translate("Dialog", "Please fill in all fields.", None)
@@ -622,9 +825,6 @@ class Ui_Dialog(object):
         )
         self.monthbudgetlbl.setText(
             QCoreApplication.translate("Dialog", "This month's budget", None)
-        )
-        self.monthlybudgetlbl.setText(
-            QCoreApplication.translate("Dialog", "0.00", None)
         )
         self.budgetpercategorylbl.setText(
             QCoreApplication.translate("Dialog", "Add budget per category", None)
