@@ -1,77 +1,78 @@
-from PySide6.QtWidgets import (
-    QApplication,
-    QWidget,
-    QVBoxLayout,
-    QLineEdit,
-    QPushButton,
-    QCheckBox,
-    QLabel,
-)
-from PySide6.QtCore import QSettings
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+import sqlite3
+
+user_id = 2
+start_date = datetime(2024, 7, 1)  # 12 months starting July 2024
+
+yearly_data = []
+
+for i in range(12):
+    date = start_date + relativedelta(months=i)
+    report_date = date.strftime("%Y-%m")
+
+    monthly_income = 20000 + (i % 3) * 500  # slight variation
+    monthly_expenses = 12000 + (i % 4) * 300
+    monthly_savings = monthly_income - monthly_expenses
+    monthly_budget = monthly_income - 1000  # assume fixed goal
+
+    # simple proportional breakdown of the budget
+    food_budget = 0.25 * monthly_budget
+    utilities_budget = 0.10 * monthly_budget
+    health_budget = 0.05 * monthly_budget
+    lifestyle_budget = 0.08 * monthly_budget
+    education_budget = 0.15 * monthly_budget
+    transport_budget = 0.12 * monthly_budget
+    misc_budget = monthly_budget - (
+        food_budget
+        + utilities_budget
+        + health_budget
+        + lifestyle_budget
+        + education_budget
+        + transport_budget
+    )
+
+    yearly_data.append(
+        (
+            user_id,
+            round(monthly_savings, 2),
+            round(monthly_expenses, 2),
+            round(monthly_income, 2),
+            round(monthly_budget, 2),
+            round(food_budget, 2),
+            round(utilities_budget, 2),
+            round(health_budget, 2),
+            round(lifestyle_budget, 2),
+            round(education_budget, 2),
+            round(transport_budget, 2),
+            round(misc_budget, 2),
+            report_date,
+        )
+    )
 
 
-class LoginWindow(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Login with Remember Me")
+insert_query = """
+    INSERT INTO user_data (
+        user_id,
+        monthly_savings,
+        monthly_expenses,
+        monthly_income,
+        monthly_budget,
+        food_budget,
+        utilities_budget,
+        health_wellness_budget,
+        personal_lifestyle_budget,
+        education_budget,
+        transportation_budget,
+        miscellaneous_budget,
+        report_date
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+"""
+dummy_user = "INSERT INTO users (username, password, email, account_setup) VALUES ('dei', '123456', 'dei@gmail.com', 1)"
 
-        # UI
-        self.username_input = QLineEdit()
-        self.username_input.setPlaceholderText("Username")
+connection = sqlite3.connect("accounts.db")
+cursor = connection.cursor()
 
-        self.password_input = QLineEdit()
-        self.password_input.setPlaceholderText("Password")
-        self.password_input.setEchoMode(QLineEdit.Password)
-
-        self.remember_checkbox = QCheckBox("Remember Me")
-
-        self.login_button = QPushButton("Login")
-        self.status_label = QLabel()
-
-        layout = QVBoxLayout()
-        layout.addWidget(self.username_input)
-        layout.addWidget(self.password_input)
-        layout.addWidget(self.remember_checkbox)
-        layout.addWidget(self.login_button)
-        layout.addWidget(self.status_label)
-        self.setLayout(layout)
-
-        # Load saved settings
-        self.settings = QSettings("YourCompany", "YourApp")
-        self.load_credentials()
-
-        # Connect signals
-        self.login_button.clicked.connect(self.login)
-
-    def load_credentials(self):
-        if self.settings.value("remember", False, type=bool):
-            self.username_input.setText(self.settings.value("username", ""))
-            self.password_input.setText(self.settings.value("password", ""))
-            self.remember_checkbox.setChecked(True)
-
-    def login(self):
-        username = self.username_input.text()
-        password = self.password_input.text()
-        remember = self.remember_checkbox.isChecked()
-
-        # Do your actual login check here (e.g., DB check)
-        if username == "admin" and password == "1234":
-            self.status_label.setText("Login successful!")
-
-            if remember:
-                self.settings.setValue("username", username)
-                self.settings.setValue("password", password)
-                self.settings.setValue("remember", True)
-            else:
-                self.settings.setValue("username", "")
-                self.settings.setValue("password", "")
-                self.settings.setValue("remember", False)
-        else:
-            self.status_label.setText("Login failed!")
-
-
-if __name__ == "__main__":
-    app = QApplication([])
-    window = LoginWindow()
-    window.show()
-    app.exec()
+cursor.execute(dummy_user)
+cursor.executemany(insert_query, yearly_data)
+connection.commit()

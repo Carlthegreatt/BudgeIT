@@ -1,7 +1,7 @@
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-from components.AuthorizationManager import AuthManager
+from components.auth_manager import AuthManager
 from main import BudgetApp
 from account_setup import AccountSetup
 import sys

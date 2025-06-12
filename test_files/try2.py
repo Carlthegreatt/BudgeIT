@@ -1,34 +1,76 @@
-from PySide6.QtWidgets import QDialog, QApplication
-from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QApplication, QMainWindow, QTableView
+from PySide6.QtSql import QSqlDatabase, QSqlTableModel
 import sys
 
 
-class RoundedDialog(QDialog):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("Live User Data Viewer")
 
-        # Remove title bar and window frame
-        self.setWindowFlags(Qt.FramelessWindowHint | Qt.Dialog)
+        # Connect to SQLite
+        self.db = QSqlDatabase.addDatabase("QSQLITE")
+        self.db.setDatabaseName("your_database.db")
+        if not self.db.open():
+            print("Failed to open database")
+            sys.exit(-1)
 
-        # Enable translucent background
-        self.setAttribute(Qt.WA_TranslucentBackground)
+        # Set up table model
+        self.model = QSqlTableModel(self, self.db)
+        self.model.setTable("user_data")
+        self.model.select()  # Load data
 
-        # Set fixed size (for demonstration)
-        self.setFixedSize(400, 300)
+        # Set up table view
+        self.view = QTableView()
+        self.view.setModel(self.model)
+        self.setCentralWidget(self.view)
 
-        # Apply stylesheet with border-radius
-        self.setStyleSheet(
-            """
-            QDialog {
-                background-color: white;
-                border-radius: 20px;
-            }
-        """
-        )
+    def refresh_table(self):
+        """Call this method to reload the table (after an insert)."""
+        self.model.select()
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    dialog = RoundedDialog()
-    dialog.show()
-    sys.exit(app.exec())
+# App startup
+app = QApplication(sys.argv)
+window = MainWindow()
+window.resize(800, 400)
+window.show()
+
+# Optionally simulate a data insert and refresh
+import sqlite3
+
+conn = sqlite3.connect("your_database.db")
+cur = conn.cursor()
+cur.execute(
+    """
+    INSERT INTO user_data (
+        user_id, monthly_savings, monthly_expenses,
+        monthly_income, monthly_budget,
+        food_budget, utilities_budget, health_wellness_budget,
+        personal_lifestyle_budget, education_budget,
+        transportation_budget, miscellaneous_budget, report_date
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+""",
+    (
+        1,
+        5000,
+        10000,
+        15000,
+        14000,
+        3000,
+        2000,
+        1000,
+        1000,
+        2000,
+        1000,
+        1000,
+        "2025-06-12",
+    ),
+)
+conn.commit()
+conn.close()
+
+# Refresh the table to show new data
+window.refresh_table()
+
+sys.exit(app.exec())

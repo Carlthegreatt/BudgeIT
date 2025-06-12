@@ -32,7 +32,7 @@ def check_monthly_reset(user_id):
         row = cursor.fetchone()
 
         today = datetime.today()
-        current_month = today.strftime("%Y-%m")
+        current_month = "2025-07"  # today.strftime("%Y-%m")
 
         if row is None:
             # First time setup
@@ -51,6 +51,6 @@ def check_monthly_reset(user_id):
                     (current_month,),
                 )
                 conn.commit()
-                return True, current_month
+                return True
             else:
-                return False, current_month
+                return False

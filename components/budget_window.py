@@ -2,7 +2,8 @@ import sys
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-from components.AuthorizationManager import get_db_connection
+from components.auth_manager import get_db_connection
+from datetime import datetime
 
 
 class BudgetWindow(QDialog):
@@ -19,9 +20,11 @@ class BudgetWindow(QDialog):
             return
 
         with get_db_connection() as connect:
+            current_month = datetime.today().strftime("%Y-%m")
             cursor = connect.cursor()
             cursor.execute(
-                "SELECT * FROM user_data WHERE user_id = ?", (self.parent.user_id,)
+                "SELECT * FROM user_data WHERE user_id = ? AND report_date = ?",
+                (self.parent.user_id, current_month),
             )
             user_data = cursor.fetchone()
 

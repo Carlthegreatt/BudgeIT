@@ -5,7 +5,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import assets.icons.icons_rc
 import assets.images.images_rc
-from components.addtransactions import AddTransactions
+from addtransactions import AddTransactions
 from components.budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
@@ -15,6 +15,8 @@ from account_setup import AccountSetup
 import sqlite3
 from database_manager import *
 from update_month_setup import UpdateMonthSetup
+from PySide6.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
+from components.pesoquerymodel import PesoQueryModel
 
 
 class BudgetApp(QMainWindow):
@@ -44,7 +46,7 @@ class BudgetApp(QMainWindow):
             print("Account already set up")
             self.refresh_data()
 
-            if check_monthly_reset(self.user_id):
+            if check_monthly_reset(self.user_id) == True:
                 self.update_month_setup = UpdateMonthSetup(
                     self.user_id, datetime.today().strftime("%Y-%m")
                 )
@@ -1276,11 +1278,7 @@ class BudgetApp(QMainWindow):
         )
         self.addtransbtn.setCheckable(True)
         self.addtransbtn.setFlat(True)
-        self.addtransbtn.clicked.connect(
-            lambda: AddTransactions(
-                self.amountedit, self.descriptionedit, self.categorycombo, self.model
-            ).add_entry()
-        )
+        self.addtransbtn.clicked.connect(lambda: self.handle_add_transaction())
 
         self.horizontalLayout_13.addWidget(self.addtransbtn)
 
@@ -1308,12 +1306,29 @@ class BudgetApp(QMainWindow):
 
         self.activities.horizontalHeader().setDefaultSectionSize(120)
         self.activities = QTableView()
-        self.model = QStandardItemModel()
 
-        self.model.setHorizontalHeaderLabels(
-            ["Date", "Amount", "Description", "Category"]
+        self.db = QSqlDatabase.addDatabase("QSQLITE")
+        self.db.setDatabaseName("accounts.db")
+
+        if not self.db.open():
+            print("Failed to open database")
+            sys.exit(-1)
+
+        self.activities_model = PesoQueryModel()
+        self.activities_model.setQuery(
+            """
+            SELECT transaction_date, amount, description, category
+            FROM transactions
+            ORDER BY data_id DESC
+        """
         )
-        self.activities.setModel(self.model)
+
+        self.activities_model.setHeaderData(0, Qt.Horizontal, "Date")
+        self.activities_model.setHeaderData(1, Qt.Horizontal, "Amount")
+        self.activities_model.setHeaderData(2, Qt.Horizontal, "Description")
+        self.activities_model.setHeaderData(3, Qt.Horizontal, "Category")
+
+        self.activities.setModel(self.activities_model)
         self.activities.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.activities.verticalHeader().setVisible(False)
         self.activities.verticalHeader().setDefaultSectionSize(40)
@@ -2000,10 +2015,6 @@ QHeaderView::section {
         self.daycombo.addItem("")
         self.daycombo.addItem("")
         self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
         self.daycombo.setObjectName("daycombo")
         sizePolicy5.setHeightForWidth(self.daycombo.sizePolicy().hasHeightForWidth())
         self.daycombo.setSizePolicy(sizePolicy5)
@@ -2515,12 +2526,8 @@ QHeaderView::section {
         self.verticalLayout_21 = QVBoxLayout(self.transtableviewwidget)
         self.verticalLayout_21.setObjectName("verticalLayout_21")
         self.transactions = QTableView()
-        self.model_1 = QStandardItemModel()
 
-        self.model_1.setHorizontalHeaderLabels(
-            ["Date", "Amount", "Description", "Category"]
-        )
-        self.transactions.setModel(self.model_1)
+        self.transactions.setModel(self.activities_model)
         self.transactions.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.transactions.verticalHeader().setVisible(False)
         self.transactions.verticalHeader().setDefaultSectionSize(40)
@@ -2965,9 +2972,6 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "Accumulated Savings", None)
         )
         self.totalincomebox.setTitle("")
-        self.totalincomevalue.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 44350.00", None)
-        )
         self.totalincomelbl.setText(
             QCoreApplication.translate("MainWindow", "Total Income", None)
         )
@@ -3139,10 +3143,12 @@ QHeaderView::section {
     def refresh_data(self):
         """Refresh all user data and UI elements after account setup"""
         try:
+            current_month = datetime.today().strftime("%Y-%m")
             print("Starting data refresh...")
             # Fetch latest user data
             self.cursor.execute(
-                "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
+                "SELECT * FROM user_data WHERE user_id = ? AND report_date = ?",
+                (self.user_id, current_month),
             )
             self.user_data = self.cursor.fetchone()
 
@@ -3158,10 +3164,6 @@ QHeaderView::section {
                 self.incomevalue.setText(f"₱{monthly_income:,.2f}")
                 self.budgetvalue.setText(f"₱{monthly_budget:,.2f}")
 
-                # Update other budget-related values
-                self.overallbudgetvalue.setText(f"₱{monthly_budget:,.2f}")
-                self.totalincomevalue.setText(f"₱{monthly_income:,.2f}")
-
                 # Update category budgets
                 food_budget = float(self.user_data[6])
                 utilities_budget = float(self.user_data[7])
@@ -3172,8 +3174,30 @@ QHeaderView::section {
                 misc_budget = float(self.user_data[12])
 
                 # Update expense and savings values
-                # self.totalexpensevalue.setText(f"₱{float(self.user_data[7]):,.2f}")
-                # self.accumulatedsavingvalue.setText(f"₱{float(self.user_data[8]):,.2f}")
+                self.cursor.execute(
+                    "SELECT SUM(monthly_expenses), SUM(monthly_savings), SUM(monthly_income), SUM(monthly_budget) FROM user_data WHERE user_id = ?",
+                    (self.user_id,),
+                )
+
+                result = self.cursor.fetchone()
+                if result is None:
+                    # Set default values if no data is found
+                    self.total_expenses = 0
+                    self.total_savings = 0
+                    self.total_income = 0
+                    self.total_budget = 0
+                else:
+                    self.total_expenses = result[0] or 0
+                    self.total_savings = result[1] or 0
+                    self.total_income = result[2] or 0
+                    self.total_budget = result[3] or 0
+
+                self.totalexpensevalue.setText(f"₱{float(self.total_expenses):,.2f}")
+                self.accumulatedsavingvalue.setText(
+                    f"₱{float(self.total_savings):,.2f}"
+                )
+                self.totalincomevalue.setText(f"₱{float(self.total_income):,.2f}")
+                self.overallbudgetvalue.setText(f"₱{float(self.total_budget):,.2f}")
 
                 # Refresh graphs with new data
                 # self.add_graph_to_widget(self.graph_widget)
@@ -3191,3 +3215,26 @@ QHeaderView::section {
 
         self.cursor.close()
         self.connect.close()
+
+    def refresh_model(self):
+        """Refresh the activities model with latest transactions"""
+        query = QSqlQuery()
+        query.prepare(
+            "SELECT transaction_date, amount, description, category FROM transactions WHERE user_id = ? ORDER BY data_id DESC"
+        )
+        query.addBindValue(self.user_id)
+        query.exec_()
+        self.activities_model.setQuery(query)
+
+    def handle_add_transaction(self):
+        """Handle adding a new transaction and refreshing the view"""
+        add_trans = AddTransactions(
+            self.user_id,
+            self.amountedit,
+            self.descriptionedit,
+            self.categorycombo,
+            self.activities_model,
+            self,
+        )
+        if add_trans.add_entry():
+            self.refresh_model()
