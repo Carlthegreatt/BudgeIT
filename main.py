@@ -60,10 +60,18 @@ class BudgetApp(QMainWindow):
             "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
         )
         self.user_data = self.cursor.fetchone()
+
         self.cursor.execute(
             """SELECT * FROM remaining_budgets WHERE user_id = ?""", (self.user_id,)
         )
         self.remaining_budgets = self.cursor.fetchone()
+        self.current_month = datetime.today().strftime("%Y-%m")
+        self.cursor.execute(
+            """SELECT COUNT(*) FROM transactions WHERE user_id = ?""",
+            (self.user_id,),
+        )
+
+        self.transaction_count = self.cursor.fetchone()[0]
 
         font_path = os.path.join(
             os.path.dirname(__file__), "assets", "fonts", "Roboto.ttf"
@@ -1901,7 +1909,7 @@ QHeaderView::section {
             | Qt.AlignmentFlag.AlignLeft
             | Qt.AlignmentFlag.AlignTop
         )
-
+        self.totaltransactionvalue.setText(f"{self.transaction_count}")
         self.horizontalLayout_26.addWidget(self.totaltransactionvalue)
 
         self.verticalLayout_17.addWidget(self.totaltransactionwidget)
@@ -3018,9 +3026,6 @@ QHeaderView::section {
         self.totaltransactionlbl.setText(
             QCoreApplication.translate("MainWindow", "Total Transactions", None)
         )
-        self.totaltransactionvalue.setText(
-            QCoreApplication.translate("MainWindow", "204", None)
-        )
 
     # retranslateUi
 
@@ -3185,6 +3190,13 @@ QHeaderView::section {
             )
             self.remaining_budgets = self.cursor.fetchone()
 
+            self.cursor.execute(
+                "SELECT COUNT(*) FROM transactions WHERE user_id = ?",
+                (self.user_id,),
+            )
+            self.transaction_count = self.cursor.fetchone()[0]
+            self.totaltransactionvalue.setText(f"{self.transaction_count}")
+
             if self.user_data:
                 print(f"User data fetched: {self.user_data}")
 
@@ -3194,6 +3206,7 @@ QHeaderView::section {
                 monthly_expenses = float(self.user_data[3])
                 monthly_savings = float(self.remaining_budgets[3])
                 remaining_monthly_budget = float(self.remaining_budgets[4])
+                total_transaction_value = float(self.transaction_count)
 
                 # Update UI elements with proper formatting
                 self.savingsvalue.setText(f"₱{monthly_savings:,.2f}")
@@ -3212,7 +3225,7 @@ QHeaderView::section {
 
                 # Update expense and savings values
                 self.cursor.execute(
-                    "SELECT SUM(monthly_expenses), SUM(monthly_savings), SUM(monthly_income), SUM(monthly_budget) FROM user_data WHERE user_id = ?",
+                    """SELECT SUM(monthly_expenses), SUM(monthly_savings), SUM(monthly_income), SUM(monthly_budget) FROM user_data WHERE user_id = ?""",
                     (self.user_id,),
                 )
 

@@ -115,13 +115,13 @@ class BudgetWindow(QDialog):
         sizePolicy.setHeightForWidth(self.budgetlbl.sizePolicy().hasHeightForWidth())
         self.budgetlbl.setSizePolicy(sizePolicy)
         font = QFont()
-        font.setFamilies(["Inter"])
+        font.setFamilies(["Roboto"])
         font.setBold(True)
         font.setItalic(False)
         self.budgetlbl.setFont(font)
         self.budgetlbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 700 40px "Inter";\n'
+            'font: 700 40px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -153,7 +153,7 @@ class BudgetWindow(QDialog):
             "        border: 1px solid #dcdcdc;\n"
             "        border-radius: 6px;\n"
             "        gridline-color: #e6e6e6;\n"
-            '        font: 400 12px "Inter";\n'
+            '        font: 400 12px "Roboto";\n'
             "    }\n"
             "\n"
             "    QHeaderView::section {\n"
@@ -162,7 +162,7 @@ class BudgetWindow(QDialog):
             "        padding: 8px;\n"
             "        border: none;\n"
             "        border-bottom: 1px solid #dcdcdc;\n"
-            "        font: 600 14px 'Inter';\n"
+            "        font: 600 14px 'Roboto';\n"
             "    }\n"
             "\n"
             "    QTableView::item {\n"

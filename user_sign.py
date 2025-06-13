@@ -18,7 +18,7 @@ class SignEntry(QMainWindow):
 
     def setupUi(self, MainWindow):
         font_path = os.path.join(
-            os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
+            os.path.dirname(__file__), "assets", "fonts", "Roboto.ttf"
         )
         font_id = QFontDatabase.addApplicationFont(font_path)
 
@@ -102,7 +102,7 @@ class SignEntry(QMainWindow):
         self.label_17.setObjectName("label_17")
         self.label_17.setStyleSheet(
             "color: rgb(255, 255, 255);\n"
-            'font: 600 30px "Inter";\n'
+            'font: 600 30px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -113,7 +113,7 @@ class SignEntry(QMainWindow):
         self.label_18.setObjectName("label_18")
         self.label_18.setStyleSheet(
             "color: rgb(255, 255, 255);\n"
-            'font: 500 20px "Inter";\n'
+            'font: 500 20px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -178,7 +178,7 @@ class SignEntry(QMainWindow):
         self.label_12.setObjectName("label_12")
         self.label_12.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 700 40px "Inter";\n'
+            'font: 700 40px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -196,7 +196,7 @@ class SignEntry(QMainWindow):
         self.username_label.setObjectName("username_label")
         self.username_label.setStyleSheet(
             "color: rgb(166, 166, 166);\n"
-            'font:500 12px "Inter";\n'
+            'font:500 12px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -221,7 +221,7 @@ class SignEntry(QMainWindow):
             "    border: 1px solid #dcdcdc;\n"
             "    border-radius: 10px;\n"
             "    padding-left: 14px;\n"
-            '    font: 500 12px "Inter";\n'
+            '    font: 500 12px "Roboto";\n'
             "    color: rgb(108, 68, 103)\n"
             "}\n"
             "\n"
@@ -236,7 +236,7 @@ class SignEntry(QMainWindow):
             "}\n"
             "\n"
             "QLineEdit::placeholder {\n"
-            '	font: 500 15px "Inter";\n'
+            '	font: 500 15px "Roboto";\n'
             "    color: #999999;\n"
             "}\n"
             ""
@@ -256,7 +256,7 @@ class SignEntry(QMainWindow):
         self.email_label.setObjectName("email_label")
         self.email_label.setStyleSheet(
             "color: rgb(166, 166, 166);\n"
-            'font:500 12px "Inter";\n'
+            'font:500 12px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -274,7 +274,7 @@ class SignEntry(QMainWindow):
             "    border: 1px solid #dcdcdc;\n"
             "    border-radius: 10px;\n"
             "    padding-left: 14px;\n"
-            '    font: 500 12px "Inter";\n'
+            '    font: 500 12px "Roboto";\n'
             "    color: rgb(108, 68, 103)\n"
             "}\n"
             "\n"
@@ -308,7 +308,7 @@ class SignEntry(QMainWindow):
         self.password_label.setObjectName("password_label")
         self.password_label.setStyleSheet(
             "color: rgb(166, 166, 166);\n"
-            'font:500 12px "Inter";\n'
+            'font:500 12px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -324,7 +324,7 @@ class SignEntry(QMainWindow):
             "    border: 1px solid #dcdcdc;\n"
             "    border-radius: 10px;\n"
             "    padding-left: 14px;\n"
-            '    font: 400 7px "Inter";\n'
+            '    font: 400 7px "Roboto";\n'
             "    color:rgb(108, 68, 103)\n"
             "}\n"
             "\n"
@@ -356,7 +356,7 @@ class SignEntry(QMainWindow):
         self.confirm_label.setObjectName("confirm_label")
         self.confirm_label.setStyleSheet(
             "color: rgb(166, 166, 166);\n"
-            'font:500 12px "Inter";\n'
+            'font:500 12px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -372,7 +372,7 @@ class SignEntry(QMainWindow):
             "    border: 1px solid #dcdcdc;\n"
             "    border-radius: 10px;\n"
             "    padding-left: 14px;\n"
-            '    font: 400 7px "Inter";\n'
+            '    font: 400 7px "Roboto";\n'
             "    color: rgb(108, 68, 103)\n"
             "}\n"
             "\n"
@@ -408,7 +408,7 @@ class SignEntry(QMainWindow):
             "\n"
             "QCheckBox{\n"
             "color: rgb(166, 166, 166);\n"
-            'font:500 10px "Inter";\n'
+            'font:500 10px "Roboto";\n'
             "background-color: transparent;\n"
             "}\n"
             "\n"
@@ -449,7 +449,7 @@ class SignEntry(QMainWindow):
             "    border: none;\n"
             "    border-radius: 10px;\n"
             "   \n"
-            '    font: 500 12px "Inter";\n'
+            '    font: 500 12px "Roboto";\n'
             "   \n"
             "\n"
             "}\n"
@@ -516,7 +516,7 @@ class SignEntry(QMainWindow):
         self.label_19.setMaximumSize(QSize(133, 16777215))
         self.label_19.setStyleSheet(
             "color: rgb(159, 159, 159);\n"
-            'font: 400 11px "Inter";\n'
+            'font: 400 11px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -533,7 +533,7 @@ class SignEntry(QMainWindow):
             "QToolButton {\n"
             "    background-color: transparent;\n"
             "    color: rgb(153, 97, 146);\n"
-            '    font: 500 11px "Inter";\n'
+            '    font: 500 11px "Roboto";\n'
             "}\n"
             "\n"
             "/* Hover effect: darker border */\n"
@@ -627,7 +627,7 @@ class SignEntry(QMainWindow):
         self.label_7.setObjectName("label_7")
         self.label_7.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 700 40px "Inter";\n'
+            'font: 700 40px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -642,7 +642,7 @@ class SignEntry(QMainWindow):
         self.signin_email_lbl.setObjectName("signin_email_lbl")
         self.signin_email_lbl.setStyleSheet(
             "color:rgb(166, 166, 166);\n"
-            'font:500 12px "Inter";\n'
+            'font:500 12px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -662,7 +662,7 @@ class SignEntry(QMainWindow):
             "    border: 1px solid #dcdcdc;\n"
             "    border-radius: 10px;\n"
             "    padding-left: 14px;\n"
-            '    font: 500 12px "Inter";\n'
+            '    font: 500 12px "Roboto";\n'
             "    color: rgb(108, 68, 103)\n"
             "}\n"
             "\n"
@@ -696,7 +696,7 @@ class SignEntry(QMainWindow):
         self.signin_password_lbl.setObjectName("signin_password_lbl")
         self.signin_password_lbl.setStyleSheet(
             "color: rgb(166, 166, 166);\n"
-            'font:500 12px "Inter";\n'
+            'font:500 12px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -712,7 +712,7 @@ class SignEntry(QMainWindow):
             "    border: 1px solid #dcdcdc;\n"
             "    border-radius: 10px;\n"
             "    padding-left: 14px;\n"
-            '    font: 400 7px "Inter";\n'
+            '    font: 400 7px "Roboto";\n'
             "    color:rgb(108, 68, 103)\n"
             "}\n"
             "\n"
@@ -750,7 +750,7 @@ class SignEntry(QMainWindow):
             "\n"
             "QCheckBox{\n"
             "color: rgb(166, 166, 166);\n"
-            'font:500 10px "Inter";\n'
+            'font:500 10px "Roboto";\n'
             "background-color: transparent;\n"
             "}\n"
             "\n"
@@ -791,7 +791,7 @@ class SignEntry(QMainWindow):
             "    border: none;\n"
             "    border-radius: 10px;\n"
             "   \n"
-            '    font: 500 12px "Inter";\n'
+            '    font: 500 12px "Roboto";\n'
             "   \n"
             "\n"
             "}\n"
@@ -940,7 +940,7 @@ class SignEntry(QMainWindow):
         self.label_16.setMaximumSize(QSize(133, 16777215))
         self.label_16.setStyleSheet(
             "color:rgb(159, 159, 159);\n"
-            'font: 400 11px "Inter";\n'
+            'font: 400 11px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -957,7 +957,7 @@ class SignEntry(QMainWindow):
             "QToolButton {\n"
             "    background-color: transparent;\n"
             "    color: rgb(153, 97, 146);\n"
-            '    font: 500 11px "Inter";\n'
+            '    font: 500 11px "Roboto";\n'
             "}\n"
             "\n"
             "/* Hover effect: darker border */\n"
@@ -1036,7 +1036,7 @@ class SignEntry(QMainWindow):
         self.label_14.setObjectName("label_14")
         self.label_14.setStyleSheet(
             "color: rgb(255, 255, 255);\n"
-            'font: 600 30px "Inter";\n'
+            'font: 600 30px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -1047,7 +1047,7 @@ class SignEntry(QMainWindow):
         self.label_15.setObjectName("label_15")
         self.label_15.setStyleSheet(
             "color: rgb(255, 255, 255);\n"
-            'font: 500 20px "Inter";\n'
+            'font: 500 20px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
