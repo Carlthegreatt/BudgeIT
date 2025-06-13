@@ -9,7 +9,7 @@ from addtransactions import AddTransactions
 from components.budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
-from components.datamanager import DataManager, sample_transactions
+from components.datamanager import DataManager
 from signoutwindow import SignOutWindow
 from account_setup import AccountSetup
 import sqlite3
@@ -1698,7 +1698,6 @@ QHeaderView::section {
         )
         self.horizontalLayout_transactionsummary.setContentsMargins(0, 0, 0, 0)
 
-        self.add_graph_to_widget(self.transactionsummarywidget)
         self.verticalLayout_12.addWidget(self.transactionsummarywidget)
 
         self.horizontalLayout_19.addWidget(self.transactionsummarybox)
@@ -1751,7 +1750,6 @@ QHeaderView::section {
         )
         self.horizontalLayout_budgetsummary.setContentsMargins(0, 0, 0, 0)
 
-        self.add_graph_to_budget_summary(self.budgetsummarywidget)
 
         self.verticalLayout_13.addWidget(self.budgetsummarywidget)
 
@@ -3034,7 +3032,7 @@ QHeaderView::section {
 
     def add_graph_to_widget(self, widget: QWidget):
         # Create DataManager instance with sample data
-        data_manager = DataManager(sample_transactions)
+        data_manager = DataManager(self.user_id)
 
         # Clear any existing plots and create new figure
         plt.close("all")
@@ -3042,13 +3040,15 @@ QHeaderView::section {
         ax = fig.add_subplot(111)
 
         # Get statistics from DataManager
-        stats = data_manager.get_statistics(20000)  # Example total income
-        category_data = stats["Category Percentage and amount"]
+        stats = data_manager.get_transactions_data()  # get returned dictionary from stats
 
         # Extract data for plotting
-        categories = list(category_data.keys())
-        amounts = [data[1] for data in category_data.values()]
+        categories = list(stats.keys())
+        amounts = list(stats.values())
 
+        print(f"Cat in graph: {categories}")
+        print(f"amounts in graph: {amounts}") # for cross checking
+        
         # Create bar chart with styling
         bars = ax.bar(categories, amounts, color="#a75373")
 
@@ -3087,8 +3087,8 @@ QHeaderView::section {
         canvas.draw()
 
     def add_graph_to_budget_summary(self, widget: QWidget):
-        # Create DataManager instance with sample data
-        data_manager = DataManager(sample_transactions)
+        # Use the current user's ID
+        data_manager = DataManager(self.user_id)
 
         # Clear any existing plots and create new figure
         plt.close("all")
@@ -3096,12 +3096,14 @@ QHeaderView::section {
         ax = fig.add_subplot(111)
 
         # Get statistics from DataManager
-        stats = data_manager.get_statistics(20000)  # Example total income
-        category_data = stats["Category Percentage and amount"]
+        stats = data_manager.get_statistics()
 
         # Extract data for plotting
-        categories = list(category_data.keys())
-        percentages = [float(data[0]) for data in category_data.values()]
+        categories = list(stats.keys())
+        percentages = list(stats.values())
+        
+        print(f"Cat in pie: {categories}")
+        print(f"amounts in pie: {percentages}") # for cross checking
 
         # Create pie chart with styling
         wedges, texts, autotexts = ax.pie(
@@ -3139,7 +3141,6 @@ QHeaderView::section {
         # Force the widget to update
         widget.update()
         canvas.draw()
-
     def refresh_data(self):
         """Refresh all user data and UI elements after account setup"""
         try:
@@ -3204,6 +3205,8 @@ QHeaderView::section {
                 # Refresh graphs with new data
                 # self.add_graph_to_widget(self.graph_widget)
                 # self.add_graph_to_budget_summary(self.summary_widget)
+                self.add_graph_to_widget(self.transactionsummarywidget)
+                self.add_graph_to_budget_summary(self.budgetsummarywidget)
 
                 print("Data refresh completed successfully")
             else:
