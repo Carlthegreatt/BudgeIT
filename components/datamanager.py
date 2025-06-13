@@ -47,7 +47,7 @@ class DataManager:
         total = {
             'Food': 0,
             'Utilities': 0,
-            'Health' : 0,
+            'Health & Wellness' : 0,
             'Lifestyle': 0,
             'Education' : 0,
             'Transportation' : 0,
