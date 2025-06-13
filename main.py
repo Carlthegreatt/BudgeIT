@@ -846,7 +846,7 @@ class BudgetApp(QMainWindow):
             "	background-color: rgb(245, 245, 245);\n"
             "	color: rgb(245, 245, 245);\n"
             ' 	font: 600 4pt "Roboto";\n'
-            "    border-radius: 5px;\n"
+            "    border-radius: 6px;\n"
             "    text-align: left;\n"
             "}\n"
             "QProgressBar::chunk {\n"
@@ -856,7 +856,7 @@ class BudgetApp(QMainWindow):
             "        stop: 0 #6c4464\n"
             "        stop: 1 #a75373\n"
             "    );\n"
-            "    border-radius: 5px;\n"
+            "    border-radius: 6px;\n"
             "}\n"
             ""
         )
@@ -1194,9 +1194,8 @@ class BudgetApp(QMainWindow):
             "                padding: 8px;\n"
             "                border: 1px solid #ccc;\n"
             "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
-            "color: rgb(167, 83, 115);\n"
-            "font-weight: bold\n"
+            "                font: 500 10px 'Roboto';\n"
+            "color: #939393;\n"
             "            }"
         )
 
@@ -1216,9 +1215,8 @@ class BudgetApp(QMainWindow):
             "                padding: 8px;\n"
             "                border: 1px solid #ccc;\n"
             "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
-            "				color: rgb(167, 83, 115);\n"
-            "font-weight:bold;\n"
+            "                font: 500 10px 'Roboto';\n"
+            "				color: #939393;\n"
             "\n"
             "            }\n"
             ""
@@ -1243,14 +1241,14 @@ class BudgetApp(QMainWindow):
         self.categorycombo.setSizePolicy(sizePolicy5)
         self.categorycombo.setStyleSheet(
             "QComboBox{\n"
-            "	color: rgb(167, 83, 115);\n"
+            "	color: #939393;\n"
             "	alternate-background-color: rgb(240, 240, 240);\n"
             "				\n"
             "	background-color: rgb(254, 250, 250);\n"
             "                padding: 8px;\n"
             "                border: 1px solid #ccc;\n"
             "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
+            "                font: 500 10px 'Roboto';\n"
             "\n"
             "\n"
             "            }\n"
@@ -1259,12 +1257,17 @@ class BudgetApp(QMainWindow):
             "QComboBox::drop-down {\n"
             "    border: none;\n"
             "    background: transparent;\n"
+            "                font: 500 10px 'Roboto';\n"
             "}\n"
             "\n"
             "QComboBox QAbstractItemView {\n"
             "            background-color: #ffffff;\n"
-            "            color: #000000; \n"
+            "            color: #939393; \n"
             "            }"
+            "                font: 500 10px 'Roboto';\n"
+            "QComboBox:!editable:on, QComboBox::drop-down:editable:on {"
+            "color: color: rgb(167, 83, 115);  /* When real items are selected */"
+            "}"
         )
         self.categorycombo.setEditable(False)
         self.categorycombo.setFrame(True)
@@ -1292,15 +1295,13 @@ class BudgetApp(QMainWindow):
             "    border-radius: 7px;\n"
             "	border-color: rgb(144, 72, 99);\n"
             "text-align: center;\n"
-            " font-size: 10px;\n"
+            "font: 500 10px 'Roboto';\n"
             "\n"
             "\n"
             "  \n"
             "\n"
             "}\n"
             "QPushButton:hover {\n"
-            "\n"
-            "	\n"
             "	background-color: rgb(138, 69, 95);\n"
             "	\n"
             "   \n"
@@ -1354,6 +1355,7 @@ class BudgetApp(QMainWindow):
             ORDER BY data_id DESC
         """
         )
+
         query.addBindValue(self.user_id)
         query.exec_()
         self.activities_model.setQuery(query)
@@ -1364,49 +1366,89 @@ class BudgetApp(QMainWindow):
         self.activities_model.setHeaderData(3, Qt.Horizontal, "Category")
 
         self.activities.setModel(self.activities_model)
+
         self.activities.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.activities.verticalHeader().setVisible(False)
         self.activities.verticalHeader().setDefaultSectionSize(40)
-        self.activities.setAlternatingRowColors(True)
         self.activities.setShowGrid(False)
         self.activities.setSelectionMode(QTableView.NoSelection)
         self.activities.setEditTriggers(QTableView.NoEditTriggers)
         self.activities.setFocusPolicy(Qt.NoFocus)
         self.activities.horizontalHeader().setFocusPolicy(Qt.NoFocus)
         self.activities.setStyleSheet(
-            """QTableView {
-    background-color: white;
-    alternate-background-color: #f0f8ff; /* light blue */
-    gridline-color: #dcdcdc;
-    font: 300 12px "Roboto";
-    border: none;
-}
-
-
-QTableView::item:hover {
-    background-color: #e0f7fa;  /* light cyan */
-}
-
-
-
-QTableView::item {
-    padding: 8px;
-    color: rgb(105, 104, 104);
-    font: 900 12px "Roboto";
-}
-
-QHeaderView::section {
-    font: 500 12px "Roboto";
-    background-color: white;
-    color: rgb(92, 91, 91);
-    padding: 5px;
-    border: 1px solid rgb(230, 230, 230);
-    border-top: none;
-    border-left: none;
-    border-right: none;
-}
-
-"""
+            "\n"
+            "    QTableView {\n"
+            "        background-color: #ffffff;\n"
+            "        border: none;\n"
+            "        border-radius: 6px;\n"
+            "        gridline-color: #e6e6e6;\n"
+            '        font: 400 12px "Roboto";\n'
+            "    }\n"
+            "\n"
+            "    QHeaderView::section {\n"
+            "        background-color: #ffffff;\n"
+            "        color: rgb(108, 68, 100);\n"
+            "        padding: 8px;\n"
+            "        border: none;\n"
+            "        border-bottom: 1px solid #dcdcdc;\n"
+            "        font: 600 14px 'Roboto';\n"
+            "    }\n"
+            "\n"
+            "    QTableView::item {\n"
+            "        padding: 6px;\n"
+            "        border: none;\n"
+            "        color: #939393;\n"
+            "    }\n"
+            "\n"
+            "    QTableView::item:selected {\n"
+            "        background-color: fffff;\n"
+            "        color: #ffffff;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar:vertical {\n"
+            "        background: #f0f0f0;\n"
+            "        width: 5px;\n"
+            "        margin: 2px 0 2px 0;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:vertical {\n"
+            "        background: #c0c0c0;\n"
+            "        min-height: 20px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            ""
+            "\n"
+            "    QScrollBar::handle:vertical:hover {\n"
+            "        background: #a0a0a0;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\n"
+            "        height: 0px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar:horizontal {\n"
+            "        background: #f0f0f0;\n"
+            "        height: 12px;\n"
+            "        margin: 0 2px 0 2px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:horizontal {\n"
+            "        background: #c0c0c0;\n"
+            "        min-width: 20px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:horizontal:hover {\n"
+            "        background: #a0a0a0;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
+            "    width: 0px;\n"
+            "    }\n"
+            "\n"
+            ""
         )
         self.verticalLayout_14.addWidget(self.activities)
         self.tablelayout.addWidget(self.tablebox)
