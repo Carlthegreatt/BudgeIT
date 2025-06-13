@@ -18,6 +18,7 @@ from components.update_month_setup import UpdateMonthSetup
 from PySide6.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
 from components.pesoquerymodel import PesoQueryModel
 from components.fade_popup import FadePopup
+from components.animations import DataRefreshAnimation
 
 
 class BudgetApp(QMainWindow):
@@ -29,6 +30,12 @@ class BudgetApp(QMainWindow):
         print("from budgetapp: user data", self.user_id)
         self.setupUi(self)
         self.setWindowTitle(" ")
+
+        # Initialize refresh animations
+        self.window_animation = None
+        self.budget_animation = None
+        self.graph_animation = None
+
         self.cursor.execute(
             "SELECT * FROM users WHERE user_id = ? AND account_setup = 0",
             (self.user_id,),
@@ -3308,6 +3315,14 @@ QHeaderView::section {
 
     def refresh_model(self):
         """Refresh the activities model with latest transactions"""
+        # Initialize animation if not already done
+        if not self.window_animation:
+            self.window_animation = DataRefreshAnimation(self.tab)
+
+        # Start the fade animation
+        self.window_animation.refresh()
+
+        # Update the data
         query = QSqlQuery()
         query.prepare(
             "SELECT transaction_date, amount, description, category FROM transactions WHERE user_id = ? ORDER BY data_id DESC"
@@ -3327,8 +3342,11 @@ QHeaderView::section {
             self,
         )
         if add_trans.add_entry():
+            # Refresh model first (this will trigger the activities table animation)
             self.refresh_model()
+            # Then refresh data (this will trigger the budget and graph animations)
             self.refresh_data()
+            # Show success message
             self.show_message("Transaction added")
 
     def show_message(self, text):
