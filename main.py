@@ -9,14 +9,16 @@ from addtransactions import AddTransactions
 from components.budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
-from components.datamanager import DataManager
+from components.datamanager import DataManager, sample_transactions
 from signoutwindow import SignOutWindow
 from account_setup import AccountSetup
 import sqlite3
 from database_manager import *
-from update_month_setup import UpdateMonthSetup
+from components.update_month_setup import UpdateMonthSetup
 from PySide6.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
 from components.pesoquerymodel import PesoQueryModel
+from components.fade_popup import FadePopup
+from components.animations import DataRefreshAnimation
 
 
 class BudgetApp(QMainWindow):
@@ -28,15 +30,20 @@ class BudgetApp(QMainWindow):
         print("from budgetapp: user data", self.user_id)
         self.setupUi(self)
         self.setWindowTitle(" ")
+
+        # Initialize refresh animations
+        self.window_animation = None
+        self.budget_animation = None
+        self.graph_animation = None
+
         self.cursor.execute(
             "SELECT * FROM users WHERE user_id = ? AND account_setup = 0",
             (self.user_id,),
         )
         self.user_data = self.cursor.fetchone()
 
-        self.account_setup = AccountSetup(
-            self.user_id, datetime.today().strftime("%Y-%m")
-        )
+        self.current_month = datetime.today().strftime("%Y-%m")
+        self.account_setup = AccountSetup(self.user_id, self.current_month)
         self.account_setup.setup_completed.connect(self.refresh_data)
         if self.user_data:
             print("Account setup required")
@@ -52,6 +59,7 @@ class BudgetApp(QMainWindow):
                 )
                 self.update_month_setup.show()
         print("Now in main")
+        self.popup = FadePopup(self)
 
     def setupUi(self, MainWindow):
         print("from budgetapp setupUi: current user id", self.user_id)
@@ -59,9 +67,21 @@ class BudgetApp(QMainWindow):
             "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
         )
         self.user_data = self.cursor.fetchone()
-        print(self.user_data)
+
+        self.cursor.execute(
+            """SELECT * FROM remaining_budgets WHERE user_id = ?""", (self.user_id,)
+        )
+        self.remaining_budgets = self.cursor.fetchone()
+        self.current_month = datetime.today().strftime("%Y-%m")
+        self.cursor.execute(
+            """SELECT COUNT(*) FROM transactions WHERE user_id = ?""",
+            (self.user_id,),
+        )
+
+        self.transaction_count = self.cursor.fetchone()[0]
+
         font_path = os.path.join(
-            os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
+            os.path.dirname(__file__), "assets", "fonts", "Roboto.ttf"
         )
         font_id = QFontDatabase.addApplicationFont(font_path)
 
@@ -110,7 +130,7 @@ class BudgetApp(QMainWindow):
             "    padding: 10px 18px;\n"
             "    text-align: left;\n"
             "   \n"
-            '    font: 500 12px "Inter";\n'
+            '    font: 500 12px "Roboto";\n'
             "    icon-size: 18px 18px;\n"
             "}\n"
             "\n"
@@ -166,7 +186,7 @@ class BudgetApp(QMainWindow):
             "    padding: 10px 18px;\n"
             "    text-align: left;\n"
             "   \n"
-            '    font: 500 12px "Inter";\n'
+            '    font: 500 12px "Roboto";\n'
             "    icon-size: 18px 18px;\n"
             "}\n"
             "\n"
@@ -342,7 +362,7 @@ class BudgetApp(QMainWindow):
             "    padding: 10px 18px;\n"
             "    text-align: left;\n"
             "   \n"
-            '    font: 500 12px "Inter";\n'
+            '    font: 500 12px "Roboto";\n'
             "    icon-size: 18px 18px;\n"
             "}\n"
             "\n"
@@ -575,14 +595,14 @@ class BudgetApp(QMainWindow):
         self.menulabel.setObjectName("menulabel")
         sizePolicy1.setHeightForWidth(self.menulabel.sizePolicy().hasHeightForWidth())
         self.menulabel.setSizePolicy(sizePolicy1)
-        Inter = QFont()
-        Inter.setFamilies(["Inter"])
-        Inter.setWeight(QFont.Medium)
-        Inter.setItalic(False)
-        self.menulabel.setFont(Inter)
+        Roboto = QFont()
+        Roboto.setFamilies(["Roboto"])
+        Roboto.setWeight(QFont.Medium)
+        Roboto.setItalic(False)
+        self.menulabel.setFont(Roboto)
         self.menulabel.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 500 14px "Inter";\n'
+            'font: 500 14px "Roboto";\n'
             "background-color: transparent;\n"
             "border: none;\n"
             ""
@@ -710,7 +730,7 @@ class BudgetApp(QMainWindow):
         self.greethello.setStyleSheet(
             "color: rgb(212, 106, 146);\n"
             "background-color: transparent;\n"
-            'font: 600 18px "Inter";'
+            'font: 600 18px "Roboto";'
         )
 
         self.greetlayout.addWidget(self.greethello)
@@ -719,10 +739,10 @@ class BudgetApp(QMainWindow):
         self.user.setObjectName("user")
         sizePolicy1.setHeightForWidth(self.user.sizePolicy().hasHeightForWidth())
         self.user.setSizePolicy(sizePolicy1)
-        self.user.setFont(Inter)
+        self.user.setFont(Roboto)
         self.user.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 700 32px "Inter";\n'
+            'font: 700 32px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -766,7 +786,7 @@ class BudgetApp(QMainWindow):
         self.totalbudgetlbl.setMinimumSize(QSize(0, 30))
         self.totalbudgetlbl.setMaximumSize(QSize(16777215, 25))
         self.totalbudgetlbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n" 'font: 600 14px "Inter";'
+            "color: rgb(108, 68, 100);\n" 'font: 600 14px "Roboto";'
         )
         self.totalbudgetlbl.setTextFormat(Qt.TextFormat.MarkdownText)
         self.totalbudgetlbl.setScaledContents(False)
@@ -787,14 +807,14 @@ class BudgetApp(QMainWindow):
         self.budgetvalue = QLabel(self.totalbudgetbox)
         self.budgetvalue.setObjectName("budgetvalue")
         font2 = QFont()
-        font2.setFamilies(["Inter"])
+        font2.setFamilies(["Roboto"])
         font2.setBold(True)
         font2.setItalic(False)
         self.budgetvalue.setFont(font2)
         self.budgetvalue.setStyleSheet(
             "color: rgb(167, 83, 115);\n"
             "background:transparent;\n"
-            'font: 700 32px "Inter";\n'
+            'font: 700 32px "Roboto";\n'
             ""
         )
 
@@ -808,55 +828,72 @@ class BudgetApp(QMainWindow):
         self.verticalLayout_25.addLayout(self.layout_2)
 
         self.layout_3 = QHBoxLayout()
-        self.layout_3.setSpacing(20)
+        self.layout_3.setSpacing(10)
         self.layout_3.setObjectName("layout_3")
         self.layout_3.setContentsMargins(20, -1, -1, -1)
-        self.progressBar = QProgressBar(self.totalbudgetbox)
-        self.progressBar.setObjectName("progressBar")
+        self.horizontalLayout_39 = QHBoxLayout()
+        self.horizontalLayout_39.setSpacing(10)
+        self.horizontalLayout_39.setObjectName("horizontalLayout_39")
+        self.horizontalLayout_39.setContentsMargins(-1, 10, -1, 10)
+        self.progressBar_2 = QProgressBar(self.totalbudgetbox)
+        self.progressBar_2.setObjectName("progressBar_2")
         sizePolicy2 = QSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed
         )
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.progressBar.sizePolicy().hasHeightForWidth())
-        self.progressBar.setSizePolicy(sizePolicy2)
-        self.progressBar.setMinimumSize(QSize(0, 0))
-        self.progressBar.setMaximumSize(QSize(16777215, 20))
-        self.progressBar.setStyleSheet(
+        sizePolicy2.setHeightForWidth(
+            self.progressBar_2.sizePolicy().hasHeightForWidth()
+        )
+        self.progressBar_2.setSizePolicy(sizePolicy2)
+        self.progressBar_2.setMinimumSize(QSize(0, 0))
+        self.progressBar_2.setMaximumSize(QSize(16777215, 13))
+        self.progressBar_2.setStyleSheet(
             "QProgressBar {\n"
-            "	\n"
-            "	\n"
             "	background-color: rgb(245, 245, 245);\n"
-            "	\n"
-            "	\n"
-            "	\n"
-            "	\n"
-            "	\n"
             "	color: rgb(245, 245, 245);\n"
-            ' 	font: 600 7pt "Inter";\n'
-            "    \n"
-            "    border-radius: 10px;\n"
+            ' 	font: 600 4pt "Roboto";\n'
+            "    border-radius: 6px;\n"
             "    text-align: left;\n"
             "}\n"
-            "\n"
             "QProgressBar::chunk {\n"
             "    background: QLinearGradient(\n"
             "        x1: 0, y1: 0,\n"
             "        x2: 1, y2: 0,\n"
-            "	\n"
             "        stop: 0 #6c4464\n"
-            "\n"
             "        stop: 1 #a75373\n"
             "    );\n"
-            "    border-radius: 9px;\n"
+            "    border-radius: 6px;\n"
             "}\n"
             ""
         )
-        self.progressBar.setValue(70)
-        self.progressBar.setTextVisible(False)
+        self.progressBar_2.setValue(0)
+        self.progressBar_2.setTextVisible(False)
+        self.progressBar_2.setOrientation(Qt.Orientation.Horizontal)
+        self.progressBar_2.setInvertedAppearance(False)
 
-        self.layout_3.addWidget(self.progressBar)
+        self.horizontalLayout_39.addWidget(self.progressBar_2)
 
+        self.remainingbudget = QLabel(self.totalbudgetbox)
+        self.remainingbudget.setObjectName("remainingbudget")
+        self.remainingbudget.setMaximumSize(QSize(16777215, 50))
+        self.remainingbudget.setStyleSheet(
+            "color: rgb(222, 111, 153);\n"
+            'font: 500 12px "Roboto";\n'
+            "text-align: center;\n"
+            ""
+        )
+        self.remainingbudget.setAlignment(
+            Qt.AlignmentFlag.AlignRight
+            | Qt.AlignmentFlag.AlignTrailing
+            | Qt.AlignmentFlag.AlignVCenter
+        )
+        self.remainingbudget.setWordWrap(False)
+        self.remainingbudget.setText(f"₱{self.user_data[5]:,.2f} Remaining")
+
+        self.horizontalLayout_39.addWidget(self.remainingbudget)
+
+        self.layout_3.addLayout(self.horizontalLayout_39)
         self.viewcategorybtn = QToolButton(self.totalbudgetbox)
         self.viewcategorybtn.setObjectName("viewcategorybtn")
         self.viewcategorybtn.setMinimumSize(QSize(50, 50))
@@ -875,7 +912,7 @@ class BudgetApp(QMainWindow):
             "color: rgb(167, 83, 115);\n"
             "border-color: rgb(244, 212, 212);\n"
             "text-align: center;\n"
-            'font: 600 7pt "Inter";\n'
+            'font: 600 7pt "Roboto";\n'
             "border-radius: 25px;}\n"
             " \n"
             "QToolButton:hover {\n"
@@ -915,7 +952,7 @@ class BudgetApp(QMainWindow):
         self.savingslbl.setMinimumSize(QSize(0, 30))
         self.savingslbl.setMaximumSize(QSize(16777215, 25))
         self.savingslbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n" 'font: 600 14px "Inter";'
+            "color: rgb(108, 68, 100);\n" 'font: 600 14px "Roboto";'
         )
         self.savingslbl.setTextFormat(Qt.TextFormat.MarkdownText)
         self.savingslbl.setScaledContents(False)
@@ -948,7 +985,7 @@ class BudgetApp(QMainWindow):
         self.savingsvalue.setStyleSheet(
             "color: rgb(212, 106, 146);\n"
             "background-color: transparent;\n"
-            'font: 700 32px "Inter";\n'
+            'font: 700 32px "Roboto";\n'
             ""
         )
 
@@ -988,7 +1025,7 @@ class BudgetApp(QMainWindow):
             "color: rgb(167, 83, 115);\n"
             "border-color: rgb(244, 212, 212);\n"
             "text-align: center;\n"
-            'font: 600 7pt "Inter";\n'
+            'font: 600 7pt "Roboto";\n'
             "border-radius: 25px;}\n"
             "\n"
             "QToolButton:hover {\n"
@@ -1042,7 +1079,7 @@ class BudgetApp(QMainWindow):
         self.expensevalue.setMaximumSize(QSize(16777215, 50))
         self.expensevalue.setFont(font2)
         self.expensevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 18px "Inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 18px "Roboto";\n' ""
         )
         self.expensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.expensevalue.setWordWrap(False)
@@ -1056,7 +1093,7 @@ class BudgetApp(QMainWindow):
         self.expenselbl.setWordWrap(True)
         self.expenselbl.setStyleSheet(
             "color: rgb(250, 250, 250);\n"
-            'font: 600 14px "Inter";\n'
+            'font: 600 14px "Roboto";\n'
             "text-align: center;"
         )
         self.expenselbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1089,7 +1126,7 @@ class BudgetApp(QMainWindow):
         self.incomevalue.setMaximumSize(QSize(16777215, 50))
         self.incomevalue.setFont(font2)
         self.incomevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 18px "Inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 18px "Roboto";\n' ""
         )
 
         self.incomevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1104,7 +1141,7 @@ class BudgetApp(QMainWindow):
         self.incomelbl.setWordWrap(True)
         self.incomelbl.setStyleSheet(
             "color: rgb(250, 250, 250);\n"
-            'font: 600 14px "Inter";\n'
+            'font: 600 14px "Roboto";\n'
             "text-align: center;"
         )
         self.incomelbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1142,9 +1179,9 @@ class BudgetApp(QMainWindow):
         sizePolicy4.setVerticalStretch(0)
         sizePolicy4.setHeightForWidth(self.activitylbl.sizePolicy().hasHeightForWidth())
         self.activitylbl.setSizePolicy(sizePolicy4)
-        self.activitylbl.setFont(Inter)
+        self.activitylbl.setFont(Roboto)
         self.activitylbl.setStyleSheet(
-            "color: rgb(254, 250, 250);\n" 'font: 700 32px "Inter";'
+            "color: rgb(254, 250, 250);\n" 'font: 700 32px "Roboto";'
         )
 
         self.horizontalLayout_13.addWidget(self.activitylbl)
@@ -1164,9 +1201,8 @@ class BudgetApp(QMainWindow):
             "                padding: 8px;\n"
             "                border: 1px solid #ccc;\n"
             "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
-            "color: rgb(167, 83, 115);\n"
-            "font-weight: bold\n"
+            "                font: 500 10px 'Roboto';\n"
+            "color: #939393;\n"
             "            }"
         )
 
@@ -1186,9 +1222,8 @@ class BudgetApp(QMainWindow):
             "                padding: 8px;\n"
             "                border: 1px solid #ccc;\n"
             "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
-            "				color: rgb(167, 83, 115);\n"
-            "font-weight:bold;\n"
+            "                font: 500 10px 'Roboto';\n"
+            "				color: #939393;\n"
             "\n"
             "            }\n"
             ""
@@ -1213,14 +1248,14 @@ class BudgetApp(QMainWindow):
         self.categorycombo.setSizePolicy(sizePolicy5)
         self.categorycombo.setStyleSheet(
             "QComboBox{\n"
-            "	color: rgb(167, 83, 115);\n"
+            "	color: #939393;\n"
             "	alternate-background-color: rgb(240, 240, 240);\n"
             "				\n"
             "	background-color: rgb(254, 250, 250);\n"
             "                padding: 8px;\n"
             "                border: 1px solid #ccc;\n"
             "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
+            "                font: 500 10px 'Roboto';\n"
             "\n"
             "\n"
             "            }\n"
@@ -1229,12 +1264,17 @@ class BudgetApp(QMainWindow):
             "QComboBox::drop-down {\n"
             "    border: none;\n"
             "    background: transparent;\n"
+            "                font: 500 10px 'Roboto';\n"
             "}\n"
             "\n"
             "QComboBox QAbstractItemView {\n"
             "            background-color: #ffffff;\n"
-            "            color: #000000; \n"
+            "            color: #939393; \n"
             "            }"
+            "                font: 500 10px 'Roboto';\n"
+            "QComboBox:!editable:on, QComboBox::drop-down:editable:on {"
+            "color: color: rgb(167, 83, 115);  /* When real items are selected */"
+            "}"
         )
         self.categorycombo.setEditable(False)
         self.categorycombo.setFrame(True)
@@ -1262,15 +1302,13 @@ class BudgetApp(QMainWindow):
             "    border-radius: 7px;\n"
             "	border-color: rgb(144, 72, 99);\n"
             "text-align: center;\n"
-            " font-size: 10px;\n"
+            "font: 500 10px 'Roboto';\n"
             "\n"
             "\n"
             "  \n"
             "\n"
             "}\n"
             "QPushButton:hover {\n"
-            "\n"
-            "	\n"
             "	background-color: rgb(138, 69, 95);\n"
             "	\n"
             "   \n"
@@ -1315,13 +1353,19 @@ class BudgetApp(QMainWindow):
             sys.exit(-1)
 
         self.activities_model = PesoQueryModel()
-        self.activities_model.setQuery(
+        query = QSqlQuery()
+        query.prepare(
             """
             SELECT transaction_date, amount, description, category
             FROM transactions
+            WHERE user_id = ?
             ORDER BY data_id DESC
         """
         )
+
+        query.addBindValue(self.user_id)
+        query.exec_()
+        self.activities_model.setQuery(query)
 
         self.activities_model.setHeaderData(0, Qt.Horizontal, "Date")
         self.activities_model.setHeaderData(1, Qt.Horizontal, "Amount")
@@ -1329,49 +1373,89 @@ class BudgetApp(QMainWindow):
         self.activities_model.setHeaderData(3, Qt.Horizontal, "Category")
 
         self.activities.setModel(self.activities_model)
+
         self.activities.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.activities.verticalHeader().setVisible(False)
         self.activities.verticalHeader().setDefaultSectionSize(40)
-        self.activities.setAlternatingRowColors(True)
         self.activities.setShowGrid(False)
         self.activities.setSelectionMode(QTableView.NoSelection)
         self.activities.setEditTriggers(QTableView.NoEditTriggers)
         self.activities.setFocusPolicy(Qt.NoFocus)
         self.activities.horizontalHeader().setFocusPolicy(Qt.NoFocus)
         self.activities.setStyleSheet(
-            """QTableView {
-    background-color: white;
-    alternate-background-color: #f0f8ff; /* light blue */
-    gridline-color: #dcdcdc;
-    font: 300 12px "Inter";
-    border: none;
-}
-
-
-QTableView::item:hover {
-    background-color: #e0f7fa;  /* light cyan */
-}
-
-
-
-QTableView::item {
-    padding: 8px;
-    color: rgb(105, 104, 104);
-    font: 900 12px "Inter";
-}
-
-QHeaderView::section {
-    font: 500 12px "Inter";
-    background-color: white;
-    color: rgb(92, 91, 91);
-    padding: 5px;
-    border: 1px solid rgb(230, 230, 230);
-    border-top: none;
-    border-left: none;
-    border-right: none;
-}
-
-"""
+            "\n"
+            "    QTableView {\n"
+            "        background-color: #ffffff;\n"
+            "        border: none;\n"
+            "        border-radius: 6px;\n"
+            "        gridline-color: #e6e6e6;\n"
+            '        font: 400 12px "Roboto";\n'
+            "    }\n"
+            "\n"
+            "    QHeaderView::section {\n"
+            "        background-color: #ffffff;\n"
+            "        color: rgb(108, 68, 100);\n"
+            "        padding: 8px;\n"
+            "        border: none;\n"
+            "        border-bottom: 1px solid #dcdcdc;\n"
+            "        font: 600 14px 'Roboto';\n"
+            "    }\n"
+            "\n"
+            "    QTableView::item {\n"
+            "        padding: 6px;\n"
+            "        border: none;\n"
+            "        color: #939393;\n"
+            "    }\n"
+            "\n"
+            "    QTableView::item:selected {\n"
+            "        background-color: fffff;\n"
+            "        color: #ffffff;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar:vertical {\n"
+            "        background: #f0f0f0;\n"
+            "        width: 5px;\n"
+            "        margin: 2px 0 2px 0;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:vertical {\n"
+            "        background: #c0c0c0;\n"
+            "        min-height: 20px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            ""
+            "\n"
+            "    QScrollBar::handle:vertical:hover {\n"
+            "        background: #a0a0a0;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\n"
+            "        height: 0px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar:horizontal {\n"
+            "        background: #f0f0f0;\n"
+            "        height: 12px;\n"
+            "        margin: 0 2px 0 2px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:horizontal {\n"
+            "        background: #c0c0c0;\n"
+            "        min-width: 20px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:horizontal:hover {\n"
+            "        background: #a0a0a0;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
+            "    width: 0px;\n"
+            "    }\n"
+            "\n"
+            ""
         )
         self.verticalLayout_14.addWidget(self.activities)
         self.tablelayout.addWidget(self.tablebox)
@@ -1433,7 +1517,7 @@ QHeaderView::section {
         self.overallbudgetbox.setObjectName("overallbudgetbox")
         self.overallbudgetbox.setMinimumSize(QSize(300, 80))
         self.overallbudgetbox.setMaximumSize(QSize(16777215, 80))
-        self.overallbudgetbox.setFont(Inter)
+        self.overallbudgetbox.setFont(Roboto)
         self.overallbudgetbox.setStyleSheet(
             "text-align: center;\n"
             "background-color: rgb(167, 83, 115);\n"
@@ -1454,7 +1538,7 @@ QHeaderView::section {
         self.overallbudgetvalue.setMaximumSize(QSize(16777215, 50))
         self.overallbudgetvalue.setFont(font3)
         self.overallbudgetvalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 15px "Inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 15px "Roboto";\n' ""
         )
         self.overallbudgetvalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.overallbudgetvalue.setWordWrap(False)
@@ -1466,7 +1550,7 @@ QHeaderView::section {
         self.overallbudgetlbl.setMaximumSize(QSize(16777215, 50))
         self.overallbudgetlbl.setStyleSheet(
             "color: rgb(250, 250, 250);\n"
-            'font: 600 14px "Inter";\n'
+            'font: 600 14px "Roboto";\n'
             "text-align: center;"
         )
         self.overallbudgetlbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1482,7 +1566,7 @@ QHeaderView::section {
         self.expensebox_3.setObjectName("expensebox_3")
         self.expensebox_3.setMinimumSize(QSize(300, 80))
         self.expensebox_3.setMaximumSize(QSize(16777215, 80))
-        self.expensebox_3.setFont(Inter)
+        self.expensebox_3.setFont(Roboto)
         self.expensebox_3.setStyleSheet(
             "text-align: center;\n"
             "background-color: rgb(167, 83, 115);\n"
@@ -1503,7 +1587,7 @@ QHeaderView::section {
         self.totalexpensevalue.setMaximumSize(QSize(16777215, 50))
         self.totalexpensevalue.setFont(font3)
         self.totalexpensevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 15px "Inter";\n' ""
+            "color: rgb(250, 250, 250);\n" 'font: 700 15px "Roboto";\n' ""
         )
         self.totalexpensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.totalexpensevalue.setWordWrap(False)
@@ -1516,7 +1600,7 @@ QHeaderView::section {
         self.totalexpenselbl.setMaximumSize(QSize(16777215, 50))
         self.totalexpenselbl.setStyleSheet(
             "color: rgb(250, 250, 250);\n"
-            'font: 600 14px "Inter";\n'
+            'font: 600 14px "Roboto";\n'
             "text-align: center;"
         )
         self.totalexpenselbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1537,7 +1621,7 @@ QHeaderView::section {
         self.accumulatedsavingsbox.setObjectName("accumulatedsavingsbox")
         self.accumulatedsavingsbox.setMinimumSize(QSize(300, 80))
         self.accumulatedsavingsbox.setMaximumSize(QSize(16777215, 80))
-        self.accumulatedsavingsbox.setFont(Inter)
+        self.accumulatedsavingsbox.setFont(Roboto)
         self.accumulatedsavingsbox.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 18px"
         )
@@ -1556,7 +1640,7 @@ QHeaderView::section {
         self.accumulatedsavingvalue.setMaximumSize(QSize(16777215, 50))
         self.accumulatedsavingvalue.setFont(font3)
         self.accumulatedsavingvalue.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 15px "Inter";\n' ""
+            "color: rgb(167, 83, 115);\n" 'font: 700 15px "Roboto";\n' ""
         )
         self.accumulatedsavingvalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.accumulatedsavingvalue.setWordWrap(False)
@@ -1568,7 +1652,7 @@ QHeaderView::section {
         self.accumulatedsavingslbl.setMaximumSize(QSize(16777215, 50))
         self.accumulatedsavingslbl.setStyleSheet(
             "color: rgb(167, 83, 115);\n"
-            'font: 600 14px "Inter";\n'
+            'font: 600 14px "Roboto";\n'
             "text-align: center;"
         )
         self.accumulatedsavingslbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1584,7 +1668,7 @@ QHeaderView::section {
         self.totalincomebox.setObjectName("totalincomebox")
         self.totalincomebox.setMinimumSize(QSize(300, 80))
         self.totalincomebox.setMaximumSize(QSize(16777215, 80))
-        self.totalincomebox.setFont(Inter)
+        self.totalincomebox.setFont(Roboto)
         self.totalincomebox.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 18px"
         )
@@ -1603,7 +1687,7 @@ QHeaderView::section {
         self.totalincomevalue.setMaximumSize(QSize(16777215, 50))
         self.totalincomevalue.setFont(font3)
         self.totalincomevalue.setStyleSheet(
-            "color: rgb(166, 83, 115);\n" 'font: 700 15px "Inter";\n' ""
+            "color: rgb(166, 83, 115);\n" 'font: 700 15px "Roboto";\n' ""
         )
         self.totalincomevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.totalincomevalue.setWordWrap(False)
@@ -1615,7 +1699,7 @@ QHeaderView::section {
         self.totalincomelbl.setMaximumSize(QSize(16777215, 50))
         self.totalincomelbl.setStyleSheet(
             "color: rgb(167, 83, 115);\n"
-            'font: 600 14px "Inter";\n'
+            'font: 600 14px "Roboto";\n'
             "text-align: center;"
         )
         self.totalincomelbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1654,10 +1738,10 @@ QHeaderView::section {
             self.transactionsummary.sizePolicy().hasHeightForWidth()
         )
         self.transactionsummary.setSizePolicy(sizePolicy1)
-        self.transactionsummary.setFont(Inter)
+        self.transactionsummary.setFont(Roboto)
         self.transactionsummary.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 500 15px "Inter";\n'
+            'font: 500 15px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -1719,10 +1803,10 @@ QHeaderView::section {
             self.budgetsummarylbl.sizePolicy().hasHeightForWidth()
         )
         self.budgetsummarylbl.setSizePolicy(sizePolicy1)
-        self.budgetsummarylbl.setFont(Inter)
+        self.budgetsummarylbl.setFont(Roboto)
         self.budgetsummarylbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 500 15px "Inter";\n'
+            'font: 500 15px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -1776,10 +1860,10 @@ QHeaderView::section {
             self.youractivitylbl.sizePolicy().hasHeightForWidth()
         )
         self.youractivitylbl.setSizePolicy(sizePolicy1)
-        self.youractivitylbl.setFont(Inter)
+        self.youractivitylbl.setFont(Roboto)
         self.youractivitylbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 500 15px "Inter";\n'
+            'font: 500 15px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -1827,10 +1911,10 @@ QHeaderView::section {
             self.totaltransactionlbl.sizePolicy().hasHeightForWidth()
         )
         self.totaltransactionlbl.setSizePolicy(sizePolicy1)
-        self.totaltransactionlbl.setFont(Inter)
+        self.totaltransactionlbl.setFont(Roboto)
         self.totaltransactionlbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 500 15px "Inter";\n'
+            'font: 500 15px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -1863,7 +1947,7 @@ QHeaderView::section {
         self.totaltransactionvalue.setFont(font2)
         self.totaltransactionvalue.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 700 32px "Inter";\n'
+            'font: 700 32px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -1872,7 +1956,7 @@ QHeaderView::section {
             | Qt.AlignmentFlag.AlignLeft
             | Qt.AlignmentFlag.AlignTop
         )
-
+        self.totaltransactionvalue.setText(f"{self.transaction_count}")
         self.horizontalLayout_26.addWidget(self.totaltransactionvalue)
 
         self.verticalLayout_17.addWidget(self.totaltransactionwidget)
@@ -2176,13 +2260,13 @@ QHeaderView::section {
         )
         self.monthlyreport_lbl.setSizePolicy(sizePolicy1)
         font5 = QFont()
-        font5.setFamilies(["Inter"])
+        font5.setFamilies(["Roboto"])
         font5.setWeight(QFont.DemiBold)
         font5.setItalic(False)
         self.monthlyreport_lbl.setFont(font5)
         self.monthlyreport_lbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 600 18px "Inter";\n'
+            'font: 600 18px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -2217,7 +2301,7 @@ QHeaderView::section {
         self.budgetreport = QGroupBox(self.widget)
         self.budgetreport.setObjectName("budgetreport")
         self.budgetreport.setMaximumSize(QSize(16777215, 80))
-        self.budgetreport.setFont(Inter)
+        self.budgetreport.setFont(Roboto)
         self.budgetreport.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
         )
@@ -2236,7 +2320,7 @@ QHeaderView::section {
         self.budgetreport_value.setMaximumSize(QSize(16777215, 50))
         self.budgetreport_value.setFont(font3)
         self.budgetreport_value.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 12px "Inter";\n' ""
+            "color: rgb(167, 83, 115);\n" 'font: 700 12px "Roboto";\n' ""
         )
         self.budgetreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.budgetreport_value.setWordWrap(False)
@@ -2248,7 +2332,7 @@ QHeaderView::section {
         self.budgetlbl.setMaximumSize(QSize(16777215, 50))
         self.budgetlbl.setStyleSheet(
             "color: rgb(167, 83, 115);\n"
-            'font: 600 12px "Inter";\n'
+            'font: 600 12px "Roboto";\n'
             "text-align: center;"
         )
         self.budgetlbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -2263,7 +2347,7 @@ QHeaderView::section {
         self.savingsreport = QGroupBox(self.widget)
         self.savingsreport.setObjectName("savingsreport")
         self.savingsreport.setMaximumSize(QSize(16777215, 80))
-        self.savingsreport.setFont(Inter)
+        self.savingsreport.setFont(Roboto)
         self.savingsreport.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
         )
@@ -2282,7 +2366,7 @@ QHeaderView::section {
         self.savingsreport_value.setMaximumSize(QSize(16777215, 50))
         self.savingsreport_value.setFont(font3)
         self.savingsreport_value.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 12px "Inter";\n' ""
+            "color: rgb(167, 83, 115);\n" 'font: 700 12px "Roboto";\n' ""
         )
         self.savingsreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.savingsreport_value.setWordWrap(False)
@@ -2294,7 +2378,7 @@ QHeaderView::section {
         self.savingslbl_2.setMaximumSize(QSize(16777215, 50))
         self.savingslbl_2.setStyleSheet(
             "color: rgb(167, 83, 115);\n"
-            'font: 600 12px "Inter";\n'
+            'font: 600 12px "Roboto";\n'
             "text-align: center;"
         )
         self.savingslbl_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -2309,7 +2393,7 @@ QHeaderView::section {
         self.expensereport = QGroupBox(self.widget)
         self.expensereport.setObjectName("expensereport")
         self.expensereport.setMaximumSize(QSize(16777215, 80))
-        self.expensereport.setFont(Inter)
+        self.expensereport.setFont(Roboto)
         self.expensereport.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
         )
@@ -2328,7 +2412,7 @@ QHeaderView::section {
         self.expensereport_value.setMaximumSize(QSize(16777215, 50))
         self.expensereport_value.setFont(font3)
         self.expensereport_value.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 12px "Inter";\n' ""
+            "color: rgb(167, 83, 115);\n" 'font: 700 12px "Roboto";\n' ""
         )
         self.expensereport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.expensereport_value.setWordWrap(False)
@@ -2340,7 +2424,7 @@ QHeaderView::section {
         self.expenselbl_2.setMaximumSize(QSize(16777215, 50))
         self.expenselbl_2.setStyleSheet(
             "color: rgb(167, 83, 115);\n"
-            'font: 600 12px "Inter";\n'
+            'font: 600 12px "Roboto";\n'
             "text-align: center;"
         )
         self.expenselbl_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -2384,10 +2468,10 @@ QHeaderView::section {
             self.transactionsummary_2.sizePolicy().hasHeightForWidth()
         )
         self.transactionsummary_2.setSizePolicy(sizePolicy1)
-        self.transactionsummary_2.setFont(Inter)
+        self.transactionsummary_2.setFont(Roboto)
         self.transactionsummary_2.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 500 15px "Inter";\n'
+            'font: 500 15px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -2437,10 +2521,10 @@ QHeaderView::section {
             self.budgetsummary.sizePolicy().hasHeightForWidth()
         )
         self.budgetsummary.setSizePolicy(sizePolicy1)
-        self.budgetsummary.setFont(Inter)
+        self.budgetsummary.setFont(Roboto)
         self.budgetsummary.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 500 15px "Inter";\n'
+            'font: 500 15px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -2486,7 +2570,7 @@ QHeaderView::section {
         self.translbl_2.setFont(font5)
         self.translbl_2.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 600 18px "Inter";\n'
+            'font: 600 18px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -2540,7 +2624,7 @@ QHeaderView::section {
     background-color: white;
     alternate-background-color: #f0f8ff; /* light blue */
     gridline-color: #dcdcdc;
-    font: 300 12px "Inter";
+    font: 300 12px "Roboto";
     border: none;
 }
 
@@ -2554,11 +2638,11 @@ QTableView::item:hover {
 QTableView::item {
     padding: 8px;
     color: rgb(105, 104, 104);
-    font: 900 12px "Inter";
+    font: 900 12px "Roboto";
 }
 
 QHeaderView::section {
-    font: 500 12px "Inter";
+    font: 500 12px "Roboto";
     background-color: white;
     color: rgb(92, 91, 91);
     padding: 5px;
@@ -2604,7 +2688,7 @@ QHeaderView::section {
         self.noavailablereportlbl.setFont(font5)
         self.noavailablereportlbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 600 18px "Inter";\n'
+            'font: 600 18px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -2756,7 +2840,7 @@ QHeaderView::section {
             5, QCoreApplication.translate("MainWindow", "Transportation", None)
         )
         self.categorycombo.setItemText(
-            6, QCoreApplication.translate("MainWindow", "Others", None)
+            6, QCoreApplication.translate("MainWindow", "Miscellaneous", None)
         )
 
         self.categorycombo.setPlaceholderText(
@@ -2989,9 +3073,6 @@ QHeaderView::section {
         self.totaltransactionlbl.setText(
             QCoreApplication.translate("MainWindow", "Total Transactions", None)
         )
-        self.totaltransactionvalue.setText(
-            QCoreApplication.translate("MainWindow", "204", None)
-        )
 
     # retranslateUi
 
@@ -3153,6 +3234,19 @@ QHeaderView::section {
             )
             self.user_data = self.cursor.fetchone()
 
+            self.cursor.execute(
+                "SELECT * FROM remaining_budgets WHERE user_id = ? AND report_date = ?",
+                (self.user_id, current_month),
+            )
+            self.remaining_budgets = self.cursor.fetchone()
+
+            self.cursor.execute(
+                "SELECT COUNT(*) FROM transactions WHERE user_id = ?",
+                (self.user_id,),
+            )
+            self.transaction_count = self.cursor.fetchone()[0]
+            self.totaltransactionvalue.setText(f"{self.transaction_count}")
+
             if self.user_data:
                 print(f"User data fetched: {self.user_data}")
 
@@ -3160,24 +3254,28 @@ QHeaderView::section {
                 monthly_income = float(self.user_data[4])
                 monthly_budget = float(self.user_data[5])
                 monthly_expenses = float(self.user_data[3])
+                monthly_savings = float(self.remaining_budgets[3])
+                remaining_monthly_budget = float(self.remaining_budgets[4])
+                total_transaction_value = float(self.transaction_count)
 
                 # Update UI elements with proper formatting
-                self.savingsvalue.setText(f"₱{self.user_data[2]:,.2f}")
+                self.savingsvalue.setText(f"₱{monthly_savings:,.2f}")
                 self.incomevalue.setText(f"₱{monthly_income:,.2f}")
                 self.budgetvalue.setText(f"₱{monthly_budget:,.2f}")
+                self.remainingbudget.setText(
+                    f"₱{remaining_monthly_budget:,.2f} Remaining"
+                )
 
-                # Update category budgets
-                food_budget = float(self.user_data[6])
-                utilities_budget = float(self.user_data[7])
-                health_budget = float(self.user_data[8])
-                personal_budget = float(self.user_data[9])
-                education_budget = float(self.user_data[10])
-                transportation_budget = float(self.user_data[11])
-                misc_budget = float(self.user_data[12])
+                if self.remaining_budgets is not None:
+                    self.progressBar_2.setValue(
+                        100 - ((self.remaining_budgets[4] / self.user_data[5]) * 100)
+                    )
+                else:
+                    self.progressBar_2.setValue(0)
 
                 # Update expense and savings values
                 self.cursor.execute(
-                    "SELECT SUM(monthly_expenses), SUM(monthly_savings), SUM(monthly_income), SUM(monthly_budget) FROM user_data WHERE user_id = ?",
+                    """SELECT SUM(monthly_expenses), SUM(monthly_savings), SUM(monthly_income), SUM(monthly_budget) FROM user_data WHERE user_id = ?""",
                     (self.user_id,),
                 )
 
@@ -3220,6 +3318,14 @@ QHeaderView::section {
 
     def refresh_model(self):
         """Refresh the activities model with latest transactions"""
+        # Initialize animation if not already done
+        if not self.window_animation:
+            self.window_animation = DataRefreshAnimation(self.tab)
+
+        # Start the fade animation
+        self.window_animation.refresh()
+
+        # Update the data
         query = QSqlQuery()
         query.prepare(
             "SELECT transaction_date, amount, description, category FROM transactions WHERE user_id = ? ORDER BY data_id DESC"
@@ -3239,5 +3345,15 @@ QHeaderView::section {
             self,
         )
         if add_trans.add_entry():
+            # Refresh model first (this will trigger the activities table animation)
             self.refresh_model()
+            # Then refresh data (this will trigger the budget and graph animations)
             self.refresh_data()
+            # Show success message
+            self.show_message("Transaction added")
+
+    def show_message(self, text):
+        # Calculate center position
+        x = (self.width() - self.popup.width()) // 2
+        y = self.height() // 2
+        self.popup.show_popup(text, x, y)

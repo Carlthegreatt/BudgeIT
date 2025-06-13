@@ -15,4 +15,6 @@ class PesoQueryModel(QSqlQueryModel):
                     return f"₱{amount:,.2f}"
                 except (ValueError, TypeError):
                     return value
+        elif role == Qt.TextAlignmentRole:
+            return Qt.AlignCenter
         return super().data(index, role)

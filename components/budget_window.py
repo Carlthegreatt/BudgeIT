@@ -28,6 +28,12 @@ class BudgetWindow(QDialog):
             )
             user_data = cursor.fetchone()
 
+            cursor.execute(
+                "SELECT * FROM remaining_budgets WHERE user_id = ? AND report_date = ?",
+                (self.parent.user_id, current_month),
+            )
+            remaining_data = cursor.fetchone()
+
             if user_data:
                 # Update table with budget data
                 categories = [
@@ -50,17 +56,36 @@ class BudgetWindow(QDialog):
                     user_data[12],  # miscellaneous_budget
                 ]
 
-                for i, (category, budget) in enumerate(zip(categories, budget_values)):
-                    self.model.setItem(i, 0, QStandardItem(category))
-                    self.model.setItem(i, 1, QStandardItem(f"₱{float(budget):,.2f}"))
-                    self.model.setItem(
-                        i, 2, QStandardItem(f"₱{float(budget):,.2f}")
-                    )  # Initially remaining = budget
+                remaining_values = [
+                    remaining_data[5],  # remaining_food_budget
+                    remaining_data[6],  # remaining_utilities_budget
+                    remaining_data[7],  # remaining_health_wellness_budget
+                    remaining_data[8],  # remaining_personal_lifestyle_budget
+                    remaining_data[9],  # remaining_education_budget
+                    remaining_data[10],  # remaining_transportation_budget
+                    remaining_data[11],  # remaining_miscellaneous_budget
+                ]
+
+                for i, (category, budget, remaining) in enumerate(
+                    zip(categories, budget_values, remaining_values)
+                ):
+                    category_item = QStandardItem(category)
+                    budget_item = QStandardItem(f"₱{float(budget):,.2f}")
+                    remaining_item = QStandardItem(f"₱{float(remaining):,.2f}")
+
+                    # Center align all items
+                    category_item.setTextAlignment(Qt.AlignCenter)
+                    budget_item.setTextAlignment(Qt.AlignCenter)
+                    remaining_item.setTextAlignment(Qt.AlignCenter)
+
+                    self.model.setItem(i, 0, category_item)
+                    self.model.setItem(i, 1, budget_item)
+                    self.model.setItem(i, 2, remaining_item)
 
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName("Form")
-        Form.setFixedSize(550, 415)
+        Form.setFixedSize(600, 415)
         self.verticalLayout = QVBoxLayout(Form)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -90,13 +115,13 @@ class BudgetWindow(QDialog):
         sizePolicy.setHeightForWidth(self.budgetlbl.sizePolicy().hasHeightForWidth())
         self.budgetlbl.setSizePolicy(sizePolicy)
         font = QFont()
-        font.setFamilies(["Inter"])
+        font.setFamilies(["Roboto"])
         font.setBold(True)
         font.setItalic(False)
         self.budgetlbl.setFont(font)
         self.budgetlbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 700 40px "Inter";\n'
+            'font: 700 40px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )
@@ -128,22 +153,22 @@ class BudgetWindow(QDialog):
             "        border: 1px solid #dcdcdc;\n"
             "        border-radius: 6px;\n"
             "        gridline-color: #e6e6e6;\n"
-            '        font: 300 12px "Inter";\n'
+            '        font: 400 12px "Roboto";\n'
             "    }\n"
             "\n"
             "    QHeaderView::section {\n"
             "        background-color: #f5f5f5;\n"
-            "        color: #333333;\n"
+            "        color: #593852;\n"
             "        padding: 8px;\n"
             "        border: none;\n"
             "        border-bottom: 1px solid #dcdcdc;\n"
-            "        font-weight: bold;\n"
+            "        font: 600 14px 'Roboto';\n"
             "    }\n"
             "\n"
             "    QTableView::item {\n"
             "        padding: 6px;\n"
             "        border: none;\n"
-            "        color: #2c2c2c;\n"
+            "        color: #939393;\n"
             "    }\n"
             "\n"
             "    QTableView::item:selected {\n"

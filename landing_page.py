@@ -18,7 +18,7 @@ class AnimatedMainWindow(QMainWindow):
 
     def setupUi(self):
         font_path = os.path.join(
-            os.path.dirname(__file__), "assets", "fonts", "Inter.ttf"
+            os.path.dirname(__file__), "assets", "fonts", "Roboto.ttf"
         )
         font_id = QFontDatabase.addApplicationFont(font_path)
 
@@ -161,12 +161,12 @@ class AnimatedMainWindow(QMainWindow):
         sizePolicy.setHeightForWidth(self.user.sizePolicy().hasHeightForWidth())
         self.user.setSizePolicy(sizePolicy)
         font = QFont()
-        font.setFamilies(["Inter"])
+        font.setFamilies(["Roboto"])
         font.setBold(True)
         font.setItalic(False)
         self.user.setFont(font)
         self.user.setStyleSheet(
-            'color: rgb(108, 68, 100);\nfont: 700 45px "Inter";\nbackground-color: transparent'
+            'color: rgb(108, 68, 100);\nfont: 700 45px "Roboto";\nbackground-color: transparent'
         )
         self.user.setAlignment(
             Qt.AlignmentFlag.AlignLeading
@@ -181,12 +181,12 @@ class AnimatedMainWindow(QMainWindow):
         sizePolicy.setHeightForWidth(self.user_6.sizePolicy().hasHeightForWidth())
         self.user_6.setSizePolicy(sizePolicy)
         font1 = QFont()
-        font1.setFamilies(["Inter"])
+        font1.setFamilies(["Roboto"])
         font1.setWeight(QFont.DemiBold)
         font1.setItalic(False)
         self.user_6.setFont(font1)
         self.user_6.setStyleSheet(
-            'color: rgb(108, 68, 100);\nfont: 600 35px "Inter";\nbackground-color: transparent'
+            'color: rgb(108, 68, 100);\nfont: 600 35px "Roboto";\nbackground-color: transparent'
         )
         self.user_6.setAlignment(
             Qt.AlignmentFlag.AlignLeading
@@ -207,12 +207,12 @@ class AnimatedMainWindow(QMainWindow):
         sizePolicy.setHeightForWidth(self.user_2.sizePolicy().hasHeightForWidth())
         self.user_2.setSizePolicy(sizePolicy)
         font2 = QFont()
-        font2.setFamilies(["Inter"])
+        font2.setFamilies(["Roboto"])
         font2.setBold(False)
         font2.setItalic(False)
         self.user_2.setFont(font2)
         self.user_2.setStyleSheet(
-            'color: rgb(167, 83, 115);\nfont: 400 25px "Inter";\nbackground-color: transparent'
+            'color: rgb(167, 83, 115);\nfont: 400 25px "Roboto";\nbackground-color: transparent'
         )
         self.user_2.setAlignment(
             Qt.AlignmentFlag.AlignLeading
@@ -278,7 +278,7 @@ QWidget {
             color: rgb(212, 106, 146);
             border: none;
             border-radius: 5px;
-            font: 600 12px "Inter";
+            font: 600 12px "Roboto";
         }
         QToolButton:hover {
             color: rgb(198, 99, 137);
@@ -295,7 +295,7 @@ QWidget {
             color: rgb(212, 106, 146);
             border: 2px solid rgb(212, 106, 146);
             border-radius: 5px;
-            font: 600 12px "Inter";
+            font: 600 12px "Roboto";
         }
         QToolButton:hover {
             border-color: rgb(198, 99, 137);
@@ -314,7 +314,7 @@ QWidget {
             color: white;
             border: none;
             border-radius: 5px;
-            font: 600 12px "Inter";
+            font: 600 12px "Roboto";
         }
         QToolButton:hover {
             background-color: rgb(179, 89, 124);
@@ -335,7 +335,7 @@ QWidget {
             color: white;
             border: none;
             border-radius: 5px;
-            font: 500 14px "Inter";
+            font: 500 14px "Roboto";
         }
         QToolButton:hover {
             background: qlineargradient(

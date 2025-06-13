@@ -46,6 +46,46 @@ with get_db_connection() as connect:
         FOREIGN KEY (user_id) REFERENCES users (user_id)
         )"""
     )
+
+    cursor.execute(
+        """CREATE TABLE IF NOT EXISTS remaining_budgets(
+        record_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        remaining_income INTEGER NOT NULL,
+        remaining_monthly_savings INTEGER NOT NULL,
+        remaining_monthly_budget INTEGER NOT NULL,
+        remaining_food_budget INTEGER NOT NULL,
+        remaining_utilities_budget INTEGER NOT NULL,
+        remaining_health_wellness_budget INTEGER NOT NULL,
+        remaining_personal_lifestyle_budget INTEGER NOT NULL,
+        remaining_education_budget INTEGER NOT NULL,
+        remaining_transportation_budget INTEGER NOT NULL,
+        remaining_miscellaneous_budget INTEGER NOT NULL,
+        report_date TEXT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users (user_id)
+        )"""
+    )
+
+    cursor.execute(
+        """CREATE TABLE IF NOT EXISTS transactions(
+            data_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            transaction_date TEXT NOT NULL,
+            amount REAL NOT NULL,
+            description TEXT NOT NULL,
+            category TEXT NOT NULL
+        )"""
+    )
+
+    cursor.execute(
+        """
+            CREATE TABLE IF NOT EXISTS meta (
+                key TEXT PRIMARY KEY,
+                value TEXT
+            )
+        """
+    )
+
     connect.commit()
 
 
@@ -138,6 +178,12 @@ class AuthManager:
                             report_date,
                         ),
                     )
+
+                    cursor.execute(
+                        "INSERT INTO remaining_budgets (user_id, remaining_income, remaining_monthly_savings, remaining_monthly_budget, remaining_food_budget, remaining_utilities_budget, remaining_health_wellness_budget, remaining_personal_lifestyle_budget, remaining_education_budget, remaining_transportation_budget, remaining_miscellaneous_budget, report_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                        (last_id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, report_date),
+                    )
+
                     connect.commit()
                 print("Registration successful.")
                 return True
