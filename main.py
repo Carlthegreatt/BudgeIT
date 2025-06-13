@@ -9,8 +9,8 @@ from addtransactions import AddTransactions
 from components.budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
-from components.datamanager import DataManager, sample_transactions
-from signoutwindow import SignOutWindow
+from components.datamanager import DataManager
+from components.signoutwindow import SignOutWindow
 from account_setup import AccountSetup
 import sqlite3
 from database_manager import *
