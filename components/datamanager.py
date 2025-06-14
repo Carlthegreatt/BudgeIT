@@ -6,57 +6,56 @@ import sqlite3
 conn = sqlite3.connect("accounts.db")
 cursor = conn.cursor()
 
+
 class DataManager:
     def __init__(self, id):
         self._id = id
 
     def get_data(self) -> tuple:
-        
-        
-        cursor.execute("SELECT * FROM user_data WHERE user_id = ?",(self._id,))
-        return cursor.fetchall() # Gets user data in tuples
+
+        cursor.execute("SELECT * FROM user_data WHERE user_id = ?", (self._id,))
+        return cursor.fetchall()  # Gets user data in tuples
 
     def get_statistics(self) -> dict:
         result = self.get_data()
-        
+
         for data in result:
             print(data)
-        
+
         total = {
-            'Food': 0,
-            'Utilities': 0,
-            'Health' : 0,
-            'Lifestyle': 0,
-            'Education' : 0,
-            'Transportation' : 0,
-            'Miscellaneous' : 0
+            "Food": 0,
+            "Utilities": 0,
+            "Health & Wellness": 0,
+            "Personal & Lifestyle": 0,
+            "Education": 0,
+            "Transportation": 0,
+            "Miscellaneous": 0,
         }
         for row in result:
-            total['Food'] += row[6]
-            total['Utilities'] += row[7]
-            total['Health'] += row[8]
-            total['Lifestyle'] += row[9]
-            total['Education'] += row[10]
-            total['Transportation'] += row[11]
-            total['Miscellaneous'] += row[12]
-        
+            total["Food"] += row[6]
+            total["Utilities"] += row[7]
+            total["Health & Wellness"] += row[8]
+            total["Personal & Lifestyle"] += row[9]
+            total["Education"] += row[10]
+            total["Transportation"] += row[11]
+            total["Miscellaneous"] += row[12]
+
         return total
-    
+
     def get_transactions_data(self):
         data = cursor.execute(f"SELECT * FROM transactions WHERE user_id = {self._id}")
         total = {
-            'Food': 0,
-            'Utilities': 0,
-            'Health & Wellness' : 0,
-            'Lifestyle': 0,
-            'Education' : 0,
-            'Transportation' : 0,
-            'Miscellaneous' : 0
+            "Food": 0,
+            "Utilities": 0,
+            "Health & Wellness": 0,
+            "Personal & Lifestyle": 0,
+            "Education": 0,
+            "Transportation": 0,
+            "Miscellaneous": 0,
         }
         for row in data:
-            total[f'{row[-1]}'] += row[3]
+            total[f"{row[-1]}"] += row[3]
         return total
-        
 
     def generate_graph(self):
         # Gen a Bar chart for most categry spent
@@ -71,8 +70,7 @@ class DataManager:
         plt.title("Spending per Category")
         plt.tight_layout()
         plt.show()
-        
-        
+
         # Bar Chart -------------------
         plt.figure(figsize=(10, 5))
         plt.bar(categories, amounts, color="skyblue")
@@ -91,11 +89,11 @@ class DataManager:
         plt.ylabel("Amount")
         plt.tight_layout()
         plt.show()
-        
+
+
 test = DataManager(1)
 for key, val in test.get_statistics().items():
     print(f"{key}:{val}")
 
 for key, val in test.get_transactions_data().items():
     print(f"{key}:{val}")
-

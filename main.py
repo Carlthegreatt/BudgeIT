@@ -1835,7 +1835,6 @@ class BudgetApp(QMainWindow):
         )
         self.horizontalLayout_budgetsummary.setContentsMargins(0, 0, 0, 0)
 
-
         self.verticalLayout_13.addWidget(self.budgetsummarywidget)
 
         self.horizontalLayout_19.addWidget(self.budgetsummarybox)
@@ -3122,15 +3121,17 @@ QHeaderView::section {
         ax = fig.add_subplot(111)
 
         # Get statistics from DataManager
-        stats = data_manager.get_transactions_data()  # get returned dictionary from stats
+        stats = (
+            data_manager.get_transactions_data()
+        )  # get returned dictionary from stats
 
         # Extract data for plotting
         categories = list(stats.keys())
         amounts = list(stats.values())
 
         print(f"Cat in graph: {categories}")
-        print(f"amounts in graph: {amounts}") # for cross checking
-        
+        print(f"amounts in graph: {amounts}")  # for cross checking
+
         # Create bar chart with styling
         bars = ax.bar(categories, amounts, color="#a75373")
 
@@ -3183,9 +3184,9 @@ QHeaderView::section {
         # Extract data for plotting
         categories = list(stats.keys())
         percentages = list(stats.values())
-        
+
         print(f"Cat in pie: {categories}")
-        print(f"amounts in pie: {percentages}") # for cross checking
+        print(f"amounts in pie: {percentages}")  # for cross checking
 
         # Create pie chart with styling
         wedges, texts, autotexts = ax.pie(
@@ -3223,6 +3224,7 @@ QHeaderView::section {
         # Force the widget to update
         widget.update()
         canvas.draw()
+
     def refresh_data(self):
         """Refresh all user data and UI elements after account setup"""
         try:
@@ -3343,7 +3345,6 @@ QHeaderView::section {
             self.descriptionedit,
             self.categorycombo,
             self.activities_model,
-            self,
         )
         if add_trans.add_entry():
             # Refresh model first (this will trigger the activities table animation)
