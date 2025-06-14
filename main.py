@@ -35,6 +35,7 @@ class BudgetApp(QMainWindow):
         self.window_animation = None
         self.budget_animation = None
         self.graph_animation = None
+        self.popup = FadePopup(self)
 
         self.cursor.execute(
             "SELECT * FROM users WHERE user_id = ? AND account_setup = 0",
@@ -45,6 +46,7 @@ class BudgetApp(QMainWindow):
         self.current_month = datetime.today().strftime("%Y-%m")
         self.account_setup = AccountSetup(self.user_id, self.current_month)
         self.account_setup.setup_completed.connect(self.refresh_data)
+
         if self.user_data:
             print("Account setup required")
             QTimer.singleShot(600, self.account_setup.show)
@@ -59,7 +61,6 @@ class BudgetApp(QMainWindow):
                 )
                 self.update_month_setup.show()
         print("Now in main")
-        self.popup = FadePopup(self)
 
     def setupUi(self, MainWindow):
         print("from budgetapp setupUi: current user id", self.user_id)
