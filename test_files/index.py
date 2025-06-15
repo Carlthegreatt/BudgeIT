@@ -1,38 +1,61 @@
-from PySide6.QtWidgets import (
-    QApplication,
-    QWidget,
-    QVBoxLayout,
-    QProgressBar,
-    QPushButton,
-)
-from PySide6.QtCore import QPropertyAnimation
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QHBoxLayout
+from PySide6.QtCore import Qt, QPropertyAnimation, QSize, QEasingCurve
 
 
-class AnimatedProgressBar(QWidget):
+class Sidebar(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("QProgressBar Smooth Animation")
+        self.collapsed_width = 50
+        self.expanded_width = 200
 
-        self.layout = QVBoxLayout()
-        self.progress = QProgressBar()
-        self.progress.setValue(0)
-        self.layout.addWidget(self.progress)
+        self.setFixedWidth(self.collapsed_width)
+        self.setStyleSheet("background-color: #2c3e50;")
+        self.setMouseTracking(True)
 
-        self.button = QPushButton("Animate")
-        self.button.clicked.connect(self.animate_progress)
-        self.layout.addWidget(self.button)
+        layout = QVBoxLayout(self)
+        layout.setAlignment(Qt.AlignTop)
+        layout.addWidget(QLabel("🏠", self))
+        layout.addWidget(QLabel("⚙️", self))
+        layout.addWidget(QLabel("📊", self))
 
-        self.setLayout(self.layout)
+        for label in self.findChildren(QLabel):
+            label.setStyleSheet("color: white; font-size: 18px; padding: 10px;")
 
-    def animate_progress(self):
-        self.animation = QPropertyAnimation(self.progress, b"value")
-        self.animation.setDuration(2000)  # 2 seconds
-        self.animation.setStartValue(0)
-        self.animation.setEndValue(100)
+    def enterEvent(self, event):
+        self.animate_width(self.expanded_width)
+        super().enterEvent(event)
+
+    def leaveEvent(self, event):
+        self.animate_width(self.collapsed_width)
+        super().leaveEvent(event)
+
+    def animate_width(self, target_width):
+        self.animation = QPropertyAnimation(self, b"minimumWidth")
+        self.animation.setDuration(300)
+        self.animation.setStartValue(self.width())
+        self.animation.setEndValue(target_width)
+        self.animation.setEasingCurve(QEasingCurve.InOutCubic)
         self.animation.start()
 
 
-app = QApplication([])
-window = AnimatedProgressBar()
-window.show()
-app.exec()
+class MainWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Hover Sidebar Example")
+        self.resize(800, 500)
+
+        self.sidebar = Sidebar()
+
+        content = QLabel("Main Content Area")
+        content.setStyleSheet("font-size: 20px; padding: 20px;")
+
+        layout = QHBoxLayout(self)
+        layout.addWidget(self.sidebar)
+        layout.addWidget(content)
+
+
+if __name__ == "__main__":
+    app = QApplication([])
+    window = MainWindow()
+    window.show()
+    app.exec()

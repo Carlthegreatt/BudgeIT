@@ -286,7 +286,7 @@ class BudgetApp(QMainWindow):
         self.homebtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
         self.homebtn_min.setAutoRaise(False)
         self.homebtn_min.setArrowType(Qt.ArrowType.NoArrow)
-        self.homebtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(0))
+        self.homebtn_min.clicked.connect(lambda: self.on_side_bar_click(0))
 
         self.verticalLayout_52.addWidget(self.homebtn_min)
 
@@ -309,7 +309,7 @@ class BudgetApp(QMainWindow):
         self.analyticsbtn_min.setChecked(False)
         self.analyticsbtn_min.setPopupMode(QToolButton.ToolButtonPopupMode.DelayedPopup)
         self.analyticsbtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.analyticsbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(1))
+        self.analyticsbtn_min.clicked.connect(lambda: self.on_side_bar_click(1))
 
         self.verticalLayout_52.addWidget(self.analyticsbtn_min)
 
@@ -331,7 +331,7 @@ class BudgetApp(QMainWindow):
         self.reportbtn_min.setCheckable(True)
         self.reportbtn_min.setChecked(False)
         self.reportbtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.reportbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(2))
+        self.reportbtn_min.clicked.connect(lambda: self.on_side_bar_click(2))
 
         self.verticalLayout_52.addWidget(self.reportbtn_min)
 
@@ -1995,7 +1995,7 @@ class BudgetApp(QMainWindow):
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setSpacing(20)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.horizontalLayout_3.setContentsMargins(40, -1, 40, -1)
+        self.horizontalLayout_3.setContentsMargins(200, -1, 200, -1)
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setSpacing(5)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
@@ -2068,88 +2068,6 @@ class BudgetApp(QMainWindow):
         self.monthcombo.setEditable(False)
         self.monthcombo.setFrame(True)
         self.horizontalLayout_4.addWidget(self.monthcombo)
-
-        self.daycombo = QComboBox(self.scrollAreaWidgetContents_3)
-        self.daycombo.setPlaceholderText("Day")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.setObjectName("daycombo")
-        sizePolicy5.setHeightForWidth(self.daycombo.sizePolicy().hasHeightForWidth())
-        self.daycombo.setSizePolicy(sizePolicy5)
-        self.daycombo.setMinimumSize(QSize(60, 0))
-        self.daycombo.setStyleSheet(
-            "QComboBox{\n"
-            "	color: rgb(167, 83, 115);\n"
-            "	alternate-background-color: rgb(240, 240, 240);\n"
-            "				\n"
-            "	background-color: rgb(254, 250, 250);\n"
-            "                padding: 8px;\n"
-            "                border: 1px solid #ccc;\n"
-            "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
-            "\n"
-            "\n"
-            "            }\n"
-            "\n"
-            "\n"
-            "QComboBox::drop-down {\n"
-            "    border: none;\n"
-            "    background: transparent;\n"
-            "}\n"
-            "\n"
-            "QComboBox QAbstractItemView {\n"
-            "            background-color: #ffffff;\n"
-            "            color: #000000; \n"
-            "            }\n"
-            "\n"
-            "QScrollBar:vertical {\n"
-            "    \n"
-            "    background-color: rgb(245, 245, 245);\n"
-            "    width: 5px;\n"
-            "    margin: 0px 0px 0px 0px;\n"
-            "	border: none\n"
-            "	\n"
-            "}\n"
-            "\n"
-            "QScrollBar::handle:vertical {\n"
-            "    background: rgb(80, 51, 74);\n"
-            "    min-height: 18px;\n"
-            "    border-radius: 10000px;\n"
-            "}\n"
-            "\n"
-            "QScrollBar::add-line:vertical,\n"
-            "QScrollBar::sub-line:vertical {\n"
-            "    background: none;\n"
-            "    height: 0px;\n"
-            "}"
-        )
-        self.daycombo.setEditable(False)
-        self.daycombo.setFrame(True)
-        self.horizontalLayout_4.addWidget(self.daycombo)
 
         self.yearcombo = QComboBox(self.scrollAreaWidgetContents_3)
         self.yearcombo.setPlaceholderText("Year")
@@ -2890,103 +2808,7 @@ QHeaderView::section {
         self.monthcombo.setPlaceholderText(
             QCoreApplication.translate("MainWindow", "Month", None)
         )
-        self.daycombo.setItemText(
-            0, QCoreApplication.translate("MainWindow", "01", None)
-        )
-        self.daycombo.setItemText(
-            1, QCoreApplication.translate("MainWindow", "02", None)
-        )
-        self.daycombo.setItemText(
-            2, QCoreApplication.translate("MainWindow", "03", None)
-        )
-        self.daycombo.setItemText(
-            3, QCoreApplication.translate("MainWindow", "04", None)
-        )
-        self.daycombo.setItemText(
-            4, QCoreApplication.translate("MainWindow", "05", None)
-        )
-        self.daycombo.setItemText(
-            5, QCoreApplication.translate("MainWindow", "06", None)
-        )
-        self.daycombo.setItemText(
-            6, QCoreApplication.translate("MainWindow", "07", None)
-        )
-        self.daycombo.setItemText(
-            7, QCoreApplication.translate("MainWindow", "08", None)
-        )
-        self.daycombo.setItemText(
-            8, QCoreApplication.translate("MainWindow", "09", None)
-        )
-        self.daycombo.setItemText(
-            9, QCoreApplication.translate("MainWindow", "10", None)
-        )
-        self.daycombo.setItemText(
-            10, QCoreApplication.translate("MainWindow", "11", None)
-        )
-        self.daycombo.setItemText(
-            11, QCoreApplication.translate("MainWindow", "12", None)
-        )
-        self.daycombo.setItemText(
-            12, QCoreApplication.translate("MainWindow", "13", None)
-        )
-        self.daycombo.setItemText(
-            13, QCoreApplication.translate("MainWindow", "14", None)
-        )
-        self.daycombo.setItemText(
-            14, QCoreApplication.translate("MainWindow", "15", None)
-        )
-        self.daycombo.setItemText(
-            15, QCoreApplication.translate("MainWindow", "16", None)
-        )
-        self.daycombo.setItemText(
-            16, QCoreApplication.translate("MainWindow", "17", None)
-        )
-        self.daycombo.setItemText(
-            17, QCoreApplication.translate("MainWindow", "18", None)
-        )
-        self.daycombo.setItemText(
-            18, QCoreApplication.translate("MainWindow", "19", None)
-        )
-        self.daycombo.setItemText(
-            19, QCoreApplication.translate("MainWindow", "20", None)
-        )
-        self.daycombo.setItemText(
-            20, QCoreApplication.translate("MainWindow", "21", None)
-        )
-        self.daycombo.setItemText(
-            21, QCoreApplication.translate("MainWindow", "22", None)
-        )
-        self.daycombo.setItemText(
-            22, QCoreApplication.translate("MainWindow", "23", None)
-        )
-        self.daycombo.setItemText(
-            23, QCoreApplication.translate("MainWindow", "24", None)
-        )
-        self.daycombo.setItemText(
-            24, QCoreApplication.translate("MainWindow", "25", None)
-        )
-        self.daycombo.setItemText(
-            25, QCoreApplication.translate("MainWindow", "26", None)
-        )
-        self.daycombo.setItemText(
-            26, QCoreApplication.translate("MainWindow", "27", None)
-        )
-        self.daycombo.setItemText(
-            27, QCoreApplication.translate("MainWindow", "28", None)
-        )
-        self.daycombo.setItemText(
-            28, QCoreApplication.translate("MainWindow", "29", None)
-        )
-        self.daycombo.setItemText(
-            29, QCoreApplication.translate("MainWindow", "30", None)
-        )
-        self.daycombo.setItemText(
-            30, QCoreApplication.translate("MainWindow", "31", None)
-        )
 
-        self.daycombo.setPlaceholderText(
-            QCoreApplication.translate("MainWindow", "Day", None)
-        )
         self.yearcombo.setItemText(
             0, QCoreApplication.translate("MainWindow", "2024", None)
         )
@@ -3359,3 +3181,6 @@ QHeaderView::section {
         x = (self.width() - self.popup.width()) // 2
         y = self.height() // 2
         self.popup.show_popup(text, x, y)
+
+    def on_side_bar_click(self, page):
+        self.tab.setCurrentIndex(page)
