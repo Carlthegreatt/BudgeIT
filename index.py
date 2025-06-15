@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QHBoxLayout
-from PySide6.QtCore import Qt, QPropertyAnimation, QSize, QEasingCurve
+from PySide6.QtWidgets import *
+from PySide6.QtCore import *
 
 
 class Sidebar(QWidget):
@@ -14,7 +14,8 @@ class Sidebar(QWidget):
 
         layout = QVBoxLayout(self)
         layout.setAlignment(Qt.AlignTop)
-        layout.addWidget(QLabel("🏠", self))
+        layout.addWidget(QToolButton(self))
+
         layout.addWidget(QLabel("⚙️", self))
         layout.addWidget(QLabel("📊", self))
 

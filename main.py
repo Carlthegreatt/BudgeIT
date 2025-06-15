@@ -21,6 +21,297 @@ from components.fade_popup import FadePopup
 from components.animations import DataRefreshAnimation
 
 
+class Sidebar(QWidget):
+    def __init__(self, parent=None, on_nav=None):
+        super().__init__(parent)
+        self.collapsed_width = 70
+        self.expanded_width = 140
+        self.setFixedWidth(self.collapsed_width)
+        self.setStyleSheet(
+            """
+            Sidebar {
+                background-color: rgb(43, 27, 40);
+                border: none;
+            }
+            """
+        )
+
+        # Set object name for specific styling
+        self.setObjectName("Sidebar")
+        self.setMouseTracking(True)
+        self.on_nav = on_nav
+
+        layout = QVBoxLayout(self)
+        layout.setSpacing(0)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setAlignment(Qt.AlignTop)
+
+        # Create a main container widget to ensure proper background color
+        self.main_container = QWidget()
+        self.main_container.setStyleSheet("background-color: rgb(43, 27, 40);")
+        container_layout = QVBoxLayout(self.main_container)
+        container_layout.setSpacing(0)
+        container_layout.setContentsMargins(0, 0, 0, 0)
+        container_layout.setAlignment(Qt.AlignTop)
+
+        # Logo
+        logo_widget = QWidget()
+        logo_widget.setStyleSheet("background-color: transparent;")
+        logo_layout = QHBoxLayout(logo_widget)
+        logo_layout.setContentsMargins(0, 20, 0, 20)
+
+        self.logo = QLabel()
+        self.logo.setPixmap(QPixmap(":/logomin.png"))
+        self.logo.setMaximumSize(QSize(40, 30))
+        self.logo.setScaledContents(True)
+        self.logo.setAlignment(Qt.AlignCenter)
+        logo_layout.addWidget(self.logo)
+        container_layout.addWidget(logo_widget)
+
+        # Dashboard button
+        self.home_btn = QToolButton()
+        icon = QIcon()
+        icon.addFile(
+            ":/icons/dashboardlight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
+        )
+        icon.addFile(
+            ":/icons/dashboarddark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
+        )
+        self.home_btn.setIcon(icon)
+        self.home_btn.setText("   Dashboard")
+        self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.home_btn.setCheckable(True)
+        self.home_btn.setChecked(True)
+        self.home_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.home_btn.setMouseTracking(True)
+        self.home_btn.setMaximumSize(QSize(150, 50))
+        self.home_btn.setStyleSheet(
+            """
+            QToolButton {
+                color: white;
+                background-color: transparent;
+                border: none;
+                padding: 10px 18px;
+                text-align: left;
+                font: 500 12px 'Roboto';
+                icon-size: 18px 18px;
+            }
+            QToolButton:hover {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+            QToolButton:pressed {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                padding-left: 25px;
+                border: none;
+            }
+            QToolButton:checked {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+        """
+        )
+        self.home_btn.clicked.connect(lambda: self.on_nav(0) if self.on_nav else None)
+        container_layout.addWidget(self.home_btn)
+
+        # Analytics button
+        self.analytics_btn = QToolButton()
+        icon1 = QIcon()
+        icon1.addFile(
+            ":/icons/analyticslight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
+        )
+        icon1.addFile(
+            ":/icons/analyticsdark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
+        )
+        self.analytics_btn.setIcon(icon1)
+        self.analytics_btn.setText("   Analytics")
+        self.analytics_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.analytics_btn.setCheckable(True)
+        self.analytics_btn.setChecked(False)
+        self.analytics_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.analytics_btn.setMouseTracking(True)
+        self.analytics_btn.setMaximumSize(QSize(150, 50))
+        self.analytics_btn.setStyleSheet(
+            """
+            QToolButton {
+                color: white;
+                background-color: transparent;
+                border: none;
+                padding: 10px 18px;
+                text-align: left;
+                font: 500 12px 'Roboto';
+                icon-size: 18px 18px;
+            }
+            QToolButton:hover {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+            QToolButton:pressed {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                padding-left: 25px;
+                border: none;
+            }
+            QToolButton:checked {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+        """
+        )
+        self.analytics_btn.clicked.connect(
+            lambda: self.on_nav(1) if self.on_nav else None
+        )
+        container_layout.addWidget(self.analytics_btn)
+
+        # Reports button
+        self.report_btn = QToolButton()
+        icon2 = QIcon()
+        icon2.addFile(
+            ":/icons/monitoringlight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
+        )
+        icon2.addFile(
+            ":/icons/monitoringdark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
+        )
+        self.report_btn.setIcon(icon2)
+        self.report_btn.setText("   Reports")
+        self.report_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.report_btn.setCheckable(True)
+        self.report_btn.setChecked(False)
+        self.report_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.report_btn.setMouseTracking(True)
+
+        self.report_btn.setMaximumSize(QSize(150, 50))
+        self.report_btn.setStyleSheet(
+            """
+            QToolButton {
+                color: white;
+                background-color: transparent;
+                border: none;
+                padding: 10px 18px;
+                text-align: left;
+                font: 500 12px 'Roboto';
+                icon-size: 18px 18px;
+            }
+            QToolButton:hover {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+            QToolButton:pressed {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                padding-left: 25px;
+                border: none;
+            }
+            QToolButton:checked {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+        """
+        )
+        self.report_btn.clicked.connect(lambda: self.on_nav(2) if self.on_nav else None)
+        container_layout.addWidget(self.report_btn)
+
+        container_layout.addStretch()
+
+        # Logout button
+        self.logout_btn = QToolButton()
+        icon3 = QIcon()
+        icon3.addFile(
+            ":/icons/logoutlight.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
+        )
+        self.logout_btn.setIcon(icon3)
+        self.logout_btn.setText("   Logout")
+        self.logout_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.logout_btn.setCheckable(False)
+        self.logout_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.logout_btn.setMouseTracking(True)
+        self.logout_btn.setMaximumSize(QSize(150, 50))
+        self.logout_btn.setStyleSheet(
+            """
+            QToolButton {
+                color: white;
+                background-color: transparent;
+                border: none;
+                padding: 10px 18px;
+                text-align: left;
+                font: 500 12px 'Roboto';
+                icon-size: 18px 18px;
+                
+            }
+            QToolButton:hover {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+            QToolButton:pressed {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                padding-left: 25px;
+                border: none;
+            }
+            QToolButton:checked {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+        """
+        )
+        self.logout_btn.clicked.connect(
+            lambda: self.on_nav("logout") if self.on_nav else None
+        )
+        container_layout.addWidget(self.logout_btn)
+
+        # Add the container to the main layout
+        layout.addWidget(self.main_container)
+
+        # Button group for exclusive selection
+        self.button_group = QButtonGroup()
+        self.button_group.addButton(self.home_btn)
+        self.button_group.addButton(self.analytics_btn)
+        self.button_group.addButton(self.report_btn)
+
+    def enterEvent(self, event):
+        self.animate_width(self.expanded_width)
+        # Change logo to max version when expanded
+        self.logo.setPixmap(QPixmap(":/logomax.png"))
+        self.logo.setMaximumSize(QSize(90, 40))
+        # Show text on buttons when expanded
+        self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        self.analytics_btn.setToolButtonStyle(
+            Qt.ToolButtonStyle.ToolButtonTextBesideIcon
+        )
+        self.report_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        self.logout_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        super().enterEvent(event)
+
+    def leaveEvent(self, event):
+        self.animate_width(self.collapsed_width)
+        # Change logo back to min version when collapsed
+        self.logo.setPixmap(QPixmap(":/logomin.png"))
+        self.logo.setMaximumSize(QSize(40, 40))
+        # Hide text on buttons when collapsed (show only icons)
+        self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.analytics_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.report_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.logout_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        super().leaveEvent(event)
+
+    def animate_width(self, target_width):
+        self.animation = QPropertyAnimation(self, b"minimumWidth")
+        self.animation.setDuration(300)
+        self.animation.setStartValue(self.width())
+        self.animation.setEndValue(target_width)
+        self.animation.setEasingCurve(QEasingCurve.InOutCubic)
+        self.animation.start()
+
+
 class BudgetApp(QMainWindow):
     def __init__(self, user_id, parent=None):
         super().__init__(parent)
@@ -110,404 +401,17 @@ class BudgetApp(QMainWindow):
         self.horizontalLayout_6.setSpacing(0)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.sidebarlayout = QVBoxLayout()
-        self.sidebarlayout.setObjectName("sidebarlayout")
-        self.sidebarlayout.setContentsMargins(0, -1, 0, -1)
-        self.sidebarwidget = QWidget(self.centralwidget)
-        self.sidebarwidget.setObjectName("sidebarwidget")
-        self.sidebarwidget.setMinimumSize(QSize(0, 0))
-        self.sidebarwidget.setMaximumSize(QSize(500, 16777215))
-        self.sidebarwidget.setStyleSheet(
-            "QGroupBox {\n"
-            "\n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "}\n"
-            "QToolButton {\n"
-            "	\n"
-            "    color: white;\n"
-            "    \n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "    border: none;\n"
-            "    padding: 10px 18px;\n"
-            "    text-align: left;\n"
-            "   \n"
-            '    font: 500 12px "Roboto";\n'
-            "    icon-size: 18px 18px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            " \n"
-            "	color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:pressed {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "    padding-left: 25px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:checked {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:disabled {\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 24"
-            "5, 245);\n"
-            "}\n"
-            ""
-        )
-        self.horizontalLayout_31 = QHBoxLayout(self.sidebarwidget)
-        self.horizontalLayout_31.setSpacing(0)
-        self.horizontalLayout_31.setObjectName("horizontalLayout_31")
-        self.horizontalLayout_31.setContentsMargins(0, 0, 0, 0)
-        self.minsidebar = QWidget(self.sidebarwidget)
-        self.minsidebar.setObjectName("minsidebar")
-        self.minsidebar.setMinimumSize(QSize(70, 0))
-        self.minsidebar.setMaximumSize(QSize(70, 16777215))
-        self.minsidebar.setStyleSheet(
-            "QWidget {\n"
-            "\n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "}\n"
-            "QToolButton {\n"
-            "	\n"
-            "    color: white;\n"
-            "    \n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "    border: none;\n"
-            "    padding: 10px 18px;\n"
-            "    text-align: left;\n"
-            "   \n"
-            '    font: 500 12px "Roboto";\n'
-            "    icon-size: 18px 18px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            " \n"
-            "	color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:pressed {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "    padding-left: 25px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:checked {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:disabled {\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 24"
-            "5, 245);\n"
-            "}\n"
-            ""
-        )
-        self.verticalLayout_51 = QVBoxLayout(self.minsidebar)
-        self.verticalLayout_51.setObjectName("verticalLayout_51")
-        self.verticalLayout_51.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_52 = QVBoxLayout()
-        self.verticalLayout_52.setSpacing(0)
-        self.verticalLayout_52.setObjectName("verticalLayout_52")
-        self.line = QFrame(self.minsidebar)
-        self.line.setObjectName("line")
-        self.line.setFrameShape(QFrame.Shape.VLine)
-        self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
-        self.verticalLayout_52.addWidget(self.line)
+        # Create the new sidebar
+        self.sidebar = Sidebar(parent=self, on_nav=self.on_side_bar_click)
+        self.horizontalLayout_6.addWidget(self.sidebar)
 
-        self.verticalLayout_53 = QVBoxLayout()
-        self.verticalLayout_53.setObjectName("verticalLayout_53")
-
-        self.verticalLayout_52.addLayout(self.verticalLayout_53)
-
-        self.verticalLayout_54 = QVBoxLayout()
-        self.verticalLayout_54.setSpacing(0)
-        self.verticalLayout_54.setObjectName("verticalLayout_54")
-        self.verticalLayout_54.setContentsMargins(0, 15, 0, 15)
-        self.minlogowidget = QWidget(self.minsidebar)
-        self.minlogowidget.setObjectName("minlogowidget")
-        self.horizontalLayout = QHBoxLayout(self.minlogowidget)
-        self.horizontalLayout.setSpacing(0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.minlogo = QLabel(self.minlogowidget)
-        self.minlogo.setObjectName("minlogo")
-        self.minlogo.setMaximumSize(QSize(50, 40))
-        self.minlogo.setPixmap(QPixmap(":/logomin.png"))
-        self.minlogo.setScaledContents(True)
-        self.minlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.horizontalLayout.addWidget(self.minlogo)
-
-        self.verticalLayout_54.addWidget(self.minlogowidget)
-
-        self.verticalLayout_52.addLayout(self.verticalLayout_54)
-
-        self.homebtn_min = QToolButton(self.minsidebar)
-        self.homebtn_min.setObjectName("homebtn_min")
+        # Define size policies used throughout the UI
         sizePolicy = QSizePolicy(
             QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred
         )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.homebtn_min.sizePolicy().hasHeightForWidth())
-        self.homebtn_min.setSizePolicy(sizePolicy)
-        self.homebtn_min.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.homebtn_min.setAutoFillBackground(False)
-        icon = QIcon()
-        icon.addFile(
-            ":/icons/dashboardlight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
-        )
-        icon.addFile(
-            ":/icons/dashboarddark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
-        )
-        self.homebtn_min.setIcon(icon)
-        self.homebtn_min.setCheckable(True)
-        self.homebtn_min.setChecked(True)
-        self.homebtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.homebtn_min.setAutoRaise(False)
-        self.homebtn_min.setArrowType(Qt.ArrowType.NoArrow)
-        self.homebtn_min.clicked.connect(lambda: self.on_side_bar_click(0))
-
-        self.verticalLayout_52.addWidget(self.homebtn_min)
-
-        self.analyticsbtn_min = QToolButton(self.minsidebar)
-        self.analyticsbtn_min.setObjectName("analyticsbtn_min")
-        sizePolicy.setHeightForWidth(
-            self.analyticsbtn_min.sizePolicy().hasHeightForWidth()
-        )
-        self.analyticsbtn_min.setSizePolicy(sizePolicy)
-        self.analyticsbtn_min.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        icon1 = QIcon()
-        icon1.addFile(
-            ":/icons/analyticslight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
-        )
-        icon1.addFile(
-            ":/icons/analyticsdark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
-        )
-        self.analyticsbtn_min.setIcon(icon1)
-        self.analyticsbtn_min.setCheckable(True)
-        self.analyticsbtn_min.setChecked(False)
-        self.analyticsbtn_min.setPopupMode(QToolButton.ToolButtonPopupMode.DelayedPopup)
-        self.analyticsbtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.analyticsbtn_min.clicked.connect(lambda: self.on_side_bar_click(1))
-
-        self.verticalLayout_52.addWidget(self.analyticsbtn_min)
-
-        self.reportbtn_min = QToolButton(self.minsidebar)
-        self.reportbtn_min.setObjectName("reportbtn_min")
-        sizePolicy.setHeightForWidth(
-            self.reportbtn_min.sizePolicy().hasHeightForWidth()
-        )
-        self.reportbtn_min.setSizePolicy(sizePolicy)
-        self.reportbtn_min.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        icon2 = QIcon()
-        icon2.addFile(
-            ":/icons/monitoringlight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
-        )
-        icon2.addFile(
-            ":/icons/monitoringdark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
-        )
-        self.reportbtn_min.setIcon(icon2)
-        self.reportbtn_min.setCheckable(True)
-        self.reportbtn_min.setChecked(False)
-        self.reportbtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.reportbtn_min.clicked.connect(lambda: self.on_side_bar_click(2))
-
-        self.verticalLayout_52.addWidget(self.reportbtn_min)
-
-        self.verticalSpacer_7 = QSpacerItem(
-            20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-        )
-
-        self.verticalLayout_52.addItem(self.verticalSpacer_7)
-
-        self.verticalLayout_51.addLayout(self.verticalLayout_52)
-
-        self.horizontalLayout_31.addWidget(self.minsidebar)
-
-        self.maxsidebar = QWidget(self.sidebarwidget)
-        self.maxsidebar.setObjectName("maxsidebar")
-        self.maxsidebar.setMinimumSize(QSize(170, 0))
-        self.maxsidebar.setMaximumSize(QSize(500, 16777215))
-        self.maxsidebar.setStyleSheet(
-            "QWidget {\n"
-            "\n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "}\n"
-            "QToolButton {\n"
-            "	\n"
-            "    color: white;\n"
-            "    \n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "    border: none;\n"
-            "    padding: 10px 18px;\n"
-            "    text-align: left;\n"
-            "   \n"
-            '    font: 500 12px "Roboto";\n'
-            "    icon-size: 18px 18px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            " \n"
-            "	color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:pressed {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "    padding-left: 25px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:checked {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:disabled {\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 24"
-            "5, 245);\n"
-            "}\n"
-            ""
-        )
-        self.verticalLayout_29 = QVBoxLayout(self.maxsidebar)
-        self.verticalLayout_29.setObjectName("verticalLayout_29")
-        self.verticalLayout_29.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_30 = QVBoxLayout()
-        self.verticalLayout_30.setSpacing(0)
-        self.verticalLayout_30.setObjectName("verticalLayout_30")
-
-        self.verticalLayout_50 = QVBoxLayout()
-        self.verticalLayout_50.setSpacing(0)
-        self.verticalLayout_50.setObjectName("verticalLayout_50")
-        self.verticalLayout_50.setContentsMargins(0, 15, 0, 15)
-        self.maxlogowidget = QWidget(self.maxsidebar)
-        self.maxlogowidget.setObjectName("maxlogowidget")
-        self.horizontalLayout_2 = QHBoxLayout(self.maxlogowidget)
-        self.horizontalLayout_2.setSpacing(0)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.maxlogo = QLabel(self.maxlogowidget)
-        self.maxlogo.setObjectName("maxlogo")
-        self.maxlogo.setMaximumSize(QSize(110, 40))
-        self.maxlogo.setPixmap(QPixmap(":/logomax.png"))
-        self.maxlogo.setScaledContents(True)
-        self.maxlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.horizontalLayout_2.addWidget(self.maxlogo)
-
-        self.verticalLayout_50.addWidget(self.maxlogowidget)
-
-        self.verticalLayout_30.addLayout(self.verticalLayout_50)
-
-        self.homebtn = QToolButton(self.maxsidebar)
-        self.buttonGroup = QButtonGroup(MainWindow)
-        self.buttonGroup.setObjectName("buttonGroup")
-        self.buttonGroup.addButton(self.homebtn)
-        self.homebtn.setObjectName("homebtn")
-        sizePolicy.setHeightForWidth(self.homebtn.sizePolicy().hasHeightForWidth())
-        self.homebtn.setSizePolicy(sizePolicy)
-        self.homebtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.homebtn.setAutoFillBackground(False)
-        self.homebtn.setIcon(icon)
-        self.homebtn.setCheckable(True)
-        self.homebtn.setChecked(True)
-        self.homebtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
-        self.homebtn.setAutoRaise(False)
-        self.homebtn.setArrowType(Qt.ArrowType.NoArrow)
-        self.homebtn.clicked.connect(lambda: self.tab.setCurrentIndex(0))
-
-        self.verticalLayout_30.addWidget(self.homebtn)
-
-        self.analyticsbtn = QToolButton(self.maxsidebar)
-        self.buttonGroup.addButton(self.analyticsbtn)
-        self.analyticsbtn.setObjectName("analyticsbtn")
-        sizePolicy.setHeightForWidth(self.analyticsbtn.sizePolicy().hasHeightForWidth())
-        self.analyticsbtn.setSizePolicy(sizePolicy)
-        self.analyticsbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.analyticsbtn.setIcon(icon1)
-        self.analyticsbtn.setCheckable(True)
-        self.analyticsbtn.setChecked(False)
-        self.analyticsbtn.setPopupMode(QToolButton.ToolButtonPopupMode.DelayedPopup)
-        self.analyticsbtn.setToolButtonStyle(
-            Qt.ToolButtonStyle.ToolButtonTextBesideIcon
-        )
-        self.analyticsbtn.clicked.connect(lambda: self.tab.setCurrentIndex(1))
-
-        self.verticalLayout_30.addWidget(self.analyticsbtn)
-
-        self.reportbtn = QToolButton(self.maxsidebar)
-        self.buttonGroup.addButton(self.reportbtn)
-        self.reportbtn.setObjectName("reportbtn")
-        sizePolicy.setHeightForWidth(self.reportbtn.sizePolicy().hasHeightForWidth())
-        self.reportbtn.setSizePolicy(sizePolicy)
-        self.reportbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.reportbtn.setIcon(icon2)
-        self.reportbtn.setCheckable(True)
-        self.reportbtn.setChecked(False)
-        self.reportbtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
-        self.reportbtn.clicked.connect(lambda: self.tab.setCurrentIndex(2))
-
-        self.verticalLayout_30.addWidget(self.reportbtn)
-
-        self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-        )
-
-        self.verticalLayout_30.addItem(self.verticalSpacer_2)
-
-        self.logoutbtn = QToolButton(self.maxsidebar)
-        self.logoutbtn.setObjectName("logoutbtn")
-        sizePolicy.setHeightForWidth(self.logoutbtn.sizePolicy().hasHeightForWidth())
-        self.logoutbtn.setSizePolicy(sizePolicy)
-        self.logoutbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.logoutbtn.setStyleSheet("")
-        icon3 = QIcon()
-        icon3.addFile(
-            ":/icons/logoutlight.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
-        )
-        self.logoutbtn.setIcon(icon3)
-        self.logoutbtn.setCheckable(False)
-        self.logoutbtn.setChecked(False)
-        self.logoutbtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
-        self.logoutbtn.clicked.connect(lambda: self.signoutwindow())
-
-        self.verticalLayout_30.addWidget(self.logoutbtn)
-
-        self.verticalLayout_29.addLayout(self.verticalLayout_30)
-
-        self.horizontalLayout_31.addWidget(self.maxsidebar)
-
-        self.sidebarlayout.addWidget(self.sidebarwidget)
-
-        self.horizontalLayout_6.addLayout(self.sidebarlayout)
 
         self.tabframe = QFrame(self.centralwidget)
         self.tabframe.setObjectName("tabframe")
@@ -534,66 +438,14 @@ class BudgetApp(QMainWindow):
         self.horizontalLayout_24.setSpacing(10)
         self.horizontalLayout_24.setObjectName("horizontalLayout_24")
         self.horizontalLayout_24.setContentsMargins(10, 0, 10, 0)
-        self.horizontalLayout_15 = QHBoxLayout()
-        self.horizontalLayout_15.setObjectName("horizontalLayout_15")
-        self.horizontalLayout_16 = QHBoxLayout()
-        self.horizontalLayout_16.setObjectName("horizontalLayout_16")
-        self.menubtn = QToolButton(self.dashboardwidget)
-        self.menubtn.setObjectName("menubtn")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.menubtn.sizePolicy().hasHeightForWidth())
-        self.menubtn.setSizePolicy(sizePolicy1)
-        self.menubtn.setMinimumSize(QSize(25, 25))
-        self.menubtn.setMaximumSize(QSize(20, 20))
-        self.menubtn.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        self.menubtn.setAutoFillBackground(False)
-        self.menubtn.clicked.connect(self.toggle_sidebar)
-        self.menubtn.setStyleSheet(
-            "QToolButton {\n"
-            "	\n"
-            "	\n"
-            "	border-radius: 5px;\n"
-            "	border: 2px solid;\n"
-            "	background-color: rgb(255, 255, 255);\n"
-            "	border-color: rgb(213, 213, 213);\n"
-            "   \n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "   \n"
-            "	\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "\n"
-            ""
-        )
-        icon4 = QIcon()
-        icon4.addFile(
-            ":/icons/menudark.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
-        )
-        self.menubtn.setIcon(icon4)
-        self.menubtn.setIconSize(QSize(15, 15))
-        self.menubtn.setCheckable(True)
-        self.menubtn.setChecked(False)
-        self.menubtn.setAutoExclusive(False)
-        self.menubtn.setPopupMode(QToolButton.ToolButtonPopupMode.DelayedPopup)
-        self.menubtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonFollowStyle)
-        self.menubtn.setAutoRaise(False)
-
-        self.horizontalLayout_16.addWidget(self.menubtn)
-
-        self.horizontalLayout_15.addLayout(self.horizontalLayout_16)
-
-        self.horizontalLayout_24.addLayout(self.horizontalLayout_15)
+        # Menu button removed - using hover sidebar instead
 
         self.horizontalLayout_17 = QHBoxLayout()
         self.horizontalLayout_17.setObjectName("horizontalLayout_17")
         self.horizontalLayout_17.setContentsMargins(-1, 6, -1, -1)
         self.menulabel = QLabel(self.dashboardwidget)
         self.menulabel.setObjectName("menulabel")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHeightForWidth(self.menulabel.sizePolicy().hasHeightForWidth())
         self.menulabel.setSizePolicy(sizePolicy1)
         Roboto = QFont()
@@ -2639,14 +2491,6 @@ QHeaderView::section {
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.homebtn.toggled.connect(self.homebtn_min.setChecked)
-        self.analyticsbtn.toggled.connect(self.analyticsbtn_min.setChecked)
-        self.reportbtn.toggled.connect(self.reportbtn_min.setChecked)
-        self.homebtn_min.toggled.connect(self.homebtn.setChecked)
-        self.analyticsbtn_min.toggled.connect(self.analyticsbtn.setChecked)
-        self.reportbtn_min.toggled.connect(self.reportbtn.setChecked)
-        self.menubtn.toggled.connect(self.maxsidebar.setVisible)
-        self.menubtn.toggled.connect(self.minsidebar.setHidden)
 
         self.tab.setCurrentIndex(0)
 
@@ -2654,39 +2498,10 @@ QHeaderView::section {
         self.tab.currentChanged.connect(self.update_menu_label)
 
         QMetaObject.connectSlotsByName(MainWindow)
-        self.maxsidebar.hide()
-        self.minsidebar.show()
-        self.sidebar_expanded = True
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(
             QCoreApplication.translate("MainWindow", "MainWindow", None)
-        )
-        self.minlogo.setText("")
-        self.homebtn_min.setText(
-            QCoreApplication.translate("MainWindow", "   Dashboard", None)
-        )
-        self.analyticsbtn_min.setText(
-            QCoreApplication.translate("MainWindow", "   Analytics", None)
-        )
-        self.reportbtn_min.setText(
-            QCoreApplication.translate("MainWindow", "   Reports", None)
-        )
-        self.maxlogo.setText("")
-        self.homebtn.setText(
-            QCoreApplication.translate("MainWindow", "   Dashboard", None)
-        )
-        self.analyticsbtn.setText(
-            QCoreApplication.translate("MainWindow", "   Analytics", None)
-        )
-        self.reportbtn.setText(
-            QCoreApplication.translate("MainWindow", "   Reports", None)
-        )
-        self.logoutbtn.setText(
-            QCoreApplication.translate("MainWindow", "   Logout", None)
-        )
-        self.menubtn.setText(
-            QCoreApplication.translate("MainWindow", "PushButton", None)
         )
         self.menulabel.setText(
             QCoreApplication.translate("MainWindow", "Dashboard", None)
@@ -2907,14 +2722,7 @@ QHeaderView::section {
         elif index == 2:
             self.menulabel.setText("Reports")
 
-    def toggle_sidebar(self):
-        if self.sidebar_expanded:
-            self.maxsidebar.hide()
-            self.minsidebar.show()
-        else:
-            self.minsidebar.hide()
-            self.maxsidebar.show()
-        self.sidebar_expanded = not self.sidebar_expanded
+    # toggle_sidebar method removed - using hover sidebar instead
 
     def budget_window(self):
         dialog = BudgetWindow(self)
@@ -3183,4 +2991,15 @@ QHeaderView::section {
         self.popup.show_popup(text, x, y)
 
     def on_side_bar_click(self, page):
-        self.tab.setCurrentIndex(page)
+        if page == "logout":
+            self.signoutwindow()
+        else:
+            self.tab.setCurrentIndex(page)
+            # Update the active button in the sidebar
+            if hasattr(self, "sidebar"):
+                if page == 0:
+                    self.sidebar.home_btn.setChecked(True)
+                elif page == 1:
+                    self.sidebar.analytics_btn.setChecked(True)
+                elif page == 2:
+                    self.sidebar.report_btn.setChecked(True)
