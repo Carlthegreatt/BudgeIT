@@ -9,7 +9,7 @@ from main import BudgetApp
 
 
 def test_animations():
-    """Test the animation features"""
+
     app = QApplication(sys.argv)
 
     # Mock user ID for testing (replace with actual user authentication)

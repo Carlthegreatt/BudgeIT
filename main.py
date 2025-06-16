@@ -1,5 +1,6 @@
 import os
 import sys
+from datetime import datetime
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
@@ -1845,15 +1846,41 @@ class BudgetApp(QMainWindow):
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.verticalLayout_5.setContentsMargins(-1, 15, -1, -1)
         self.horizontalLayout_3 = QHBoxLayout()
-        self.horizontalLayout_3.setSpacing(20)
+        self.horizontalLayout_3.setSpacing(40)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
-        self.horizontalLayout_3.setContentsMargins(200, -1, 200, -1)
+        self.horizontalLayout_3.setContentsMargins(40, -1, 40, -1)
+        self.monthlyreport_lbl = QLabel(self.scrollAreaWidgetContents_3)
+        self.monthlyreport_lbl.setObjectName("monthlyreport_lbl")
+        sizePolicy1.setHeightForWidth(
+            self.monthlyreport_lbl.sizePolicy().hasHeightForWidth()
+        )
+        self.monthlyreport_lbl.setSizePolicy(sizePolicy1)
+        font5 = QFont()
+        font5.setFamilies(["Inter"])
+        font5.setWeight(QFont.DemiBold)
+        font5.setItalic(False)
+        self.monthlyreport_lbl.setFont(font5)
+        self.monthlyreport_lbl.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
+            'font: 600 30px "Inter";\n'
+            "background-color: transparent\n"
+            ""
+        )
+        self.monthlyreport_lbl.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
+        )
+        self.current_date = datetime.now().strftime("%B %Y")
+        self.monthlyreport_lbl.setText(f"Report as of {self.current_date}")
+
+        self.horizontalLayout_3.addWidget(self.monthlyreport_lbl)
+
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setSpacing(5)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.horizontalLayout_4.setContentsMargins(0, -1, 0, -1)
         self.monthcombo = QComboBox(self.scrollAreaWidgetContents_3)
-        self.monthcombo.setPlaceholderText("Month")
         self.monthcombo.addItem("")
         self.monthcombo.addItem("")
         self.monthcombo.addItem("")
@@ -1907,7 +1934,7 @@ class BudgetApp(QMainWindow):
             "\n"
             "QScrollBar::handle:vertical {\n"
             "    background: rgb(80, 51, 74);\n"
-            "    min-height: 18px;\n"
+            "    min-height: 20px;\n"
             "    border-radius: 10000px;\n"
             "}\n"
             "\n"
@@ -1919,10 +1946,10 @@ class BudgetApp(QMainWindow):
         )
         self.monthcombo.setEditable(False)
         self.monthcombo.setFrame(True)
+
         self.horizontalLayout_4.addWidget(self.monthcombo)
 
         self.yearcombo = QComboBox(self.scrollAreaWidgetContents_3)
-        self.yearcombo.setPlaceholderText("Year")
         self.yearcombo.addItem("")
         self.yearcombo.addItem("")
         self.yearcombo.setObjectName("yearcombo")
@@ -1965,7 +1992,7 @@ class BudgetApp(QMainWindow):
             "\n"
             "QScrollBar::handle:vertical {\n"
             "    background: rgb(80, 51, 74);\n"
-            "    min-height: 18px;\n"
+            "    min-height: 20px;\n"
             "    border-radius: 10000px;\n"
             "}\n"
             "\n"
@@ -1984,8 +2011,8 @@ class BudgetApp(QMainWindow):
         self.viewbtn.setObjectName("viewbtn")
         sizePolicy5.setHeightForWidth(self.viewbtn.sizePolicy().hasHeightForWidth())
         self.viewbtn.setSizePolicy(sizePolicy5)
-        self.viewbtn.setMinimumSize(QSize(20, 34))
-        self.viewbtn.setMaximumSize(QSize(90, 34))
+        self.viewbtn.setMinimumSize(QSize(80, 34))
+        self.viewbtn.setMaximumSize(QSize(10, 16777215))
         self.viewbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.viewbtn.setAutoFillBackground(False)
         self.viewbtn.setStyleSheet(
@@ -2018,35 +2045,15 @@ class BudgetApp(QMainWindow):
         )
         self.viewbtn.setCheckable(True)
         self.viewbtn.setFlat(True)
+        self.viewbtn.clicked.connect(
+            lambda: self.handle_previous_transaction(
+                self.monthcombo.currentText(), self.yearcombo.currentText()
+            )
+        )
 
         self.horizontalLayout_4.addWidget(self.viewbtn)
 
         self.horizontalLayout_3.addLayout(self.horizontalLayout_4)
-
-        self.monthlyreport_lbl = QLabel(self.scrollAreaWidgetContents_3)
-        self.monthlyreport_lbl.setObjectName("monthlyreport_lbl")
-        sizePolicy1.setHeightForWidth(
-            self.monthlyreport_lbl.sizePolicy().hasHeightForWidth()
-        )
-        self.monthlyreport_lbl.setSizePolicy(sizePolicy1)
-        font5 = QFont()
-        font5.setFamilies(["Roboto"])
-        font5.setWeight(QFont.DemiBold)
-        font5.setItalic(False)
-        self.monthlyreport_lbl.setFont(font5)
-        self.monthlyreport_lbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            'font: 600 18px "Roboto";\n'
-            "background-color: transparent\n"
-            ""
-        )
-        self.monthlyreport_lbl.setAlignment(
-            Qt.AlignmentFlag.AlignLeading
-            | Qt.AlignmentFlag.AlignLeft
-            | Qt.AlignmentFlag.AlignTop
-        )
-
-        self.horizontalLayout_3.addWidget(self.monthlyreport_lbl)
 
         self.verticalLayout_5.addLayout(self.horizontalLayout_3)
 
@@ -2379,7 +2386,27 @@ class BudgetApp(QMainWindow):
         self.verticalLayout_21.setObjectName("verticalLayout_21")
         self.transactions = QTableView()
 
-        self.transactions.setModel(self.activities_model)
+        self.transactions_model = PesoQueryModel()
+        query = QSqlQuery()
+        query.prepare(
+            """
+            SELECT transaction_date, amount, description, category
+            FROM transactions
+            WHERE user_id = ?
+            ORDER BY data_id DESC
+        """
+        )
+
+        query.addBindValue(self.user_id)
+        query.exec_()
+        self.transactions_model.setQuery(query)
+
+        self.transactions_model.setHeaderData(0, Qt.Horizontal, "Date")
+        self.transactions_model.setHeaderData(1, Qt.Horizontal, "Amount")
+        self.transactions_model.setHeaderData(2, Qt.Horizontal, "Description")
+        self.transactions_model.setHeaderData(3, Qt.Horizontal, "Category")
+
+        self.transactions.setModel(self.transactions_model)
         self.transactions.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.transactions.verticalHeader().setVisible(False)
         self.transactions.verticalHeader().setDefaultSectionSize(40)
@@ -2635,9 +2662,7 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "Year", None)
         )
         self.viewbtn.setText(QCoreApplication.translate("MainWindow", "View", None))
-        self.monthlyreport_lbl.setText(
-            QCoreApplication.translate("MainWindow", "Filter Report", None)
-        )
+
         self.budgetreport.setTitle("")
         self.budgetreport_value.setText(
             QCoreApplication.translate("MainWindow", "\u20b1 3254.00", None)
@@ -2949,14 +2974,11 @@ QHeaderView::section {
                 self, "Refresh Error", "Failed to refresh data. Please try again."
             )
 
-    def refresh_model(self):
+    def refresh_model(self, current_date=None):
         """Refresh the activities model with latest transactions"""
-        # Initialize animation if not already done
-        if not self.window_animation:
-            self.window_animation = DataRefreshAnimation(self.tab)
-
-        # Start the fade animation
-        self.window_animation.refresh()
+        self.monthlyreport_lbl.setText(
+            f"Report as of {self.monthcombo.currentText()} {self.yearcombo.currentText()}"
+        )
 
         # Update the data
         query = QSqlQuery()
@@ -2965,7 +2987,11 @@ QHeaderView::section {
         )
         query.addBindValue(self.user_id)
         query.exec_()
+
+        # For refresh_model, we don't need the month/year filtering
+        # Just refresh with current data
         self.activities_model.setQuery(query)
+        self.transactions_model.setQuery(query)
 
     def handle_add_transaction(self):
         """Handle adding a new transaction and refreshing the view"""
@@ -2978,11 +3004,115 @@ QHeaderView::section {
         )
         if add_trans.add_entry():
             # Refresh model first (this will trigger the activities table animation)
-            self.refresh_model()
+            self.refresh_model(self.current_date)
             # Then refresh data (this will trigger the budget and graph animations)
             self.refresh_data()
             # Show success message
             self.show_message("Transaction added")
+
+    def handle_previous_transaction(self, month, year):
+        """Handle viewing transactions for a specific month and year"""
+        print(
+            f"Debug: handle_previous_transaction called with month='{month}', year='{year}'"
+        )
+
+        # Check if both month and year are selected and not empty
+        if month and year and month.strip() and year.strip():
+            try:
+                self.monthlyreport_lbl.setText(
+                    f"Report as of {self.monthcombo.currentText()} {self.yearcombo.currentText()}"
+                )
+
+                # Convert month name to number
+                month_mapping = {
+                    "January": "01",
+                    "February": "02",
+                    "March": "03",
+                    "April": "04",
+                    "May": "05",
+                    "June": "06",
+                    "July": "07",
+                    "August": "08",
+                    "September": "09",
+                    "October": "10",
+                    "November": "11",
+                    "December": "12",
+                }
+
+                month_num = month_mapping.get(month, "01")
+                date_pattern = f"{year}-{month_num}%"
+
+                print(
+                    f"Debug: Searching for transactions with date pattern: {date_pattern}"
+                )
+
+                # Create query to filter transactions by month and year
+                query2 = QSqlQuery()
+                query2.prepare(
+                    """SELECT transaction_date, amount, description, category 
+                       FROM transactions 
+                       WHERE user_id = ? AND transaction_date LIKE ?
+                       ORDER BY data_id DESC"""
+                )
+                query2.addBindValue(self.user_id)
+                query2.addBindValue(date_pattern)
+
+                if query2.exec_():
+                    self.transactions_model.setQuery(query2)
+                    self.transactions.setModel(self.transactions_model)
+
+                    # Check if any transactions were found
+                    row_count = self.transactions_model.rowCount()
+                    print(f"Debug: Found {row_count} transactions for {month} {year}")
+
+                    if row_count > 0:
+                        # Show the report page with data
+                        self.stackedWidget.setCurrentIndex(0)
+                        # Update report labels with the selected month/year data
+                        self.update_report_data(month, year, date_pattern)
+                    else:
+                        # Show no data available page
+                        self.stackedWidget.setCurrentIndex(1)
+                        print(f"Debug: No transactions found for {month} {year}")
+                else:
+                    print(f"Debug: Query execution failed: {query2.lastError().text()}")
+                    self.stackedWidget.setCurrentIndex(1)
+
+            except Exception as e:
+                print(f"Debug: Error in handle_previous_transaction: {e}")
+                self.stackedWidget.setCurrentIndex(1)
+        else:
+            print("Debug: Month or year not selected properly")
+            self.stackedWidget.setCurrentIndex(1)
+
+    def update_report_data(self, month, year, date_pattern):
+        """Update the report page with data for the selected month/year"""
+        try:
+            # Get financial data for the selected month
+            self.cursor.execute(
+                """SELECT monthly_budget, monthly_savings, monthly_expenses 
+                   FROM user_data 
+                   WHERE user_id = ? AND report_date LIKE ?""",
+                (self.user_id, date_pattern[:7]),  # YYYY-MM format
+            )
+            result = self.cursor.fetchone()
+
+            if result:
+                budget, savings, expenses = result
+                # Update the report labels
+                self.budgetreport_value.setText(f"₱{float(budget):,.2f}")
+                self.savingsreport_value.setText(f"₱{float(savings):,.2f}")
+                self.expensereport_value.setText(f"₱{float(expenses):,.2f}")
+            else:
+                # If no data found, set default text
+                self.budgetreport_value.setText("No data")
+                self.savingsreport_value.setText("No data")
+                self.expensereport_value.setText("No data")
+
+            print(f"Debug: Updated report data for {month} {year}")
+
+        except Exception as e:
+            print(f"Debug: Error updating report data: {e}")
 
     def show_message(self, text):
         # Calculate center position
