@@ -5,7 +5,7 @@ Test script to demonstrate the new modern animations in BudgeIT
 
 import sys
 from PySide6.QtWidgets import QApplication
-from main import BudgetApp
+from main_window import BudgetApp
 
 
 def test_animations():
