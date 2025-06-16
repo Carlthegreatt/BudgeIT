@@ -1617,9 +1617,7 @@ class BudgetApp(QMainWindow):
 
         self.transactionsummarywidget = QWidget(self.transactionsummarybox)
         self.transactionsummarywidget.setObjectName("transactionsummarywidget")
-        self.transactionsummarywidget.setMinimumSize(
-            QSize(0, 250)
-        )  # Set minimum height
+        self.transactionsummarywidget.setMinimumSize(QSize(0, 250))
         self.transactionsummarywidget.setStyleSheet(
             """
             QWidget {
@@ -1642,7 +1640,7 @@ class BudgetApp(QMainWindow):
 
         self.budgetsummarybox = QGroupBox(self.scrollAreaWidgetContents_4)
         self.budgetsummarybox.setObjectName("budgetsummarybox")
-        self.budgetsummarybox.setMinimumSize(QSize(300, 247))
+        self.budgetsummarybox.setMinimumSize(QSize(300, 300))
         self.budgetsummarybox.setStyleSheet(
             "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
         )
@@ -1682,6 +1680,7 @@ class BudgetApp(QMainWindow):
 
         self.budgetsummarywidget = QWidget(self.budgetsummarybox)
         self.budgetsummarywidget.setObjectName("budgetsummarywidget")
+        self.budgetsummarywidget.setMinimumSize(QSize(0, 250))
         self.horizontalLayout_budgetsummary = QHBoxLayout(self.budgetsummarywidget)
         self.horizontalLayout_budgetsummary.setObjectName(
             "horizontalLayout_budgetsummary"
@@ -2658,21 +2657,14 @@ class BudgetApp(QMainWindow):
         self.viewbtn.setText(QCoreApplication.translate("MainWindow", "View", None))
 
         self.budgetreport.setTitle("")
-        self.budgetreport_value.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 3254.00", None)
-        )
         self.budgetlbl.setText(QCoreApplication.translate("MainWindow", "Budget", None))
         self.savingsreport.setTitle("")
-        self.savingsreport_value.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 554.00", None)
-        )
+
         self.savingslbl_2.setText(
             QCoreApplication.translate("MainWindow", "Savings", None)
         )
         self.expensereport.setTitle("")
-        self.expensereport_value.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 854.00", None)
-        )
+
         self.expenselbl_2.setText(
             QCoreApplication.translate("MainWindow", "Amount Spent", None)
         )

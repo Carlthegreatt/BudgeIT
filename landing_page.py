@@ -507,6 +507,14 @@ QWidget {
             self.features_dialog = None
             return
 
+        dialog = QDialog(self)
+
+        ui = Features_ui()
+        ui.setupUi(dialog)
+        dialog.setWindowModality(Qt.ApplicationModal)
+        self.features_dialog = dialog  # Store reference
+        dialog.show()
+
     def open_about_us(self):
         # If dialog exists and is visible, close it
         if self.about_us_dialog and self.about_us_dialog.isVisible():
@@ -514,7 +522,6 @@ QWidget {
             self.about_us_dialog = None
             return
 
-        # Otherwise, create and show the dialog
         dialog = QDialog(self)
 
         ui = Team_Dialog()
