@@ -2418,38 +2418,32 @@ class BudgetApp(QMainWindow):
         self.transactions.horizontalHeader().setFocusPolicy(Qt.NoFocus)
         self.transactions.setStyleSheet(
             """QTableView {
-    background-color: white;
-    alternate-background-color: #f0f8ff; /* light blue */
-    gridline-color: #dcdcdc;
-    font: 300 12px "Roboto";
-    border: none;
-}
+                    background-color: white;
+                    alternate-background-color: #f0f8ff; /* light blue */
+                    gridline-color: #dcdcdc;
+                    font: 300 12px "Roboto";
+                    border: none;
+                }
+                QTableView::item:hover {
+                    background-color: #e0f7fa;  /* light cyan */
+                }
+                QTableView::item {
+                    padding: 8px;
+                    color: rgb(105, 104, 104);
+                    font: 900 12px "Roboto";
+                }
 
-
-QTableView::item:hover {
-    background-color: #e0f7fa;  /* light cyan */
-}
-
-
-
-QTableView::item {
-    padding: 8px;
-    color: rgb(105, 104, 104);
-    font: 900 12px "Roboto";
-}
-
-QHeaderView::section {
-    font: 500 12px "Roboto";
-    background-color: white;
-    color: rgb(92, 91, 91);
-    padding: 5px;
-    border: 1px solid rgb(230, 230, 230);
-    border-top: none;
-    border-left: none;
-    border-right: none;
-}
-
-"""
+                QHeaderView::section {
+                    font: 500 12px "Roboto";
+                    background-color: white;
+                    color: rgb(92, 91, 91);
+                    padding: 5px;
+                    border: 1px solid rgb(230, 230, 230);
+                    border-top: none;
+                    border-left: none;
+                    border-right: none;
+                }
+                """
         )
 
         self.verticalLayout_21.addWidget(self.transactions)
@@ -2885,7 +2879,6 @@ QHeaderView::section {
         try:
             current_month = datetime.today().strftime("%Y-%m")
             print("Starting data refresh...")
-            # Fetch latest user data
             self.cursor.execute(
                 "SELECT * FROM user_data WHERE user_id = ? AND report_date = ?",
                 (self.user_id, current_month),
@@ -2908,15 +2901,12 @@ QHeaderView::section {
             if self.user_data:
                 print(f"User data fetched: {self.user_data}")
 
-                # Update income and budget values
                 monthly_income = float(self.user_data[4])
                 monthly_budget = float(self.user_data[5])
                 monthly_expenses = float(self.user_data[3])
                 monthly_savings = float(self.remaining_budgets[3])
                 remaining_monthly_budget = float(self.remaining_budgets[4])
-                total_transaction_value = float(self.transaction_count)
 
-                # Update UI elements with proper formatting
                 self.savingsvalue.setText(f"₱{monthly_savings:,.2f}")
                 self.incomevalue.setText(f"₱{monthly_income:,.2f}")
                 self.budgetvalue.setText(f"₱{monthly_budget:,.2f}")
@@ -2931,7 +2921,6 @@ QHeaderView::section {
                 else:
                     self.progressBar_2.setValue(0)
 
-                # Update expense and savings values
                 self.cursor.execute(
                     """SELECT SUM(monthly_expenses), SUM(monthly_savings), SUM(monthly_income), SUM(monthly_budget) FROM user_data WHERE user_id = ?""",
                     (self.user_id,),
@@ -2939,7 +2928,6 @@ QHeaderView::section {
 
                 result = self.cursor.fetchone()
                 if result is None:
-                    # Set default values if no data is found
                     self.total_expenses = 0
                     self.total_savings = 0
                     self.total_income = 0
@@ -2958,9 +2946,6 @@ QHeaderView::section {
                 self.overallbudgetvalue.setText(f"₱{float(self.total_budget):,.2f}")
                 self.expensevalue.setText(f"₱{float(monthly_expenses):,.2f}")
 
-                # Refresh graphs with new data
-                # self.add_graph_to_widget(self.graph_widget)
-                # self.add_graph_to_budget_summary(self.summary_widget)
                 self.add_graph_to_widget(self.transactionsummarywidget)
                 self.add_graph_to_budget_summary(self.budgetsummarywidget)
 
@@ -2988,8 +2973,6 @@ QHeaderView::section {
         query.addBindValue(self.user_id)
         query.exec_()
 
-        # For refresh_model, we don't need the month/year filtering
-        # Just refresh with current data
         self.activities_model.setQuery(query)
         self.transactions_model.setQuery(query)
 
@@ -3003,11 +2986,8 @@ QHeaderView::section {
             self.activities_model,
         )
         if add_trans.add_entry():
-            # Refresh model first (this will trigger the activities table animation)
             self.refresh_model(self.current_date)
-            # Then refresh data (this will trigger the budget and graph animations)
             self.refresh_data()
-            # Show success message
             self.show_message("Transaction added")
 
     def handle_previous_transaction(self, month, year):
@@ -3016,14 +2996,12 @@ QHeaderView::section {
             f"Debug: handle_previous_transaction called with month='{month}', year='{year}'"
         )
 
-        # Check if both month and year are selected and not empty
         if month and year and month.strip() and year.strip():
             try:
                 self.monthlyreport_lbl.setText(
                     f"Report as of {self.monthcombo.currentText()} {self.yearcombo.currentText()}"
                 )
 
-                # Convert month name to number
                 month_mapping = {
                     "January": "01",
                     "February": "02",
@@ -3046,7 +3024,6 @@ QHeaderView::section {
                     f"Debug: Searching for transactions with date pattern: {date_pattern}"
                 )
 
-                # Create query to filter transactions by month and year
                 query2 = QSqlQuery()
                 query2.prepare(
                     """SELECT transaction_date, amount, description, category 
@@ -3061,17 +3038,13 @@ QHeaderView::section {
                     self.transactions_model.setQuery(query2)
                     self.transactions.setModel(self.transactions_model)
 
-                    # Check if any transactions were found
                     row_count = self.transactions_model.rowCount()
                     print(f"Debug: Found {row_count} transactions for {month} {year}")
 
                     if row_count > 0:
-                        # Show the report page with data
                         self.stackedWidget.setCurrentIndex(0)
-                        # Update report labels with the selected month/year data
                         self.update_report_data(month, year, date_pattern)
                     else:
-                        # Show no data available page
                         self.stackedWidget.setCurrentIndex(1)
                         print(f"Debug: No transactions found for {month} {year}")
                 else:
@@ -3088,7 +3061,6 @@ QHeaderView::section {
     def update_report_data(self, month, year, date_pattern):
         """Update the report page with data for the selected month/year"""
         try:
-            # Get financial data for the selected month
             self.cursor.execute(
                 """SELECT monthly_budget, monthly_savings, monthly_expenses 
                    FROM user_data 
@@ -3099,12 +3071,10 @@ QHeaderView::section {
 
             if result:
                 budget, savings, expenses = result
-                # Update the report labels
                 self.budgetreport_value.setText(f"₱{float(budget):,.2f}")
                 self.savingsreport_value.setText(f"₱{float(savings):,.2f}")
                 self.expensereport_value.setText(f"₱{float(expenses):,.2f}")
             else:
-                # If no data found, set default text
                 self.budgetreport_value.setText("No data")
                 self.savingsreport_value.setText("No data")
                 self.expensereport_value.setText("No data")
@@ -3115,7 +3085,6 @@ QHeaderView::section {
             print(f"Debug: Error updating report data: {e}")
 
     def show_message(self, text):
-        # Calculate center position
         x = (self.width() - self.popup.width()) // 2
         y = self.height() // 2
         self.popup.show_popup(text, x, y)
@@ -3125,7 +3094,6 @@ QHeaderView::section {
             self.signoutwindow()
         else:
             self.tab.setCurrentIndex(page)
-            # Update the active button in the sidebar
             if hasattr(self, "sidebar"):
                 if page == 0:
                     self.sidebar.home_btn.setChecked(True)
