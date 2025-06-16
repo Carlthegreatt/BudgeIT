@@ -8,7 +8,7 @@ from components.about_us import Team_Dialog
 import os
 
 
-class AnimatedMainWindow(QMainWindow):
+class LandingPage(QMainWindow):
     def __init__(self):
         super().__init__()
         self.about_us_dialog = None
@@ -229,7 +229,7 @@ class AnimatedMainWindow(QMainWindow):
         self.toolButton_3.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.toolButton_3.setStyleSheet(self.get_cta_button_style())
         self.toolButton_3.setText("Get Started")
-        self.toolButton_3.clicked.connect(lambda: self.sign_entry())
+        self.toolButton_3.clicked.connect(lambda: self.handle_get_started())
         self.verticalLayout_3.addWidget(self.toolButton_3)
 
         self.verticalLayout_4.addLayout(self.verticalLayout_3)
@@ -486,6 +486,11 @@ QWidget {
 
         QTimer.singleShot(1000, self.footer_fade.start)
 
+    def handle_get_started(self):
+        """Handle the Get Started button click - always show sign entry"""
+        # Landing page is always shown first, so always go to sign entry
+        self.sign_entry()
+
     def sign_entry(self, show_signin=False):
         window = SignEntry(self)
         if show_signin:
@@ -521,7 +526,7 @@ QWidget {
 
 def main():
     app = QApplication(sys.argv)
-    window = AnimatedMainWindow()
+    window = LandingPage()
     window.setWindowTitle(" ")
     window.show()
     return app.exec()
