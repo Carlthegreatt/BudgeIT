@@ -101,11 +101,11 @@ class AddTransactions(Transaction):
             # Get the correct budget column for the selected category
             budget_column = category_budget_map.get(category)
             remaining_budget = cursor.execute(
-                f"SELECT {budget_column} FROM remaining_budgets WHERE user_id = ? AND report_date = ?",
+                f"SELECT {budget_column}, remaining_monthly_savings, remaining_monthly_budget FROM remaining_budgets WHERE user_id = ? AND report_date = ?",
                 (self.__user_id, report_date),
-            ).fetchone()[0]
+            ).fetchone()
 
-            if remaining_budget - amount < 0:
+            if remaining_budget[0] - amount < 0:
                 reply = QMessageBox.question(
                     None,
                     "Insufficient Budget",
@@ -130,17 +130,44 @@ class AddTransactions(Transaction):
                     )
                     self.__connect.commit()
 
-                    cursor.execute(
-                        """UPDATE remaining_budgets SET remaining_monthly_savings = remaining_monthly_savings - ? WHERE user_id = ? AND report_date = ?""",
-                        (amount, self.__user_id, report_date),
-                    )
-                    self.__connect.commit()
+                    if remaining_budget[1] - amount < 0:
+                        confirmation = QMessageBox.question(
+                            None,
+                            "Insufficient Budget",
+                            "You have exceeded your monthly savings. Would you like to proceed?",
+                        )
+                        if confirmation == QMessageBox.Yes:
+                            cursor.execute(
+                                """UPDATE remaining_budgets SET remaining_monthly_savings = 0 WHERE user_id = ? AND report_date = ?""",
+                                (self.__user_id, report_date),
+                            )
+                            self.__connect.commit()
 
-                    cursor.execute(
-                        """UPDATE remaining_budgets SET remaining_monthly_budget = remaining_monthly_budget - ? WHERE user_id = ? AND report_date = ?""",
-                        (amount, self.__user_id, report_date),
-                    )
-                    self.__connect.commit()
+                    else:
+                        cursor.execute(
+                            """UPDATE remaining_budgets SET remaining_monthly_savings = remaining_monthly_savings - ? WHERE user_id = ? AND report_date = ?""",
+                            (amount, self.__user_id, report_date),
+                        )
+                        self.__connect.commit()
+
+                    if remaining_budget[2] - amount < 0:
+                        QMessageBox.warning(
+                            None,
+                            "Insufficient Budget",
+                            "You have exceeded your monthly budget. Please adjust your spending and mind your next transactions.",
+                        )
+                        cursor.execute(
+                            """UPDATE remaining_budgets SET remaining_monthly_budget = 0, remaining_food_budget = 0, remaining_utilities_budget = 0, remaining_health_wellness_budget = 0, remaining_personal_lifestyle_budget = 0, remaining_education_budget = 0, remaining_transportation_budget = 0, remaining_miscellaneous_budget = 0 WHERE user_id = ? AND report_date = ?""",
+                            (self.__user_id, report_date),
+                        )
+                        self.__connect.commit()
+
+                    else:
+                        cursor.execute(
+                            """UPDATE remaining_budgets SET remaining_monthly_budget = remaining_monthly_budget - ? WHERE user_id = ? AND report_date = ?""",
+                            (amount, self.__user_id, report_date),
+                        )
+                        self.__connect.commit()
 
                     # Clear inputs on success
                     self.__amountedit.clear()
