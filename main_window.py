@@ -355,6 +355,7 @@ class BudgetApp(QMainWindow):
         print("Now in main")
 
     def setupUi(self, MainWindow):
+        self.current_month = datetime.today().strftime("%Y-%m")
         print("from budgetapp setupUi: current user id", self.user_id)
         self.cursor.execute(
             "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
@@ -362,7 +363,8 @@ class BudgetApp(QMainWindow):
         self.user_data = self.cursor.fetchone()
 
         self.cursor.execute(
-            """SELECT * FROM remaining_budgets WHERE user_id = ?""", (self.user_id,)
+            """SELECT * FROM remaining_budgets WHERE user_id = ? AND report_date = ?""",
+            (self.user_id, self.current_month),
         )
         self.remaining_budgets = self.cursor.fetchone()
         self.current_month = datetime.today().strftime("%Y-%m")
@@ -370,7 +372,6 @@ class BudgetApp(QMainWindow):
             """SELECT COUNT(*) FROM transactions WHERE user_id = ?""",
             (self.user_id,),
         )
-
         self.transaction_count = self.cursor.fetchone()[0]
 
         font_path = os.path.join(
@@ -1832,7 +1833,7 @@ class BudgetApp(QMainWindow):
         self.scrollArea_3.setObjectName("scrollArea_3")
         self.scrollArea_3.setMinimumSize(QSize(60, 0))
         self.scrollArea_3.setVerticalScrollBarPolicy(
-            Qt.ScrollBarPolicy.ScrollBarAsNeeded
+            Qt.ScrollBarPolicy.ScrollBarAlwaysOff
         )
         self.scrollArea_3.setHorizontalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAlwaysOff
@@ -2102,6 +2103,7 @@ class BudgetApp(QMainWindow):
         )
         self.budgetreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.budgetreport_value.setWordWrap(False)
+        self.budgetreport_value.setText(f"₱{self.remaining_budgets[4]:,.2f}")
 
         self.horizontalLayout_36.addWidget(self.budgetreport_value)
 
@@ -2129,6 +2131,7 @@ class BudgetApp(QMainWindow):
         self.savingsreport.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
         )
+
         self.verticalLayout_39 = QVBoxLayout(self.savingsreport)
         self.verticalLayout_39.setObjectName("verticalLayout_39")
         self.horizontalLayout_37 = QHBoxLayout()
@@ -2148,6 +2151,7 @@ class BudgetApp(QMainWindow):
         )
         self.savingsreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.savingsreport_value.setWordWrap(False)
+        self.savingsreport_value.setText(f"₱{self.remaining_budgets[3]:,.2f}")
 
         self.horizontalLayout_37.addWidget(self.savingsreport_value)
 
@@ -2194,6 +2198,7 @@ class BudgetApp(QMainWindow):
         )
         self.expensereport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.expensereport_value.setWordWrap(False)
+        self.expensereport_value.setText(f"₱{self.user_data[3]:,.2f}")
 
         self.horizontalLayout_38.addWidget(self.expensereport_value)
 
@@ -2418,33 +2423,79 @@ class BudgetApp(QMainWindow):
         self.transactions.setFocusPolicy(Qt.NoFocus)
         self.transactions.horizontalHeader().setFocusPolicy(Qt.NoFocus)
         self.transactions.setStyleSheet(
-            """QTableView {
-                    background-color: white;
-                    alternate-background-color: #f0f8ff; /* light blue */
-                    gridline-color: #dcdcdc;
-                    font: 300 12px "Roboto";
-                    border: none;
-                }
-                QTableView::item:hover {
-                    background-color: #e0f7fa;  /* light cyan */
-                }
-                QTableView::item {
-                    padding: 8px;
-                    color: rgb(105, 104, 104);
-                    font: 900 12px "Roboto";
-                }
-
-                QHeaderView::section {
-                    font: 500 12px "Roboto";
-                    background-color: white;
-                    color: rgb(92, 91, 91);
-                    padding: 5px;
-                    border: 1px solid rgb(230, 230, 230);
-                    border-top: none;
-                    border-left: none;
-                    border-right: none;
-                }
-                """
+            "\n"
+            "    QTableView {\n"
+            "        background-color: #ffffff;\n"
+            "        border: none;\n"
+            "        border-radius: 6px;\n"
+            "        gridline-color: #e6e6e6;\n"
+            '        font: 400 12px "Roboto";\n'
+            "    }\n"
+            "\n"
+            "    QHeaderView::section {\n"
+            "        background-color: #ffffff;\n"
+            "        color: rgb(108, 68, 100);\n"
+            "        padding: 8px;\n"
+            "        border: none;\n"
+            "        border-bottom: 1px solid #dcdcdc;\n"
+            "        font: 600 14px 'Roboto';\n"
+            "    }\n"
+            "\n"
+            "    QTableView::item {\n"
+            "        padding: 6px;\n"
+            "        border: none;\n"
+            "        color: #939393;\n"
+            "    }\n"
+            "\n"
+            "    QTableView::item:selected {\n"
+            "        background-color: fffff;\n"
+            "        color: #ffffff;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar:vertical {\n"
+            "        background: #f0f0f0;\n"
+            "        width: 5px;\n"
+            "        margin: 2px 0 2px 0;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:vertical {\n"
+            "        background: #c0c0c0;\n"
+            "        min-height: 20px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            ""
+            "\n"
+            "    QScrollBar::handle:vertical:hover {\n"
+            "        background: #a0a0a0;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\n"
+            "        height: 0px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar:horizontal {\n"
+            "        background: #f0f0f0;\n"
+            "        height: 12px;\n"
+            "        margin: 0 2px 0 2px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:horizontal {\n"
+            "        background: #c0c0c0;\n"
+            "        min-width: 20px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:horizontal:hover {\n"
+            "        background: #a0a0a0;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
+            "    width: 0px;\n"
+            "    }\n"
+            "\n"
+            ""
         )
 
         self.verticalLayout_21.addWidget(self.transactions)
