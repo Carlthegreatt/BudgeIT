@@ -19,6 +19,7 @@ from components.update_month_setup import UpdateMonthSetup
 from PySide6.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
 from components.pesoquerymodel import PesoQueryModel
 from components.fade_popup import FadePopup
+from components.savings_window import SavingsWindow
 
 
 class Sidebar(QWidget):
@@ -701,6 +702,7 @@ class BudgetApp(QMainWindow):
         self.savingsbtn.setIcon(icon9)
         self.savingsbtn.setIconSize(QSize(20, 20))
         self.savingsbtn.setCheckable(False)
+        self.savingsbtn.clicked.connect(lambda: self.savings_window())
 
         self.hlayout7.addWidget(self.savingsbtn)
 
@@ -2271,6 +2273,12 @@ class BudgetApp(QMainWindow):
 
     def budget_window(self):
         dialog = BudgetWindow(self)
+        dialog.setWindowModality(Qt.ApplicationModal)
+        dialog.show()
+        dialog.exec()
+
+    def savings_window(self):
+        dialog = SavingsWindow(self)
         dialog.setWindowModality(Qt.ApplicationModal)
         dialog.show()
         dialog.exec()
