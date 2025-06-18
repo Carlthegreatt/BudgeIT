@@ -1136,7 +1136,7 @@ background-color: transparent
 </string>
                      </property>
                      <property name="text">
-                      <string>Oscar Pol</string>
+                      <string>Test User</string>
                      </property>
                      <property name="alignment">
                       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
@@ -2164,8 +2164,8 @@ border-radius:20
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>680</width>
-                  <height>787</height>
+                  <width>760</width>
+                  <height>1238</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -2729,7 +2729,7 @@ background-color: transparent
                  <item>
                   <widget class="QStackedWidget" name="stackedWidget">
                    <property name="currentIndex">
-                    <number>1</number>
+                    <number>0</number>
                    </property>
                    <widget class="QWidget" name="page_4">
                     <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -2739,12 +2739,6 @@ background-color: transparent
                         <size>
                          <width>0</width>
                          <height>700</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>900</height>
                         </size>
                        </property>
                        <property name="styleSheet">
@@ -3083,12 +3077,6 @@ text-align: center;</string>
                             <height>200</height>
                            </size>
                           </property>
-                          <property name="maximumSize">
-                           <size>
-                            <width>16777215</width>
-                            <height>200</height>
-                           </size>
-                          </property>
                           <layout class="QHBoxLayout" name="horizontalLayout_11">
                            <property name="spacing">
                             <number>10</number>
@@ -3172,6 +3160,18 @@ background-color: transparent
                                 </item>
                                 <item>
                                  <widget class="QWidget" name="transactionreport_widget" native="true">
+                                  <property name="minimumSize">
+                                   <size>
+                                    <width>0</width>
+                                    <height>540</height>
+                                   </size>
+                                  </property>
+                                  <property name="maximumSize">
+                                   <size>
+                                    <width>16777215</width>
+                                    <height>540</height>
+                                   </size>
+                                  </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_23"/>
                                  </widget>
                                 </item>
@@ -3255,6 +3255,12 @@ background-color: transparent
                                 </item>
                                 <item>
                                  <widget class="QWidget" name="budgetreport_widget" native="true">
+                                  <property name="minimumSize">
+                                   <size>
+                                    <width>0</width>
+                                    <height>540</height>
+                                   </size>
+                                  </property>
                                   <layout class="QVBoxLayout" name="verticalLayout_37"/>
                                  </widget>
                                 </item>
@@ -3331,6 +3337,12 @@ background-color: transparent
                             </property>
                             <item>
                              <widget class="QWidget" name="transwidgetbox" native="true">
+                              <property name="minimumSize">
+                               <size>
+                                <width>0</width>
+                                <height>400</height>
+                               </size>
+                              </property>
                               <property name="styleSheet">
                                <string notr="true">background-color: rgb(167, 83, 115);</string>
                               </property>
@@ -3477,7 +3489,7 @@ QScrollBar::sub-line:vertical {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>644</width>
+                  <width>756</width>
                   <height>707</height>
                  </rect>
                 </property>

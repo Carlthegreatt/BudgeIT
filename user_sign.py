@@ -2,8 +2,8 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from components.auth_manager import AuthManager
-from main_window import BudgetApp
-from account_setup import AccountSetup
+from main import BudgetApp
+from components.account_setup import AccountSetup
 import sys
 from components.emailautomation import EmailSender
 import os
@@ -877,7 +877,7 @@ class SignEntry(QMainWindow):
 
                 # After successful login, go directly to main app
                 # Landing page was already shown before sign-in
-                from main_window import BudgetApp
+                from test_files.main_window import BudgetApp
 
                 self.main_app = BudgetApp(user_id)
                 self.main_app.show()

@@ -12,7 +12,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from components.datamanager import DataManager
 from components.signoutwindow import SignOutWindow
-from account_setup import AccountSetup
+from components.account_setup import AccountSetup
 import sqlite3
 from database_manager import *
 from components.update_month_setup import UpdateMonthSetup
@@ -45,7 +45,6 @@ class Sidebar(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setAlignment(Qt.AlignTop)
 
-        # Create a main container widget to ensure proper background color
         self.main_container = QWidget()
         self.main_container.setStyleSheet("background-color: rgb(43, 27, 40);")
         container_layout = QVBoxLayout(self.main_container)
@@ -53,7 +52,6 @@ class Sidebar(QWidget):
         container_layout.setContentsMargins(0, 0, 0, 0)
         container_layout.setAlignment(Qt.AlignTop)
 
-        # Logo
         logo_widget = QWidget()
         logo_widget.setStyleSheet("background-color: transparent;")
         logo_layout = QHBoxLayout(logo_widget)
@@ -67,7 +65,6 @@ class Sidebar(QWidget):
         logo_layout.addWidget(self.logo)
         container_layout.addWidget(logo_widget)
 
-        # Dashboard button
         self.home_btn = QToolButton()
         icon = QIcon()
         icon.addFile(
@@ -116,7 +113,6 @@ class Sidebar(QWidget):
         self.home_btn.clicked.connect(lambda: self.on_nav(0) if self.on_nav else None)
         container_layout.addWidget(self.home_btn)
 
-        # Analytics button
         self.analytics_btn = QToolButton()
         icon1 = QIcon()
         icon1.addFile(
@@ -167,7 +163,6 @@ class Sidebar(QWidget):
         )
         container_layout.addWidget(self.analytics_btn)
 
-        # Reports button
         self.report_btn = QToolButton()
         icon2 = QIcon()
         icon2.addFile(
@@ -219,7 +214,6 @@ class Sidebar(QWidget):
 
         container_layout.addStretch()
 
-        # Logout button
         self.logout_btn = QToolButton()
         icon3 = QIcon()
         icon3.addFile(
@@ -267,10 +261,8 @@ class Sidebar(QWidget):
         )
         container_layout.addWidget(self.logout_btn)
 
-        # Add the container to the main layout
         layout.addWidget(self.main_container)
 
-        # Button group for exclusive selection
         self.button_group = QButtonGroup()
         self.button_group.addButton(self.home_btn)
         self.button_group.addButton(self.analytics_btn)
@@ -278,10 +270,8 @@ class Sidebar(QWidget):
 
     def enterEvent(self, event):
         self.animate_width(self.expanded_width)
-        # Change logo to max version when expanded
         self.logo.setPixmap(QPixmap(":/logomax.png"))
         self.logo.setMaximumSize(QSize(90, 40))
-        # Show text on buttons when expanded
         self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
         self.analytics_btn.setToolButtonStyle(
             Qt.ToolButtonStyle.ToolButtonTextBesideIcon
@@ -292,10 +282,8 @@ class Sidebar(QWidget):
 
     def leaveEvent(self, event):
         self.animate_width(self.collapsed_width)
-        # Change logo back to min version when collapsed
         self.logo.setPixmap(QPixmap(":/logomin.png"))
         self.logo.setMaximumSize(QSize(40, 40))
-        # Hide text on buttons when collapsed (show only icons)
         self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
         self.analytics_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
         self.report_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
@@ -323,9 +311,6 @@ class BudgetApp(QMainWindow):
         self.setupUi(self)
         self.setWindowTitle(" ")
 
-        self.window_animation = None
-        self.budget_animation = None
-        self.graph_animation = None
         self.popup = FadePopup(self)
 
         self.cursor.execute(
@@ -403,11 +388,9 @@ class BudgetApp(QMainWindow):
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
 
-        # Create the new sidebar
         self.sidebar = Sidebar(parent=self, on_nav=self.on_side_bar_click)
         self.horizontalLayout_6.addWidget(self.sidebar)
 
-        # Define size policies used throughout the UI
         sizePolicy = QSizePolicy(
             QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred
         )
@@ -439,7 +422,6 @@ class BudgetApp(QMainWindow):
         self.horizontalLayout_24.setSpacing(10)
         self.horizontalLayout_24.setObjectName("horizontalLayout_24")
         self.horizontalLayout_24.setContentsMargins(10, 0, 10, 0)
-        # Menu button removed - using hover sidebar instead
 
         self.horizontalLayout_17 = QHBoxLayout()
         self.horizontalLayout_17.setObjectName("horizontalLayout_17")
@@ -517,7 +499,6 @@ class BudgetApp(QMainWindow):
         self.horizontalLayout_24.addWidget(self.morebtn)
         self.verticalLayout.addWidget(self.dashboardwidget)
 
-        # start of page 1
         self.tab = QStackedWidget(self.tabframe)
         self.tab.setObjectName("tab")
         self.page_1 = QWidget()
@@ -2833,9 +2814,6 @@ class BudgetApp(QMainWindow):
         categories = list(stats.keys())
         amounts = list(stats.values())
 
-        print(f"Cat in graph: {categories}")
-        print(f"amounts in graph: {amounts}")  # for cross checking
-
         # Create bar chart with styling
         bars = ax.bar(categories, amounts, color="#a75373")
 
@@ -2888,9 +2866,6 @@ class BudgetApp(QMainWindow):
         # Extract data for plotting
         categories = list(stats.keys())
         percentages = list(stats.values())
-
-        print(f"Cat in pie: {categories}")
-        print(f"amounts in pie: {percentages}")  # for cross checking
 
         # Create pie chart with styling
         wedges, texts, autotexts = ax.pie(
@@ -2954,8 +2929,6 @@ class BudgetApp(QMainWindow):
             self.totaltransactionvalue.setText(f"{self.transaction_count}")
 
             if self.user_data:
-                print(f"User data fetched: {self.user_data}")
-
                 monthly_income = float(self.user_data[4])
                 monthly_budget = float(self.user_data[5])
                 monthly_expenses = float(self.user_data[3])

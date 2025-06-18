@@ -12,7 +12,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from components.datamanager import DataManager
 from components.signoutwindow import SignOutWindow
-from account_setup import AccountSetup
+from components.account_setup import AccountSetup
 import sqlite3
 from database_manager import *
 from components.update_month_setup import UpdateMonthSetup
@@ -28,12 +28,7 @@ class Sidebar(QWidget):
         self.expanded_width = 140
         self.setFixedWidth(self.collapsed_width)
         self.setStyleSheet(
-            """
-            Sidebar {
-                background-color: rgb(43, 27, 40);
-                border: none;
-            }
-            """
+            "Sidebar { background-color: rgb(43, 27, 40); border: none; }"
         )
 
         self.setObjectName("Sidebar")
@@ -85,35 +80,10 @@ class Sidebar(QWidget):
         self.home_btn.setMouseTracking(True)
         self.home_btn.setMaximumSize(QSize(150, 50))
         self.home_btn.setStyleSheet(
-            """
-            QToolButton {
-                color: white;
-                background-color: transparent;
-                border: none;
-                padding: 10px 18px;
-                text-align: left;
-                font: 500 12px 'Roboto';
-                icon-size: 18px 18px;
-            }
-            QToolButton:hover {
-                qproperty-icon: url(:/icons/dashboarddark.svg);
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                border: none;
-            }
-            QToolButton:pressed {
-                qproperty-icon: url(:/icons/dashboarddark.svg);
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                padding-left: 25px;
-                border: none;
-            }
-            QToolButton:checked {
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                border: none;
-            }
-        """
+            "QToolButton { color: white; background-color: transparent; border: none; padding: 10px 18px; text-align: left; font: 500 12px 'Roboto'; icon-size: 18px 18px; }"
+            "QToolButton:hover { qproperty-icon: url(:/icons/dashboarddark.svg); color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); border: none; }"
+            "QToolButton:pressed { qproperty-icon: url(:/icons/dashboarddark.svg); color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); padding-left: 25px; border: none; }"
+            "QToolButton:checked { color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); border: none; }"
         )
         self.home_btn.clicked.connect(lambda: self.on_nav(0) if self.on_nav else None)
         container_layout.addWidget(self.home_btn)
@@ -136,33 +106,10 @@ class Sidebar(QWidget):
         self.analytics_btn.setMouseTracking(True)
         self.analytics_btn.setMaximumSize(QSize(150, 50))
         self.analytics_btn.setStyleSheet(
-            """
-            QToolButton {
-                color: white;
-                background-color: transparent;
-                border: none;
-                padding: 10px 18px;
-                text-align: left;
-                font: 500 12px 'Roboto';
-                icon-size: 18px 18px;
-            }
-            QToolButton:hover {
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                border: none;
-            }
-            QToolButton:pressed {
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                padding-left: 25px;
-                border: none;
-            }
-            QToolButton:checked {
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                border: none;
-            }
-        """
+            "QToolButton { color: white; background-color: transparent; border: none; padding: 10px 18px; text-align: left; font: 500 12px 'Roboto'; icon-size: 18px 18px; }"
+            "QToolButton:hover { color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); border: none; }"
+            "QToolButton:pressed { color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); padding-left: 25px; border: none; }"
+            "QToolButton:checked { color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); border: none; }"
         )
         self.analytics_btn.clicked.connect(
             lambda: self.on_nav(1) if self.on_nav else None
@@ -188,37 +135,13 @@ class Sidebar(QWidget):
 
         self.report_btn.setMaximumSize(QSize(150, 50))
         self.report_btn.setStyleSheet(
-            """
-            QToolButton {
-                color: white;
-                background-color: transparent;
-                border: none;
-                padding: 10px 18px;
-                text-align: left;
-                font: 500 12px 'Roboto';
-                icon-size: 18px 18px;
-            }
-            QToolButton:hover {
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                border: none;
-            }
-            QToolButton:pressed {
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                padding-left: 25px;
-                border: none;
-            }
-            QToolButton:checked {
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                border: none;
-            }
-        """
+            "QToolButton { color: white; background-color: transparent; border: none; padding: 10px 18px; text-align: left; font: 500 12px 'Roboto'; icon-size: 18px 18px; }"
+            "QToolButton:hover { color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); border: none; }"
+            "QToolButton:pressed { color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); padding-left: 25px; border: none; }"
+            "QToolButton:checked { color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); border: none; }"
         )
         self.report_btn.clicked.connect(lambda: self.on_nav(2) if self.on_nav else None)
         container_layout.addWidget(self.report_btn)
-
         container_layout.addStretch()
 
         # Logout button
@@ -235,34 +158,10 @@ class Sidebar(QWidget):
         self.logout_btn.setMouseTracking(True)
         self.logout_btn.setMaximumSize(QSize(150, 50))
         self.logout_btn.setStyleSheet(
-            """
-            QToolButton {
-                color: white;
-                background-color: transparent;
-                border: none;
-                padding: 10px 18px;
-                text-align: left;
-                font: 500 12px 'Roboto';
-                icon-size: 18px 18px;
-                
-            }
-            QToolButton:hover {
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                border: none;
-            }
-            QToolButton:pressed {
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                padding-left: 25px;
-                border: none;
-            }
-            QToolButton:checked {
-                color: rgb(75, 47, 69);
-                background-color: rgb(245, 245, 245);
-                border: none;
-            }
-        """
+            "QToolButton { color: white; background-color: transparent; border: none; padding: 10px 18px; text-align: left; font: 500 12px 'Roboto'; icon-size: 18px 18px; }"
+            "QToolButton:hover { color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); border: none; }"
+            "QToolButton:pressed { color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); padding-left: 25px; border: none; }"
+            "QToolButton:checked { color: rgb(75, 47, 69); background-color: rgb(245, 245, 245); border: none; }"
         )
         self.logout_btn.clicked.connect(
             lambda: self.on_nav("logout") if self.on_nav else None
@@ -436,11 +335,7 @@ class BudgetApp(QMainWindow):
         self.dashboardwidget.setMinimumSize(QSize(0, 40))
         self.dashboardwidget.setMaximumSize(QSize(16777215, 40))
         self.dashboardwidget.setStyleSheet(
-            "QWidget{\n"
-            "background-color: rgb(255, 255, 255);\n"
-            "border: 1px solid;\n"
-            "	border-color: rgb(255, 255, 255);\n"
-            "border-bottom-color: rgb(191, 191, 191)};"
+            "QWidget { background-color: rgb(255, 255, 255); border: 1px solid; border-color: rgb(255, 255, 255); border-bottom-color: rgb(191, 191, 191); }"
         )
         self.horizontalLayout_24 = QHBoxLayout(self.dashboardwidget)
         self.horizontalLayout_24.setSpacing(10)
@@ -462,11 +357,7 @@ class BudgetApp(QMainWindow):
         Roboto.setItalic(False)
         self.menulabel.setFont(Roboto)
         self.menulabel.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            'font: 500 14px "Roboto";\n'
-            "background-color: transparent;\n"
-            "border: none;\n"
-            ""
+            "color: rgb(108, 68, 100); font: 500 14px 'Roboto'; background-color: transparent; border: none;"
         )
         self.menulabel.setAlignment(
             Qt.AlignmentFlag.AlignLeading
@@ -536,36 +427,10 @@ class BudgetApp(QMainWindow):
         self.page1_scrollarea = QScrollArea(self.page_1)
         self.page1_scrollarea.setObjectName("page1_scrollarea")
         self.page1_scrollarea.setStyleSheet(
-            "\n"
-            "\n"
-            "\n"
-            "QScrollArea{\n"
-            "	background-color: rgb(254, 254, 254);\n"
-            "\n"
-            "border: none;}\n"
-            "\n"
-            "QScrollBar:vertical {\n"
-            "    \n"
-            "    background-color: rgb(245, 245, 245);\n"
-            "    width: 5px;\n"
-            "    margin: 0px 0px 0px 0px;\n"
-            "	border: none\n"
-            "	\n"
-            "}\n"
-            "\n"
-            "QScrollBar::handle:vertical {\n"
-            "    background: rgb(80, 51, 74);\n"
-            "    min-height: 18px;\n"
-            "    border-radius: 10000px;\n"
-            "}\n"
-            "\n"
-            "QScrollBar::add-line:vertical,\n"
-            "QScrollBar::sub-line:vertical {\n"
-            "    background: none;\n"
-            "    height: 0px;\n"
-            "}\n"
-            "\n"
-            ""
+            "QScrollArea { background-color: rgb(254, 254, 254); border: none; }"
+            "QScrollBar:vertical { background-color: rgb(245, 245, 245); width: 5px; margin: 0px; border: none; }"
+            "QScrollBar::handle:vertical { background: rgb(80, 51, 74); min-height: 18px; border-radius: 10000px; }"
+            "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { background: none; height: 0px; }"
         )
         self.page1_scrollarea.setVerticalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAlwaysOff
@@ -589,9 +454,7 @@ class BudgetApp(QMainWindow):
         self.greethello.setObjectName("greethello")
         self.greethello.setMinimumSize(QSize(0, 0))
         self.greethello.setStyleSheet(
-            "color: rgb(212, 106, 146);\n"
-            "background-color: transparent;\n"
-            'font: 600 18px "Roboto";'
+            "color: rgb(212, 106, 146); background-color: transparent; font: 600 18px 'Roboto';"
         )
 
         self.greetlayout.addWidget(self.greethello)
@@ -602,10 +465,7 @@ class BudgetApp(QMainWindow):
         self.user.setSizePolicy(sizePolicy1)
         self.user.setFont(Roboto)
         self.user.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            'font: 700 32px "Roboto";\n'
-            "background-color: transparent\n"
-            ""
+            "color: rgb(108, 68, 100); font: 700 32px 'Roboto'; background-color: transparent;"
         )
 
         self.cursor.execute("SELECT * FROM users WHERE user_id = ?", (self.user_id,))
@@ -630,11 +490,7 @@ class BudgetApp(QMainWindow):
         self.totalbudgetbox.setObjectName("totalbudgetbox")
         self.totalbudgetbox.setMinimumSize(QSize(300, 120))
         self.totalbudgetbox.setStyleSheet(
-            "background-color: rgb(244, 212, 212);\n"
-            "\n"
-            "border-radius: 18px;\n"
-            "\n"
-            ""
+            "background-color: rgb(244, 212, 212); border-radius: 18px;"
         )
         self.verticalLayout_25 = QVBoxLayout(self.totalbudgetbox)
         self.verticalLayout_25.setObjectName("verticalLayout_25")
@@ -647,7 +503,7 @@ class BudgetApp(QMainWindow):
         self.totalbudgetlbl.setMinimumSize(QSize(0, 30))
         self.totalbudgetlbl.setMaximumSize(QSize(16777215, 25))
         self.totalbudgetlbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n" 'font: 600 14px "Roboto";'
+            "color: rgb(108, 68, 100); font: 600 14px 'Roboto';"
         )
         self.totalbudgetlbl.setTextFormat(Qt.TextFormat.MarkdownText)
         self.totalbudgetlbl.setScaledContents(False)
@@ -673,10 +529,7 @@ class BudgetApp(QMainWindow):
         font2.setItalic(False)
         self.budgetvalue.setFont(font2)
         self.budgetvalue.setStyleSheet(
-            "color: rgb(167, 83, 115);\n"
-            "background:transparent;\n"
-            'font: 700 32px "Roboto";\n'
-            ""
+            "color: rgb(167, 83, 115); background: transparent; font: 700 32px 'Roboto';"
         )
 
         self.budgetvalue.setFrameShape(QFrame.Shape.NoFrame)
@@ -710,23 +563,8 @@ class BudgetApp(QMainWindow):
         self.progressBar_2.setMinimumSize(QSize(0, 0))
         self.progressBar_2.setMaximumSize(QSize(16777215, 13))
         self.progressBar_2.setStyleSheet(
-            "QProgressBar {\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "	color: rgb(245, 245, 245);\n"
-            ' 	font: 600 4pt "Roboto";\n'
-            "    border-radius: 6px;\n"
-            "    text-align: left;\n"
-            "}\n"
-            "QProgressBar::chunk {\n"
-            "    background: QLinearGradient(\n"
-            "        x1: 0, y1: 0,\n"
-            "        x2: 1, y2: 0,\n"
-            "        stop: 0 #6c4464\n"
-            "        stop: 1 #a75373\n"
-            "    );\n"
-            "    border-radius: 6px;\n"
-            "}\n"
-            ""
+            "QProgressBar { background-color: rgb(245, 245, 245); color: rgb(245, 245, 245); font: 600 4pt 'Roboto'; border-radius: 6px; text-align: left; }"
+            "QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #6c4464, stop: 1 #a75373); border-radius: 6px; }"
         )
         self.progressBar_2.setValue(0)
         self.progressBar_2.setTextVisible(False)
@@ -739,10 +577,7 @@ class BudgetApp(QMainWindow):
         self.remainingbudget.setObjectName("remainingbudget")
         self.remainingbudget.setMaximumSize(QSize(16777215, 50))
         self.remainingbudget.setStyleSheet(
-            "color: rgb(222, 111, 153);\n"
-            'font: 500 12px "Roboto";\n'
-            "text-align: center;\n"
-            ""
+            "color: rgb(222, 111, 153); font: 500 12px 'Roboto'; text-align: center;"
         )
         self.remainingbudget.setAlignment(
             Qt.AlignmentFlag.AlignRight
@@ -762,24 +597,8 @@ class BudgetApp(QMainWindow):
         self.viewcategorybtn.setAutoFillBackground(False)
         self.viewcategorybtn.clicked.connect(lambda: self.budget_window())
         self.viewcategorybtn.setStyleSheet(
-            "\n"
-            "QToolButton {\n"
-            "background: qradialgradient(\n"
-            "            cx: 0.5, cy: 0.5, radius: 0.6,\n"
-            "            fx: 0.5, fy: 0.5,\n"
-            "		stop: 0 #6c4464\n"
-            "        stop: 1 #a75373\n"
-            "    );\n"
-            "color: rgb(167, 83, 115);\n"
-            "border-color: rgb(244, 212, 212);\n"
-            "text-align: center;\n"
-            'font: 600 7pt "Roboto";\n'
-            "border-radius: 25px;}\n"
-            " \n"
-            "QToolButton:hover {\n"
-            "	background-color: rgb(147, 73, 101);\n"
-            "}\n"
-            ""
+            "QToolButton { background: qradialgradient(cx: 0.5, cy: 0.5, radius: 0.6, fx: 0.5, fy: 0.5, stop: 0 #6c4464, stop: 1 #a75373); color: rgb(167, 83, 115); border-color: rgb(244, 212, 212); text-align: center; font: 600 7pt 'Roboto'; border-radius: 25px; }"
+            "QToolButton:hover { background-color: rgb(147, 73, 101); }"
         )
         icon8 = QIcon()
 
@@ -800,7 +619,7 @@ class BudgetApp(QMainWindow):
         self.savingsbox_3.setObjectName("savingsbox_3")
         self.savingsbox_3.setMinimumSize(QSize(300, 120))
         self.savingsbox_3.setStyleSheet(
-            "background-color: rgb(244, 212, 212);\n" "border-radius:18px;\n" "\n" ""
+            "background-color: rgb(244, 212, 212); border-radius: 18px;"
         )
         self.verticalLayout_28 = QVBoxLayout(self.savingsbox_3)
         self.verticalLayout_28.setObjectName("verticalLayout_28")
@@ -813,7 +632,7 @@ class BudgetApp(QMainWindow):
         self.savingslbl.setMinimumSize(QSize(0, 30))
         self.savingslbl.setMaximumSize(QSize(16777215, 25))
         self.savingslbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n" 'font: 600 14px "Roboto";'
+            "color: rgb(108, 68, 100); font: 600 14px 'Roboto';"
         )
         self.savingslbl.setTextFormat(Qt.TextFormat.MarkdownText)
         self.savingslbl.setScaledContents(False)
@@ -844,10 +663,7 @@ class BudgetApp(QMainWindow):
         self.savingsvalue.setSizePolicy(sizePolicy3)
         self.savingsvalue.setFont(font2)
         self.savingsvalue.setStyleSheet(
-            "color: rgb(212, 106, 146);\n"
-            "background-color: transparent;\n"
-            'font: 700 32px "Roboto";\n'
-            ""
+            "color: rgb(212, 106, 146); background-color: transparent; font: 700 32px 'Roboto';"
         )
 
         self.savingsvalue.setFrameShape(QFrame.Shape.NoFrame)
@@ -875,26 +691,8 @@ class BudgetApp(QMainWindow):
         self.savingsbtn.setAutoFillBackground(False)
 
         self.savingsbtn.setStyleSheet(
-            "QToolButton{\n"
-            "\n"
-            "background: qradialgradient(\n"
-            "cx: 0.5, cy: 0.5, radius: 0.6,\n"
-            "fx: 0.5, fy: 0.5,\n"
-            "		stop: 0 #a75373\n"
-            "        stop: 1 #d46a92\n"
-            "    );\n"
-            "color: rgb(167, 83, 115);\n"
-            "border-color: rgb(244, 212, 212);\n"
-            "text-align: center;\n"
-            'font: 600 7pt "Roboto";\n'
-            "border-radius: 25px;}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    \n"
-            "	background-color: rgb(177, 88, 122);\n"
-            "}\n"
-            "  \n"
-            ""
+            "QToolButton { background: qradialgradient(cx: 0.5, cy: 0.5, radius: 0.6, fx: 0.5, fy: 0.5, stop: 0 #a75373, stop: 1 #d46a92); color: rgb(167, 83, 115); border-color: rgb(244, 212, 212); text-align: center; font: 600 7pt 'Roboto'; border-radius: 25px; }"
+            "QToolButton:hover { background-color: rgb(177, 88, 122); }"
         )
         icon9 = QIcon()
         icon9.addFile(
@@ -923,9 +721,7 @@ class BudgetApp(QMainWindow):
         font3.setPointSize(12)
         self.expensebox.setFont(font3)
         self.expensebox.setStyleSheet(
-            "text-align: center;\n"
-            "background-color: rgb(167, 83, 115);\n"
-            "border-radius: 18px"
+            "text-align: center; background-color: rgb(167, 83, 115); border-radius: 18px;"
         )
         self.verticalLayout_31 = QVBoxLayout(self.expensebox)
         self.verticalLayout_31.setObjectName("verticalLayout_31")
@@ -940,7 +736,7 @@ class BudgetApp(QMainWindow):
         self.expensevalue.setMaximumSize(QSize(16777215, 50))
         self.expensevalue.setFont(font2)
         self.expensevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 18px "Roboto";\n' ""
+            "color: rgb(250, 250, 250); font: 700 18px 'Roboto';"
         )
         self.expensevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.expensevalue.setWordWrap(False)
@@ -953,9 +749,7 @@ class BudgetApp(QMainWindow):
         self.expenselbl.setMaximumSize(QSize(16777215, 50))
         self.expenselbl.setWordWrap(True)
         self.expenselbl.setStyleSheet(
-            "color: rgb(250, 250, 250);\n"
-            'font: 600 14px "Roboto";\n'
-            "text-align: center;"
+            "color: rgb(250, 250, 250); font: 600 14px 'Roboto'; text-align: center;"
         )
         self.expenselbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -970,9 +764,7 @@ class BudgetApp(QMainWindow):
         self.incomebox.setMinimumSize(QSize(300, 80))
         self.incomebox.setFont(font3)
         self.incomebox.setStyleSheet(
-            "text-align: center;\n"
-            "background-color: rgb(167, 83, 115);\n"
-            "border-radius: 18px"
+            "text-align: center; background-color: rgb(167, 83, 115); border-radius: 18px;"
         )
         self.verticalLayout_55 = QVBoxLayout(self.incomebox)
         self.verticalLayout_55.setObjectName("verticalLayout_55")
@@ -987,7 +779,7 @@ class BudgetApp(QMainWindow):
         self.incomevalue.setMaximumSize(QSize(16777215, 50))
         self.incomevalue.setFont(font2)
         self.incomevalue.setStyleSheet(
-            "color: rgb(250, 250, 250);\n" 'font: 700 18px "Roboto";\n' ""
+            "color: rgb(250, 250, 250); font: 700 18px 'Roboto';"
         )
 
         self.incomevalue.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -1001,18 +793,13 @@ class BudgetApp(QMainWindow):
         self.incomelbl.setMaximumSize(QSize(16777215, 50))
         self.incomelbl.setWordWrap(True)
         self.incomelbl.setStyleSheet(
-            "color: rgb(250, 250, 250);\n"
-            'font: 600 14px "Roboto";\n'
-            "text-align: center;"
+            "color: rgb(250, 250, 250); font: 600 14px 'Roboto'; text-align: center;"
         )
         self.incomelbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_12.addWidget(self.incomelbl)
-
         self.verticalLayout_55.addLayout(self.horizontalLayout_12)
-
         self.horizontalLayout_8.addWidget(self.incomebox)
-
         self.verticalLayout_26.addLayout(self.horizontalLayout_8)
 
         self.activitylayout = QVBoxLayout()
@@ -1022,7 +809,7 @@ class BudgetApp(QMainWindow):
         self.activitybox.setObjectName("activitybox")
         self.activitybox.setMinimumSize(QSize(0, 381))
         self.activitybox.setStyleSheet(
-            "background-color: rgb(108, 68, 100);\n" "border-radius:20\n" ""
+            "background-color: rgb(108, 68, 100); border-radius: 20px;"
         )
 
         self.verticalLayout_10 = QVBoxLayout(self.activitybox)
@@ -1042,7 +829,7 @@ class BudgetApp(QMainWindow):
         self.activitylbl.setSizePolicy(sizePolicy4)
         self.activitylbl.setFont(Roboto)
         self.activitylbl.setStyleSheet(
-            "color: rgb(254, 250, 250);\n" 'font: 700 32px "Roboto";'
+            "color: rgb(254, 250, 250); font: 700 32px 'Roboto';"
         )
 
         self.horizontalLayout_13.addWidget(self.activitylbl)
@@ -1057,14 +844,7 @@ class BudgetApp(QMainWindow):
         sizePolicy5.setHeightForWidth(self.amountedit.sizePolicy().hasHeightForWidth())
         self.amountedit.setSizePolicy(sizePolicy5)
         self.amountedit.setStyleSheet(
-            "QLineEdit {\n"
-            "	background-color: rgb(254, 250, 250);\n"
-            "                padding: 8px;\n"
-            "                border: 1px solid #ccc;\n"
-            "                border-radius: 7px;\n"
-            "                font: 500 10px 'Roboto';\n"
-            "color: #939393;\n"
-            "            }"
+            "QLineEdit { background-color: rgb(254, 250, 250); padding: 8px; border: 1px solid #ccc; border-radius: 7px; font: 500 10px 'Roboto'; color: #939393; }"
         )
 
         self.horizontalLayout_13.addWidget(self.amountedit)
@@ -1076,18 +856,7 @@ class BudgetApp(QMainWindow):
         )
         self.descriptionedit.setSizePolicy(sizePolicy5)
         self.descriptionedit.setStyleSheet(
-            "QLineEdit {\n"
-            "	\n"
-            "	\n"
-            "					background-color: rgb(254, 250, 250);\n"
-            "                padding: 8px;\n"
-            "                border: 1px solid #ccc;\n"
-            "                border-radius: 7px;\n"
-            "                font: 500 10px 'Roboto';\n"
-            "				color: #939393;\n"
-            "\n"
-            "            }\n"
-            ""
+            "QLineEdit { background-color: rgb(254, 250, 250); padding: 8px; border: 1px solid #ccc; border-radius: 7px; font: 500 10px 'Roboto'; color: #939393; }"
         )
 
         self.horizontalLayout_13.addWidget(self.descriptionedit)
@@ -1108,34 +877,10 @@ class BudgetApp(QMainWindow):
         )
         self.categorycombo.setSizePolicy(sizePolicy5)
         self.categorycombo.setStyleSheet(
-            "QComboBox{\n"
-            "	color: #939393;\n"
-            "	alternate-background-color: rgb(240, 240, 240);\n"
-            "				\n"
-            "	background-color: rgb(254, 250, 250);\n"
-            "                padding: 8px;\n"
-            "                border: 1px solid #ccc;\n"
-            "                border-radius: 7px;\n"
-            "                font: 500 10px 'Roboto';\n"
-            "\n"
-            "\n"
-            "            }\n"
-            "\n"
-            "\n"
-            "QComboBox::drop-down {\n"
-            "    border: none;\n"
-            "    background: transparent;\n"
-            "                font: 500 10px 'Roboto';\n"
-            "}\n"
-            "\n"
-            "QComboBox QAbstractItemView {\n"
-            "            background-color: #ffffff;\n"
-            "            color: #939393; \n"
-            "            }"
-            "                font: 500 10px 'Roboto';\n"
-            "QComboBox:!editable:on, QComboBox::drop-down:editable:on {"
-            "color: color: rgb(167, 83, 115);  /* When real items are selected */"
-            "}"
+            "QComboBox { color: #939393; alternate-background-color: rgb(240, 240, 240); background-color: rgb(254, 250, 250); padding: 8px; border: 1px solid #ccc; border-radius: 7px; font: 500 10px 'Roboto'; }"
+            "QComboBox::drop-down { border: none; background: transparent; font: 500 10px 'Roboto'; }"
+            "QComboBox QAbstractItemView { background-color: #ffffff; color: #939393; font: 500 10px 'Roboto'; }"
+            "QComboBox:!editable:on, QComboBox::drop-down:editable:on { color: rgb(167, 83, 115); }"
         )
         self.categorycombo.setEditable(False)
         self.categorycombo.setFrame(True)
@@ -1150,30 +895,8 @@ class BudgetApp(QMainWindow):
         self.addtransbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.addtransbtn.setAutoFillBackground(False)
         self.addtransbtn.setStyleSheet(
-            "\n"
-            "\n"
-            "\n"
-            "QPushButton {\n"
-            "	\n"
-            "	\n"
-            "	\n"
-            "	color: rgb(245, 245, 245);\n"
-            "	background-color: rgb(167, 83, 115);\n"
-            "	border: 1px solid #ccc;\n"
-            "    border-radius: 7px;\n"
-            "	border-color: rgb(144, 72, 99);\n"
-            "text-align: center;\n"
-            "font: 500 10px 'Roboto';\n"
-            "\n"
-            "\n"
-            "  \n"
-            "\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "	background-color: rgb(138, 69, 95);\n"
-            "	\n"
-            "   \n"
-            "}"
+            "QPushButton { color: rgb(245, 245, 245); background-color: rgb(167, 83, 115); border: 1px solid #ccc; border-radius: 7px; border-color: rgb(144, 72, 99); text-align: center; font: 500 10px 'Roboto'; }"
+            "QPushButton:hover { background-color: rgb(138, 69, 95); }"
         )
         self.addtransbtn.setCheckable(True)
         self.addtransbtn.setFlat(True)
@@ -1192,7 +915,7 @@ class BudgetApp(QMainWindow):
         self.tablebox.setSizePolicy(sizePolicy)
         self.tablebox.setMaximumSize(QSize(16777215, 291))
         self.tablebox.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius:15\n" ""
+            "background-color: rgb(255, 255, 255); border-radius: 15px;"
         )
         self.verticalLayout_14 = QVBoxLayout(self.tablebox)
         self.verticalLayout_14.setObjectName("verticalLayout_14")
@@ -1244,79 +967,18 @@ class BudgetApp(QMainWindow):
         self.activities.setFocusPolicy(Qt.NoFocus)
         self.activities.horizontalHeader().setFocusPolicy(Qt.NoFocus)
         self.activities.setStyleSheet(
-            "\n"
-            "    QTableView {\n"
-            "        background-color: #ffffff;\n"
-            "        border: none;\n"
-            "        border-radius: 6px;\n"
-            "        gridline-color: #e6e6e6;\n"
-            '        font: 400 12px "Roboto";\n'
-            "    }\n"
-            "\n"
-            "    QHeaderView::section {\n"
-            "        background-color: #ffffff;\n"
-            "        color: rgb(108, 68, 100);\n"
-            "        padding: 8px;\n"
-            "        border: none;\n"
-            "        border-bottom: 1px solid #dcdcdc;\n"
-            "        font: 600 14px 'Roboto';\n"
-            "    }\n"
-            "\n"
-            "    QTableView::item {\n"
-            "        padding: 6px;\n"
-            "        border: none;\n"
-            "        color: #939393;\n"
-            "    }\n"
-            "\n"
-            "    QTableView::item:selected {\n"
-            "        background-color: fffff;\n"
-            "        color: #ffffff;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar:vertical {\n"
-            "        background: #f0f0f0;\n"
-            "        width: 5px;\n"
-            "        margin: 2px 0 2px 0;\n"
-            "        border-radius: 6px;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar::handle:vertical {\n"
-            "        background: #c0c0c0;\n"
-            "        min-height: 20px;\n"
-            "        border-radius: 6px;\n"
-            "    }\n"
-            ""
-            "\n"
-            "    QScrollBar::handle:vertical:hover {\n"
-            "        background: #a0a0a0;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\n"
-            "        height: 0px;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar:horizontal {\n"
-            "        background: #f0f0f0;\n"
-            "        height: 12px;\n"
-            "        margin: 0 2px 0 2px;\n"
-            "        border-radius: 6px;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar::handle:horizontal {\n"
-            "        background: #c0c0c0;\n"
-            "        min-width: 20px;\n"
-            "        border-radius: 6px;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar::handle:horizontal:hover {\n"
-            "        background: #a0a0a0;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
-            "    width: 0px;\n"
-            "    }\n"
-            "\n"
-            ""
+            "QTableView { background-color: #ffffff; border: none; border-radius: 6px; gridline-color: #e6e6e6; font: 400 12px 'Roboto'; }"
+            "QHeaderView::section { background-color: #ffffff; color: rgb(108, 68, 100); padding: 8px; border: none; border-bottom: 1px solid #dcdcdc; font: 600 14px 'Roboto'; }"
+            "QTableView::item { padding: 6px; border: none; color: #939393; }"
+            "QTableView::item:selected { background-color: #ffffff; color: #ffffff; }"
+            "QScrollBar:vertical { background: #f0f0f0; width: 5px; margin: 2px 0 2px 0; border-radius: 6px; }"
+            "QScrollBar::handle:vertical { background: #c0c0c0; min-height: 20px; border-radius: 6px; }"
+            "QScrollBar::handle:vertical:hover { background: #a0a0a0; }"
+            "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }"
+            "QScrollBar:horizontal { background: #f0f0f0; height: 12px; margin: 0 2px 0 2px; border-radius: 6px; }"
+            "QScrollBar::handle:horizontal { background: #c0c0c0; min-width: 20px; border-radius: 6px; }"
+            "QScrollBar::handle:horizontal:hover { background: #a0a0a0; }"
+            "QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { width: 0px; }"
         )
         self.verticalLayout_14.addWidget(self.activities)
         self.tablelayout.addWidget(self.tablebox)
@@ -1336,31 +998,10 @@ class BudgetApp(QMainWindow):
         self.scrollArea_2 = QScrollArea(self.page_2)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollArea_2.setStyleSheet(
-            "\n"
-            "QScrollArea{\n"
-            "border: none;}\n"
-            "\n"
-            "QScrollBar:vertical {\n"
-            "    \n"
-            "    background-color: rgb(245, 245, 245);\n"
-            "    width: 5px;\n"
-            "    margin: 0px 0px 0px 0px;\n"
-            "	border: none\n"
-            "	\n"
-            "}\n"
-            "\n"
-            "QScrollBar::handle:vertical {\n"
-            "    background: rgb(80, 51, 74);\n"
-            "    min-height: 18px;\n"
-            "    border-radius: 10000px;\n"
-            "}\n"
-            "\n"
-            "QScrollBar::add-line:vertical,\n"
-            "QScrollBar::sub-line:vertical {\n"
-            "    background: none;\n"
-            "    height: 0px;\n"
-            "}\n"
-            ""
+            "QScrollArea { border: none; }"
+            "QScrollBar:vertical { background-color: rgb(245, 245, 245); width: 5px; margin: 0px; border: none; }"
+            "QScrollBar::handle:vertical { background: rgb(80, 51, 74); min-height: 18px; border-radius: 10000px; }"
+            "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { background: none; height: 0px; }"
         )
         self.scrollArea_2.setVerticalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAlwaysOn
@@ -1585,7 +1226,7 @@ class BudgetApp(QMainWindow):
         self.transactionsummarybox.setSizePolicy(sizePolicy)
         self.transactionsummarybox.setMinimumSize(QSize(300, 300))
         self.transactionsummarybox.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+            "background-color: rgb(255, 255, 255); border-radius: 15px;"
         )
         self.verticalLayout_12 = QVBoxLayout(self.transactionsummarybox)
         self.verticalLayout_12.setObjectName("verticalLayout_12")
@@ -1601,10 +1242,7 @@ class BudgetApp(QMainWindow):
         self.transactionsummary.setSizePolicy(sizePolicy1)
         self.transactionsummary.setFont(Roboto)
         self.transactionsummary.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            'font: 500 15px "Roboto";\n'
-            "background-color: transparent\n"
-            ""
+            "color: rgb(108, 68, 100); font: 500 15px 'Roboto'; background-color: transparent;"
         )
         self.transactionsummary.setAlignment(
             Qt.AlignmentFlag.AlignLeading
@@ -1626,12 +1264,7 @@ class BudgetApp(QMainWindow):
         self.transactionsummarywidget.setObjectName("transactionsummarywidget")
         self.transactionsummarywidget.setMinimumSize(QSize(0, 250))
         self.transactionsummarywidget.setStyleSheet(
-            """
-            QWidget {
-                background-color: rgb(255, 255, 255);
-                border: none;
-            }
-        """
+            "QWidget { background-color: rgb(255, 255, 255); border: none; }"
         )
         self.horizontalLayout_transactionsummary = QHBoxLayout(
             self.transactionsummarywidget
@@ -1649,7 +1282,7 @@ class BudgetApp(QMainWindow):
         self.budgetsummarybox.setObjectName("budgetsummarybox")
         self.budgetsummarybox.setMinimumSize(QSize(300, 300))
         self.budgetsummarybox.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+            "background-color: rgb(255, 255, 255); border-radius: 15px;"
         )
         self.verticalLayout_13 = QVBoxLayout(self.budgetsummarybox)
         self.verticalLayout_13.setObjectName("verticalLayout_13")
@@ -1664,10 +1297,7 @@ class BudgetApp(QMainWindow):
         self.budgetsummarylbl.setSizePolicy(sizePolicy1)
         self.budgetsummarylbl.setFont(Roboto)
         self.budgetsummarylbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            'font: 500 15px "Roboto";\n'
-            "background-color: transparent\n"
-            ""
+            "color: rgb(108, 68, 100); font: 500 15px 'Roboto'; background-color: transparent;"
         )
         self.budgetsummarylbl.setAlignment(
             Qt.AlignmentFlag.AlignLeading
@@ -1706,7 +1336,7 @@ class BudgetApp(QMainWindow):
         self.youractivitybox = QGroupBox(self.scrollAreaWidgetContents_4)
         self.youractivitybox.setObjectName("youractivitybox")
         self.youractivitybox.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+            "background-color: rgb(255, 255, 255); border-radius: 15px;"
         )
         self.verticalLayout_18 = QVBoxLayout(self.youractivitybox)
         self.verticalLayout_18.setObjectName("verticalLayout_18")
@@ -1721,10 +1351,7 @@ class BudgetApp(QMainWindow):
         self.youractivitylbl.setSizePolicy(sizePolicy1)
         self.youractivitylbl.setFont(Roboto)
         self.youractivitylbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            'font: 500 15px "Roboto";\n'
-            "background-color: transparent\n"
-            ""
+            "color: rgb(108, 68, 100); font: 500 15px 'Roboto'; background-color: transparent;"
         )
         self.youractivitylbl.setAlignment(
             Qt.AlignmentFlag.AlignLeading
@@ -1757,7 +1384,7 @@ class BudgetApp(QMainWindow):
         self.totaltransactionbox.setSizePolicy(sizePolicy)
         self.totaltransactionbox.setMinimumSize(QSize(300, 300))
         self.totaltransactionbox.setStyleSheet(
-            "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
+            "background-color: rgb(255, 255, 255); border-radius: 15px;"
         )
         self.verticalLayout_17 = QVBoxLayout(self.totaltransactionbox)
         self.verticalLayout_17.setObjectName("verticalLayout_17")
@@ -1805,10 +1432,7 @@ class BudgetApp(QMainWindow):
         self.totaltransactionvalue.setSizePolicy(sizePolicy1)
         self.totaltransactionvalue.setFont(font2)
         self.totaltransactionvalue.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            'font: 700 32px "Roboto";\n'
-            "background-color: transparent\n"
-            ""
+            "color: rgb(108, 68, 100); font: 700 32px 'Roboto'; background-color: transparent;"
         )
         self.totaltransactionvalue.setAlignment(
             Qt.AlignmentFlag.AlignLeading
@@ -1867,10 +1491,7 @@ class BudgetApp(QMainWindow):
         font5.setItalic(False)
         self.monthlyreport_lbl.setFont(font5)
         self.monthlyreport_lbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            'font: 600 30px "Roboto";\n'
-            "background-color: transparent\n"
-            ""
+            "color: rgb(108, 68, 100); font: 600 30px 'Roboto'; background-color: transparent;"
         )
         self.monthlyreport_lbl.setAlignment(
             Qt.AlignmentFlag.AlignLeading
@@ -1905,51 +1526,12 @@ class BudgetApp(QMainWindow):
         self.monthcombo.setSizePolicy(sizePolicy5)
         self.monthcombo.setMinimumSize(QSize(100, 0))
         self.monthcombo.setStyleSheet(
-            "QComboBox{\n"
-            "	color: rgb(167, 83, 115);\n"
-            "	alternate-background-color: rgb(240, 240, 240);\n"
-            "				\n"
-            "	background-color: rgb(254, 250, 250);\n"
-            "                padding: 8px;\n"
-            "                border: 1px solid #ccc;\n"
-            "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
-            "\n"
-            "\n"
-            "            }\n"
-            "\n"
-            "\n"
-            "QComboBox::drop-down {\n"
-            "    border: none;\n"
-            "    background: transparent;\n"
-            "}\n"
-            "\n"
-            "QComboBox QAbstractItemView {\n"
-            "            background-color: #ffffff;\n"
-            "            color: #000000; \n"
-            "\n"
-            "            }\n"
-            "\n"
-            "QScrollBar:vertical {\n"
-            "    \n"
-            "    background-color: rgb(245, 245, 245);\n"
-            "    width: 5px;\n"
-            "    margin: 0px 0px 0px 0px;\n"
-            "	border: none\n"
-            "	\n"
-            "}\n"
-            "\n"
-            "QScrollBar::handle:vertical {\n"
-            "    background: rgb(80, 51, 74);\n"
-            "    min-height: 20px;\n"
-            "    border-radius: 10000px;\n"
-            "}\n"
-            "\n"
-            "QScrollBar::add-line:vertical,\n"
-            "QScrollBar::sub-line:vertical {\n"
-            "    background: none;\n"
-            "    height: 0px;\n"
-            "}"
+            "QComboBox { color: rgb(167, 83, 115); alternate-background-color: rgb(240, 240, 240); background-color: rgb(254, 250, 250); padding: 8px; border: 1px solid #ccc; border-radius: 7px; font-size: 10px; }"
+            "QComboBox::drop-down { border: none; background: transparent; }"
+            "QComboBox QAbstractItemView { background-color: #ffffff; color: #000000; }"
+            "QScrollBar:vertical { background-color: rgb(245, 245, 245); width: 5px; margin: 0px; border: none; }"
+            "QScrollBar::handle:vertical { background: rgb(80, 51, 74); min-height: 20px; border-radius: 10000px; }"
+            "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { background: none; height: 0px; }"
         )
         self.monthcombo.setEditable(False)
         self.monthcombo.setFrame(True)
@@ -1965,50 +1547,12 @@ class BudgetApp(QMainWindow):
         self.yearcombo.setSizePolicy(sizePolicy5)
         self.yearcombo.setMinimumSize(QSize(60, 0))
         self.yearcombo.setStyleSheet(
-            "QComboBox{\n"
-            "	color: rgb(167, 83, 115);\n"
-            "	alternate-background-color: rgb(240, 240, 240);\n"
-            "				\n"
-            "	background-color: rgb(254, 250, 250);\n"
-            "                padding: 8px;\n"
-            "                border: 1px solid #ccc;\n"
-            "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
-            "\n"
-            "\n"
-            "            }\n"
-            "\n"
-            "\n"
-            "QComboBox::drop-down {\n"
-            "    border: none;\n"
-            "    background: transparent;\n"
-            "}\n"
-            "\n"
-            "QComboBox QAbstractItemView {\n"
-            "            background-color: #ffffff;\n"
-            "            color: #000000; \n"
-            "            }\n"
-            "\n"
-            "QScrollBar:vertical {\n"
-            "    \n"
-            "    background-color: rgb(245, 245, 245);\n"
-            "    width: 5px;\n"
-            "    margin: 0px 0px 0px 0px;\n"
-            "	border: none\n"
-            "	\n"
-            "}\n"
-            "\n"
-            "QScrollBar::handle:vertical {\n"
-            "    background: rgb(80, 51, 74);\n"
-            "    min-height: 20px;\n"
-            "    border-radius: 10000px;\n"
-            "}\n"
-            "\n"
-            "QScrollBar::add-line:vertical,\n"
-            "QScrollBar::sub-line:vertical {\n"
-            "    background: none;\n"
-            "    height: 0px;\n"
-            "}"
+            "QComboBox { color: rgb(167, 83, 115); alternate-background-color: rgb(240, 240, 240); background-color: rgb(254, 250, 250); padding: 8px; border: 1px solid #ccc; border-radius: 7px; font-size: 10px; }"
+            "QComboBox::drop-down { border: none; background: transparent; }"
+            "QComboBox QAbstractItemView { background-color: #ffffff; color: #000000; }"
+            "QScrollBar:vertical { background-color: rgb(245, 245, 245); width: 5px; margin: 0px; border: none; }"
+            "QScrollBar::handle:vertical { background: rgb(80, 51, 74); min-height: 20px; border-radius: 10000px; }"
+            "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { background: none; height: 0px; }"
         )
         self.yearcombo.setEditable(False)
         self.yearcombo.setFrame(True)
@@ -2024,32 +1568,8 @@ class BudgetApp(QMainWindow):
         self.viewbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.viewbtn.setAutoFillBackground(False)
         self.viewbtn.setStyleSheet(
-            "\n"
-            "\n"
-            "\n"
-            "QPushButton {\n"
-            "	\n"
-            "	\n"
-            "	\n"
-            "	color: rgb(245, 245, 245);\n"
-            "	background-color: rgb(167, 83, 115);\n"
-            "	border: 1px solid #ccc;\n"
-            "    border-radius: 7px;\n"
-            "	border-color: rgb(144, 72, 99);\n"
-            "text-align: center;\n"
-            " font-size: 10px;\n"
-            "\n"
-            "\n"
-            "  \n"
-            "\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "\n"
-            "	\n"
-            "	background-color: rgb(138, 69, 95);\n"
-            "	\n"
-            "   \n"
-            "}"
+            "QPushButton { color: rgb(245, 245, 245); background-color: rgb(167, 83, 115); border: 1px solid #ccc; border-radius: 7px; border-color: rgb(144, 72, 99); text-align: center; font-size: 10px; }"
+            "QPushButton:hover { background-color: rgb(138, 69, 95); }"
         )
         self.viewbtn.setCheckable(True)
         self.viewbtn.setFlat(True)
@@ -2073,10 +1593,10 @@ class BudgetApp(QMainWindow):
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.widget = QWidget(self.page_4)
         self.widget.setObjectName("widget")
-        self.widget.setMinimumSize(QSize(0, 700))
-        self.widget.setMaximumSize(QSize(16777215, 900))
+        # self.widget.setMinimumSize(QSize(0, 700))
+
         self.widget.setStyleSheet(
-            "background-color: rgb(254, 254, 254);\n" "border-radius: 30\n" ""
+            "background-color: rgb(254, 254, 254); border-radius: 30px;"
         )
         self.verticalLayout_11 = QVBoxLayout(self.widget)
         self.verticalLayout_11.setObjectName("verticalLayout_11")
@@ -2088,7 +1608,7 @@ class BudgetApp(QMainWindow):
         self.budgetreport.setMaximumSize(QSize(16777215, 80))
         self.budgetreport.setFont(Roboto)
         self.budgetreport.setStyleSheet(
-            "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
+            "text-align: center; background-color: #f4d4d4; border-radius: 15px;"
         )
         self.verticalLayout_38 = QVBoxLayout(self.budgetreport)
         self.verticalLayout_38.setObjectName("verticalLayout_38")
@@ -2105,7 +1625,7 @@ class BudgetApp(QMainWindow):
         self.budgetreport_value.setMaximumSize(QSize(16777215, 50))
         self.budgetreport_value.setFont(font3)
         self.budgetreport_value.setStyleSheet(
-            "color: rgb(167, 83, 115);\n" 'font: 700 12px "Roboto";\n' ""
+            "color: rgb(167, 83, 115); font: 700 12px 'Roboto';"
         )
         self.budgetreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.budgetreport_value.setWordWrap(False)
@@ -2117,9 +1637,7 @@ class BudgetApp(QMainWindow):
         self.budgetlbl.setObjectName("budgetlbl")
         self.budgetlbl.setMaximumSize(QSize(16777215, 50))
         self.budgetlbl.setStyleSheet(
-            "color: rgb(167, 83, 115);\n"
-            'font: 600 12px "Roboto";\n'
-            "text-align: center;"
+            "color: rgb(167, 83, 115); font: 600 12px 'Roboto'; text-align: center;"
         )
         self.budgetlbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.budgetlbl.setWordWrap(True)
@@ -2135,7 +1653,7 @@ class BudgetApp(QMainWindow):
         self.savingsreport.setMaximumSize(QSize(16777215, 80))
         self.savingsreport.setFont(Roboto)
         self.savingsreport.setStyleSheet(
-            "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
+            "text-align: center; background-color: #f4d4d4; border-radius: 15px;"
         )
 
         self.verticalLayout_39 = QVBoxLayout(self.savingsreport)
@@ -2230,7 +1748,7 @@ class BudgetApp(QMainWindow):
         self.graphwidget = QWidget(self.widget)
         self.graphwidget.setObjectName("graphwidget")
         self.graphwidget.setMinimumSize(QSize(0, 200))
-        self.graphwidget.setMaximumSize(QSize(16777215, 200))
+
         self.horizontalLayout_11 = QHBoxLayout(self.graphwidget)
         self.horizontalLayout_11.setSpacing(10)
         self.horizontalLayout_11.setObjectName("horizontalLayout_11")
@@ -2385,6 +1903,7 @@ class BudgetApp(QMainWindow):
         self.transwidgetbox = QWidget(self.widget)
         self.transwidgetbox.setObjectName("transwidgetbox")
         self.transwidgetbox.setStyleSheet("background-color: rgb(167, 83, 115);")
+        self.transwidgetbox.setMinimumSize(QSize(16777215, 350))
         self.verticalLayout_20 = QVBoxLayout(self.transwidgetbox)
         self.verticalLayout_20.setSpacing(15)
         self.verticalLayout_20.setObjectName("verticalLayout_20")
@@ -2392,7 +1911,7 @@ class BudgetApp(QMainWindow):
         self.transtableviewwidget = QWidget(self.transwidgetbox)
         self.transtableviewwidget.setObjectName("transtableviewwidget")
         self.transtableviewwidget.setStyleSheet(
-            "background-color:rgb(255, 255, 255);\n" "border-radius: 25"
+            "background-color: rgb(255, 255, 255); border-radius: 25px;"
         )
         self.verticalLayout_21 = QVBoxLayout(self.transtableviewwidget)
         self.verticalLayout_21.setObjectName("verticalLayout_21")
@@ -2429,79 +1948,18 @@ class BudgetApp(QMainWindow):
         self.transactions.setFocusPolicy(Qt.NoFocus)
         self.transactions.horizontalHeader().setFocusPolicy(Qt.NoFocus)
         self.transactions.setStyleSheet(
-            "\n"
-            "    QTableView {\n"
-            "        background-color: #ffffff;\n"
-            "        border: none;\n"
-            "        border-radius: 6px;\n"
-            "        gridline-color: #e6e6e6;\n"
-            '        font: 400 12px "Roboto";\n'
-            "    }\n"
-            "\n"
-            "    QHeaderView::section {\n"
-            "        background-color: #ffffff;\n"
-            "        color: rgb(108, 68, 100);\n"
-            "        padding: 8px;\n"
-            "        border: none;\n"
-            "        border-bottom: 1px solid #dcdcdc;\n"
-            "        font: 600 14px 'Roboto';\n"
-            "    }\n"
-            "\n"
-            "    QTableView::item {\n"
-            "        padding: 6px;\n"
-            "        border: none;\n"
-            "        color: #939393;\n"
-            "    }\n"
-            "\n"
-            "    QTableView::item:selected {\n"
-            "        background-color: fffff;\n"
-            "        color: #ffffff;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar:vertical {\n"
-            "        background: #f0f0f0;\n"
-            "        width: 5px;\n"
-            "        margin: 2px 0 2px 0;\n"
-            "        border-radius: 6px;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar::handle:vertical {\n"
-            "        background: #c0c0c0;\n"
-            "        min-height: 20px;\n"
-            "        border-radius: 6px;\n"
-            "    }\n"
-            ""
-            "\n"
-            "    QScrollBar::handle:vertical:hover {\n"
-            "        background: #a0a0a0;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\n"
-            "        height: 0px;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar:horizontal {\n"
-            "        background: #f0f0f0;\n"
-            "        height: 12px;\n"
-            "        margin: 0 2px 0 2px;\n"
-            "        border-radius: 6px;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar::handle:horizontal {\n"
-            "        background: #c0c0c0;\n"
-            "        min-width: 20px;\n"
-            "        border-radius: 6px;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar::handle:horizontal:hover {\n"
-            "        background: #a0a0a0;\n"
-            "    }\n"
-            "\n"
-            "    QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
-            "    width: 0px;\n"
-            "    }\n"
-            "\n"
-            ""
+            "QTableView { background-color: #ffffff; border: none; border-radius: 6px; gridline-color: #e6e6e6; font: 400 12px 'Roboto'; }"
+            "QHeaderView::section { background-color: #ffffff; color: rgb(108, 68, 100); padding: 8px; border: none; border-bottom: 1px solid #dcdcdc; font: 600 14px 'Roboto'; }"
+            "QTableView::item { padding: 6px; border: none; color: #939393; }"
+            "QTableView::item:selected { background-color: #ffffff; color: #ffffff; }"
+            "QScrollBar:vertical { background: #f0f0f0; width: 5px; margin: 2px 0 2px 0; border-radius: 6px; }"
+            "QScrollBar::handle:vertical { background: #c0c0c0; min-height: 20px; border-radius: 6px; }"
+            "QScrollBar::handle:vertical:hover { background: #a0a0a0; }"
+            "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }"
+            "QScrollBar:horizontal { background: #f0f0f0; height: 12px; margin: 0 2px 0 2px; border-radius: 6px; }"
+            "QScrollBar::handle:horizontal { background: #c0c0c0; min-width: 20px; border-radius: 6px; }"
+            "QScrollBar::handle:horizontal:hover { background: #a0a0a0; }"
+            "QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { width: 0px; }"
         )
 
         self.verticalLayout_21.addWidget(self.transactions)
@@ -2524,7 +1982,7 @@ class BudgetApp(QMainWindow):
         self.noavailablereportwidget = QWidget(self.no_available_report_page)
         self.noavailablereportwidget.setObjectName("noavailablereportwidget")
         self.noavailablereportwidget.setStyleSheet(
-            "background-color: rgb(254, 254, 254);\n" "border-radius: 30\n" ""
+            "background-color: rgb(254, 254, 254); border-radius: 30px;"
         )
         self.horizontalLayout_5 = QHBoxLayout(self.noavailablereportwidget)
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
@@ -2536,10 +1994,7 @@ class BudgetApp(QMainWindow):
         self.noavailablereportlbl.setSizePolicy(sizePolicy1)
         self.noavailablereportlbl.setFont(font5)
         self.noavailablereportlbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            'font: 600 18px "Roboto";\n'
-            "background-color: transparent\n"
-            ""
+            "color: rgb(108, 68, 100); font: 600 18px 'Roboto'; background-color: transparent;"
         )
         self.noavailablereportlbl.setAlignment(
             Qt.AlignmentFlag.AlignLeading
@@ -2822,155 +2277,276 @@ class BudgetApp(QMainWindow):
         self.signin = SignEntry()
         self.signin.show()
 
-    def add_graph_to_widget(self, widget: QWidget):
-        # Create DataManager instance with sample data
-        data_manager = DataManager(self.user_id)
+    def add_graph_to_widget(self, widget: QWidget, report_date=None):
+        try:
+            # Use provided date or current date
+            current_date = report_date or datetime.today().strftime("%Y-%m")
+            print(f"Debug: Creating transaction graph for date: {current_date}")
+            data_manager = DataManager(self.user_id, current_date)
 
-        # Clear any existing plots and create new figure
-        plt.close("all")
-        fig = plt.figure(figsize=(4, 3), dpi=100)
-        ax = fig.add_subplot(111)
+            # Clear any existing plots and create new figure
+            plt.close("all")
+            fig = plt.figure(figsize=(4, 3), dpi=100)
+            ax = fig.add_subplot(111)
 
-        # Get statistics from DataManager
-        stats = (
-            data_manager.get_transactions_data()
-        )  # get returned dictionary from stats
+            # Get statistics from DataManager
+            stats = data_manager.get_transactions_data()
+            print(f"Debug: Transaction stats: {stats}")
 
-        # Extract data for plotting
-        categories = list(stats.keys())
-        amounts = list(stats.values())
+            # Check if we have data
+            if not stats or all(amount == 0 for amount in stats.values()):
+                ax.text(
+                    0.5,
+                    0.5,
+                    "No transaction data available",
+                    horizontalalignment="center",
+                    verticalalignment="center",
+                    transform=ax.transAxes,
+                    fontsize=10,
+                )
+                ax.set_xticks([])
+                ax.set_yticks([])
+            else:
+                # Extract data for plotting
+                categories = list(stats.keys())
+                amounts = list(stats.values())
 
-        print(f"Cat in graph: {categories}")
-        print(f"amounts in graph: {amounts}")  # for cross checking
+                print(f"Cat in graph: {categories}")
+                print(f"amounts in graph: {amounts}")
 
-        # Create bar chart with styling
-        bars = ax.bar(categories, amounts, color="#a75373")
+                # Create bar chart with styling
+                bars = ax.bar(categories, amounts, color="#a75373")
 
-        # Customize the appearance
-        ax.set_xlabel("Category", fontsize=7, labelpad=8)
-        ax.set_ylabel("Amount Spent", fontsize=7, labelpad=8)
+                # Customize the appearance
+                ax.set_xlabel("Category", fontsize=7, labelpad=8)
+                ax.set_ylabel("Amount Spent", fontsize=7, labelpad=8)
 
-        # Rotate and align the tick labels so they look better
-        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", fontsize=7)
-        plt.setp(ax.get_yticklabels(), fontsize=7)
+                # Rotate and align the tick labels so they look better
+                plt.setp(ax.get_xticklabels(), rotation=45, ha="right", fontsize=7)
+                plt.setp(ax.get_yticklabels(), fontsize=7)
 
-        # Add some padding between the axis and the labels
-        ax.tick_params(axis="x", which="major", pad=5)
+                # Add some padding between the axis and the labels
+                ax.tick_params(axis="x", which="major", pad=5)
 
-        # Adjust layout to prevent label cutoff
-        fig.tight_layout()
+            # Adjust layout to prevent label cutoff
+            fig.tight_layout()
 
-        # Convert to Qt canvas
-        canvas = FigureCanvas(fig)
-        canvas.setMinimumSize(300, 200)
+            # Convert to Qt canvas
+            canvas = FigureCanvas(fig)
+            canvas.setMinimumSize(300, 200)
 
-        # Get the existing layout
-        layout = widget.layout()
+            # Ensure widget has a layout
+            if widget.layout() is None:
+                widget.setLayout(QVBoxLayout())
 
-        # Clear any existing widgets in the layout
-        if layout:
+            layout = widget.layout()
+
+            # Clear any existing widgets in the layout
             while layout.count():
                 item = layout.takeAt(0)
                 if item.widget():
                     item.widget().deleteLater()
 
-            # Add the canvas to the existing layout
+            # Add the canvas to the layout
             layout.addWidget(canvas)
-        # Force the widget to update
-        widget.update()
-        canvas.draw()
 
-    def add_graph_to_budget_summary(self, widget: QWidget):
-        # Use the current user's ID
-        data_manager = DataManager(self.user_id)
+            # Force the widget to update
+            widget.update()
+            canvas.draw()
 
-        # Clear any existing plots and create new figure
-        plt.close("all")
-        fig = plt.figure(figsize=(3, 3), dpi=100)
-        ax = fig.add_subplot(111)
+        except Exception as e:
+            print(f"Error in add_graph_to_widget: {e}")
+            print(f"Error type: {type(e).__name__}")
+            if hasattr(e, "args"):
+                print(f"Error args: {e.args}")
 
-        # Get statistics from DataManager
-        stats = data_manager.get_statistics()
-
-        # Extract data for plotting
-        categories = list(stats.keys())
-        percentages = list(stats.values())
-
-        print(f"Cat in pie: {categories}")
-        print(f"amounts in pie: {percentages}")  # for cross checking
-
-        # Create pie chart with styling
-        wedges, texts, autotexts = ax.pie(
-            percentages,
-            labels=categories,
-            autopct="%1.1f%%",
-            startangle=140,
-            colors=["#a75373", "#6c4464", "#d46a92", "#904863", "#f4d4d4"],
-        )
-
-        # Style the labels and percentages
-        plt.setp(texts, size=7)
-        plt.setp(autotexts, size=7)
-
-        # Adjust layout to prevent label cutoff
-        fig.tight_layout()
-
-        # Convert to Qt canvas
-        canvas = FigureCanvas(fig)
-        canvas.setMinimumSize(300, 200)
-
-        # Get the existing layout
-        layout = widget.layout()
-
-        # Clear any existing widgets in the layout
-        if layout:
+            # Show error message in widget
+            if widget.layout() is None:
+                widget.setLayout(QVBoxLayout())
+            layout = widget.layout()
             while layout.count():
                 item = layout.takeAt(0)
                 if item.widget():
                     item.widget().deleteLater()
 
-            # Add the canvas to the existing layout
+            error_label = QLabel(f"Error loading graph: {str(e)[:50]}...")
+            error_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            error_label.setStyleSheet("color: red; font-size: 12px;")
+            error_label.setWordWrap(True)
+            layout.addWidget(error_label)
+
+    def add_graph_to_budget_summary(self, widget: QWidget, report_date=None):
+        try:
+            # Use provided date or current date
+            current_date = report_date or datetime.today().strftime("%Y-%m")
+            print(f"Debug: Creating budget summary graph for date: {current_date}")
+            data_manager = DataManager(
+                self.user_id,
+                current_date,
+            )
+
+            # Clear any existing plots and create new figure
+            plt.close("all")
+            fig = plt.figure(figsize=(3, 3), dpi=100)
+            ax = fig.add_subplot(111)
+
+            # Get statistics from DataManager
+            stats = data_manager.get_statistics()
+            print(f"Debug: Budget stats: {stats}")
+
+            # Check if we have data
+            if not stats or all(amount == 0 for amount in stats.values()):
+                ax.text(
+                    0.5,
+                    0.5,
+                    "No budget data available",
+                    horizontalalignment="center",
+                    verticalalignment="center",
+                    transform=ax.transAxes,
+                    fontsize=10,
+                )
+                ax.set_xticks([])
+                ax.set_yticks([])
+            else:
+                # Extract data for plotting
+                categories = list(stats.keys())
+                percentages = list(stats.values())
+
+                print(f"Cat in pie: {categories}")
+                print(f"amounts in pie: {percentages}")
+
+                # Create pie chart with styling
+                wedges, texts, autotexts = ax.pie(
+                    percentages,
+                    labels=categories,
+                    autopct="%1.1f%%",
+                    startangle=140,
+                    colors=["#a75373", "#6c4464", "#d46a92", "#904863", "#f4d4d4"],
+                )
+
+                # Style the labels and percentages
+                plt.setp(texts, size=7)
+                plt.setp(autotexts, size=7)
+
+            # Adjust layout to prevent label cutoff
+            fig.tight_layout()
+
+            # Convert to Qt canvas
+            canvas = FigureCanvas(fig)
+            canvas.setMinimumSize(300, 200)
+
+            # Ensure widget has a layout
+            if widget.layout() is None:
+                widget.setLayout(QVBoxLayout())
+
+            layout = widget.layout()
+
+            # Clear any existing widgets in the layout
+            while layout.count():
+                item = layout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
+
+            # Add the canvas to the layout
             layout.addWidget(canvas)
 
-        # Force the widget to update
-        widget.update()
-        canvas.draw()
+            # Force the widget to update
+            widget.update()
+            canvas.draw()
 
-    def add_graph_to_activity(self, widget: QWidget):
-        data_manager = DataManager(self.user_id)
-        activity_data = data_manager.get_activity()
-        months = list(activity_data.keys())
-        amounts = list(activity_data.values())
+        except Exception as e:
+            print(f"Error in add_graph_to_budget_summary: {e}")
+            print(f"Error type: {type(e).__name__}")
+            if hasattr(e, "args"):
+                print(f"Error args: {e.args}")
 
-        plt.close("all")
-        fig = plt.figure(figsize=(4, 2.5), dpi=100)
-        ax = fig.add_subplot(111)
-        ax.plot(months, amounts, marker="o", color="#a75373", linewidth=2)
-        ax.set_xlabel("Month", fontsize=8)
-        ax.set_ylabel("Amount Spent", fontsize=8)
-        ax.set_title("Monthly Activity", fontsize=10)
-        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", fontsize=7)
-        plt.setp(ax.get_yticklabels(), fontsize=7)
-        ax.grid(True, linestyle="--", alpha=0.5)
-        fig.tight_layout()
+            # Show error message in widget
+            if widget.layout() is None:
+                widget.setLayout(QVBoxLayout())
+            layout = widget.layout()
+            while layout.count():
+                item = layout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
 
-        canvas = FigureCanvas(fig)
-        canvas.setMinimumSize(300, 180)
+            error_label = QLabel(f"Error loading budget chart: {str(e)[:50]}...")
+            error_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            error_label.setStyleSheet("color: red; font-size: 12px;")
+            error_label.setWordWrap(True)
+            layout.addWidget(error_label)
 
-        # Ensure the widget has a layout
-        if widget.layout() is None:
-            widget.setLayout(QVBoxLayout())
-        layout = widget.layout()
+    def add_graph_to_activity(self, widget: QWidget, report_date=None):
+        try:
+            current_date = report_date or datetime.today().strftime("%Y-%m")
+            data_manager = DataManager(self.user_id, current_date)
+            activity_data = data_manager.get_activity()
 
-        # Clear any existing widgets in the layout
-        while layout.count():
-            item = layout.takeAt(0)
-            if item.widget():
-                item.widget().deleteLater()
-        layout.addWidget(canvas)
+            plt.close("all")
+            fig = plt.figure(figsize=(4, 2.5), dpi=100)
+            ax = fig.add_subplot(111)
 
-        widget.update()
-        canvas.draw()
+            # Check if we have data
+            if not activity_data or all(
+                amount == 0 for amount in activity_data.values()
+            ):
+                ax.text(
+                    0.5,
+                    0.5,
+                    "No activity data available",
+                    horizontalalignment="center",
+                    verticalalignment="center",
+                    transform=ax.transAxes,
+                    fontsize=10,
+                )
+                ax.set_xticks([])
+                ax.set_yticks([])
+            else:
+                months = list(activity_data.keys())
+                amounts = list(activity_data.values())
+
+                ax.plot(months, amounts, marker="o", color="#a75373", linewidth=2)
+                ax.set_xlabel("Month", fontsize=8)
+                ax.set_ylabel("Amount Spent", fontsize=8)
+                ax.set_title("Monthly Activity", fontsize=10)
+                plt.setp(ax.get_xticklabels(), rotation=45, ha="right", fontsize=7)
+                plt.setp(ax.get_yticklabels(), fontsize=7)
+                ax.grid(True, linestyle="--", alpha=0.5)
+
+            fig.tight_layout()
+
+            canvas = FigureCanvas(fig)
+            canvas.setMinimumSize(300, 180)
+
+            # Ensure the widget has a layout
+            if widget.layout() is None:
+                widget.setLayout(QVBoxLayout())
+            layout = widget.layout()
+
+            # Clear any existing widgets in the layout
+            while layout.count():
+                item = layout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
+            layout.addWidget(canvas)
+
+            widget.update()
+            canvas.draw()
+
+        except Exception as e:
+            print(f"Error in add_graph_to_activity: {e}")
+            # Show error message in widget
+            if widget.layout() is None:
+                widget.setLayout(QVBoxLayout())
+            layout = widget.layout()
+            while layout.count():
+                item = layout.takeAt(0)
+                if item.widget():
+                    item.widget().deleteLater()
+
+            error_label = QLabel("Error loading activity chart")
+            error_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            error_label.setStyleSheet("color: red; font-size: 12px;")
+            layout.addWidget(error_label)
 
     def refresh_data(self):
         """Refresh all user data and UI elements after account setup"""
@@ -3050,9 +2626,13 @@ class BudgetApp(QMainWindow):
                 self.overallbudgetvalue.setText(f"₱{float(self.total_budget):,.2f}")
                 self.expensevalue.setText(f"₱{float(monthly_expenses):,.2f}")
 
-                self.add_graph_to_widget(self.transactionsummarywidget)
-                self.add_graph_to_budget_summary(self.budgetsummarywidget)
-                self.add_graph_to_activity(self.youractivitywidget)
+                # Update graphs with current month data
+                current_month = datetime.today().strftime("%Y-%m")
+                self.add_graph_to_widget(self.transactionsummarywidget, current_month)
+                self.add_graph_to_budget_summary(
+                    self.budgetsummarywidget, current_month
+                )
+                self.add_graph_to_activity(self.youractivitywidget, current_month)
 
                 print("Data refresh completed successfully")
             else:
@@ -3080,6 +2660,19 @@ class BudgetApp(QMainWindow):
 
         self.activities_model.setQuery(query)
         self.transactions_model.setQuery(query)
+
+    def initialize_report_graphs(self):
+        """Initialize graphs on the report page with current month data"""
+        try:
+            current_month = datetime.today().strftime("%Y-%m")
+            print(f"Initializing report graphs for {current_month}")
+
+            # Initialize both report page graphs
+            self.add_graph_to_widget(self.transactionreport_widget, current_month)
+            self.add_graph_to_budget_summary(self.budgetreport_widget, current_month)
+
+        except Exception as e:
+            print(f"Error initializing report graphs: {e}")
 
     def handle_add_transaction(self):
         """Handle adding a new transaction and refreshing the view"""
@@ -3140,6 +2733,15 @@ class BudgetApp(QMainWindow):
                 query2.addBindValue(date_pattern)
 
                 if query2.exec_():
+                    # Set the report date for graphs
+                    report_date = f"{year}-{month_num}"
+
+                    # Add graphs to the report widgets with the specific date
+                    self.add_graph_to_widget(self.transactionreport_widget, report_date)
+                    self.add_graph_to_budget_summary(
+                        self.budgetreport_widget, report_date
+                    )
+
                     self.transactions_model.setQuery(query2)
                     self.transactions.setModel(self.transactions_model)
 
@@ -3206,3 +2808,5 @@ class BudgetApp(QMainWindow):
                     self.sidebar.analytics_btn.setChecked(True)
                 elif page == 2:
                     self.sidebar.report_btn.setChecked(True)
+                    # Initialize report graphs when reports tab is accessed
+                    QTimer.singleShot(100, self.initialize_report_graphs)
