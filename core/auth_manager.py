@@ -91,7 +91,6 @@ with get_db_connection() as connect:
 
 class AuthManager:
     def __init__(self, username_line, password_line, confirm_line, email_line):
-        # Get database connection
         self.connect = sqlite3.connect("accounts.db")
         self.cursor = self.connect.cursor()
         self.username_line_widget = username_line
@@ -106,23 +105,19 @@ class AuthManager:
             self.connect.close()
 
     def signup(self, username_line, password_line, confirm_line, email_line):
-        # Get values from UI elements
         username = username_line.text().strip()
         password = password_line.text().strip()
         confirm_password = confirm_line.text().strip()
         email = email_line.text().strip()
 
-        # Validation
         if not all([username, password, confirm_password, email]):
             print("All fields are required.")
             return False
 
-        # Debug password matching
         print(f"Password length: {len(password)}")
         print(f"Confirm password length: {len(confirm_password)}")
         print(f"Passwords match: {password == confirm_password}")
 
-        # Strip whitespace and normalize case for comparison
         password = password.strip()
         confirm_password = confirm_password.strip()
 
@@ -130,7 +125,6 @@ class AuthManager:
             print("Passwords do not match.")
             return False
 
-        # Check if username already exists
         self.cursor.execute(
             "SELECT username FROM users WHERE username = ?", (username,)
         )
@@ -138,7 +132,6 @@ class AuthManager:
             print("Username already exists.")
             return False
 
-        # Check if email already exists
         self.cursor.execute("SELECT email FROM users WHERE email = ?", (email,))
         if self.cursor.fetchone():
             print("Email already exists.")
@@ -200,11 +193,9 @@ class AuthManager:
             return False
 
     def signin(self, email_widget, password_widget):
-        # Get values from UI elements
         email = email_widget.text().strip()
         password = password_widget.text().strip()
 
-        # Validation
         if not all([email, password]):
             print("Email and password are required.")
             return False
@@ -232,6 +223,5 @@ class AuthManager:
 
     def get_current_user(self):
         if hasattr(self, "current_user_id"):
-            print("from budgetapp")
             return self.current_user_id
         return None

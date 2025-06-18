@@ -13,7 +13,7 @@ class LandingPage(QMainWindow):
     def __init__(self):
         super().__init__()
         self.about_us_dialog = None
-        self.features_dialog = None  # Store reference to features dialog
+        self.features_dialog = None
         self.setupUi()
         self.setup_animations()
         self.setWindowTitle(" ")
@@ -55,8 +55,6 @@ class LandingPage(QMainWindow):
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-
-        # Header widget
         self.widget_3 = QWidget(self.centralwidget)
         self.widget_3.setObjectName("widget_3")
         self.widget_3.setMinimumSize(QSize(0, 60))
@@ -84,7 +82,6 @@ class LandingPage(QMainWindow):
         )
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        # Navigation buttons
         self.toolButton_6 = QToolButton(self.widget_3)
         self.toolButton_6.setObjectName("toolButton_6")
         self.toolButton_6.setMinimumSize(QSize(80, 30))
@@ -137,7 +134,6 @@ class LandingPage(QMainWindow):
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
         self.verticalLayout.addWidget(self.widget_3)
 
-        # Main content widget
         self.widget_2 = QWidget(self.centralwidget)
         self.widget_2.setObjectName("widget_2")
         self.widget_2.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -159,7 +155,6 @@ class LandingPage(QMainWindow):
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(-1, -1, -1, 40)
 
-        # Main title section
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -208,7 +203,6 @@ class LandingPage(QMainWindow):
         self.verticalLayout_2.addWidget(self.user_6)
 
         self.verticalLayout_4.addLayout(self.verticalLayout_2)
-        # Subtitle and CTA section
         self.verticalLayout_3 = QVBoxLayout()
         self.verticalLayout_3.setSpacing(15)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -258,7 +252,6 @@ class LandingPage(QMainWindow):
         )
         self.verticalLayout_8.addItem(self.verticalSpacer_2)
 
-        # Bottom gradient widget
         self.widget = QWidget(self.widget_2)
         self.widget.setObjectName("widget")
         self.widget.setMinimumSize(QSize(0, 60))
@@ -361,8 +354,6 @@ QWidget {
         """
 
     def setup_animations(self):
-        """Setup fade-in and slide animations for UI elements"""
-        # Create opacity effects for fade animations
         self.header_opacity = QGraphicsOpacityEffect()
         self.title_opacity = QGraphicsOpacityEffect()
         self.subtitle_opacity = QGraphicsOpacityEffect()
@@ -370,7 +361,6 @@ QWidget {
         self.cta_opacity = QGraphicsOpacityEffect()
         self.footer_opacity = QGraphicsOpacityEffect()
 
-        # Apply opacity effects
         self.widget_3.setGraphicsEffect(self.header_opacity)
         self.user.setGraphicsEffect(self.title_opacity)
         self.user_6.setGraphicsEffect(self.subtitle_opacity)
@@ -378,7 +368,6 @@ QWidget {
         self.toolButton_3.setGraphicsEffect(self.cta_opacity)
         self.widget.setGraphicsEffect(self.footer_opacity)
 
-        # Set initial opacity to 0
         self.header_opacity.setOpacity(0)
         self.title_opacity.setOpacity(0)
         self.subtitle_opacity.setOpacity(0)
@@ -386,13 +375,11 @@ QWidget {
         self.cta_opacity.setOpacity(0)
         self.footer_opacity.setOpacity(0)
 
-        # Store initial positions for slide animations
         self.initial_user_pos = QPoint(-300, self.user.y())
         self.initial_user6_pos = QPoint(-250, self.user_6.y())
         self.initial_user2_pos = QPoint(-200, self.user_2.y())
         self.initial_cta_pos = QPoint(-150, self.toolButton_3.y())
 
-        # Create fade animations
         self.header_fade = QPropertyAnimation(self.header_opacity, b"opacity")
         self.header_fade.setDuration(800)
         self.header_fade.setStartValue(0)
@@ -429,7 +416,6 @@ QWidget {
         self.footer_fade.setEndValue(1)
         self.footer_fade.setEasingCurve(QEasingCurve.Type.OutCubic)
 
-        # Create slide animations
         self.title_slide = QPropertyAnimation(self.user, b"pos")
         self.title_slide.setDuration(1200)
         self.title_slide.setEasingCurve(QEasingCurve.Type.OutQuart)
@@ -447,19 +433,15 @@ QWidget {
         self.cta_slide.setEasingCurve(QEasingCurve.Type.OutQuart)
 
     def showEvent(self, event):
-        """Start animations when window is shown"""
         super().showEvent(event)
         QTimer.singleShot(100, self.start_animations)
 
     def start_animations(self):
-        """Start the entrance animations with proper timing"""
-        # Get actual positions after layout
         actual_user_pos = self.user.pos()
         actual_user6_pos = self.user_6.pos()
         actual_user2_pos = self.user_2.pos()
         actual_cta_pos = self.toolButton_3.pos()
 
-        # Set up slide animations with actual end positions
         self.title_slide.setStartValue(QPoint(-300, actual_user_pos.y()))
         self.title_slide.setEndValue(actual_user_pos)
 
@@ -472,13 +454,11 @@ QWidget {
         self.cta_slide.setStartValue(QPoint(-150, actual_cta_pos.y()))
         self.cta_slide.setEndValue(actual_cta_pos)
 
-        # Set initial positions
         self.user.move(-300, actual_user_pos.y())
         self.user_6.move(-250, actual_user6_pos.y())
         self.user_2.move(-200, actual_user2_pos.y())
         self.toolButton_3.move(-150, actual_cta_pos.y())
 
-        # Start animations with staggered delays
         self.header_fade.start()
 
         QTimer.singleShot(
@@ -498,21 +478,18 @@ QWidget {
         QTimer.singleShot(1000, self.footer_fade.start)
 
     def handle_get_started(self):
-        """Handle the Get Started button click - always show sign entry"""
-        # Landing page is always shown first, so always go to sign entry
         self.sign_entry()
 
     def sign_entry(self, show_signin=False):
         window = SignEntry(self)
         if show_signin:
-            window.stackedWidget.setCurrentIndex(1)  # Show sign-in page
+            window.stackedWidget.setCurrentIndex(1)
         else:
-            window.stackedWidget.setCurrentIndex(0)  # Show sign-up page
+            window.stackedWidget.setCurrentIndex(0)
         window.setWindowModality(Qt.ApplicationModal)
         window.show()
 
     def open_features(self):
-        # If dialog exists and is visible, close it
         if self.features_dialog and self.features_dialog.isVisible():
             self.features_dialog.close()
             self.features_dialog = None
@@ -523,11 +500,10 @@ QWidget {
         ui = Features_ui()
         ui.setupUi(dialog)
         dialog.setWindowModality(Qt.ApplicationModal)
-        self.features_dialog = dialog  # Store reference
+        self.features_dialog = dialog
         dialog.show()
 
     def open_about_us(self):
-        # If dialog exists and is visible, close it
         if self.about_us_dialog and self.about_us_dialog.isVisible():
             self.about_us_dialog.close()
             self.about_us_dialog = None
@@ -538,5 +514,5 @@ QWidget {
         ui = Team_Dialog()
         ui.setupUi(dialog)
         dialog.setWindowModality(Qt.ApplicationModal)
-        self.features_dialog = dialog  # Store reference
+        self.features_dialog = dialog
         dialog.show()

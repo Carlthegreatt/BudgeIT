@@ -27,19 +27,18 @@ class AddTransactions(Transaction):
         description_edit: QLineEdit,
         category_combo: QComboBox,
         model: QStandardItemModel,
-        parent=None,  # Add parent parameter to access main window methods
+        parent=None,
     ):
         self.__user_id = user_id
         self.__amountedit = amount_edit
         self.__descriptionedit = description_edit
         self.__categorycombo = category_combo
         self.__model = model
-        self.__parent = parent  # Store parent reference
+        self.__parent = parent
 
         self.__connect = sqlite3.connect("accounts.db")
 
     def add_entry(self):
-        # Validate inputs
         cursor = self.__connect.cursor()
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS transactions(
@@ -56,7 +55,6 @@ class AddTransactions(Transaction):
         description = self.__descriptionedit.text().strip()
         category = self.__categorycombo.currentText()
 
-        # Validate empty fields
         if not amount or not description:
             QMessageBox.warning(
                 None,
@@ -66,10 +64,8 @@ class AddTransactions(Transaction):
             return False
 
         try:
-            # Remove currency symbol and convert to float
             amount = float(amount.replace("₱", "").replace(",", "").strip())
 
-            # Validate amount is positive
             if amount <= 0:
                 QMessageBox.warning(
                     None, "Invalid Amount", "Amount must be greater than zero."
@@ -82,12 +78,10 @@ class AddTransactions(Transaction):
             )
             return False
 
-        # Get current date
         current_date = QDate.currentDate().toString("yyyy-MM-dd")
         report_date = QDate.currentDate().toString("yyyy-MM")
 
         try:
-            # Map categories to their corresponding budget columns
             category_budget_map = {
                 "Food": "remaining_food_budget",
                 "Utilities": "remaining_utilities_budget",
@@ -98,7 +92,6 @@ class AddTransactions(Transaction):
                 "Miscellaneous": "remaining_miscellaneous_budget",
             }
 
-            # Get the correct budget column for the selected category
             budget_column = category_budget_map.get(category)
             remaining_budget = cursor.execute(
                 f"SELECT {budget_column}, remaining_monthly_savings, remaining_monthly_budget FROM remaining_budgets WHERE user_id = ? AND report_date = ?",
@@ -169,7 +162,6 @@ class AddTransactions(Transaction):
                         )
                         self.__connect.commit()
 
-                    # Clear inputs on success
                     self.__amountedit.clear()
                     self.__descriptionedit.clear()
                     self.__categorycombo.setCurrentIndex(0)
@@ -209,7 +201,6 @@ class AddTransactions(Transaction):
                 )
                 self.__connect.commit()
 
-                # Clear inputs on success
                 self.__amountedit.clear()
                 self.__descriptionedit.clear()
                 self.__categorycombo.setCurrentIndex(0)

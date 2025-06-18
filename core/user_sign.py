@@ -851,10 +851,8 @@ class SignEntry(QMainWindow):
                 )
                 return
 
-            # Create a single AuthManager instance
             auth_manager = AuthManager(None, None, None, None)
 
-            # Attempt signin
             user_id = auth_manager.signin(
                 self.signin_email_line, self.signin_password_line
             )
@@ -865,24 +863,19 @@ class SignEntry(QMainWindow):
                 settings.setValue("remember_me", remember)
 
                 if remember:
-                    # Save email and user_id for auto-login
                     settings.setValue("saved_email", self.signin_email_line.text())
                     settings.setValue("saved_user_id", str(user_id))
                 else:
-                    # Clear saved credentials if remember me is unchecked
                     settings.remove("saved_email")
                     settings.remove("saved_user_id")
 
                 print(f"Signin successful, user ID: {user_id}")
 
-                # After successful login, go directly to main app
-                # Landing page was already shown before sign-in
                 from core.main import BudgetApp
 
                 self.main_app = BudgetApp(user_id)
                 self.main_app.show()
 
-                # Close signin window and its parent (landing page)
                 if hasattr(self, "parent") and self.parent():
                     self.parent().close()
                 self.close()
@@ -1130,10 +1123,7 @@ class SignEntry(QMainWindow):
 
         QMetaObject.connectSlotsByName(MainWindow)
 
-        # Load saved credentials after UI setup is complete
         self.load_saved_credentials_delayed()
-
-    # setupUi
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(
@@ -1216,14 +1206,10 @@ class SignEntry(QMainWindow):
         )
         self.logomin_2.setText("")
 
-    # retranslateUi
-
     def load_saved_credentials(self):
-        """Load saved credentials if remember me was enabled - called from init but may be too early"""
-        pass  # Will be handled by load_saved_credentials_delayed
+        pass
 
     def load_saved_credentials_delayed(self):
-        """Load saved credentials after UI setup is complete"""
         settings = QSettings("MyCompany", "MyApp")
         remember_me = settings.value("remember_me", False, type=bool)
 
@@ -1232,17 +1218,11 @@ class SignEntry(QMainWindow):
             saved_user_id = settings.value("saved_user_id", "", type=str)
 
             if saved_email and saved_user_id:
-                # Auto-fill the email field and switch to sign-in page
-                self.stackedWidget.setCurrentIndex(1)  # Switch to sign-in page
+                self.stackedWidget.setCurrentIndex(1)
                 self.signin_email_line.setText(saved_email)
                 self.remember_checkbox.setChecked(True)
 
-                # Focus on password field for convenience
                 self.signin_password_line.setFocus()
-
-                # Optionally auto-login (uncomment the next lines if you want automatic login)
-                # Note: This would require storing password securely, which is not recommended
-                # Instead, we just pre-fill the email and let user enter password
 
     def clear_saved_credentials(self):
         """Clear all saved credentials from settings"""

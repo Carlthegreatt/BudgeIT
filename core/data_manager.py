@@ -17,7 +17,7 @@ class DataManager:
             "SELECT * FROM user_data WHERE user_id = ? AND report_date = ?",
             (self._id, self.report_date),
         )
-        return cursor.fetchall()  # Gets user data in tuples
+        return cursor.fetchall()
 
     def get_statistics(self) -> dict:
         result = self.get_data()
@@ -52,7 +52,6 @@ class DataManager:
         return float(str(val).replace("₱", "").replace(",", "").strip())
 
     def get_transactions_data(self):
-        # Filter transactions by the report date (YYYY-MM format)
         data = cursor.execute(
             "SELECT * FROM transactions WHERE user_id = ? AND transaction_date LIKE ?",
             (self._id, f"{self.report_date}%"),
@@ -67,7 +66,7 @@ class DataManager:
             "Miscellaneous": 0,
         }
         for row in data:
-            category = row[-1]  # Last column is category
+            category = row[-1]
             if category in total:
                 total[category] += DataManager.parse_amount(row[3])
         return total

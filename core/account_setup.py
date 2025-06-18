@@ -612,7 +612,6 @@ class AccountSetup(QDialog):
                 else:
                     cursor = connect.cursor()
 
-                    # First check if user_data exists for this user
                     cursor.execute(
                         "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
                     )
@@ -641,7 +640,6 @@ class AccountSetup(QDialog):
                         )
                         return
 
-                    # Validate numeric values
                     try:
                         [float(v) for v in values]
                     except ValueError:
@@ -653,7 +651,6 @@ class AccountSetup(QDialog):
                         return
 
                     if self.user_data:
-                        # Update existing record
                         cursor.execute(
                             """
                             UPDATE user_data SET
@@ -698,7 +695,6 @@ class AccountSetup(QDialog):
                             ),
                         )
                     else:
-                        # Insert new record
                         cursor.execute(
                             """
                             INSERT INTO user_data (
@@ -747,7 +743,6 @@ class AccountSetup(QDialog):
                     connect.commit()
                     print("Account setup successful - user_data updated")
 
-                    # Update users table
                     cursor.execute(
                         "UPDATE users SET account_setup = ? WHERE user_id = ?",
                         (True, self.user_id),
@@ -755,11 +750,9 @@ class AccountSetup(QDialog):
                     connect.commit()
                     print("Account setup successful - users table updated")
 
-                    # Emit the signal before closing
                     self.setup_completed.emit()
                     print("Setup completed signal emitted")
 
-                    # Close the dialog
                     self.accept()
 
         except Exception as e:
@@ -777,11 +770,9 @@ class AccountSetup(QDialog):
                 value = float(text_edit.text())
                 total += value
             except ValueError:
-                continue  # Ignore non-numeric input
+                continue
 
         self.budgetvalue.setText(f"₱{total:,.2f}")
-
-    # setupUi
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", "Dialog", None))
@@ -834,5 +825,3 @@ class AccountSetup(QDialog):
             QCoreApplication.translate("Dialog", "Miscellaneous", None)
         )
         self.submitbtn.setText(QCoreApplication.translate("Dialog", "Submit", None))
-
-    # retranslateUi

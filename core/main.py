@@ -31,7 +31,6 @@ class Sidebar(QWidget):
         self.setStyleSheet(
             "Sidebar { background-color: rgb(43, 27, 40); border: none; }"
         )
-
         self.setObjectName("Sidebar")
         self.setMouseTracking(True)
         self.on_nav = on_nav
@@ -41,7 +40,6 @@ class Sidebar(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setAlignment(Qt.AlignTop)
 
-        # Create a main container widget to ensure proper background color
         self.main_container = QWidget()
         self.main_container.setStyleSheet("background-color: rgb(43, 27, 40);")
         container_layout = QVBoxLayout(self.main_container)
@@ -49,7 +47,6 @@ class Sidebar(QWidget):
         container_layout.setContentsMargins(0, 0, 0, 0)
         container_layout.setAlignment(Qt.AlignTop)
 
-        # Logo
         logo_widget = QWidget()
         logo_widget.setStyleSheet("background-color: transparent;")
         logo_layout = QHBoxLayout(logo_widget)
@@ -63,7 +60,6 @@ class Sidebar(QWidget):
         logo_layout.addWidget(self.logo)
         container_layout.addWidget(logo_widget)
 
-        # Dashboard button
         self.home_btn = QToolButton()
         icon = QIcon()
         icon.addFile(
@@ -89,7 +85,6 @@ class Sidebar(QWidget):
         self.home_btn.clicked.connect(lambda: self.on_nav(0) if self.on_nav else None)
         container_layout.addWidget(self.home_btn)
 
-        # Analytics button
         self.analytics_btn = QToolButton()
         icon1 = QIcon()
         icon1.addFile(
@@ -117,7 +112,6 @@ class Sidebar(QWidget):
         )
         container_layout.addWidget(self.analytics_btn)
 
-        # Reports button
         self.report_btn = QToolButton()
         icon2 = QIcon()
         icon2.addFile(
@@ -133,7 +127,6 @@ class Sidebar(QWidget):
         self.report_btn.setChecked(False)
         self.report_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.report_btn.setMouseTracking(True)
-
         self.report_btn.setMaximumSize(QSize(150, 50))
         self.report_btn.setStyleSheet(
             "QToolButton { color: white; background-color: transparent; border: none; padding: 10px 18px; text-align: left; font: 500 12px 'Roboto'; icon-size: 18px 18px; }"
@@ -145,7 +138,6 @@ class Sidebar(QWidget):
         container_layout.addWidget(self.report_btn)
         container_layout.addStretch()
 
-        # Logout button
         self.logout_btn = QToolButton()
         icon3 = QIcon()
         icon3.addFile(
@@ -169,10 +161,8 @@ class Sidebar(QWidget):
         )
         container_layout.addWidget(self.logout_btn)
 
-        # Add the container to the main layout
         layout.addWidget(self.main_container)
 
-        # Button group for exclusive selection
         self.button_group = QButtonGroup()
         self.button_group.addButton(self.home_btn)
         self.button_group.addButton(self.analytics_btn)
@@ -180,10 +170,8 @@ class Sidebar(QWidget):
 
     def enterEvent(self, event):
         self.animate_width(self.expanded_width)
-        # Change logo to max version when expanded
         self.logo.setPixmap(QPixmap(":/logomax.png"))
         self.logo.setMaximumSize(QSize(80, 30))
-        # Show text on buttons when expanded
         self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
         self.analytics_btn.setToolButtonStyle(
             Qt.ToolButtonStyle.ToolButtonTextBesideIcon
@@ -194,10 +182,8 @@ class Sidebar(QWidget):
 
     def leaveEvent(self, event):
         self.animate_width(self.collapsed_width)
-        # Change logo back to min version when collapsed
         self.logo.setPixmap(QPixmap(":/budgeIT_logo.png"))
         self.logo.setMaximumSize(QSize(45, 30))
-        # Hide text on buttons when collapsed (show only icons)
         self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
         self.analytics_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
         self.report_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
@@ -220,8 +206,6 @@ class BudgetApp(QMainWindow):
         self.connect = sqlite3.connect("accounts.db")
         self.cursor = self.connect.cursor()
 
-        print("from budgetapp: user data", self.user_id)
-
         self.setupUi(self)
         self.setWindowTitle(" ")
 
@@ -241,37 +225,30 @@ class BudgetApp(QMainWindow):
         self.account_setup.setup_completed.connect(self.refresh_data)
 
         if self.user_data:
-            print("Account setup required")
             QTimer.singleShot(600, self.account_setup.show)
-
         else:
-            print("Account already set up")
             self.refresh_data()
-
             if check_monthly_reset(self.user_id) == True:
                 self.update_month_setup = UpdateMonthSetup(
                     self.user_id, datetime.today().strftime("%Y-%m")
                 )
                 self.update_month_setup.show()
-        print("Now in main")
 
     def setupUi(self, MainWindow):
         self.current_month = datetime.today().strftime("%Y-%m")
-        print("from budgetapp setupUi: current user id", self.user_id)
         self.cursor.execute(
             "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
         )
         self.user_data = self.cursor.fetchone()
 
         self.cursor.execute(
-            """SELECT * FROM remaining_budgets WHERE user_id = ? AND report_date = ?""",
+            "SELECT * FROM remaining_budgets WHERE user_id = ? AND report_date = ?",
             (self.user_id, self.current_month),
         )
         self.remaining_budgets = self.cursor.fetchone()
-        self.current_month = datetime.today().strftime("%Y-%m")
+
         self.cursor.execute(
-            """SELECT COUNT(*) FROM transactions WHERE user_id = ?""",
-            (self.user_id,),
+            "SELECT COUNT(*) FROM transactions WHERE user_id = ?", (self.user_id,)
         )
         self.transaction_count = self.cursor.fetchone()[0]
 
@@ -285,17 +262,10 @@ class BudgetApp(QMainWindow):
             if font_families:
                 app_font = QFont(font_families[0])
                 QApplication.setFont(app_font)
-            else:
-                print("Font loaded, but no families found.")
-        else:
-            print("Failed to load font.")
 
         title_icon = QIcon()
         title_icon.addFile(
-            ":/budgeIT_logo.png",
-            QSize(),
-            QIcon.Mode.Active,
-            QIcon.State.On,
+            ":/budgeIT_logo.png", QSize(), QIcon.Mode.Active, QIcon.State.On
         )
         self.setWindowIcon(title_icon)
         if not MainWindow.objectName():
@@ -310,11 +280,9 @@ class BudgetApp(QMainWindow):
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
 
-        # Create the new sidebar
         self.sidebar = Sidebar(parent=self, on_nav=self.on_side_bar_click)
         self.horizontalLayout_6.addWidget(self.sidebar)
 
-        # Define size policies used throughout the UI
         sizePolicy = QSizePolicy(
             QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred
         )
@@ -342,7 +310,6 @@ class BudgetApp(QMainWindow):
         self.horizontalLayout_24.setSpacing(10)
         self.horizontalLayout_24.setObjectName("horizontalLayout_24")
         self.horizontalLayout_24.setContentsMargins(10, 0, 10, 0)
-        # Menu button removed - using hover sidebar instead
 
         self.horizontalLayout_17 = QHBoxLayout()
         self.horizontalLayout_17.setObjectName("horizontalLayout_17")
@@ -416,7 +383,6 @@ class BudgetApp(QMainWindow):
         self.horizontalLayout_24.addWidget(self.morebtn)
         self.verticalLayout.addWidget(self.dashboardwidget)
 
-        # start of page 1
         self.tab = QStackedWidget(self.tabframe)
         self.tab.setObjectName("tab")
         self.page_1 = QWidget()
@@ -991,7 +957,6 @@ class BudgetApp(QMainWindow):
         self.verticalLayout_3.addWidget(self.page1_scrollarea)
         self.tab.addWidget(self.page_1)
 
-        # start of page 2
         self.page_2 = QWidget()
         self.page_2.setObjectName("page_2")
         self.page_2.setStyleSheet("")
@@ -2032,12 +1997,8 @@ class BudgetApp(QMainWindow):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-
         self.tab.setCurrentIndex(0)
-
-        # Add connection for tab changes
         self.tab.currentChanged.connect(self.update_menu_label)
-
         QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -2052,9 +2013,7 @@ class BudgetApp(QMainWindow):
         )
         self.profilebtn.setText(QCoreApplication.translate("MainWindow", "...", None))
         self.morebtn.setText(QCoreApplication.translate("MainWindow", "...", None))
-        # if QT_CONFIG(accessibility)
         self.tab.setAccessibleDescription("")
-        # endif // QT_CONFIG(accessibility)
         self.greethello.setText(
             QCoreApplication.translate("MainWindow", "Hello,", None)
         )
@@ -2258,9 +2217,6 @@ class BudgetApp(QMainWindow):
             QCoreApplication.translate("MainWindow", "Total Transactions", None)
         )
 
-    # retranslateUi
-
-    # helper functions
     def update_menu_label(self, index):
         if index == 0:
             self.menulabel.setText("Dashboard")
@@ -2268,8 +2224,6 @@ class BudgetApp(QMainWindow):
             self.menulabel.setText("Analytics")
         elif index == 2:
             self.menulabel.setText("Reports")
-
-    # toggle_sidebar method removed - using hover sidebar instead
 
     def budget_window(self):
         dialog = BudgetWindow(self)
@@ -2307,21 +2261,15 @@ class BudgetApp(QMainWindow):
 
     def add_graph_to_widget(self, widget: QWidget, report_date=None):
         try:
-            # Use provided date or current date
             current_date = report_date or datetime.today().strftime("%Y-%m")
-            print(f"Debug: Creating transaction graph for date: {current_date}")
             data_manager = DataManager(self.user_id, current_date)
 
-            # Clear any existing plots and create new figure
             plt.close("all")
             fig = plt.figure(figsize=(4, 3), dpi=100)
             ax = fig.add_subplot(111)
 
-            # Get statistics from DataManager
             stats = data_manager.get_transactions_data()
-            print(f"Debug: Transaction stats: {stats}")
 
-            # Check if we have data
             if not stats or all(amount == 0 for amount in stats.values()):
                 ax.text(
                     0.5,
@@ -2335,60 +2283,34 @@ class BudgetApp(QMainWindow):
                 ax.set_xticks([])
                 ax.set_yticks([])
             else:
-                # Extract data for plotting
                 categories = list(stats.keys())
                 amounts = list(stats.values())
 
-                print(f"Cat in graph: {categories}")
-                print(f"amounts in graph: {amounts}")
-
-                # Create bar chart with styling
                 bars = ax.bar(categories, amounts, color="#a75373")
-
-                # Customize the appearance
                 ax.set_xlabel("Category", fontsize=7, labelpad=8)
                 ax.set_ylabel("Amount Spent", fontsize=7, labelpad=8)
-
-                # Rotate and align the tick labels so they look better
                 plt.setp(ax.get_xticklabels(), rotation=45, ha="right", fontsize=7)
                 plt.setp(ax.get_yticklabels(), fontsize=7)
-
-                # Add some padding between the axis and the labels
                 ax.tick_params(axis="x", which="major", pad=5)
 
-            # Adjust layout to prevent label cutoff
             fig.tight_layout()
-
-            # Convert to Qt canvas
             canvas = FigureCanvas(fig)
             canvas.setMinimumSize(300, 200)
 
-            # Ensure widget has a layout
             if widget.layout() is None:
                 widget.setLayout(QVBoxLayout())
-
             layout = widget.layout()
 
-            # Clear any existing widgets in the layout
             while layout.count():
                 item = layout.takeAt(0)
                 if item.widget():
                     item.widget().deleteLater()
 
-            # Add the canvas to the layout
             layout.addWidget(canvas)
-
-            # Force the widget to update
             widget.update()
             canvas.draw()
 
         except Exception as e:
-            print(f"Error in add_graph_to_widget: {e}")
-            print(f"Error type: {type(e).__name__}")
-            if hasattr(e, "args"):
-                print(f"Error args: {e.args}")
-
-            # Show error message in widget
             if widget.layout() is None:
                 widget.setLayout(QVBoxLayout())
             layout = widget.layout()
@@ -2405,21 +2327,15 @@ class BudgetApp(QMainWindow):
 
     def add_graph_to_budget_summary(self, widget: QWidget, report_date=None):
         try:
-            # Use provided date or current date
             current_date = report_date or datetime.today().strftime("%Y-%m")
-            print(f"Debug: Creating budget summary graph for date: {current_date}")
             data_manager = DataManager(self.user_id, current_date)
 
-            # Clear any existing plots and create new figure
             plt.close("all")
             fig = plt.figure(figsize=(3, 3), dpi=100)
             ax = fig.add_subplot(111)
 
-            # Get statistics from DataManager
             stats = data_manager.get_statistics()
-            print(f"Debug: Budget stats: {stats}")
 
-            # Check if we have data
             if not stats or all(amount == 0 for amount in stats.values()):
                 ax.text(
                     0.5,
@@ -2433,14 +2349,9 @@ class BudgetApp(QMainWindow):
                 ax.set_xticks([])
                 ax.set_yticks([])
             else:
-                # Extract data for plotting
                 categories = list(stats.keys())
                 percentages = list(stats.values())
 
-                print(f"Cat in pie: {categories}")
-                print(f"amounts in pie: {percentages}")
-
-                # Create pie chart with styling
                 wedges, texts, autotexts = ax.pie(
                     percentages,
                     labels=categories,
@@ -2448,44 +2359,27 @@ class BudgetApp(QMainWindow):
                     startangle=140,
                     colors=["#a75373", "#6c4464", "#d46a92", "#904863", "#f4d4d4"],
                 )
-
-                # Style the labels and percentages
                 plt.setp(texts, size=7)
                 plt.setp(autotexts, size=7)
 
-            # Adjust layout to prevent label cutoff
             fig.tight_layout()
-
-            # Convert to Qt canvas
             canvas = FigureCanvas(fig)
             canvas.setMinimumSize(300, 200)
 
-            # Ensure widget has a layout
             if widget.layout() is None:
                 widget.setLayout(QVBoxLayout())
-
             layout = widget.layout()
 
-            # Clear any existing widgets in the layout
             while layout.count():
                 item = layout.takeAt(0)
                 if item.widget():
                     item.widget().deleteLater()
 
-            # Add the canvas to the layout
             layout.addWidget(canvas)
-
-            # Force the widget to update
             widget.update()
             canvas.draw()
 
         except Exception as e:
-            print(f"Error in add_graph_to_budget_summary: {e}")
-            print(f"Error type: {type(e).__name__}")
-            if hasattr(e, "args"):
-                print(f"Error args: {e.args}")
-
-            # Show error message in widget
             if widget.layout() is None:
                 widget.setLayout(QVBoxLayout())
             layout = widget.layout()
@@ -2558,8 +2452,6 @@ class BudgetApp(QMainWindow):
             canvas.draw()
 
         except Exception as e:
-            print(f"Error in add_graph_to_activity: {e}")
-            # Show error message in widget
             if widget.layout() is None:
                 widget.setLayout(QVBoxLayout())
             layout = widget.layout()
@@ -2577,7 +2469,6 @@ class BudgetApp(QMainWindow):
         """Refresh all user data and UI elements after account setup"""
         try:
             current_month = datetime.today().strftime("%Y-%m")
-            print("Starting data refresh...")
             self.cursor.execute(
                 "SELECT * FROM user_data WHERE user_id = ? AND report_date = ?",
                 (self.user_id, current_month),
@@ -2591,16 +2482,12 @@ class BudgetApp(QMainWindow):
             self.remaining_budgets = self.cursor.fetchone()
 
             self.cursor.execute(
-                "SELECT COUNT(*) FROM transactions WHERE user_id = ?",
-                (self.user_id,),
+                "SELECT COUNT(*) FROM transactions WHERE user_id = ?", (self.user_id,)
             )
             self.transaction_count = self.cursor.fetchone()[0]
             self.totaltransactionvalue.setText(f"{self.transaction_count}")
 
             if self.user_data:
-                print(f"User data fetched: {self.user_data}")
-
-                # Update income and budget values
                 monthly_income = float(self.user_data[4])
                 monthly_budget = float(self.user_data[5])
                 monthly_expenses = float(self.user_data[3])
@@ -2651,19 +2538,13 @@ class BudgetApp(QMainWindow):
                 self.overallbudgetvalue.setText(f"₱{float(self.total_budget):,.2f}")
                 self.expensevalue.setText(f"₱{float(monthly_expenses):,.2f}")
 
-                # Update graphs with current month data
                 self.add_graph_to_widget(self.transactionsummarywidget, current_month)
                 self.add_graph_to_budget_summary(
                     self.budgetsummarywidget, current_month
                 )
                 self.add_graph_to_activity(self.youractivitywidget, current_month)
 
-                print("Data refresh completed successfully")
-            else:
-                print("No user data found during refresh")
-
         except Exception as e:
-            print(f"Error during data refresh: {e}")
             QMessageBox.warning(
                 self, "Refresh Error", "Failed to refresh data. Please try again."
             )
@@ -2714,10 +2595,6 @@ class BudgetApp(QMainWindow):
 
     def handle_previous_transaction(self, month, year):
         """Handle viewing transactions for a specific month and year"""
-        print(
-            f"Debug: handle_previous_transaction called with month='{month}', year='{year}'"
-        )
-
         if month and year and month.strip() and year.strip():
             try:
                 self.monthlyreport_lbl.setText(
@@ -2742,10 +2619,6 @@ class BudgetApp(QMainWindow):
                 month_num = month_mapping.get(month, "01")
                 date_pattern = f"{year}-{month_num}%"
 
-                print(
-                    f"Debug: Searching for transactions with date pattern: {date_pattern}"
-                )
-
                 query2 = QSqlQuery()
                 query2.prepare(
                     """SELECT transaction_date, amount, description, category 
@@ -2757,10 +2630,7 @@ class BudgetApp(QMainWindow):
                 query2.addBindValue(date_pattern)
 
                 if query2.exec_():
-                    # Set the report date for graphs
                     report_date = f"{year}-{month_num}"
-
-                    # Add graphs to the report widgets with the specific date
                     self.add_graph_to_widget(self.transactionreport_widget, report_date)
                     self.add_graph_to_budget_summary(
                         self.budgetreport_widget, report_date
@@ -2770,23 +2640,17 @@ class BudgetApp(QMainWindow):
                     self.transactions.setModel(self.transactions_model)
 
                     row_count = self.transactions_model.rowCount()
-                    print(f"Debug: Found {row_count} transactions for {month} {year}")
-
                     if row_count > 0:
                         self.stackedWidget.setCurrentIndex(0)
                         self.update_report_data(month, year, date_pattern)
                     else:
                         self.stackedWidget.setCurrentIndex(1)
-                        print(f"Debug: No transactions found for {month} {year}")
                 else:
-                    print(f"Debug: Query execution failed: {query2.lastError().text()}")
                     self.stackedWidget.setCurrentIndex(1)
 
             except Exception as e:
-                print(f"Debug: Error in handle_previous_transaction: {e}")
                 self.stackedWidget.setCurrentIndex(1)
         else:
-            print("Debug: Month or year not selected properly")
             self.stackedWidget.setCurrentIndex(1)
 
     def update_report_data(self, month, year, date_pattern):
@@ -2796,7 +2660,7 @@ class BudgetApp(QMainWindow):
                 """SELECT monthly_budget, monthly_savings, monthly_expenses 
                    FROM user_data 
                    WHERE user_id = ? AND report_date LIKE ?""",
-                (self.user_id, date_pattern[:7]),  # YYYY-MM format
+                (self.user_id, date_pattern[:7]),
             )
             result = self.cursor.fetchone()
 
@@ -2810,10 +2674,8 @@ class BudgetApp(QMainWindow):
                 self.savingsreport_value.setText("No data")
                 self.expensereport_value.setText("No data")
 
-            print(f"Debug: Updated report data for {month} {year}")
-
         except Exception as e:
-            print(f"Debug: Error updating report data: {e}")
+            pass
 
     def show_message(self, text):
         x = (self.width() - self.popup.width()) // 2
@@ -2832,5 +2694,4 @@ class BudgetApp(QMainWindow):
                     self.sidebar.analytics_btn.setChecked(True)
                 elif page == 2:
                     self.sidebar.report_btn.setChecked(True)
-                    # Initialize report graphs when reports tab is accessed
                     QTimer.singleShot(100, self.initialize_report_graphs)

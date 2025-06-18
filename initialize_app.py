@@ -32,7 +32,6 @@ class Main:
 
 
 def main():
-    # Import resource files to ensure they're loaded
     import assets.images.images_rc
 
     app = Main()

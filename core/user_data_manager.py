@@ -1,13 +1,8 @@
 import sqlite3
 
-# Remove the import of AuthManager since we'll implement our own auth methods
-# from AuthorizationManager import AuthManager
-
-# Use the same database as AuthManager for consistency
 connect = sqlite3.connect("accounts.db")
 cursor = connect.cursor()
 
-# Fixed table schema - removed duplicate email/password, added foreign key reference
 cursor.execute(
     """CREATE TABLE IF NOT EXISTS user_data(
     data_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,7 +20,6 @@ cursor.execute(
     )"""
 )
 
-# Ensure users table exists (same as in AuthorizationManager)
 cursor.execute(
     """CREATE TABLE IF NOT EXISTS users(
                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -39,12 +33,10 @@ class UserDataManager:
     def __init__(self, connect, cursor):
         self.connect = connect
         self.cursor = cursor
-        self.current_user_id = None  # Track currently logged in user
+        self.current_user_id = None
         self.current_email = None
 
     def signup(self, username, password, confirm_password, email):
-        """Register a new user"""
-        # Validation
         if not all([username, password, confirm_password, email]):
             print("All fields are required.")
             return False
@@ -53,7 +45,6 @@ class UserDataManager:
             print("Passwords do not match.")
             return False
 
-        # Check if username already exists
         self.cursor.execute(
             "SELECT username FROM users WHERE username = ?", (username,)
         )
@@ -61,7 +52,6 @@ class UserDataManager:
             print("Username already exists.")
             return False
 
-        # Check if email already exists
         self.cursor.execute("SELECT email FROM users WHERE email = ?", (email,))
         if self.cursor.fetchone():
             print("Email already exists.")
@@ -74,7 +64,6 @@ class UserDataManager:
             )
             self.connect.commit()
 
-            # Get the newly created user's ID
             self.cursor.execute("SELECT user_id FROM users WHERE email = ?", (email,))
             result = self.cursor.fetchone()
             if result:
@@ -88,8 +77,6 @@ class UserDataManager:
             return False
 
     def signin(self, email, password):
-        """Sign in an existing user"""
-        # Validation
         if not all([email, password]):
             print("Email and password are required.")
             return False
@@ -128,7 +115,6 @@ class UserDataManager:
             print("Please log in first.")
             return False
 
-        # Check if user already has budget data
         self.cursor.execute(
             "SELECT data_id FROM user_data WHERE user_id = ?",
             (self.current_user_id,),
@@ -137,7 +123,6 @@ class UserDataManager:
             print("User budget data already exists. Use update method to modify.")
             return False
 
-        # Insert new budget data for the current user
         self.cursor.execute(
             "INSERT INTO user_data (user_id, monthly_income, monthly_budget, food_budget, utilities_budget, health_wellness_budget, personal_lifestyle_budget, education_budget, transportation_budget, miscellaneous_budget) VALUES (?,?,?,?,?,?,?,?,?,?)",
             (
@@ -158,7 +143,6 @@ class UserDataManager:
         return True
 
     def get_user_data(self):
-        """Get budget data for current user"""
         if not self.current_user_id:
             print("Please log in first.")
             return None
@@ -181,7 +165,6 @@ class UserDataManager:
         transportation_budget,
         miscellaneous_budget,
     ):
-        """Update existing budget data for current user"""
         if not self.current_user_id:
             print("Please log in first.")
             return False
@@ -211,19 +194,6 @@ class UserDataManager:
         return True
 
     def signout(self):
-        """Clear current user session"""
         self.current_user_id = None
         self.current_email = None
         print("Logged out successfully.")
-
-
-# Example usage with proper session management
-
-username = "cal"
-email = "ca1@gmail.com"
-password = "09082005"
-confirm_password = "09082005"
-
-
-user_manager = UserDataManager(connect, cursor)
-user_manager.signup(username, password, confirm_password, email)
