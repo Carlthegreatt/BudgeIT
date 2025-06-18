@@ -1,9 +1,10 @@
 import sys
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QSettings
-from user_sign import SignEntry
-from main import BudgetApp
-from landing_page import LandingPage
+from core.user_sign import SignEntry
+from core.main import BudgetApp
+from core.landing_page import LandingPage
 
 
 class Main:
@@ -31,6 +32,9 @@ class Main:
 
 
 def main():
+    # Import resource files to ensure they're loaded
+    import assets.images.images_rc
+
     app = Main()
 
 

@@ -2,5 +2,6 @@
   <qresource prefix="/">
     <file>logomax.png</file>
     <file>logomin.png</file>
+    <file>budgeIT_logo.png</file>
   </qresource>
 </RCC>

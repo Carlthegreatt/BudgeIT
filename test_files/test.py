@@ -1,4 +1,4 @@
-from components.auth_manager import AuthManager
+from core.auth_manager import AuthManager
 import sqlite3
 
 connect = sqlite3.connect("accounts.db")

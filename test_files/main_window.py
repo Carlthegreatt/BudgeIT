@@ -6,15 +6,15 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import assets.icons.icons_rc
 import assets.images.images_rc
-from addtransactions import AddTransactions
+from core.add_transactions import AddTransactions
 from components.budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
-from components.datamanager import DataManager
+from core.data_manager import DataManager
 from components.signoutwindow import SignOutWindow
-from components.account_setup import AccountSetup
+from core.account_setup import AccountSetup
 import sqlite3
-from database_manager import *
+from components.database_manager import *
 from components.update_month_setup import UpdateMonthSetup
 from PySide6.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
 from components.pesoquerymodel import PesoQueryModel
@@ -2780,7 +2780,7 @@ class BudgetApp(QMainWindow):
         dialog.show()
 
     def show_sign_in(self):
-        from user_sign import SignEntry
+        from core.user_sign import SignEntry
         from PySide6.QtCore import QSettings
 
         # Reset all session and login settings

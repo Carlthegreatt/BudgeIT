@@ -1,8 +1,8 @@
-import sys
+import os
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
-from components.auth_manager import get_db_connection
+from core.auth_manager import get_db_connection
 from datetime import datetime
 
 
@@ -13,6 +13,20 @@ class SavingsWindow(QDialog):
         self.setupUi(self)
         self.setWindowTitle(" ")
         self.load_savings_data()
+        font_path = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), "assets", "fonts", "Roboto.ttf"
+        )
+        font_id = QFontDatabase.addApplicationFont(font_path)
+
+        if font_id != -1:
+            font_families = QFontDatabase.applicationFontFamilies(font_id)
+            if font_families:
+                app_font = QFont(font_families[0])
+                QApplication.setFont(app_font)
+            else:
+                print("Font loaded, but no families found.")
+        else:
+            print("Failed to load font.")
 
     def load_savings_data(self):
         if not hasattr(self.parent, "user_id"):

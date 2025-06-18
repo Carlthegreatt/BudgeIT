@@ -63,7 +63,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 import icons_rc
-import images_rc
+import assets.images.images_rc as images_rc
 
 
 class Ui_MainWindow(object):
