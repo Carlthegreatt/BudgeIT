@@ -2935,7 +2935,6 @@ class BudgetApp(QMainWindow):
         # Force the widget to update
         widget.update()
         canvas.draw()
-
     def refresh_data(self):
         """Refresh all user data and UI elements after account setup"""
         try:
@@ -2963,11 +2962,13 @@ class BudgetApp(QMainWindow):
             if self.user_data:
                 print(f"User data fetched: {self.user_data}")
 
+                # Update income and budget values
                 monthly_income = float(self.user_data[4])
                 monthly_budget = float(self.user_data[5])
                 monthly_expenses = float(self.user_data[3])
                 monthly_savings = float(self.remaining_budgets[3])
                 remaining_monthly_budget = float(self.remaining_budgets[4])
+                total_transaction_value = float(self.transaction_count)
 
                 self.budgetreport_value.setText(f"₱{self.remaining_budgets[4]:,.2f}")
                 self.savingsreport_value.setText(f"₱{self.remaining_budgets[3]:,.2f}")
@@ -3014,6 +3015,7 @@ class BudgetApp(QMainWindow):
 
                 self.add_graph_to_widget(self.transactionsummarywidget)
                 self.add_graph_to_budget_summary(self.budgetsummarywidget)
+                self.add_graph_to_activity(self.youractivitywidget)
 
                 print("Data refresh completed successfully")
             else:
