@@ -877,7 +877,7 @@ class SignEntry(QMainWindow):
 
                 # After successful login, go directly to main app
                 # Landing page was already shown before sign-in
-                from test_files.main_window import BudgetApp
+                from main import BudgetApp
 
                 self.main_app = BudgetApp(user_id)
                 self.main_app.show()

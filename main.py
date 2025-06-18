@@ -1542,6 +1542,11 @@ class BudgetApp(QMainWindow):
         self.yearcombo.setPlaceholderText("Year")
         self.yearcombo.addItem("")
         self.yearcombo.addItem("")
+        self.yearcombo.addItem("")
+        self.yearcombo.addItem("")
+        self.yearcombo.addItem("")
+        self.yearcombo.addItem("")
+        self.yearcombo.addItem("")
         self.yearcombo.setObjectName("yearcombo")
         sizePolicy5.setHeightForWidth(self.yearcombo.sizePolicy().hasHeightForWidth())
         self.yearcombo.setSizePolicy(sizePolicy5)
@@ -2159,10 +2164,25 @@ class BudgetApp(QMainWindow):
         )
 
         self.yearcombo.setItemText(
-            0, QCoreApplication.translate("MainWindow", "2024", None)
+            0, QCoreApplication.translate("MainWindow", "2019", None)
         )
         self.yearcombo.setItemText(
-            1, QCoreApplication.translate("MainWindow", "2025", None)
+            1, QCoreApplication.translate("MainWindow", "2020", None)
+        )
+        self.yearcombo.setItemText(
+            2, QCoreApplication.translate("MainWindow", "2021", None)
+        )
+        self.yearcombo.setItemText(
+            3, QCoreApplication.translate("MainWindow", "2022", None)
+        )
+        self.yearcombo.setItemText(
+            4, QCoreApplication.translate("MainWindow", "2023", None)
+        )
+        self.yearcombo.setItemText(
+            5, QCoreApplication.translate("MainWindow", "2024", None)
+        )
+        self.yearcombo.setItemText(
+            6, QCoreApplication.translate("MainWindow", "2025", None)
         )
 
         self.yearcombo.setPlaceholderText(
@@ -2380,10 +2400,7 @@ class BudgetApp(QMainWindow):
             # Use provided date or current date
             current_date = report_date or datetime.today().strftime("%Y-%m")
             print(f"Debug: Creating budget summary graph for date: {current_date}")
-            data_manager = DataManager(
-                self.user_id,
-                current_date,
-            )
+            data_manager = DataManager(self.user_id, current_date)
 
             # Clear any existing plots and create new figure
             plt.close("all")
@@ -2506,7 +2523,7 @@ class BudgetApp(QMainWindow):
 
                 ax.plot(months, amounts, marker="o", color="#a75373", linewidth=2)
                 ax.set_xlabel("Month", fontsize=8)
-                ax.set_ylabel("Amount Spent", fontsize=8)
+                ax.set_ylabel("No. of Transactions", fontsize=8)
                 ax.set_title("Monthly Activity", fontsize=10)
                 plt.setp(ax.get_xticklabels(), rotation=45, ha="right", fontsize=7)
                 plt.setp(ax.get_yticklabels(), fontsize=7)
@@ -2627,7 +2644,6 @@ class BudgetApp(QMainWindow):
                 self.expensevalue.setText(f"₱{float(monthly_expenses):,.2f}")
 
                 # Update graphs with current month data
-                current_month = datetime.today().strftime("%Y-%m")
                 self.add_graph_to_widget(self.transactionsummarywidget, current_month)
                 self.add_graph_to_budget_summary(
                     self.budgetsummarywidget, current_month
