@@ -2962,6 +2962,10 @@ class BudgetApp(QMainWindow):
                 monthly_savings = float(self.remaining_budgets[3])
                 remaining_monthly_budget = float(self.remaining_budgets[4])
 
+                self.budgetreport_value.setText(f"₱{self.remaining_budgets[4]:,.2f}")
+                self.savingsreport_value.setText(f"₱{self.remaining_budgets[3]:,.2f}")
+                self.expensereport_value.setText(f"₱{self.user_data[3]:,.2f}")
+
                 self.savingsvalue.setText(f"₱{monthly_savings:,.2f}")
                 self.incomevalue.setText(f"₱{monthly_income:,.2f}")
                 self.budgetvalue.setText(f"₱{monthly_budget:,.2f}")
