@@ -2246,16 +2246,13 @@ class BudgetApp(QMainWindow):
         from core.user_sign import SignEntry
         from PySide6.QtCore import QSettings
 
-        # Reset all session and login settings
         settings = QSettings("MyCompany", "MyApp")
         settings.setValue("remember_me", False)
         settings.remove("saved_email")
         settings.remove("saved_user_id")
 
-        # Close current window
         self.close()
 
-        # Show signin window
         self.signin = SignEntry()
         self.signin.show()
 
@@ -2404,7 +2401,6 @@ class BudgetApp(QMainWindow):
             fig = plt.figure(figsize=(4, 2.5), dpi=100)
             ax = fig.add_subplot(111)
 
-            # Check if we have data
             if not activity_data or all(
                 amount == 0 for amount in activity_data.values()
             ):
@@ -2436,12 +2432,10 @@ class BudgetApp(QMainWindow):
             canvas = FigureCanvas(fig)
             canvas.setMinimumSize(300, 180)
 
-            # Ensure the widget has a layout
             if widget.layout() is None:
                 widget.setLayout(QVBoxLayout())
             layout = widget.layout()
 
-            # Clear any existing widgets in the layout
             while layout.count():
                 item = layout.takeAt(0)
                 if item.widget():
@@ -2466,7 +2460,6 @@ class BudgetApp(QMainWindow):
             layout.addWidget(error_label)
 
     def refresh_data(self):
-        """Refresh all user data and UI elements after account setup"""
         try:
             current_month = datetime.today().strftime("%Y-%m")
             self.cursor.execute(
@@ -2550,12 +2543,10 @@ class BudgetApp(QMainWindow):
             )
 
     def refresh_model(self, current_date=None):
-        """Refresh the activities model with latest transactions"""
         self.monthlyreport_lbl.setText(
             f"Report as of {self.monthcombo.currentText()} {self.yearcombo.currentText()}"
         )
 
-        # Update the data
         query = QSqlQuery()
         query.prepare(
             "SELECT transaction_date, amount, description, category FROM transactions WHERE user_id = ? ORDER BY data_id DESC"
@@ -2567,12 +2558,10 @@ class BudgetApp(QMainWindow):
         self.transactions_model.setQuery(query)
 
     def initialize_report_graphs(self):
-        """Initialize graphs on the report page with current month data"""
         try:
             current_month = datetime.today().strftime("%Y-%m")
             print(f"Initializing report graphs for {current_month}")
 
-            # Initialize both report page graphs
             self.add_graph_to_widget(self.transactionreport_widget, current_month)
             self.add_graph_to_budget_summary(self.budgetreport_widget, current_month)
 
@@ -2580,7 +2569,6 @@ class BudgetApp(QMainWindow):
             print(f"Error initializing report graphs: {e}")
 
     def handle_add_transaction(self):
-        """Handle adding a new transaction and refreshing the view"""
         add_trans = AddTransactions(
             self.user_id,
             self.amountedit,
@@ -2594,7 +2582,6 @@ class BudgetApp(QMainWindow):
             self.show_message("Transaction added")
 
     def handle_previous_transaction(self, month, year):
-        """Handle viewing transactions for a specific month and year"""
         if month and year and month.strip() and year.strip():
             try:
                 self.monthlyreport_lbl.setText(
@@ -2654,7 +2641,6 @@ class BudgetApp(QMainWindow):
             self.stackedWidget.setCurrentIndex(1)
 
     def update_report_data(self, month, year, date_pattern):
-        """Update the report page with data for the selected month/year"""
         try:
             self.cursor.execute(
                 """SELECT monthly_budget, monthly_savings, monthly_expenses 
