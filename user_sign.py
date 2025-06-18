@@ -15,10 +15,19 @@ class SignEntry(QMainWindow):
         super().__init__(parent)
         self.setupUi(self)
         self.setWindowTitle(" ")
-        # Load saved credentials if remember me was checked
+        self.setWindowTitle(" ")
         self.load_saved_credentials()
 
     def setupUi(self, MainWindow):
+
+        title_icon = QIcon()
+        title_icon.addFile(
+            "assets/images/budgeIT_logo.png",
+            QSize(),
+            QIcon.Mode.Active,
+            QIcon.State.On,
+        )
+        self.setWindowIcon(title_icon)
         font_path = os.path.join(
             os.path.dirname(__file__), "assets", "fonts", "Roboto.ttf"
         )

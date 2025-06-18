@@ -60,8 +60,8 @@ class Sidebar(QWidget):
         logo_layout.setContentsMargins(0, 20, 0, 20)
 
         self.logo = QLabel()
-        self.logo.setPixmap(QPixmap(":/logomin.png"))
-        self.logo.setMaximumSize(QSize(40, 30))
+        self.logo.setPixmap(QPixmap("assets/images/budgeIT_logo.png"))
+        self.logo.setMaximumSize(QSize(45, 30))
         self.logo.setScaledContents(True)
         self.logo.setAlignment(Qt.AlignCenter)
         logo_layout.addWidget(self.logo)
@@ -96,11 +96,13 @@ class Sidebar(QWidget):
                 icon-size: 18px 18px;
             }
             QToolButton:hover {
+                qproperty-icon: url(:/icons/dashboarddark.svg);
                 color: rgb(75, 47, 69);
                 background-color: rgb(245, 245, 245);
                 border: none;
             }
             QToolButton:pressed {
+                qproperty-icon: url(:/icons/dashboarddark.svg);
                 color: rgb(75, 47, 69);
                 background-color: rgb(245, 245, 245);
                 padding-left: 25px;
@@ -280,7 +282,7 @@ class Sidebar(QWidget):
         self.animate_width(self.expanded_width)
         # Change logo to max version when expanded
         self.logo.setPixmap(QPixmap(":/logomax.png"))
-        self.logo.setMaximumSize(QSize(90, 40))
+        self.logo.setMaximumSize(QSize(80, 30))
         # Show text on buttons when expanded
         self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
         self.analytics_btn.setToolButtonStyle(
@@ -293,8 +295,8 @@ class Sidebar(QWidget):
     def leaveEvent(self, event):
         self.animate_width(self.collapsed_width)
         # Change logo back to min version when collapsed
-        self.logo.setPixmap(QPixmap(":/logomin.png"))
-        self.logo.setMaximumSize(QSize(40, 40))
+        self.logo.setPixmap(QPixmap("assets/images/budgeIT_logo.png"))
+        self.logo.setMaximumSize(QSize(45, 30))
         # Hide text on buttons when collapsed (show only icons)
         self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
         self.analytics_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
@@ -389,7 +391,12 @@ class BudgetApp(QMainWindow):
             print("Failed to load font.")
 
         title_icon = QIcon()
-        title_icon.addFile(":/logomin.png", QSize(), QIcon.Mode.Active, QIcon.State.On)
+        title_icon.addFile(
+            "assets/images/budgeIT_logo.png",
+            QSize(),
+            QIcon.Mode.Active,
+            QIcon.State.On,
+        )
         self.setWindowIcon(title_icon)
         if not MainWindow.objectName():
             MainWindow.setObjectName("MainWindow")
@@ -1855,13 +1862,13 @@ class BudgetApp(QMainWindow):
         )
         self.monthlyreport_lbl.setSizePolicy(sizePolicy1)
         font5 = QFont()
-        font5.setFamilies(["Inter"])
+        font5.setFamilies(["Roboto"])
         font5.setWeight(QFont.DemiBold)
         font5.setItalic(False)
         self.monthlyreport_lbl.setFont(font5)
         self.monthlyreport_lbl.setStyleSheet(
             "color: rgb(108, 68, 100);\n"
-            'font: 600 30px "Inter";\n'
+            'font: 600 30px "Roboto";\n'
             "background-color: transparent\n"
             ""
         )

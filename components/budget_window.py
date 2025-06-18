@@ -11,7 +11,7 @@ class BudgetWindow(QDialog):
         super().__init__(parent)
         self.parent = parent
         self.setupUi(self)
-        self.setWindowTitle("Budget Overview")
+        self.setWindowTitle(" ")
         self.load_budget_data()
 
     def load_budget_data(self):
@@ -92,7 +92,7 @@ class BudgetWindow(QDialog):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.widget = QWidget(Form)
         self.widget.setObjectName("widget")
-        self.widget.setStyleSheet("background-color: rgb(245, 245, 245);")
+        self.widget.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.verticalLayout_2 = QVBoxLayout(self.widget)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(30, 30, 30, 30)
@@ -276,6 +276,8 @@ class BudgetWindow(QDialog):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", "Form", None))
-        self.budgetlbl.setText(QCoreApplication.translate("Form", "Your Budget", None))
+        self.budgetlbl.setText(
+            QCoreApplication.translate("Form", "Budget Overview", None)
+        )
 
     # retranslateUi

@@ -6,6 +6,7 @@ from user_sign import SignEntry
 from components.features import Features_ui
 from components.about_us import Team_Dialog
 import os
+import ctypes
 
 
 class LandingPage(QMainWindow):
@@ -15,8 +16,18 @@ class LandingPage(QMainWindow):
         self.features_dialog = None  # Store reference to features dialog
         self.setupUi()
         self.setup_animations()
+        self.setWindowTitle(" ")
 
     def setupUi(self):
+
+        title_icon = QIcon()
+        title_icon.addFile(
+            "assets/images/budgeIT_logo.png",
+            QSize(),
+            QIcon.Mode.Active,
+            QIcon.State.On,
+        )
+        self.setWindowIcon(title_icon)
         font_path = os.path.join(
             os.path.dirname(__file__), "assets", "fonts", "Roboto.ttf"
         )
