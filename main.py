@@ -3222,6 +3222,42 @@ QHeaderView::section {
         # Force the widget to update
         widget.update()
         canvas.draw()
+    
+    def add_graph_to_activity(self, widget: QWidget):
+        data_manager = DataManager(self.user_id)
+        activity_data = data_manager.get_activity()
+        months = list(activity_data.keys())
+        amounts = list(activity_data.values())
+
+        plt.close("all")
+        fig = plt.figure(figsize=(4, 2.5), dpi=100)
+        ax = fig.add_subplot(111)
+        ax.plot(months, amounts, marker='o', color="#a75373", linewidth=2)
+        ax.set_xlabel("Month", fontsize=8)
+        ax.set_ylabel("Amount Spent", fontsize=8)
+        ax.set_title("Monthly Activity", fontsize=10)
+        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", fontsize=7)
+        plt.setp(ax.get_yticklabels(), fontsize=7)
+        ax.grid(True, linestyle='--', alpha=0.5)
+        fig.tight_layout()
+
+        canvas = FigureCanvas(fig)
+        canvas.setMinimumSize(300, 180)
+
+        # Ensure the widget has a layout
+        if widget.layout() is None:
+            widget.setLayout(QVBoxLayout())
+        layout = widget.layout()
+
+        # Clear any existing widgets in the layout
+        while layout.count():
+            item = layout.takeAt(0)
+            if item.widget():
+                item.widget().deleteLater()
+        layout.addWidget(canvas)
+
+        widget.update()
+        canvas.draw()
     def refresh_data(self):
         """Refresh all user data and UI elements after account setup"""
         try:
@@ -3251,11 +3287,11 @@ QHeaderView::section {
                 print(f"User data fetched: {self.user_data}")
 
                 # Update income and budget values
-                monthly_income = float(self.user_data[4])
-                monthly_budget = float(self.user_data[5])
-                monthly_expenses = float(self.user_data[3])
-                monthly_savings = float(self.remaining_budgets[3])
-                remaining_monthly_budget = float(self.remaining_budgets[4])
+                monthly_income = DataManager.parse_amount(self.user_data[4])
+                monthly_budget = DataManager.parse_amount(self.user_data[5])
+                monthly_expenses = DataManager.parse_amount(self.user_data[3])
+                monthly_savings = DataManager.parse_amount(self.remaining_budgets[3])
+                remaining_monthly_budget = DataManager.parse_amount(self.remaining_budgets[4])
                 total_transaction_value = float(self.transaction_count)
 
                 # Update UI elements with proper formatting
@@ -3305,6 +3341,7 @@ QHeaderView::section {
                 # self.add_graph_to_budget_summary(self.summary_widget)
                 self.add_graph_to_widget(self.transactionsummarywidget)
                 self.add_graph_to_budget_summary(self.budgetsummarywidget)
+                self.add_graph_to_activity(self.youractivitywidget)
 
                 print("Data refresh completed successfully")
             else:
