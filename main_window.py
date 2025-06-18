@@ -19,7 +19,6 @@ from components.update_month_setup import UpdateMonthSetup
 from PySide6.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
 from components.pesoquerymodel import PesoQueryModel
 from components.fade_popup import FadePopup
-from components.animations import DataRefreshAnimation
 
 
 class Sidebar(QWidget):
@@ -37,7 +36,6 @@ class Sidebar(QWidget):
             """
         )
 
-        # Set object name for specific styling
         self.setObjectName("Sidebar")
         self.setMouseTracking(True)
         self.on_nav = on_nav
@@ -319,11 +317,12 @@ class BudgetApp(QMainWindow):
         self.user_id = user_id
         self.connect = sqlite3.connect("accounts.db")
         self.cursor = self.connect.cursor()
+
         print("from budgetapp: user data", self.user_id)
+
         self.setupUi(self)
         self.setWindowTitle(" ")
 
-        # Initialize refresh animations
         self.window_animation = None
         self.budget_animation = None
         self.graph_animation = None
