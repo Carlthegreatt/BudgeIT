@@ -5,7 +5,7 @@ a = Analysis(
     ['initialize_app.py'],
     pathex=[],
     binaries=[],
-    datas=[('components', 'components'), ('assets', 'assets'), ('core', 'core'), ('accounts.db', 'database')],
+    datas=[('components', 'components'), ('assets', 'assets'), ('core', 'core'), ('budgeit/accounts.db', 'database')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>592</height>
+   </rect>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1000</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QFrame" name="GetStartedFrame">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>16777211</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#GetStartedFrame {
+background: qlineargradient(
+    spread:pad,
+    x1:0, y1:0,
+    x2:1, y2:0,
+    stop:0 #3A1C71,     /* Light Orange */
+    stop:0.5 #D76D77,   /* Pink */
+    stop:1   #FFAF7B    /* Lighter Velvet */
+);
+
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QFrame" name="header_frames">
+         <property name="styleSheet">
+          <string notr="true">#header_frames {
+background-color: rgba(0,0,0,0.5);
+border: 1px solid Transparent;
+border-radius: 30px
+}</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="spacing">
+           <number>15</number>
+          </property>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="h1_gs">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+font: 900 25px &quot;Inter&quot;;
+
+
+}</string>
+            </property>
+            <property name="text">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Manage your wallet,&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="textFormat">
+             <enum>Qt::TextFormat::RichText</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="h2_gs">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+font: 900 25px &quot;Inter&quot;;
+}</string>
+            </property>
+            <property name="text">
+             <string>&lt;p style = &quot;text-align: center;&quot;&gt;&lt;b&gt;Track&lt;/&gt; it with&lt;/p&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="h2_gs_2">
+            <property name="styleSheet">
+             <string notr="true">QLabel {
+font: 900 30px &quot;Inter&quot;;
+}</string>
+            </property>
+            <property name="text">
+             <string>&lt;p style = &quot;text-align: center;&quot;&gt;BudgeIT&lt;/p&gt;</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Orientation::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="get_started_frame">
+         <property name="styleSheet">
+          <string notr="true">#get_started_frame {
+background-color : rgba(0,0,0,0)
+}</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::Shape::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Shadow::Raised</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <property name="leftMargin">
+           <number>117</number>
+          </property>
+          <item>
+           <widget class="QToolButton" name="get_started_btn">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#get_started_btn {
+border: 1px solid #000000;
+border-radius: 20px;
+background-color: rgba(0,0,0,0.8);
+color: #FFAF7B;
+font-weight: bold;
+font-size: 20px;
+padding: 20px;
+transition: background-color 2s ease-in-out;
+
+}
+
+#get_started_btn:pressed{
+background-color: rgba(0,0,0,1);
+}</string>
+            </property>
+            <property name="text">
+             <string>Get Started</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>33</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources>
+  <include location="../images.qrc"/>
+ </resources>
+ <connections/>
+</ui>

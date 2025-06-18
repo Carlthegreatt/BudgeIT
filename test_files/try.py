@@ -4,11 +4,11 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import assets.icons.icons_rc
 import assets.images.images_rc
-from core.add_transactions import AddTransactions
-from components.budget_window import BudgetWindow
+from budgeit.logic.add_transactions import AddTransactions
+from budgeit.ui.budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
-from core.data_manager import DataManager, sample_transactions
+from budgeit.logic.data_manager import DataManager
 
 
 class Ui_MainWindow(QMainWindow):

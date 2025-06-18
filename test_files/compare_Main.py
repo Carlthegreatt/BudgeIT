@@ -5,20 +5,20 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import assets.icons.icons_rc
 import assets.images.images_rc
-from core.add_transactions import AddTransactions
-from components.budget_window import BudgetWindow
+from budgeit.logic.add_transactions import AddTransactions
+from budgeit.ui.budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
-from core.data_manager import DataManager
-from components.signoutwindow import SignOutWindow
-from core.account_setup import AccountSetup
+from budgeit.logic.data_manager import DataManager
+from budgeit.ui.signoutwindow import SignOutWindow
+from budgeit.logic.account_setup import AccountSetup
 import sqlite3
-from components.database_manager import *
-from components.update_month_setup import UpdateMonthSetup
+from budgeit.logic.database_manager import *
+from budgeit.utils.update_month_setup import UpdateMonthSetup
 from PySide6.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
-from components.pesoquerymodel import PesoQueryModel
-from components.fade_popup import FadePopup
-from components.animations import DataRefreshAnimation
+from budgeit.utils.pesoquerymodel import PesoQueryModel
+from budgeit.utils.fade_popup import FadePopup
+from budgeit.utils.animations import DataRefreshAnimation
 
 
 class BudgetApp(QMainWindow):
@@ -3105,7 +3105,7 @@ QHeaderView::section {
         dialog.show()
 
     def show_sign_in(self):
-        from core.user_sign import SignEntry
+        from budgeit.ui.user_sign import SignEntry
 
         self.signin = SignEntry()
         self.signin.show()
