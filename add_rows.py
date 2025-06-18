@@ -31,8 +31,8 @@ def add_transactions():
     conn = sqlite3.connect("accounts.db")
     cursor = conn.cursor()
 
-    user_id = 3
-    categories = ["Food", "Utilities", "Health", "Lifestyle", "Education", "Transportation", "Miscellaneous"]
+    user_id = 5
+    categories = ["Food", "Utilities", "Health & Wellness", "Personal & Lifestyle", "Education", "Transportation", "Miscellaneous"]
 
     months = ["2025-07", "2025-08", "2025-09", "2025-10"]
 
@@ -52,4 +52,4 @@ def add_transactions():
     conn.commit()
     conn.close()
     
-add_new_rows()
+add_transactions()
