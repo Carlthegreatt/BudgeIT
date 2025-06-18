@@ -185,14 +185,11 @@ class DataManager:
 
     def get_activity(self):
         transactions = cursor.execute("SELECT * FROM transactions WHERE user_id = ?", (self._id,))
-        total = {f"{i:02d}": 0 for i in range(1, 13)}
+        count_per_month = {f"{i:02d}": 0 for i in range(1, 13)}
         for transaction in transactions:
             month = transaction[2].split('-')[1]
-            total[month] += DataManager.parse_amount(transaction[3])
-        for key, value in total.items():
-            print(f"{key} : {value}")
-        return total
-        
+            count_per_month[month] += 1
+        return count_per_month
 testt = DataManager(5)
 
-testt.get_activity()
+print(testt.get_activity())
