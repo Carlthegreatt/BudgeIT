@@ -304,9 +304,11 @@ class SignOutWindow(QDialog):
         super().showEvent(event)
 
     def signout(self):
+        # Close the dialog first
         self.close()
-        self.parent().close()
-        self.signOutRequested.emit()  # Emit signal instead of creating SignEntry directly
+
+        # Emit signal to trigger proper logout sequence
+        self.signOutRequested.emit()  # This will call show_sign_in() which handles all cleanup
 
     def cancel(self):
         self.close()

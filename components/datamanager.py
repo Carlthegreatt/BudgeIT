@@ -128,6 +128,7 @@ import sqlite3
 conn = sqlite3.connect("accounts.db")
 cursor = conn.cursor()
 
+
 class DataManager:
     def __init__(self, id):
         self._id = id
@@ -138,10 +139,10 @@ class DataManager:
     
     def get_statistics(self) -> dict:
         result = self.get_data()
-        
+
         for data in result:
             print(data)
-        
+
         total = {
             'Food': 0,
             'Utilities': 0,

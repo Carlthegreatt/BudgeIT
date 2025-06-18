@@ -1,5 +1,6 @@
 import os
 import sys
+from datetime import datetime
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
@@ -18,7 +19,296 @@ from components.update_month_setup import UpdateMonthSetup
 from PySide6.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
 from components.pesoquerymodel import PesoQueryModel
 from components.fade_popup import FadePopup
-from components.animations import DataRefreshAnimation
+
+
+class Sidebar(QWidget):
+    def __init__(self, parent=None, on_nav=None):
+        super().__init__(parent)
+        self.collapsed_width = 70
+        self.expanded_width = 140
+        self.setFixedWidth(self.collapsed_width)
+        self.setStyleSheet(
+            """
+            Sidebar {
+                background-color: rgb(43, 27, 40);
+                border: none;
+            }
+            """
+        )
+
+        self.setObjectName("Sidebar")
+        self.setMouseTracking(True)
+        self.on_nav = on_nav
+
+        layout = QVBoxLayout(self)
+        layout.setSpacing(0)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setAlignment(Qt.AlignTop)
+
+        # Create a main container widget to ensure proper background color
+        self.main_container = QWidget()
+        self.main_container.setStyleSheet("background-color: rgb(43, 27, 40);")
+        container_layout = QVBoxLayout(self.main_container)
+        container_layout.setSpacing(0)
+        container_layout.setContentsMargins(0, 0, 0, 0)
+        container_layout.setAlignment(Qt.AlignTop)
+
+        # Logo
+        logo_widget = QWidget()
+        logo_widget.setStyleSheet("background-color: transparent;")
+        logo_layout = QHBoxLayout(logo_widget)
+        logo_layout.setContentsMargins(0, 20, 0, 20)
+
+        self.logo = QLabel()
+        self.logo.setPixmap(QPixmap(":/logomin.png"))
+        self.logo.setMaximumSize(QSize(40, 30))
+        self.logo.setScaledContents(True)
+        self.logo.setAlignment(Qt.AlignCenter)
+        logo_layout.addWidget(self.logo)
+        container_layout.addWidget(logo_widget)
+
+        # Dashboard button
+        self.home_btn = QToolButton()
+        icon = QIcon()
+        icon.addFile(
+            ":/icons/dashboardlight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
+        )
+        icon.addFile(
+            ":/icons/dashboarddark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
+        )
+        self.home_btn.setIcon(icon)
+        self.home_btn.setText("   Dashboard")
+        self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.home_btn.setCheckable(True)
+        self.home_btn.setChecked(True)
+        self.home_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.home_btn.setMouseTracking(True)
+        self.home_btn.setMaximumSize(QSize(150, 50))
+        self.home_btn.setStyleSheet(
+            """
+            QToolButton {
+                color: white;
+                background-color: transparent;
+                border: none;
+                padding: 10px 18px;
+                text-align: left;
+                font: 500 12px 'Roboto';
+                icon-size: 18px 18px;
+            }
+            QToolButton:hover {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+            QToolButton:pressed {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                padding-left: 25px;
+                border: none;
+            }
+            QToolButton:checked {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+        """
+        )
+        self.home_btn.clicked.connect(lambda: self.on_nav(0) if self.on_nav else None)
+        container_layout.addWidget(self.home_btn)
+
+        # Analytics button
+        self.analytics_btn = QToolButton()
+        icon1 = QIcon()
+        icon1.addFile(
+            ":/icons/analyticslight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
+        )
+        icon1.addFile(
+            ":/icons/analyticsdark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
+        )
+        self.analytics_btn.setIcon(icon1)
+        self.analytics_btn.setText("   Analytics")
+        self.analytics_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.analytics_btn.setCheckable(True)
+        self.analytics_btn.setChecked(False)
+        self.analytics_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.analytics_btn.setMouseTracking(True)
+        self.analytics_btn.setMaximumSize(QSize(150, 50))
+        self.analytics_btn.setStyleSheet(
+            """
+            QToolButton {
+                color: white;
+                background-color: transparent;
+                border: none;
+                padding: 10px 18px;
+                text-align: left;
+                font: 500 12px 'Roboto';
+                icon-size: 18px 18px;
+            }
+            QToolButton:hover {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+            QToolButton:pressed {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                padding-left: 25px;
+                border: none;
+            }
+            QToolButton:checked {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+        """
+        )
+        self.analytics_btn.clicked.connect(
+            lambda: self.on_nav(1) if self.on_nav else None
+        )
+        container_layout.addWidget(self.analytics_btn)
+
+        # Reports button
+        self.report_btn = QToolButton()
+        icon2 = QIcon()
+        icon2.addFile(
+            ":/icons/monitoringlight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
+        )
+        icon2.addFile(
+            ":/icons/monitoringdark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
+        )
+        self.report_btn.setIcon(icon2)
+        self.report_btn.setText("   Reports")
+        self.report_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.report_btn.setCheckable(True)
+        self.report_btn.setChecked(False)
+        self.report_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.report_btn.setMouseTracking(True)
+
+        self.report_btn.setMaximumSize(QSize(150, 50))
+        self.report_btn.setStyleSheet(
+            """
+            QToolButton {
+                color: white;
+                background-color: transparent;
+                border: none;
+                padding: 10px 18px;
+                text-align: left;
+                font: 500 12px 'Roboto';
+                icon-size: 18px 18px;
+            }
+            QToolButton:hover {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+            QToolButton:pressed {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                padding-left: 25px;
+                border: none;
+            }
+            QToolButton:checked {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+        """
+        )
+        self.report_btn.clicked.connect(lambda: self.on_nav(2) if self.on_nav else None)
+        container_layout.addWidget(self.report_btn)
+
+        container_layout.addStretch()
+
+        # Logout button
+        self.logout_btn = QToolButton()
+        icon3 = QIcon()
+        icon3.addFile(
+            ":/icons/logoutlight.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
+        )
+        self.logout_btn.setIcon(icon3)
+        self.logout_btn.setText("   Logout")
+        self.logout_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.logout_btn.setCheckable(False)
+        self.logout_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.logout_btn.setMouseTracking(True)
+        self.logout_btn.setMaximumSize(QSize(150, 50))
+        self.logout_btn.setStyleSheet(
+            """
+            QToolButton {
+                color: white;
+                background-color: transparent;
+                border: none;
+                padding: 10px 18px;
+                text-align: left;
+                font: 500 12px 'Roboto';
+                icon-size: 18px 18px;
+                
+            }
+            QToolButton:hover {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+            QToolButton:pressed {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                padding-left: 25px;
+                border: none;
+            }
+            QToolButton:checked {
+                color: rgb(75, 47, 69);
+                background-color: rgb(245, 245, 245);
+                border: none;
+            }
+        """
+        )
+        self.logout_btn.clicked.connect(
+            lambda: self.on_nav("logout") if self.on_nav else None
+        )
+        container_layout.addWidget(self.logout_btn)
+
+        # Add the container to the main layout
+        layout.addWidget(self.main_container)
+
+        # Button group for exclusive selection
+        self.button_group = QButtonGroup()
+        self.button_group.addButton(self.home_btn)
+        self.button_group.addButton(self.analytics_btn)
+        self.button_group.addButton(self.report_btn)
+
+    def enterEvent(self, event):
+        self.animate_width(self.expanded_width)
+        # Change logo to max version when expanded
+        self.logo.setPixmap(QPixmap(":/logomax.png"))
+        self.logo.setMaximumSize(QSize(90, 40))
+        # Show text on buttons when expanded
+        self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        self.analytics_btn.setToolButtonStyle(
+            Qt.ToolButtonStyle.ToolButtonTextBesideIcon
+        )
+        self.report_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        self.logout_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        super().enterEvent(event)
+
+    def leaveEvent(self, event):
+        self.animate_width(self.collapsed_width)
+        # Change logo back to min version when collapsed
+        self.logo.setPixmap(QPixmap(":/logomin.png"))
+        self.logo.setMaximumSize(QSize(40, 40))
+        # Hide text on buttons when collapsed (show only icons)
+        self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.analytics_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.report_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        self.logout_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
+        super().leaveEvent(event)
+
+    def animate_width(self, target_width):
+        self.animation = QPropertyAnimation(self, b"minimumWidth")
+        self.animation.setDuration(300)
+        self.animation.setStartValue(self.width())
+        self.animation.setEndValue(target_width)
+        self.animation.setEasingCurve(QEasingCurve.InOutCubic)
+        self.animation.start()
 
 
 class BudgetApp(QMainWindow):
@@ -27,14 +317,16 @@ class BudgetApp(QMainWindow):
         self.user_id = user_id
         self.connect = sqlite3.connect("accounts.db")
         self.cursor = self.connect.cursor()
+
         print("from budgetapp: user data", self.user_id)
+
         self.setupUi(self)
         self.setWindowTitle(" ")
 
-        # Initialize refresh animations
         self.window_animation = None
         self.budget_animation = None
         self.graph_animation = None
+        self.popup = FadePopup(self)
 
         self.cursor.execute(
             "SELECT * FROM users WHERE user_id = ? AND account_setup = 0",
@@ -45,6 +337,7 @@ class BudgetApp(QMainWindow):
         self.current_month = datetime.today().strftime("%Y-%m")
         self.account_setup = AccountSetup(self.user_id, self.current_month)
         self.account_setup.setup_completed.connect(self.refresh_data)
+
         if self.user_data:
             print("Account setup required")
             QTimer.singleShot(600, self.account_setup.show)
@@ -59,9 +352,9 @@ class BudgetApp(QMainWindow):
                 )
                 self.update_month_setup.show()
         print("Now in main")
-        self.popup = FadePopup(self)
 
     def setupUi(self, MainWindow):
+        self.current_month = datetime.today().strftime("%Y-%m")
         print("from budgetapp setupUi: current user id", self.user_id)
         self.cursor.execute(
             "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
@@ -69,7 +362,8 @@ class BudgetApp(QMainWindow):
         self.user_data = self.cursor.fetchone()
 
         self.cursor.execute(
-            """SELECT * FROM remaining_budgets WHERE user_id = ?""", (self.user_id,)
+            """SELECT * FROM remaining_budgets WHERE user_id = ? AND report_date = ?""",
+            (self.user_id, self.current_month),
         )
         self.remaining_budgets = self.cursor.fetchone()
         self.current_month = datetime.today().strftime("%Y-%m")
@@ -77,7 +371,6 @@ class BudgetApp(QMainWindow):
             """SELECT COUNT(*) FROM transactions WHERE user_id = ?""",
             (self.user_id,),
         )
-
         self.transaction_count = self.cursor.fetchone()[0]
 
         font_path = os.path.join(
@@ -109,404 +402,17 @@ class BudgetApp(QMainWindow):
         self.horizontalLayout_6.setSpacing(0)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
-        self.sidebarlayout = QVBoxLayout()
-        self.sidebarlayout.setObjectName("sidebarlayout")
-        self.sidebarlayout.setContentsMargins(0, -1, 0, -1)
-        self.sidebarwidget = QWidget(self.centralwidget)
-        self.sidebarwidget.setObjectName("sidebarwidget")
-        self.sidebarwidget.setMinimumSize(QSize(0, 0))
-        self.sidebarwidget.setMaximumSize(QSize(500, 16777215))
-        self.sidebarwidget.setStyleSheet(
-            "QGroupBox {\n"
-            "\n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "}\n"
-            "QToolButton {\n"
-            "	\n"
-            "    color: white;\n"
-            "    \n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "    border: none;\n"
-            "    padding: 10px 18px;\n"
-            "    text-align: left;\n"
-            "   \n"
-            '    font: 500 12px "Roboto";\n'
-            "    icon-size: 18px 18px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            " \n"
-            "	color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:pressed {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "    padding-left: 25px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:checked {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:disabled {\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 24"
-            "5, 245);\n"
-            "}\n"
-            ""
-        )
-        self.horizontalLayout_31 = QHBoxLayout(self.sidebarwidget)
-        self.horizontalLayout_31.setSpacing(0)
-        self.horizontalLayout_31.setObjectName("horizontalLayout_31")
-        self.horizontalLayout_31.setContentsMargins(0, 0, 0, 0)
-        self.minsidebar = QWidget(self.sidebarwidget)
-        self.minsidebar.setObjectName("minsidebar")
-        self.minsidebar.setMinimumSize(QSize(70, 0))
-        self.minsidebar.setMaximumSize(QSize(70, 16777215))
-        self.minsidebar.setStyleSheet(
-            "QWidget {\n"
-            "\n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "}\n"
-            "QToolButton {\n"
-            "	\n"
-            "    color: white;\n"
-            "    \n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "    border: none;\n"
-            "    padding: 10px 18px;\n"
-            "    text-align: left;\n"
-            "   \n"
-            '    font: 500 12px "Roboto";\n'
-            "    icon-size: 18px 18px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            " \n"
-            "	color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:pressed {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "    padding-left: 25px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:checked {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:disabled {\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 24"
-            "5, 245);\n"
-            "}\n"
-            ""
-        )
-        self.verticalLayout_51 = QVBoxLayout(self.minsidebar)
-        self.verticalLayout_51.setObjectName("verticalLayout_51")
-        self.verticalLayout_51.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_52 = QVBoxLayout()
-        self.verticalLayout_52.setSpacing(0)
-        self.verticalLayout_52.setObjectName("verticalLayout_52")
-        self.line = QFrame(self.minsidebar)
-        self.line.setObjectName("line")
-        self.line.setFrameShape(QFrame.Shape.VLine)
-        self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
-        self.verticalLayout_52.addWidget(self.line)
+        # Create the new sidebar
+        self.sidebar = Sidebar(parent=self, on_nav=self.on_side_bar_click)
+        self.horizontalLayout_6.addWidget(self.sidebar)
 
-        self.verticalLayout_53 = QVBoxLayout()
-        self.verticalLayout_53.setObjectName("verticalLayout_53")
-
-        self.verticalLayout_52.addLayout(self.verticalLayout_53)
-
-        self.verticalLayout_54 = QVBoxLayout()
-        self.verticalLayout_54.setSpacing(0)
-        self.verticalLayout_54.setObjectName("verticalLayout_54")
-        self.verticalLayout_54.setContentsMargins(0, 15, 0, 15)
-        self.minlogowidget = QWidget(self.minsidebar)
-        self.minlogowidget.setObjectName("minlogowidget")
-        self.horizontalLayout = QHBoxLayout(self.minlogowidget)
-        self.horizontalLayout.setSpacing(0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.minlogo = QLabel(self.minlogowidget)
-        self.minlogo.setObjectName("minlogo")
-        self.minlogo.setMaximumSize(QSize(50, 40))
-        self.minlogo.setPixmap(QPixmap(":/logomin.png"))
-        self.minlogo.setScaledContents(True)
-        self.minlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.horizontalLayout.addWidget(self.minlogo)
-
-        self.verticalLayout_54.addWidget(self.minlogowidget)
-
-        self.verticalLayout_52.addLayout(self.verticalLayout_54)
-
-        self.homebtn_min = QToolButton(self.minsidebar)
-        self.homebtn_min.setObjectName("homebtn_min")
+        # Define size policies used throughout the UI
         sizePolicy = QSizePolicy(
             QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred
         )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.homebtn_min.sizePolicy().hasHeightForWidth())
-        self.homebtn_min.setSizePolicy(sizePolicy)
-        self.homebtn_min.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.homebtn_min.setAutoFillBackground(False)
-        icon = QIcon()
-        icon.addFile(
-            ":/icons/dashboardlight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
-        )
-        icon.addFile(
-            ":/icons/dashboarddark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
-        )
-        self.homebtn_min.setIcon(icon)
-        self.homebtn_min.setCheckable(True)
-        self.homebtn_min.setChecked(True)
-        self.homebtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.homebtn_min.setAutoRaise(False)
-        self.homebtn_min.setArrowType(Qt.ArrowType.NoArrow)
-        self.homebtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(0))
-
-        self.verticalLayout_52.addWidget(self.homebtn_min)
-
-        self.analyticsbtn_min = QToolButton(self.minsidebar)
-        self.analyticsbtn_min.setObjectName("analyticsbtn_min")
-        sizePolicy.setHeightForWidth(
-            self.analyticsbtn_min.sizePolicy().hasHeightForWidth()
-        )
-        self.analyticsbtn_min.setSizePolicy(sizePolicy)
-        self.analyticsbtn_min.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        icon1 = QIcon()
-        icon1.addFile(
-            ":/icons/analyticslight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
-        )
-        icon1.addFile(
-            ":/icons/analyticsdark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
-        )
-        self.analyticsbtn_min.setIcon(icon1)
-        self.analyticsbtn_min.setCheckable(True)
-        self.analyticsbtn_min.setChecked(False)
-        self.analyticsbtn_min.setPopupMode(QToolButton.ToolButtonPopupMode.DelayedPopup)
-        self.analyticsbtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.analyticsbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(1))
-
-        self.verticalLayout_52.addWidget(self.analyticsbtn_min)
-
-        self.reportbtn_min = QToolButton(self.minsidebar)
-        self.reportbtn_min.setObjectName("reportbtn_min")
-        sizePolicy.setHeightForWidth(
-            self.reportbtn_min.sizePolicy().hasHeightForWidth()
-        )
-        self.reportbtn_min.setSizePolicy(sizePolicy)
-        self.reportbtn_min.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        icon2 = QIcon()
-        icon2.addFile(
-            ":/icons/monitoringlight.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
-        )
-        icon2.addFile(
-            ":/icons/monitoringdark.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
-        )
-        self.reportbtn_min.setIcon(icon2)
-        self.reportbtn_min.setCheckable(True)
-        self.reportbtn_min.setChecked(False)
-        self.reportbtn_min.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
-        self.reportbtn_min.clicked.connect(lambda: self.tab.setCurrentIndex(2))
-
-        self.verticalLayout_52.addWidget(self.reportbtn_min)
-
-        self.verticalSpacer_7 = QSpacerItem(
-            20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-        )
-
-        self.verticalLayout_52.addItem(self.verticalSpacer_7)
-
-        self.verticalLayout_51.addLayout(self.verticalLayout_52)
-
-        self.horizontalLayout_31.addWidget(self.minsidebar)
-
-        self.maxsidebar = QWidget(self.sidebarwidget)
-        self.maxsidebar.setObjectName("maxsidebar")
-        self.maxsidebar.setMinimumSize(QSize(170, 0))
-        self.maxsidebar.setMaximumSize(QSize(500, 16777215))
-        self.maxsidebar.setStyleSheet(
-            "QWidget {\n"
-            "\n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "}\n"
-            "QToolButton {\n"
-            "	\n"
-            "    color: white;\n"
-            "    \n"
-            "	background-color: rgb(43, 27, 40);\n"
-            "    border: none;\n"
-            "    padding: 10px 18px;\n"
-            "    text-align: left;\n"
-            "   \n"
-            '    font: 500 12px "Roboto";\n'
-            "    icon-size: 18px 18px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "    qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            " \n"
-            "	color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:pressed {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "    padding-left: 25px;\n"
-            "}\n"
-            "\n"
-            "QToolButton:checked {\n"
-            "qproperty-icon: url(:/icons/home.svg);\n"
-            "    qproperty-iconSize: 18px 18px;\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "QToolButton:disabled {\n"
-            "    color: rgb(75, 47, 69);\n"
-            "	background-color: rgb(245, 24"
-            "5, 245);\n"
-            "}\n"
-            ""
-        )
-        self.verticalLayout_29 = QVBoxLayout(self.maxsidebar)
-        self.verticalLayout_29.setObjectName("verticalLayout_29")
-        self.verticalLayout_29.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_30 = QVBoxLayout()
-        self.verticalLayout_30.setSpacing(0)
-        self.verticalLayout_30.setObjectName("verticalLayout_30")
-
-        self.verticalLayout_50 = QVBoxLayout()
-        self.verticalLayout_50.setSpacing(0)
-        self.verticalLayout_50.setObjectName("verticalLayout_50")
-        self.verticalLayout_50.setContentsMargins(0, 15, 0, 15)
-        self.maxlogowidget = QWidget(self.maxsidebar)
-        self.maxlogowidget.setObjectName("maxlogowidget")
-        self.horizontalLayout_2 = QHBoxLayout(self.maxlogowidget)
-        self.horizontalLayout_2.setSpacing(0)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.maxlogo = QLabel(self.maxlogowidget)
-        self.maxlogo.setObjectName("maxlogo")
-        self.maxlogo.setMaximumSize(QSize(110, 40))
-        self.maxlogo.setPixmap(QPixmap(":/logomax.png"))
-        self.maxlogo.setScaledContents(True)
-        self.maxlogo.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.horizontalLayout_2.addWidget(self.maxlogo)
-
-        self.verticalLayout_50.addWidget(self.maxlogowidget)
-
-        self.verticalLayout_30.addLayout(self.verticalLayout_50)
-
-        self.homebtn = QToolButton(self.maxsidebar)
-        self.buttonGroup = QButtonGroup(MainWindow)
-        self.buttonGroup.setObjectName("buttonGroup")
-        self.buttonGroup.addButton(self.homebtn)
-        self.homebtn.setObjectName("homebtn")
-        sizePolicy.setHeightForWidth(self.homebtn.sizePolicy().hasHeightForWidth())
-        self.homebtn.setSizePolicy(sizePolicy)
-        self.homebtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.homebtn.setAutoFillBackground(False)
-        self.homebtn.setIcon(icon)
-        self.homebtn.setCheckable(True)
-        self.homebtn.setChecked(True)
-        self.homebtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
-        self.homebtn.setAutoRaise(False)
-        self.homebtn.setArrowType(Qt.ArrowType.NoArrow)
-        self.homebtn.clicked.connect(lambda: self.tab.setCurrentIndex(0))
-
-        self.verticalLayout_30.addWidget(self.homebtn)
-
-        self.analyticsbtn = QToolButton(self.maxsidebar)
-        self.buttonGroup.addButton(self.analyticsbtn)
-        self.analyticsbtn.setObjectName("analyticsbtn")
-        sizePolicy.setHeightForWidth(self.analyticsbtn.sizePolicy().hasHeightForWidth())
-        self.analyticsbtn.setSizePolicy(sizePolicy)
-        self.analyticsbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.analyticsbtn.setIcon(icon1)
-        self.analyticsbtn.setCheckable(True)
-        self.analyticsbtn.setChecked(False)
-        self.analyticsbtn.setPopupMode(QToolButton.ToolButtonPopupMode.DelayedPopup)
-        self.analyticsbtn.setToolButtonStyle(
-            Qt.ToolButtonStyle.ToolButtonTextBesideIcon
-        )
-        self.analyticsbtn.clicked.connect(lambda: self.tab.setCurrentIndex(1))
-
-        self.verticalLayout_30.addWidget(self.analyticsbtn)
-
-        self.reportbtn = QToolButton(self.maxsidebar)
-        self.buttonGroup.addButton(self.reportbtn)
-        self.reportbtn.setObjectName("reportbtn")
-        sizePolicy.setHeightForWidth(self.reportbtn.sizePolicy().hasHeightForWidth())
-        self.reportbtn.setSizePolicy(sizePolicy)
-        self.reportbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.reportbtn.setIcon(icon2)
-        self.reportbtn.setCheckable(True)
-        self.reportbtn.setChecked(False)
-        self.reportbtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
-        self.reportbtn.clicked.connect(lambda: self.tab.setCurrentIndex(2))
-
-        self.verticalLayout_30.addWidget(self.reportbtn)
-
-        self.verticalSpacer_2 = QSpacerItem(
-            20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding
-        )
-
-        self.verticalLayout_30.addItem(self.verticalSpacer_2)
-
-        self.logoutbtn = QToolButton(self.maxsidebar)
-        self.logoutbtn.setObjectName("logoutbtn")
-        sizePolicy.setHeightForWidth(self.logoutbtn.sizePolicy().hasHeightForWidth())
-        self.logoutbtn.setSizePolicy(sizePolicy)
-        self.logoutbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.logoutbtn.setStyleSheet("")
-        icon3 = QIcon()
-        icon3.addFile(
-            ":/icons/logoutlight.svg", QSize(), QIcon.Mode.Active, QIcon.State.On
-        )
-        self.logoutbtn.setIcon(icon3)
-        self.logoutbtn.setCheckable(False)
-        self.logoutbtn.setChecked(False)
-        self.logoutbtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
-        self.logoutbtn.clicked.connect(lambda: self.signoutwindow())
-
-        self.verticalLayout_30.addWidget(self.logoutbtn)
-
-        self.verticalLayout_29.addLayout(self.verticalLayout_30)
-
-        self.horizontalLayout_31.addWidget(self.maxsidebar)
-
-        self.sidebarlayout.addWidget(self.sidebarwidget)
-
-        self.horizontalLayout_6.addLayout(self.sidebarlayout)
 
         self.tabframe = QFrame(self.centralwidget)
         self.tabframe.setObjectName("tabframe")
@@ -533,66 +439,14 @@ class BudgetApp(QMainWindow):
         self.horizontalLayout_24.setSpacing(10)
         self.horizontalLayout_24.setObjectName("horizontalLayout_24")
         self.horizontalLayout_24.setContentsMargins(10, 0, 10, 0)
-        self.horizontalLayout_15 = QHBoxLayout()
-        self.horizontalLayout_15.setObjectName("horizontalLayout_15")
-        self.horizontalLayout_16 = QHBoxLayout()
-        self.horizontalLayout_16.setObjectName("horizontalLayout_16")
-        self.menubtn = QToolButton(self.dashboardwidget)
-        self.menubtn.setObjectName("menubtn")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.menubtn.sizePolicy().hasHeightForWidth())
-        self.menubtn.setSizePolicy(sizePolicy1)
-        self.menubtn.setMinimumSize(QSize(25, 25))
-        self.menubtn.setMaximumSize(QSize(20, 20))
-        self.menubtn.setLayoutDirection(Qt.LayoutDirection.LeftToRight)
-        self.menubtn.setAutoFillBackground(False)
-        self.menubtn.clicked.connect(self.toggle_sidebar)
-        self.menubtn.setStyleSheet(
-            "QToolButton {\n"
-            "	\n"
-            "	\n"
-            "	border-radius: 5px;\n"
-            "	border: 2px solid;\n"
-            "	background-color: rgb(255, 255, 255);\n"
-            "	border-color: rgb(213, 213, 213);\n"
-            "   \n"
-            "}\n"
-            "\n"
-            "QToolButton:hover {\n"
-            "   \n"
-            "	\n"
-            "	background-color: rgb(245, 245, 245);\n"
-            "}\n"
-            "\n"
-            "\n"
-            ""
-        )
-        icon4 = QIcon()
-        icon4.addFile(
-            ":/icons/menudark.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
-        )
-        self.menubtn.setIcon(icon4)
-        self.menubtn.setIconSize(QSize(15, 15))
-        self.menubtn.setCheckable(True)
-        self.menubtn.setChecked(False)
-        self.menubtn.setAutoExclusive(False)
-        self.menubtn.setPopupMode(QToolButton.ToolButtonPopupMode.DelayedPopup)
-        self.menubtn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonFollowStyle)
-        self.menubtn.setAutoRaise(False)
-
-        self.horizontalLayout_16.addWidget(self.menubtn)
-
-        self.horizontalLayout_15.addLayout(self.horizontalLayout_16)
-
-        self.horizontalLayout_24.addLayout(self.horizontalLayout_15)
+        # Menu button removed - using hover sidebar instead
 
         self.horizontalLayout_17 = QHBoxLayout()
         self.horizontalLayout_17.setObjectName("horizontalLayout_17")
         self.horizontalLayout_17.setContentsMargins(-1, 6, -1, -1)
         self.menulabel = QLabel(self.dashboardwidget)
         self.menulabel.setObjectName("menulabel")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHeightForWidth(self.menulabel.sizePolicy().hasHeightForWidth())
         self.menulabel.setSizePolicy(sizePolicy1)
         Roboto = QFont()
@@ -1763,9 +1617,7 @@ class BudgetApp(QMainWindow):
 
         self.transactionsummarywidget = QWidget(self.transactionsummarybox)
         self.transactionsummarywidget.setObjectName("transactionsummarywidget")
-        self.transactionsummarywidget.setMinimumSize(
-            QSize(0, 250)
-        )  # Set minimum height
+        self.transactionsummarywidget.setMinimumSize(QSize(0, 250))
         self.transactionsummarywidget.setStyleSheet(
             """
             QWidget {
@@ -1788,7 +1640,7 @@ class BudgetApp(QMainWindow):
 
         self.budgetsummarybox = QGroupBox(self.scrollAreaWidgetContents_4)
         self.budgetsummarybox.setObjectName("budgetsummarybox")
-        self.budgetsummarybox.setMinimumSize(QSize(300, 247))
+        self.budgetsummarybox.setMinimumSize(QSize(300, 300))
         self.budgetsummarybox.setStyleSheet(
             "background-color: rgb(255, 255, 255);\n" "border-radius: 15"
         )
@@ -1828,12 +1680,12 @@ class BudgetApp(QMainWindow):
 
         self.budgetsummarywidget = QWidget(self.budgetsummarybox)
         self.budgetsummarywidget.setObjectName("budgetsummarywidget")
+        self.budgetsummarywidget.setMinimumSize(QSize(0, 250))
         self.horizontalLayout_budgetsummary = QHBoxLayout(self.budgetsummarywidget)
         self.horizontalLayout_budgetsummary.setObjectName(
             "horizontalLayout_budgetsummary"
         )
         self.horizontalLayout_budgetsummary.setContentsMargins(0, 0, 0, 0)
-
 
         self.verticalLayout_13.addWidget(self.budgetsummarywidget)
 
@@ -1980,7 +1832,7 @@ class BudgetApp(QMainWindow):
         self.scrollArea_3.setObjectName("scrollArea_3")
         self.scrollArea_3.setMinimumSize(QSize(60, 0))
         self.scrollArea_3.setVerticalScrollBarPolicy(
-            Qt.ScrollBarPolicy.ScrollBarAsNeeded
+            Qt.ScrollBarPolicy.ScrollBarAlwaysOff
         )
         self.scrollArea_3.setHorizontalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAlwaysOff
@@ -1993,9 +1845,36 @@ class BudgetApp(QMainWindow):
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.verticalLayout_5.setContentsMargins(-1, 15, -1, -1)
         self.horizontalLayout_3 = QHBoxLayout()
-        self.horizontalLayout_3.setSpacing(20)
+        self.horizontalLayout_3.setSpacing(40)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(40, -1, 40, -1)
+        self.monthlyreport_lbl = QLabel(self.scrollAreaWidgetContents_3)
+        self.monthlyreport_lbl.setObjectName("monthlyreport_lbl")
+        sizePolicy1.setHeightForWidth(
+            self.monthlyreport_lbl.sizePolicy().hasHeightForWidth()
+        )
+        self.monthlyreport_lbl.setSizePolicy(sizePolicy1)
+        font5 = QFont()
+        font5.setFamilies(["Inter"])
+        font5.setWeight(QFont.DemiBold)
+        font5.setItalic(False)
+        self.monthlyreport_lbl.setFont(font5)
+        self.monthlyreport_lbl.setStyleSheet(
+            "color: rgb(108, 68, 100);\n"
+            'font: 600 30px "Inter";\n'
+            "background-color: transparent\n"
+            ""
+        )
+        self.monthlyreport_lbl.setAlignment(
+            Qt.AlignmentFlag.AlignLeading
+            | Qt.AlignmentFlag.AlignLeft
+            | Qt.AlignmentFlag.AlignTop
+        )
+        self.current_date = datetime.now().strftime("%B %Y")
+        self.monthlyreport_lbl.setText(f"Report as of {self.current_date}")
+
+        self.horizontalLayout_3.addWidget(self.monthlyreport_lbl)
+
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setSpacing(5)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
@@ -2055,7 +1934,7 @@ class BudgetApp(QMainWindow):
             "\n"
             "QScrollBar::handle:vertical {\n"
             "    background: rgb(80, 51, 74);\n"
-            "    min-height: 18px;\n"
+            "    min-height: 20px;\n"
             "    border-radius: 10000px;\n"
             "}\n"
             "\n"
@@ -2067,89 +1946,8 @@ class BudgetApp(QMainWindow):
         )
         self.monthcombo.setEditable(False)
         self.monthcombo.setFrame(True)
-        self.horizontalLayout_4.addWidget(self.monthcombo)
 
-        self.daycombo = QComboBox(self.scrollAreaWidgetContents_3)
-        self.daycombo.setPlaceholderText("Day")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.addItem("")
-        self.daycombo.setObjectName("daycombo")
-        sizePolicy5.setHeightForWidth(self.daycombo.sizePolicy().hasHeightForWidth())
-        self.daycombo.setSizePolicy(sizePolicy5)
-        self.daycombo.setMinimumSize(QSize(60, 0))
-        self.daycombo.setStyleSheet(
-            "QComboBox{\n"
-            "	color: rgb(167, 83, 115);\n"
-            "	alternate-background-color: rgb(240, 240, 240);\n"
-            "				\n"
-            "	background-color: rgb(254, 250, 250);\n"
-            "                padding: 8px;\n"
-            "                border: 1px solid #ccc;\n"
-            "                border-radius: 7px;\n"
-            "                font-size: 10px;\n"
-            "\n"
-            "\n"
-            "            }\n"
-            "\n"
-            "\n"
-            "QComboBox::drop-down {\n"
-            "    border: none;\n"
-            "    background: transparent;\n"
-            "}\n"
-            "\n"
-            "QComboBox QAbstractItemView {\n"
-            "            background-color: #ffffff;\n"
-            "            color: #000000; \n"
-            "            }\n"
-            "\n"
-            "QScrollBar:vertical {\n"
-            "    \n"
-            "    background-color: rgb(245, 245, 245);\n"
-            "    width: 5px;\n"
-            "    margin: 0px 0px 0px 0px;\n"
-            "	border: none\n"
-            "	\n"
-            "}\n"
-            "\n"
-            "QScrollBar::handle:vertical {\n"
-            "    background: rgb(80, 51, 74);\n"
-            "    min-height: 18px;\n"
-            "    border-radius: 10000px;\n"
-            "}\n"
-            "\n"
-            "QScrollBar::add-line:vertical,\n"
-            "QScrollBar::sub-line:vertical {\n"
-            "    background: none;\n"
-            "    height: 0px;\n"
-            "}"
-        )
-        self.daycombo.setEditable(False)
-        self.daycombo.setFrame(True)
-        self.horizontalLayout_4.addWidget(self.daycombo)
+        self.horizontalLayout_4.addWidget(self.monthcombo)
 
         self.yearcombo = QComboBox(self.scrollAreaWidgetContents_3)
         self.yearcombo.setPlaceholderText("Year")
@@ -2195,7 +1993,7 @@ class BudgetApp(QMainWindow):
             "\n"
             "QScrollBar::handle:vertical {\n"
             "    background: rgb(80, 51, 74);\n"
-            "    min-height: 18px;\n"
+            "    min-height: 20px;\n"
             "    border-radius: 10000px;\n"
             "}\n"
             "\n"
@@ -2214,8 +2012,8 @@ class BudgetApp(QMainWindow):
         self.viewbtn.setObjectName("viewbtn")
         sizePolicy5.setHeightForWidth(self.viewbtn.sizePolicy().hasHeightForWidth())
         self.viewbtn.setSizePolicy(sizePolicy5)
-        self.viewbtn.setMinimumSize(QSize(20, 34))
-        self.viewbtn.setMaximumSize(QSize(90, 34))
+        self.viewbtn.setMinimumSize(QSize(80, 34))
+        self.viewbtn.setMaximumSize(QSize(10, 16777215))
         self.viewbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         self.viewbtn.setAutoFillBackground(False)
         self.viewbtn.setStyleSheet(
@@ -2248,35 +2046,15 @@ class BudgetApp(QMainWindow):
         )
         self.viewbtn.setCheckable(True)
         self.viewbtn.setFlat(True)
+        self.viewbtn.clicked.connect(
+            lambda: self.handle_previous_transaction(
+                self.monthcombo.currentText(), self.yearcombo.currentText()
+            )
+        )
 
         self.horizontalLayout_4.addWidget(self.viewbtn)
 
         self.horizontalLayout_3.addLayout(self.horizontalLayout_4)
-
-        self.monthlyreport_lbl = QLabel(self.scrollAreaWidgetContents_3)
-        self.monthlyreport_lbl.setObjectName("monthlyreport_lbl")
-        sizePolicy1.setHeightForWidth(
-            self.monthlyreport_lbl.sizePolicy().hasHeightForWidth()
-        )
-        self.monthlyreport_lbl.setSizePolicy(sizePolicy1)
-        font5 = QFont()
-        font5.setFamilies(["Roboto"])
-        font5.setWeight(QFont.DemiBold)
-        font5.setItalic(False)
-        self.monthlyreport_lbl.setFont(font5)
-        self.monthlyreport_lbl.setStyleSheet(
-            "color: rgb(108, 68, 100);\n"
-            'font: 600 18px "Roboto";\n'
-            "background-color: transparent\n"
-            ""
-        )
-        self.monthlyreport_lbl.setAlignment(
-            Qt.AlignmentFlag.AlignLeading
-            | Qt.AlignmentFlag.AlignLeft
-            | Qt.AlignmentFlag.AlignTop
-        )
-
-        self.horizontalLayout_3.addWidget(self.monthlyreport_lbl)
 
         self.verticalLayout_5.addLayout(self.horizontalLayout_3)
 
@@ -2324,6 +2102,7 @@ class BudgetApp(QMainWindow):
         )
         self.budgetreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.budgetreport_value.setWordWrap(False)
+        self.budgetreport_value.setText(f"₱{self.remaining_budgets[4]:,.2f}")
 
         self.horizontalLayout_36.addWidget(self.budgetreport_value)
 
@@ -2351,6 +2130,7 @@ class BudgetApp(QMainWindow):
         self.savingsreport.setStyleSheet(
             "text-align: center;\n" "background-color: #f4d4d4;\n" "border-radius: 15px"
         )
+
         self.verticalLayout_39 = QVBoxLayout(self.savingsreport)
         self.verticalLayout_39.setObjectName("verticalLayout_39")
         self.horizontalLayout_37 = QHBoxLayout()
@@ -2370,6 +2150,7 @@ class BudgetApp(QMainWindow):
         )
         self.savingsreport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.savingsreport_value.setWordWrap(False)
+        self.savingsreport_value.setText(f"₱{self.remaining_budgets[3]:,.2f}")
 
         self.horizontalLayout_37.addWidget(self.savingsreport_value)
 
@@ -2416,6 +2197,7 @@ class BudgetApp(QMainWindow):
         )
         self.expensereport_value.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.expensereport_value.setWordWrap(False)
+        self.expensereport_value.setText(f"₱{self.user_data[3]:,.2f}")
 
         self.horizontalLayout_38.addWidget(self.expensereport_value)
 
@@ -2609,7 +2391,27 @@ class BudgetApp(QMainWindow):
         self.verticalLayout_21.setObjectName("verticalLayout_21")
         self.transactions = QTableView()
 
-        self.transactions.setModel(self.activities_model)
+        self.transactions_model = PesoQueryModel()
+        query = QSqlQuery()
+        query.prepare(
+            """
+            SELECT transaction_date, amount, description, category
+            FROM transactions
+            WHERE user_id = ?
+            ORDER BY data_id DESC
+        """
+        )
+
+        query.addBindValue(self.user_id)
+        query.exec_()
+        self.transactions_model.setQuery(query)
+
+        self.transactions_model.setHeaderData(0, Qt.Horizontal, "Date")
+        self.transactions_model.setHeaderData(1, Qt.Horizontal, "Amount")
+        self.transactions_model.setHeaderData(2, Qt.Horizontal, "Description")
+        self.transactions_model.setHeaderData(3, Qt.Horizontal, "Category")
+
+        self.transactions.setModel(self.transactions_model)
         self.transactions.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.transactions.verticalHeader().setVisible(False)
         self.transactions.verticalHeader().setDefaultSectionSize(40)
@@ -2620,39 +2422,79 @@ class BudgetApp(QMainWindow):
         self.transactions.setFocusPolicy(Qt.NoFocus)
         self.transactions.horizontalHeader().setFocusPolicy(Qt.NoFocus)
         self.transactions.setStyleSheet(
-            """QTableView {
-    background-color: white;
-    alternate-background-color: #f0f8ff; /* light blue */
-    gridline-color: #dcdcdc;
-    font: 300 12px "Roboto";
-    border: none;
-}
-
-
-QTableView::item:hover {
-    background-color: #e0f7fa;  /* light cyan */
-}
-
-
-
-QTableView::item {
-    padding: 8px;
-    color: rgb(105, 104, 104);
-    font: 900 12px "Roboto";
-}
-
-QHeaderView::section {
-    font: 500 12px "Roboto";
-    background-color: white;
-    color: rgb(92, 91, 91);
-    padding: 5px;
-    border: 1px solid rgb(230, 230, 230);
-    border-top: none;
-    border-left: none;
-    border-right: none;
-}
-
-"""
+            "\n"
+            "    QTableView {\n"
+            "        background-color: #ffffff;\n"
+            "        border: none;\n"
+            "        border-radius: 6px;\n"
+            "        gridline-color: #e6e6e6;\n"
+            '        font: 400 12px "Roboto";\n'
+            "    }\n"
+            "\n"
+            "    QHeaderView::section {\n"
+            "        background-color: #ffffff;\n"
+            "        color: rgb(108, 68, 100);\n"
+            "        padding: 8px;\n"
+            "        border: none;\n"
+            "        border-bottom: 1px solid #dcdcdc;\n"
+            "        font: 600 14px 'Roboto';\n"
+            "    }\n"
+            "\n"
+            "    QTableView::item {\n"
+            "        padding: 6px;\n"
+            "        border: none;\n"
+            "        color: #939393;\n"
+            "    }\n"
+            "\n"
+            "    QTableView::item:selected {\n"
+            "        background-color: fffff;\n"
+            "        color: #ffffff;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar:vertical {\n"
+            "        background: #f0f0f0;\n"
+            "        width: 5px;\n"
+            "        margin: 2px 0 2px 0;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:vertical {\n"
+            "        background: #c0c0c0;\n"
+            "        min-height: 20px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            ""
+            "\n"
+            "    QScrollBar::handle:vertical:hover {\n"
+            "        background: #a0a0a0;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {\n"
+            "        height: 0px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar:horizontal {\n"
+            "        background: #f0f0f0;\n"
+            "        height: 12px;\n"
+            "        margin: 0 2px 0 2px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:horizontal {\n"
+            "        background: #c0c0c0;\n"
+            "        min-width: 20px;\n"
+            "        border-radius: 6px;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::handle:horizontal:hover {\n"
+            "        background: #a0a0a0;\n"
+            "    }\n"
+            "\n"
+            "    QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {\n"
+            "    width: 0px;\n"
+            "    }\n"
+            "\n"
+            ""
         )
 
         self.verticalLayout_21.addWidget(self.transactions)
@@ -2721,14 +2563,6 @@ QHeaderView::section {
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.homebtn.toggled.connect(self.homebtn_min.setChecked)
-        self.analyticsbtn.toggled.connect(self.analyticsbtn_min.setChecked)
-        self.reportbtn.toggled.connect(self.reportbtn_min.setChecked)
-        self.homebtn_min.toggled.connect(self.homebtn.setChecked)
-        self.analyticsbtn_min.toggled.connect(self.analyticsbtn.setChecked)
-        self.reportbtn_min.toggled.connect(self.reportbtn.setChecked)
-        self.menubtn.toggled.connect(self.maxsidebar.setVisible)
-        self.menubtn.toggled.connect(self.minsidebar.setHidden)
 
         self.tab.setCurrentIndex(0)
 
@@ -2736,39 +2570,10 @@ QHeaderView::section {
         self.tab.currentChanged.connect(self.update_menu_label)
 
         QMetaObject.connectSlotsByName(MainWindow)
-        self.maxsidebar.hide()
-        self.minsidebar.show()
-        self.sidebar_expanded = True
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(
             QCoreApplication.translate("MainWindow", "MainWindow", None)
-        )
-        self.minlogo.setText("")
-        self.homebtn_min.setText(
-            QCoreApplication.translate("MainWindow", "   Dashboard", None)
-        )
-        self.analyticsbtn_min.setText(
-            QCoreApplication.translate("MainWindow", "   Analytics", None)
-        )
-        self.reportbtn_min.setText(
-            QCoreApplication.translate("MainWindow", "   Reports", None)
-        )
-        self.maxlogo.setText("")
-        self.homebtn.setText(
-            QCoreApplication.translate("MainWindow", "   Dashboard", None)
-        )
-        self.analyticsbtn.setText(
-            QCoreApplication.translate("MainWindow", "   Analytics", None)
-        )
-        self.reportbtn.setText(
-            QCoreApplication.translate("MainWindow", "   Reports", None)
-        )
-        self.logoutbtn.setText(
-            QCoreApplication.translate("MainWindow", "   Logout", None)
-        )
-        self.menubtn.setText(
-            QCoreApplication.translate("MainWindow", "PushButton", None)
         )
         self.menulabel.setText(
             QCoreApplication.translate("MainWindow", "Dashboard", None)
@@ -2890,103 +2695,7 @@ QHeaderView::section {
         self.monthcombo.setPlaceholderText(
             QCoreApplication.translate("MainWindow", "Month", None)
         )
-        self.daycombo.setItemText(
-            0, QCoreApplication.translate("MainWindow", "01", None)
-        )
-        self.daycombo.setItemText(
-            1, QCoreApplication.translate("MainWindow", "02", None)
-        )
-        self.daycombo.setItemText(
-            2, QCoreApplication.translate("MainWindow", "03", None)
-        )
-        self.daycombo.setItemText(
-            3, QCoreApplication.translate("MainWindow", "04", None)
-        )
-        self.daycombo.setItemText(
-            4, QCoreApplication.translate("MainWindow", "05", None)
-        )
-        self.daycombo.setItemText(
-            5, QCoreApplication.translate("MainWindow", "06", None)
-        )
-        self.daycombo.setItemText(
-            6, QCoreApplication.translate("MainWindow", "07", None)
-        )
-        self.daycombo.setItemText(
-            7, QCoreApplication.translate("MainWindow", "08", None)
-        )
-        self.daycombo.setItemText(
-            8, QCoreApplication.translate("MainWindow", "09", None)
-        )
-        self.daycombo.setItemText(
-            9, QCoreApplication.translate("MainWindow", "10", None)
-        )
-        self.daycombo.setItemText(
-            10, QCoreApplication.translate("MainWindow", "11", None)
-        )
-        self.daycombo.setItemText(
-            11, QCoreApplication.translate("MainWindow", "12", None)
-        )
-        self.daycombo.setItemText(
-            12, QCoreApplication.translate("MainWindow", "13", None)
-        )
-        self.daycombo.setItemText(
-            13, QCoreApplication.translate("MainWindow", "14", None)
-        )
-        self.daycombo.setItemText(
-            14, QCoreApplication.translate("MainWindow", "15", None)
-        )
-        self.daycombo.setItemText(
-            15, QCoreApplication.translate("MainWindow", "16", None)
-        )
-        self.daycombo.setItemText(
-            16, QCoreApplication.translate("MainWindow", "17", None)
-        )
-        self.daycombo.setItemText(
-            17, QCoreApplication.translate("MainWindow", "18", None)
-        )
-        self.daycombo.setItemText(
-            18, QCoreApplication.translate("MainWindow", "19", None)
-        )
-        self.daycombo.setItemText(
-            19, QCoreApplication.translate("MainWindow", "20", None)
-        )
-        self.daycombo.setItemText(
-            20, QCoreApplication.translate("MainWindow", "21", None)
-        )
-        self.daycombo.setItemText(
-            21, QCoreApplication.translate("MainWindow", "22", None)
-        )
-        self.daycombo.setItemText(
-            22, QCoreApplication.translate("MainWindow", "23", None)
-        )
-        self.daycombo.setItemText(
-            23, QCoreApplication.translate("MainWindow", "24", None)
-        )
-        self.daycombo.setItemText(
-            24, QCoreApplication.translate("MainWindow", "25", None)
-        )
-        self.daycombo.setItemText(
-            25, QCoreApplication.translate("MainWindow", "26", None)
-        )
-        self.daycombo.setItemText(
-            26, QCoreApplication.translate("MainWindow", "27", None)
-        )
-        self.daycombo.setItemText(
-            27, QCoreApplication.translate("MainWindow", "28", None)
-        )
-        self.daycombo.setItemText(
-            28, QCoreApplication.translate("MainWindow", "29", None)
-        )
-        self.daycombo.setItemText(
-            29, QCoreApplication.translate("MainWindow", "30", None)
-        )
-        self.daycombo.setItemText(
-            30, QCoreApplication.translate("MainWindow", "31", None)
-        )
 
-        self.daycombo.setPlaceholderText(
-            QCoreApplication.translate("MainWindow", "Day", None)
-        )
         self.yearcombo.setItemText(
             0, QCoreApplication.translate("MainWindow", "2024", None)
         )
@@ -2998,25 +2707,16 @@ QHeaderView::section {
             QCoreApplication.translate("MainWindow", "Year", None)
         )
         self.viewbtn.setText(QCoreApplication.translate("MainWindow", "View", None))
-        self.monthlyreport_lbl.setText(
-            QCoreApplication.translate("MainWindow", "Filter Report", None)
-        )
+
         self.budgetreport.setTitle("")
-        self.budgetreport_value.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 3254.00", None)
-        )
         self.budgetlbl.setText(QCoreApplication.translate("MainWindow", "Budget", None))
         self.savingsreport.setTitle("")
-        self.savingsreport_value.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 554.00", None)
-        )
+
         self.savingslbl_2.setText(
             QCoreApplication.translate("MainWindow", "Savings", None)
         )
         self.expensereport.setTitle("")
-        self.expensereport_value.setText(
-            QCoreApplication.translate("MainWindow", "\u20b1 854.00", None)
-        )
+
         self.expenselbl_2.setText(
             QCoreApplication.translate("MainWindow", "Amount Spent", None)
         )
@@ -3085,14 +2785,7 @@ QHeaderView::section {
         elif index == 2:
             self.menulabel.setText("Reports")
 
-    def toggle_sidebar(self):
-        if self.sidebar_expanded:
-            self.maxsidebar.hide()
-            self.minsidebar.show()
-        else:
-            self.minsidebar.hide()
-            self.maxsidebar.show()
-        self.sidebar_expanded = not self.sidebar_expanded
+    # toggle_sidebar method removed - using hover sidebar instead
 
     def budget_window(self):
         dialog = BudgetWindow(self)
@@ -3107,7 +2800,18 @@ QHeaderView::section {
 
     def show_sign_in(self):
         from user_sign import SignEntry
+        from PySide6.QtCore import QSettings
 
+        # Reset all session and login settings
+        settings = QSettings("MyCompany", "MyApp")
+        settings.setValue("remember_me", False)
+        settings.remove("saved_email")
+        settings.remove("saved_user_id")
+
+        # Close current window
+        self.close()
+
+        # Show signin window
         self.signin = SignEntry()
         self.signin.show()
 
@@ -3121,15 +2825,17 @@ QHeaderView::section {
         ax = fig.add_subplot(111)
 
         # Get statistics from DataManager
-        stats = data_manager.get_transactions_data()  # get returned dictionary from stats
+        stats = (
+            data_manager.get_transactions_data()
+        )  # get returned dictionary from stats
 
         # Extract data for plotting
         categories = list(stats.keys())
         amounts = list(stats.values())
 
         print(f"Cat in graph: {categories}")
-        print(f"amounts in graph: {amounts}") # for cross checking
-        
+        print(f"amounts in graph: {amounts}")  # for cross checking
+
         # Create bar chart with styling
         bars = ax.bar(categories, amounts, color="#a75373")
 
@@ -3182,9 +2888,9 @@ QHeaderView::section {
         # Extract data for plotting
         categories = list(stats.keys())
         percentages = list(stats.values())
-        
+
         print(f"Cat in pie: {categories}")
-        print(f"amounts in pie: {percentages}") # for cross checking
+        print(f"amounts in pie: {percentages}")  # for cross checking
 
         # Create pie chart with styling
         wedges, texts, autotexts = ax.pie(
@@ -3222,48 +2928,11 @@ QHeaderView::section {
         # Force the widget to update
         widget.update()
         canvas.draw()
-    
-    def add_graph_to_activity(self, widget: QWidget):
-        data_manager = DataManager(self.user_id)
-        activity_data = data_manager.get_activity()
-        months = list(activity_data.keys())
-        amounts = list(activity_data.values())
-
-        plt.close("all")
-        fig = plt.figure(figsize=(4, 2.5), dpi=100)
-        ax = fig.add_subplot(111)
-        ax.plot(months, amounts, marker='o', color="#a75373", linewidth=2)
-        ax.set_xlabel("Month", fontsize=8)
-        ax.set_ylabel("Amount Spent", fontsize=8)
-        ax.set_title("Monthly Activity", fontsize=10)
-        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", fontsize=7)
-        plt.setp(ax.get_yticklabels(), fontsize=7)
-        ax.grid(True, linestyle='--', alpha=0.5)
-        fig.tight_layout()
-
-        canvas = FigureCanvas(fig)
-        canvas.setMinimumSize(300, 180)
-
-        # Ensure the widget has a layout
-        if widget.layout() is None:
-            widget.setLayout(QVBoxLayout())
-        layout = widget.layout()
-
-        # Clear any existing widgets in the layout
-        while layout.count():
-            item = layout.takeAt(0)
-            if item.widget():
-                item.widget().deleteLater()
-        layout.addWidget(canvas)
-
-        widget.update()
-        canvas.draw()
     def refresh_data(self):
         """Refresh all user data and UI elements after account setup"""
         try:
             current_month = datetime.today().strftime("%Y-%m")
             print("Starting data refresh...")
-            # Fetch latest user data
             self.cursor.execute(
                 "SELECT * FROM user_data WHERE user_id = ? AND report_date = ?",
                 (self.user_id, current_month),
@@ -3287,14 +2956,17 @@ QHeaderView::section {
                 print(f"User data fetched: {self.user_data}")
 
                 # Update income and budget values
-                monthly_income = DataManager.parse_amount(self.user_data[4])
-                monthly_budget = DataManager.parse_amount(self.user_data[5])
-                monthly_expenses = DataManager.parse_amount(self.user_data[3])
-                monthly_savings = DataManager.parse_amount(self.remaining_budgets[3])
-                remaining_monthly_budget = DataManager.parse_amount(self.remaining_budgets[4])
+                monthly_income = float(self.user_data[4])
+                monthly_budget = float(self.user_data[5])
+                monthly_expenses = float(self.user_data[3])
+                monthly_savings = float(self.remaining_budgets[3])
+                remaining_monthly_budget = float(self.remaining_budgets[4])
                 total_transaction_value = float(self.transaction_count)
 
-                # Update UI elements with proper formatting
+                self.budgetreport_value.setText(f"₱{self.remaining_budgets[4]:,.2f}")
+                self.savingsreport_value.setText(f"₱{self.remaining_budgets[3]:,.2f}")
+                self.expensereport_value.setText(f"₱{self.user_data[3]:,.2f}")
+
                 self.savingsvalue.setText(f"₱{monthly_savings:,.2f}")
                 self.incomevalue.setText(f"₱{monthly_income:,.2f}")
                 self.budgetvalue.setText(f"₱{monthly_budget:,.2f}")
@@ -3309,7 +2981,6 @@ QHeaderView::section {
                 else:
                     self.progressBar_2.setValue(0)
 
-                # Update expense and savings values
                 self.cursor.execute(
                     """SELECT SUM(monthly_expenses), SUM(monthly_savings), SUM(monthly_income), SUM(monthly_budget) FROM user_data WHERE user_id = ?""",
                     (self.user_id,),
@@ -3317,7 +2988,6 @@ QHeaderView::section {
 
                 result = self.cursor.fetchone()
                 if result is None:
-                    # Set default values if no data is found
                     self.total_expenses = 0
                     self.total_savings = 0
                     self.total_income = 0
@@ -3336,9 +3006,6 @@ QHeaderView::section {
                 self.overallbudgetvalue.setText(f"₱{float(self.total_budget):,.2f}")
                 self.expensevalue.setText(f"₱{float(monthly_expenses):,.2f}")
 
-                # Refresh graphs with new data
-                # self.add_graph_to_widget(self.graph_widget)
-                # self.add_graph_to_budget_summary(self.summary_widget)
                 self.add_graph_to_widget(self.transactionsummarywidget)
                 self.add_graph_to_budget_summary(self.budgetsummarywidget)
                 self.add_graph_to_activity(self.youractivitywidget)
@@ -3353,14 +3020,11 @@ QHeaderView::section {
                 self, "Refresh Error", "Failed to refresh data. Please try again."
             )
 
-    def refresh_model(self):
+    def refresh_model(self, current_date=None):
         """Refresh the activities model with latest transactions"""
-        # Initialize animation if not already done
-        if not self.window_animation:
-            self.window_animation = DataRefreshAnimation(self.tab)
-
-        # Start the fade animation
-        self.window_animation.refresh()
+        self.monthlyreport_lbl.setText(
+            f"Report as of {self.monthcombo.currentText()} {self.yearcombo.currentText()}"
+        )
 
         # Update the data
         query = QSqlQuery()
@@ -3369,7 +3033,9 @@ QHeaderView::section {
         )
         query.addBindValue(self.user_id)
         query.exec_()
+
         self.activities_model.setQuery(query)
+        self.transactions_model.setQuery(query)
 
     def handle_add_transaction(self):
         """Handle adding a new transaction and refreshing the view"""
@@ -3379,18 +3045,120 @@ QHeaderView::section {
             self.descriptionedit,
             self.categorycombo,
             self.activities_model,
-            self,
         )
         if add_trans.add_entry():
-            # Refresh model first (this will trigger the activities table animation)
-            self.refresh_model()
-            # Then refresh data (this will trigger the budget and graph animations)
+            self.refresh_model(self.current_date)
             self.refresh_data()
-            # Show success message
             self.show_message("Transaction added")
 
+    def handle_previous_transaction(self, month, year):
+        """Handle viewing transactions for a specific month and year"""
+        print(
+            f"Debug: handle_previous_transaction called with month='{month}', year='{year}'"
+        )
+
+        if month and year and month.strip() and year.strip():
+            try:
+                self.monthlyreport_lbl.setText(
+                    f"Report as of {self.monthcombo.currentText()} {self.yearcombo.currentText()}"
+                )
+
+                month_mapping = {
+                    "January": "01",
+                    "February": "02",
+                    "March": "03",
+                    "April": "04",
+                    "May": "05",
+                    "June": "06",
+                    "July": "07",
+                    "August": "08",
+                    "September": "09",
+                    "October": "10",
+                    "November": "11",
+                    "December": "12",
+                }
+
+                month_num = month_mapping.get(month, "01")
+                date_pattern = f"{year}-{month_num}%"
+
+                print(
+                    f"Debug: Searching for transactions with date pattern: {date_pattern}"
+                )
+
+                query2 = QSqlQuery()
+                query2.prepare(
+                    """SELECT transaction_date, amount, description, category 
+                       FROM transactions 
+                       WHERE user_id = ? AND transaction_date LIKE ?
+                       ORDER BY data_id DESC"""
+                )
+                query2.addBindValue(self.user_id)
+                query2.addBindValue(date_pattern)
+
+                if query2.exec_():
+                    self.transactions_model.setQuery(query2)
+                    self.transactions.setModel(self.transactions_model)
+
+                    row_count = self.transactions_model.rowCount()
+                    print(f"Debug: Found {row_count} transactions for {month} {year}")
+
+                    if row_count > 0:
+                        self.stackedWidget.setCurrentIndex(0)
+                        self.update_report_data(month, year, date_pattern)
+                    else:
+                        self.stackedWidget.setCurrentIndex(1)
+                        print(f"Debug: No transactions found for {month} {year}")
+                else:
+                    print(f"Debug: Query execution failed: {query2.lastError().text()}")
+                    self.stackedWidget.setCurrentIndex(1)
+
+            except Exception as e:
+                print(f"Debug: Error in handle_previous_transaction: {e}")
+                self.stackedWidget.setCurrentIndex(1)
+        else:
+            print("Debug: Month or year not selected properly")
+            self.stackedWidget.setCurrentIndex(1)
+
+    def update_report_data(self, month, year, date_pattern):
+        """Update the report page with data for the selected month/year"""
+        try:
+            self.cursor.execute(
+                """SELECT monthly_budget, monthly_savings, monthly_expenses 
+                   FROM user_data 
+                   WHERE user_id = ? AND report_date LIKE ?""",
+                (self.user_id, date_pattern[:7]),  # YYYY-MM format
+            )
+            result = self.cursor.fetchone()
+
+            if result:
+                budget, savings, expenses = result
+                self.budgetreport_value.setText(f"₱{float(budget):,.2f}")
+                self.savingsreport_value.setText(f"₱{float(savings):,.2f}")
+                self.expensereport_value.setText(f"₱{float(expenses):,.2f}")
+            else:
+                self.budgetreport_value.setText("No data")
+                self.savingsreport_value.setText("No data")
+                self.expensereport_value.setText("No data")
+
+            print(f"Debug: Updated report data for {month} {year}")
+
+        except Exception as e:
+            print(f"Debug: Error updating report data: {e}")
+
     def show_message(self, text):
-        # Calculate center position
         x = (self.width() - self.popup.width()) // 2
         y = self.height() // 2
         self.popup.show_popup(text, x, y)
+
+    def on_side_bar_click(self, page):
+        if page == "logout":
+            self.signoutwindow()
+        else:
+            self.tab.setCurrentIndex(page)
+            if hasattr(self, "sidebar"):
+                if page == 0:
+                    self.sidebar.home_btn.setChecked(True)
+                elif page == 1:
+                    self.sidebar.analytics_btn.setChecked(True)
+                elif page == 2:
+                    self.sidebar.report_btn.setChecked(True)
