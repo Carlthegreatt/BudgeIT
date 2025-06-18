@@ -2,7 +2,7 @@ import sys
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import QSettings
 from user_sign import SignEntry
-from main_window import BudgetApp
+from main import BudgetApp
 from landing_page import LandingPage
 
 
