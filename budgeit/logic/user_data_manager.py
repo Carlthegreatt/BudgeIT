@@ -1,41 +1,42 @@
 import sqlite3
 from .database_manager import get_database_path
 
-connect = sqlite3.connect(get_database_path())
-cursor = connect.cursor()
 
-cursor.execute(
-    """CREATE TABLE IF NOT EXISTS user_data(
-    data_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    monthly_income INTEGER NOT NULL,
-    monthly_budget INTEGER NOT NULL,
-    food_budget INTEGER NOT NULL,
-    utilities_budget INTEGER NOT NULL,
-    health_wellness_budget INTEGER NOT NULL,
-    personal_lifestyle_budget INTEGER NOT NULL,
-    education_budget INTEGER NOT NULL,
-    transportation_budget INTEGER NOT NULL,
-    miscellaneous_budget INTEGER NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users (user_id)
-    )"""
-)
+class UserDataManager:
+    def __init__(self):
+        self.connect = sqlite3.connect(get_database_path())
+        self.cursor = self.connect.cursor()
+        self.current_user_id = None
+        self.current_email = None
+        self._create_tables()
 
-cursor.execute(
-    """CREATE TABLE IF NOT EXISTS users(
+    def _create_tables(self):
+        """Create necessary database tables if they don't exist"""
+        self.cursor.execute(
+            """CREATE TABLE IF NOT EXISTS users(
                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
                username TEXT UNIQUE NOT NULL,
                password TEXT NOT NULL,
                email TEXT UNIQUE NOT NULL)"""
-)
+        )
 
-
-class UserDataManager:
-    def __init__(self, connect, cursor):
-        self.connect = connect
-        self.cursor = cursor
-        self.current_user_id = None
-        self.current_email = None
+        self.cursor.execute(
+            """CREATE TABLE IF NOT EXISTS user_data(
+            data_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            monthly_income INTEGER NOT NULL,
+            monthly_budget INTEGER NOT NULL,
+            food_budget INTEGER NOT NULL,
+            utilities_budget INTEGER NOT NULL,
+            health_wellness_budget INTEGER NOT NULL,
+            personal_lifestyle_budget INTEGER NOT NULL,
+            education_budget INTEGER NOT NULL,
+            transportation_budget INTEGER NOT NULL,
+            miscellaneous_budget INTEGER NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users (user_id)
+            )"""
+        )
+        self.connect.commit()
 
     def signup(self, username, password, confirm_password, email):
         if not all([username, password, confirm_password, email]):
@@ -198,3 +199,8 @@ class UserDataManager:
         self.current_user_id = None
         self.current_email = None
         print("Logged out successfully.")
+
+    def close_connection(self):
+        """Close the database connection"""
+        if self.connect:
+            self.connect.close()

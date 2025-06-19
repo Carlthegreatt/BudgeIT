@@ -10,7 +10,7 @@ from budgeit.ui.budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from budgeit.logic.data_manager import DataManager
-from budgeit.ui.signoutwindow import SignOutWindow
+from budgeit.ui.signout_window import SignOutWindow
 from budgeit.logic.account_setup import AccountSetup
 import sqlite3
 from budgeit.logic.database_manager import *

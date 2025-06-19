@@ -11,7 +11,7 @@ from .budget_window import BudgetWindow
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 from ..logic.data_manager import DataManager
-from .signoutwindow import SignOutWindow
+from .signout_window import SignOutWindow
 from ..logic.account_setup import AccountSetup
 import sqlite3
 from ..logic.database_manager import *

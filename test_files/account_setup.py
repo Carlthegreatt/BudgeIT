@@ -2,7 +2,7 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sqlite3
-from .logic.auth_manager import get_db_connection
+from ..budgeit.logic.auth_manager import get_db_connection
 
 
 class AccountSetup(QDialog):
