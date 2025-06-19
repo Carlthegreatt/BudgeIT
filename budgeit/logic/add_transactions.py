@@ -7,7 +7,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Optional, Dict, Any
 from .database_manager import get_database_path
-
+from budgeit.utils.warningEmailAutomation import EmailSender
 
 @dataclass
 class TransactionData:
@@ -86,7 +86,24 @@ class TransactionDatabase(DatabaseInterface):
             "Transportation": "remaining_transportation_budget",
             "Miscellaneous": "remaining_miscellaneous_budget",
         }
-
+    
+    # get the username and email of the us
+    def get_user_email_and_name(self, user_id: int) -> tuple[str, str] | None:
+        try:
+            with self.__get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "SELECT email, username FROM users WHERE user_id = ?",
+                    (user_id,)
+                )
+                result = cursor.fetchone()
+                if result:
+                    return result
+                return None
+        except Exception as e:
+            print(f"Error fetching user email: {e}")
+            return None
+        
     def __get_connection(self) -> sqlite3.Connection:
         return sqlite3.connect(self.__db_path)
 
@@ -330,11 +347,22 @@ class BudgetManager:
         else:
             if not self.__database.update_monthly_budget(user_id, report_date, amount):
                 return False, "Failed to update monthly budget."
+        
+        # SENDS WARNING EMAIL IF BUDGET IS ZEROOO
+        # ...inside BudgetManager.__handle_insufficient_budget...
 
-        return (
+        if budget_data.remaining_monthly_budget - amount < 0:
+            user_info = self.__database.get_user_email_and_name(user_id)
+            if user_info:
+                user_email, user_name = user_info
+                email_sender = EmailSender(user_email, user_name)
+                email_sender.send_email()
+                return (
             True,
             "Transaction processed successfully despite insufficient category budget.",
         )
+        
+        
 
     def __handle_sufficient_budget(
         self,
