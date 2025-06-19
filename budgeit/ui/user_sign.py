@@ -4,13 +4,13 @@ from PySide6.QtWidgets import *
 from ..logic.auth_manager import AuthManager
 from .main_window import BudgetApp
 from ..logic.account_setup import AccountSetup
+from ..assets.images import images_rc
 import sys
 from ..utils.emailautomation import EmailSender
 import os
 
 
 class SignEntry(QMainWindow):
-
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
