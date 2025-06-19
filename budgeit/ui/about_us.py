@@ -1,8 +1,10 @@
 from PySide6.QtCore import Qt, QRect, QPropertyAnimation, QEasingCurve
 from PySide6.QtGui import QPixmap, QColor, QPainter, QCursor, QPainterPath, QRegion
-from PySide6.QtWidgets import (QDialog, QLabel, QGraphicsDropShadowEffect)
+from PySide6.QtWidgets import QDialog, QLabel, QGraphicsDropShadowEffect
+from ..assets.images import images_rc
 import os
 import webbrowser
+
 
 class HoverableImageLabel(QLabel):
     def __init__(self, parent=None):
@@ -30,8 +32,10 @@ class HoverableImageLabel(QLabel):
         self._animation.setEndValue(enlarged)
         self._animation.start()
 
-        self.setMask(QRegion(0, 0, enlarged.width(), enlarged.height(), QRegion.Ellipse))
-        
+        self.setMask(
+            QRegion(0, 0, enlarged.width(), enlarged.height(), QRegion.Ellipse)
+        )
+
         self.shadow.setBlurRadius(30)
         self.shadow.setColor(QColor("#c8195b"))
         super().enterEvent(event)
@@ -42,18 +46,28 @@ class HoverableImageLabel(QLabel):
         self._animation.setEndValue(self._original_geometry)
         self._animation.start()
 
-        self.setMask(QRegion(0, 0, self._original_geometry.width(), self._original_geometry.height(), QRegion.Ellipse))
-       
+        self.setMask(
+            QRegion(
+                0,
+                0,
+                self._original_geometry.width(),
+                self._original_geometry.height(),
+                QRegion.Ellipse,
+            )
+        )
+
         self.shadow.setBlurRadius(10)
         self.shadow.setColor(QColor("#982761"))
         super().leaveEvent(event)
 
+
 class Team_Dialog(QDialog):
-    def __init__(self, parent=None):  
-        super().__init__(parent)       
+    def __init__(self, parent=None):
+        super().__init__(parent)
         self.setWindowTitle("Meet the Team")
         self.resize(750, 680)
-        self.setStyleSheet("""
+        self.setStyleSheet(
+            """
             QLabel {
                 font-family: 'Segoe UI';
             }
@@ -65,13 +79,18 @@ class Team_Dialog(QDialog):
                 font: 700 9pt 'Segoe UI';
                 color: #982761;
             }
-        """)
+        """
+        )
         self.setupUi()
 
     def setupUi(self):
         self.logo_label = QLabel(self)
         self.logo_label.setGeometry(QRect(20, 10, 60, 50))
-        self.logo_label.setPixmap(QPixmap("assets/images/logomin.png").scaled(60, 60, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+        self.logo_label.setPixmap(
+            QPixmap(":/logomin.png").scaled(
+                60, 60, Qt.KeepAspectRatio, Qt.SmoothTransformation
+            )
+        )
         self.logo_label.setScaledContents(True)
 
         label_meet = QLabel("MEET THE", self)
@@ -86,22 +105,71 @@ class Team_Dialog(QDialog):
 
         print("[DEBUG] __file__ path:", __file__)
 
-        image_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "assets", "images"))
-
+        image_dir = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "..", "assets", "images")
+        )
 
         print("[DEBUG] image_dir:", image_dir)
 
         test_path = os.path.join(image_dir, "Ayesha.jpg")
         print("[DEBUG] Test image path:", test_path)
         print("[DEBUG] Test image exists:", os.path.exists(test_path))
-  
+
         members = [
-            (20, 70, "Ayesha Zhyrile Infante", "Project Manager", "Ayesha.jpg", "ayeshainfante@gmail.com", "https://www.facebook.com/ayeshazhyrile.infante.7/"),
-            (440, 70, "Carl Blancaflor", "Lead Engineer", "Carl.jpg", "blancaflorcarlferros@gmail.com", "https://www.facebook.com/BlancaflorCarl"),
-            (20, 270, "Janreb Payton", "Senior Developer", "Payton.jpg", "janrebcornelpayton@gmail.com", "https://www.facebook.com/janrebcornel.payton"),
-            (440, 270, "Risha Villones", "Quality & Test Engineer", "Risha.jpg", "Vrishamay@gmail.com", "https://www.facebook.com/risha.villones.2024"),
-            (20, 480, "Erika Asio", "Junior Developer", "Erika.jpg", "asioerika12@gmail.com", "https://www.facebook.com/ErikaAsio036"),
-            (439, 480, "Jan Randolph Santos", "Junior Developer", "Randolph.jpg", "santoschinkit@gmail.com", "https://www.facebook.com/SantosRaandoolph")
+            (
+                20,
+                70,
+                "Ayesha Zhyrile Infante",
+                "Project Manager",
+                "Ayesha.jpg",
+                "ayeshainfante@gmail.com",
+                "https://www.facebook.com/ayeshazhyrile.infante.7/",
+            ),
+            (
+                440,
+                70,
+                "Carl Blancaflor",
+                "Lead Engineer",
+                "Carl.jpg",
+                "blancaflorcarlferros@gmail.com",
+                "https://www.facebook.com/BlancaflorCarl",
+            ),
+            (
+                20,
+                270,
+                "Janreb Payton",
+                "Senior Developer",
+                "Payton.jpg",
+                "janrebcornelpayton@gmail.com",
+                "https://www.facebook.com/janrebcornel.payton",
+            ),
+            (
+                440,
+                270,
+                "Risha Villones",
+                "Quality & Test Engineer",
+                "Risha.jpg",
+                "Vrishamay@gmail.com",
+                "https://www.facebook.com/risha.villones.2024",
+            ),
+            (
+                20,
+                480,
+                "Erika Asio",
+                "Junior Developer",
+                "Erika.jpg",
+                "asioerika12@gmail.com",
+                "https://www.facebook.com/ErikaAsio036",
+            ),
+            (
+                439,
+                480,
+                "Jan Randolph Santos",
+                "Junior Developer",
+                "Randolph.jpg",
+                "santoschinkit@gmail.com",
+                "https://www.facebook.com/SantosRaandoolph",
+            ),
         ]
 
         for x, y, name, role, image_file, email, fb_link in members:
@@ -113,9 +181,12 @@ class Team_Dialog(QDialog):
             image_label.setPixmap(self.getRoundedImage(full_image_path, 121))
             image_label.setScaledContents(True)
             image_label.setStyleSheet("border: none; background: transparent;")
-            image_label.setPixmap(QPixmap(full_image_path).scaled(121, 121, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            image_label.setPixmap(
+                QPixmap(full_image_path).scaled(
+                    121, 121, Qt.KeepAspectRatio, Qt.SmoothTransformation
+                )
+            )
             image_label.setMask(QRegion(0, 0, 121, 121, QRegion.Ellipse))
-
 
             name_label = QLabel(name, self)
             name_label.setGeometry(QRect(x + 140, y + 20, 200, 20))
@@ -135,7 +206,16 @@ class Team_Dialog(QDialog):
 
             fb_icon = QLabel(self)
             fb_icon.setGeometry(QRect(x + 140, y + 90, 20, 20))
-            fb_icon.setPixmap(QPixmap("assets/images/fb icon.png").scaled(20, 20, Qt.KeepAspectRatio, Qt.SmoothTransformation))
+            fb_icon_path = os.path.join(image_dir, "fb icon.png")
+            if os.path.exists(fb_icon_path):
+                fb_icon.setPixmap(
+                    QPixmap(fb_icon_path).scaled(
+                        20, 20, Qt.KeepAspectRatio, Qt.SmoothTransformation
+                    )
+                )
+            else:
+                # Use a placeholder or default icon if fb icon.png doesn't exist
+                fb_icon.setText("📘")
             fb_icon.setCursor(QCursor(Qt.PointingHandCursor))
             fb_icon.setToolTip("View Facebook Profile")
             fb_icon.mousePressEvent = lambda event, url=fb_link: self.openFbLink(url)
@@ -157,11 +237,13 @@ class Team_Dialog(QDialog):
         if original.isNull():
             return self.getPlaceholderPixmap(size)
 
-        high_res_size = size * 3  
-        original = original.scaled(high_res_size, high_res_size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        
+        high_res_size = size * 3
+        original = original.scaled(
+            high_res_size, high_res_size, Qt.KeepAspectRatio, Qt.SmoothTransformation
+        )
+
         rounded = QPixmap(high_res_size, high_res_size)
-        rounded.fill(Qt.transparent)  
+        rounded.fill(Qt.transparent)
 
         painter = QPainter(rounded)
         painter.setRenderHint(QPainter.Antialiasing)
@@ -179,8 +261,3 @@ class Team_Dialog(QDialog):
         label.setMask(region)
 
         return rounded.scaled(size, size, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-
-
-        
-
-
