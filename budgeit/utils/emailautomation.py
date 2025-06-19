@@ -76,17 +76,7 @@ class EmailSender:
               color: #888888;
             }}
 
-            .feature-btn {{
-              display: inline-block;
-              padding: 12px 24px;
-              margin-top: 20px;
-              background-color: #ff7369;
-              color: #ffffff;
-              text-decoration: none;
-              border-radius: 4px;
-              font-weight: bold;
-            }}
-
+  
             @media (max-width: 600px) {{
               .container {{
                 margin: 20px;
@@ -108,13 +98,12 @@ class EmailSender:
             </div>
             <div class="content">
               <p style="font-size: 20px; margin: 0px;"><b>Let the BudgeIT-ing begin!!</b></p>
-              <p >
-                BudgeIT is a budgeting app that helps you manage your finances effectively.
+              <p>
+                BudgeIT is a budget tracking app that helps you manage your finances effectively.
                   <br>
-                  To get started, read our features for more information. on how you can BudgeIT effectively! ^^
+                  To get started, read our terms and conditions for more information
               </p>
 
-              <a href="#" class="feature-btn">Features</a>
               
               <br>
               
@@ -122,7 +111,34 @@ class EmailSender:
                 this is an automated message, please do not reply to this email.
               </p>
             </div>
-            <div class="footer">
+            
+<div style="background-color: #f9f4f7; border-radius: 8px; margin: 32px 24px 0 24px; padding: 24px 18px; font-size: 13px; color: #6c4464; box-shadow: 0 2px 8px rgba(167, 83, 115, 0.05);">
+  <h2 style="color: #a75373; font-size: 18px; margin-top: 0; margin-bottom: 12px; text-align: center;">Terms and Conditions</h2>
+  <b>Use of the App</b><br>
+  Budget It is intended for personal finance management and budget tracking.<br>
+  You must be at least 13 years old to use this app. You agree to use Budget It only for lawful purposes and in accordance with these Terms.<br><br>
+  
+  <b>User Data and Privacy</b><br>
+  Budget It may collect non-personal data such as spending categories, dates, and amounts to help provide better insights.<br>
+  We do not share or sell any data to third parties. For educational/demo purposes, data may be stored locally and not on external servers.<br>
+  We are committed to keeping your information private. However, since this app is for educational purposes, it is not intended for storing sensitive financial information.<br><br>
+  
+  <b>Limitations of Liability</b><br>
+  Budget It is provided "as is" without warranties of any kind. We are not liable for any financial decisions made based on app data. Always double-check your records; Budget It is a tool, not a financial advisor.<br><br>
+  
+  <b>Intellectual Property</b><br>
+  All content, features, and designs of Budget It are the property of the creators/developers. You may not reproduce, copy, or reuse any part of the app without permission.<br><br>
+  
+  <b>Modifications to Terms</b><br>
+  We may update these Terms from time to time. Continued use of the app after changes means you accept the revised Terms.<br><br>
+  
+  <b>Termination</b><br>
+  We reserve the right to terminate or suspend access to the app at our discretion, without notice, for conduct that violates these Terms.<br><br>
+  
+  <b>Contact</b><br>
+  For questions or feedback, contact us at: <a href="mailto:blancaflorcarlferros@gmail.com" style="color: #d46a92; text-decoration: underline;">blancaflorcarlferros@gmail.com</a>
+</div>
+              <div class="footer">
               &copy; 2025 BudgeIT. All rights reserved.
             </div>
           </div>
@@ -152,3 +168,6 @@ class EmailSender:
         except Exception as e:
             print(f"Error sending email: {e}")
             return False
+          
+test = EmailSender('santoschinkit@gmail.com','emman')
+test.send_email()
