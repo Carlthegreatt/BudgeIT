@@ -42,6 +42,20 @@ Tests for the `budgeit/logic/add_transactions.py` module:
 - **TransactionDatabase**: Tests for database operations with in-memory database
 - **AddTransactions**: Tests for the main transaction addition class
 
+### test_auth_manager.py
+Tests for the `budgeit/logic/auth_manager.py` module:
+
+- **DatabaseManager**: Tests for database initialization, connection management, and table creation
+- **AuthManager**: Tests for user authentication, signup/signin processes, and user management
+- **get_db_connection**: Tests for the database connection context manager function
+
+Key test areas covered:
+- Database table creation and structure validation
+- User signup validation (field validation, duplicate checking, email verification)
+- User signin authentication (credential validation, error handling)
+- Database connection management and error handling
+- User data initialization for new accounts
+
 ## Dependencies
 
 The tests use Python's built-in `unittest` framework and `unittest.mock` for mocking dependencies. External dependencies like PySide6 are mocked to avoid UI dependencies during testing.
