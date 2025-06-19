@@ -5,6 +5,7 @@ from PySide6.QtWidgets import *
 from .user_sign import SignEntry
 from .features import Features_ui
 from .about_us import Team_Dialog
+from ..assets.images import images_rc
 import os
 import ctypes
 
@@ -509,10 +510,6 @@ QWidget {
             self.about_us_dialog = None
             return
 
-        dialog = QDialog(self)
-
-        ui = Team_Dialog()
-        ui.setupUi(dialog)  # Pass dialog here
-        dialog.setWindowModality(Qt.ApplicationModal)
-        self.about_us_dialog = dialog  # Assign to about_us_dialog
-        dialog.show()
+        self.about_us_dialog = Team_Dialog(self)
+        self.about_us_dialog.setWindowModality(Qt.ApplicationModal)
+        self.about_us_dialog.show()
