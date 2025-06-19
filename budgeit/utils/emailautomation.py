@@ -168,6 +168,3 @@ class EmailSender:
         except Exception as e:
             print(f"Error sending email: {e}")
             return False
-          
-test = EmailSender('santoschinkit@gmail.com','emman')
-test.send_email()
