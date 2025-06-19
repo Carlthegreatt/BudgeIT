@@ -6,8 +6,8 @@ from email.mime.multipart import MIMEMultipart
 class EmailSender:
     def __init__(self, receiver_email, username):
         self.receiver_email = receiver_email
-      
-
+        self.username = username
+        
     def send_email(self):
         # Create the email
         message = MIMEMultipart("alternative")
@@ -118,7 +118,9 @@ class EmailSender:
     </html>
 
 
-        """
+        """.format(
+          username=self.username
+      )
         
         # Attach both plain text and HTML versions
         part1 = MIMEText(text_content, "plain")
