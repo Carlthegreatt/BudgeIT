@@ -512,7 +512,7 @@ QWidget {
         dialog = QDialog(self)
 
         ui = Team_Dialog()
-        ui.setupUi(dialog)
+        ui.setupUi(dialog)  # Pass dialog here
         dialog.setWindowModality(Qt.ApplicationModal)
-        self.features_dialog = dialog
+        self.about_us_dialog = dialog  # Assign to about_us_dialog
         dialog.show()
