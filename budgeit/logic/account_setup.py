@@ -11,11 +11,28 @@ class AccountSetup(QDialog):
 
     def __init__(self, user_id, current_month, parent=None):
         super().__init__(parent)
-        self.user_id = user_id
-        self.current_month = current_month
+        self._user_id = user_id
+        self._current_month = current_month
+        self._user_data = None
+        self._monthly_income = 0.0
+        self._monthly_budget = 0.0
+        self._category_budgets = {
+            "food": 0.0,
+            "utilities": 0.0,
+            "health_wellness": 0.0,
+            "personal_lifestyle": 0.0,
+            "education": 0.0,
+            "transportation": 0.0,
+            "miscellaneous": 0.0,
+        }
         self.setupUi(self)
         self.setWindowTitle(" ")
-        self.inputs = [
+        self._setup_input_fields()
+        print("from account setup: user id", self._user_id)
+
+    def _setup_input_fields(self):
+        """Setup input field references for easier access"""
+        self._inputs = [
             self.foodedit,
             self.utilitiesedit,
             self.healthwellnessedit,
@@ -24,7 +41,260 @@ class AccountSetup(QDialog):
             self.transportationedit,
             self.miscellaneousedit,
         ]
-        print("from account setup: user id", self.user_id)
+
+    @property
+    def user_id(self):
+        """Get the user ID"""
+        return self._user_id
+
+    @property
+    def current_month(self):
+        """Get the current month"""
+        return self._current_month
+
+    @property
+    def monthly_income(self):
+        """Get the monthly income"""
+        return self._monthly_income
+
+    @monthly_income.setter
+    def monthly_income(self, value):
+        """Set the monthly income with validation"""
+        try:
+            income = float(value)
+            if income < 0:
+                raise ValueError("Income cannot be negative")
+            self._monthly_income = income
+        except ValueError as e:
+            raise ValueError(f"Invalid income value: {e}")
+
+    @property
+    def monthly_budget(self):
+        """Get the monthly budget"""
+        return self._monthly_budget
+
+    @monthly_budget.setter
+    def monthly_budget(self, value):
+        """Set the monthly budget with validation"""
+        try:
+            budget = float(value)
+            if budget < 0:
+                raise ValueError("Budget cannot be negative")
+            self._monthly_budget = budget
+        except ValueError as e:
+            raise ValueError(f"Invalid budget value: {e}")
+
+    def get_category_budget(self, category):
+        """Get budget for a specific category"""
+        if category not in self._category_budgets:
+            raise ValueError(f"Invalid category: {category}")
+        return self._category_budgets[category]
+
+    def set_category_budget(self, category, value):
+        """Set budget for a specific category with validation"""
+        if category not in self._category_budgets:
+            raise ValueError(f"Invalid category: {category}")
+        try:
+            budget = float(value)
+            if budget < 0:
+                raise ValueError("Category budget cannot be negative")
+            self._category_budgets[category] = budget
+        except ValueError as e:
+            raise ValueError(f"Invalid budget value for {category}: {e}")
+
+    def _validate_setup_data(self):
+        """Validate all setup data before submission"""
+        try:
+            # Get and validate income
+            income = float(self.allowanceincomeedit.text())
+            if income <= 0:
+                return False, "Income must be greater than zero"
+
+            # Get and validate total budget
+            budget = float(
+                self.budgetvalue.text().replace("₱", "").replace(",", "").strip()
+            )
+            if budget <= 0:
+                return False, "Budget must be greater than zero"
+
+            if income < budget:
+                return False, "Income cannot be less than total budget"
+
+            # Validate all category inputs
+            for input_field in self._inputs:
+                value = input_field.text().strip()
+                if not value:
+                    return False, "All category fields must be filled"
+                try:
+                    amount = float(value)
+                    if amount < 0:
+                        return False, "Category budgets cannot be negative"
+                except ValueError:
+                    return False, "All fields must contain valid numbers"
+
+            return True, ""
+        except ValueError:
+            return False, "Invalid numeric values detected"
+
+    def _update_database(self, values):
+        """Update database with new setup values"""
+        try:
+            with get_db_connection() as connect:
+                cursor = connect.cursor()
+
+                # Update user_data table
+                if self._user_data:
+                    cursor.execute(
+                        """
+                        UPDATE user_data SET
+                            monthly_income = ?,
+                            monthly_budget = ?,
+                            food_budget = ?,
+                            utilities_budget = ?,
+                            health_wellness_budget = ?,
+                            personal_lifestyle_budget = ?,
+                            education_budget = ?,
+                            transportation_budget = ?,
+                            miscellaneous_budget = ?,
+                            monthly_savings = ?,  
+                            report_date = ?
+                        WHERE user_id = ?
+                        """,
+                        (*values, self._current_month, self._user_id),
+                    )
+                else:
+                    cursor.execute(
+                        """
+                        INSERT INTO user_data (
+                            user_id,
+                            monthly_income,
+                            food_budget,
+                            utilities_budget,
+                            health_wellness_budget,
+                            personal_lifestyle_budget,
+                            education_budget,
+                            transportation_budget,
+                            miscellaneous_budget,
+                            monthly_savings,
+                            monthly_budget,
+                            report_date
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (self._user_id, *values, self._current_month),
+                    )
+
+                # Update remaining_budgets table
+                self._update_remaining_budgets(cursor)
+
+                # Update account setup status
+                cursor.execute(
+                    "UPDATE users SET account_setup = ? WHERE user_id = ?",
+                    (True, self._user_id),
+                )
+
+                connect.commit()
+                return True
+        except Exception as e:
+            print(f"Database update error: {e}")
+            return False
+
+    def _update_remaining_budgets(self, cursor):
+        """Update remaining budgets table"""
+        cursor.execute(
+            """
+            UPDATE remaining_budgets SET 
+                remaining_income = ?, 
+                remaining_monthly_savings = ?, 
+                remaining_monthly_budget = ?, 
+                remaining_food_budget = ?, 
+                remaining_utilities_budget = ?, 
+                remaining_health_wellness_budget = ?, 
+                remaining_personal_lifestyle_budget = ?, 
+                remaining_education_budget = ?, 
+                remaining_transportation_budget = ?, 
+                remaining_miscellaneous_budget = ?, 
+                report_date = ? 
+            WHERE user_id = ?
+            """,
+            (
+                self.allowanceincomeedit.text(),
+                self.allowanceincomeedit.text(),
+                self.budgetvalue.text().replace("₱", "").replace(",", "").strip(),
+                self.foodedit.text(),
+                self.utilitiesedit.text(),
+                self.healthwellnessedit.text(),
+                self.personallifestyeedit.text(),
+                self.educationedit.text(),
+                self.transportationedit.text(),
+                self.miscellaneousedit.text(),
+                self._current_month,
+                self._user_id,
+            ),
+        )
+
+    def submit_account_setup(self):
+        """Submit account setup with validation"""
+        try:
+            # Validate all input data
+            is_valid, error_message = self._validate_setup_data()
+            if not is_valid:
+                QMessageBox.warning(self, "Validation Error", error_message)
+                return
+
+            with get_db_connection() as connect:
+                cursor = connect.cursor()
+                cursor.execute(
+                    "SELECT * FROM user_data WHERE user_id = ?", (self._user_id,)
+                )
+                self._user_data = cursor.fetchone()
+
+                values = [
+                    self.allowanceincomeedit.text(),
+                    self.budgetvalue.text().replace("₱", "").replace(",", "").strip(),
+                    self.foodedit.text().strip(),
+                    self.utilitiesedit.text().strip(),
+                    self.healthwellnessedit.text().strip(),
+                    self.personallifestyeedit.text().strip(),
+                    self.educationedit.text().strip(),
+                    self.transportationedit.text().strip(),
+                    self.miscellaneousedit.text().strip(),
+                    (
+                        float(self.allowanceincomeedit.text())
+                        - float(self._user_data[6])
+                        if self._user_data
+                        else 0.0
+                    ),
+                ]
+
+                if self._update_database(values):
+                    print("Account setup successful")
+                    self.setup_completed.emit()
+                    self.accept()
+                else:
+                    QMessageBox.warning(
+                        self,
+                        "Setup Error",
+                        "There was an error saving your account setup. Please try again.",
+                    )
+
+        except Exception as e:
+            print(f"Error in account setup: {e}")
+            QMessageBox.warning(
+                self,
+                "Setup Error",
+                "There was an error saving your account setup. Please try again.",
+            )
+
+    def update_sum(self):
+        """Update the total budget sum"""
+        total = 0.0
+        for text_edit in self._inputs:
+            try:
+                value = float(text_edit.text())
+                total += value
+            except ValueError:
+                continue
+        self.budgetvalue.setText(f"₱{total:,.2f}")
 
     def show(self):
         """Show the dialog and set it as modal"""
@@ -330,186 +600,6 @@ class AccountSetup(QDialog):
         self.educationedit.textChanged.connect(self.update_sum)
         self.transportationedit.textChanged.connect(self.update_sum)
         self.miscellaneousedit.textChanged.connect(self.update_sum)
-
-    def submit_account_setup(self):
-        try:
-            with get_db_connection() as connect:
-                income = float(self.allowanceincomeedit.text())
-                budget = float(
-                    self.budgetvalue.text().replace("₱", "").replace(",", "").strip()
-                )
-
-                print(f"Debug - Income: {income}, Budget: {budget}")
-
-                if income < budget:
-                    print(f"Debug - Income ({income}) is less than budget ({budget})")
-                    QMessageBox.warning(
-                        self,
-                        "Validation Error",
-                        "Your allowance/income is less than your budget. Please adjust your budget.",
-                    )
-                    return
-                else:
-                    cursor = connect.cursor()
-                    cursor.execute(
-                        "SELECT * FROM user_data WHERE user_id = ?", (self.user_id,)
-                    )
-                    self.user_data = cursor.fetchone()
-
-                    values = [
-                        self.allowanceincomeedit.text(),
-                        self.budgetvalue.text()
-                        .replace("₱", "")
-                        .replace(",", "")
-                        .strip(),
-                        self.foodedit.text().strip(),
-                        self.utilitiesedit.text().strip(),
-                        self.healthwellnessedit.text().strip(),
-                        self.personallifestyeedit.text().strip(),
-                        self.educationedit.text().strip(),
-                        self.transportationedit.text().strip(),
-                        self.miscellaneousedit.text().strip(),
-                        float(self.allowanceincomeedit.text())
-                        - float(self.user_data[6]),
-                    ]
-
-                    if not all(values):
-                        QMessageBox.warning(
-                            self, "Validation Error", "Please fill in all fields."
-                        )
-                        return
-
-                    try:
-                        [float(v) for v in values]
-                    except ValueError:
-                        QMessageBox.warning(
-                            self,
-                            "Validation Error",
-                            "All fields must contain valid numbers.",
-                        )
-                        return
-
-                    if self.user_data:
-                        cursor.execute(
-                            """
-                            UPDATE user_data SET
-                                monthly_income = ?,
-                                monthly_budget = ?,
-                                food_budget = ?,
-                                utilities_budget = ?,
-                                health_wellness_budget = ?,
-                                personal_lifestyle_budget = ?,
-                                education_budget = ?,
-                                transportation_budget = ?,
-                                miscellaneous_budget = ?,
-                                monthly_savings = ?,  
-                                report_date = ?
-                            WHERE user_id = ?
-                            """,
-                            (
-                                *values,
-                                self.current_month,
-                                self.user_id,
-                            ),
-                        )
-
-                        cursor.execute(
-                            "UPDATE remaining_budgets SET remaining_income = ?, remaining_monthly_savings = ?, remaining_monthly_budget = ?, remaining_food_budget = ?, remaining_utilities_budget = ?, remaining_health_wellness_budget = ?, remaining_personal_lifestyle_budget = ?, remaining_education_budget = ?, remaining_transportation_budget = ?, remaining_miscellaneous_budget = ?, report_date = ? WHERE user_id = ?",
-                            (
-                                self.allowanceincomeedit.text(),
-                                self.allowanceincomeedit.text(),
-                                self.budgetvalue.text()
-                                .replace("₱", "")
-                                .replace(",", "")
-                                .strip(),
-                                self.foodedit.text(),
-                                self.utilitiesedit.text(),
-                                self.healthwellnessedit.text(),
-                                self.personallifestyeedit.text(),
-                                self.educationedit.text(),
-                                self.transportationedit.text(),
-                                self.miscellaneousedit.text(),
-                                self.current_month,
-                                self.user_id,
-                            ),
-                        )
-                    else:
-                        cursor.execute(
-                            """
-                            INSERT INTO user_data (
-                                user_id,
-                                monthly_income,
-                                food_budget,
-                                utilities_budget,
-                                health_wellness_budget,
-                                personal_lifestyle_budget,
-                                education_budget,
-                                transportation_budget,
-                                miscellaneous_budget,
-                                monthly_savings,
-                                monthly_budget,
-                                report_date
-                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                            """,
-                            (
-                                self.user_id,
-                                *values,
-                                self.current_month,
-                            ),
-                        )
-
-                        cursor.execute(
-                            "INSERT INTO remaining_budgets (user_id, remaining_income, remaining_monthly_savings, remaining_monthly_budget, remaining_food_budget, remaining_utilities_budget, remaining_health_wellness_budget, remaining_personal_lifestyle_budget, remaining_education_budget, remaining_transportation_budget, remaining_miscellaneous_budget, report_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
-                            (
-                                self.user_id,
-                                self.allowanceincomeedit.text(),
-                                self.allowanceincomeedit.text(),
-                                self.budgetvalue.text()
-                                .replace("₱", "")
-                                .replace(",", "")
-                                .strip(),
-                                self.foodedit.text(),
-                                self.utilitiesedit.text(),
-                                self.healthwellnessedit.text(),
-                                self.personallifestyeedit.text(),
-                                self.educationedit.text(),
-                                self.transportationedit.text(),
-                                self.miscellaneousedit.text(),
-                                self.current_month,
-                            ),
-                        )
-
-                    connect.commit()
-                    print("Account setup successful - user_data updated")
-
-                    cursor.execute(
-                        "UPDATE users SET account_setup = ? WHERE user_id = ?",
-                        (True, self.user_id),
-                    )
-                    connect.commit()
-                    print("Account setup successful - users table updated")
-
-                    self.setup_completed.emit()
-                    print("Setup completed signal emitted")
-                    self.accept()
-
-        except Exception as e:
-            print(f"Error in account setup: {e}")
-            QMessageBox.warning(
-                self,
-                "Setup Error",
-                "There was an error saving your account setup. Please try again.",
-            )
-
-    def update_sum(self):
-        total = 0.0
-        for text_edit in self.inputs:
-            try:
-                value = float(text_edit.text())
-                total += value
-            except ValueError:
-                continue
-        self.budgetvalue.setText(f"₱{total:,.2f}")
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", "Dialog", None))
