@@ -5,6 +5,7 @@ from PySide6.QtCore import QSettings
 from .ui.user_sign import SignEntry
 from .ui.main_window import BudgetApp
 from .ui.landing_page import LandingPage
+import sqlite3
 
 
 class Main:
@@ -19,8 +20,9 @@ class Main:
         if remember_me and saved_user_id:
             try:
                 window = BudgetApp(int(saved_user_id))
-            except (ValueError, TypeError):
-
+            except (ValueError, TypeError, sqlite3.OperationalError) as e:
+                print(e)
+                self.settings.clear()
                 self.settings.remove("remember_me")
                 self.settings.remove("saved_user_id")
                 window = LandingPage()

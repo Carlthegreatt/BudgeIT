@@ -344,23 +344,21 @@ class BudgetManager:
             )
             if not self.__database.reset_all_budgets(user_id, report_date):
                 return False, "Failed to reset budgets."
-        else:
-            if not self.__database.update_monthly_budget(user_id, report_date, amount):
-                return False, "Failed to update monthly budget."
 
-        # SENDS WARNING EMAIL IF BUDGET IS ZEROOO
-        # ...inside BudgetManager.__handle_insufficient_budget...
-
-        if budget_data.remaining_monthly_budget - amount < 0:
+            # Send warning email if budget is zero
             user_info = self.__database.get_user_email_and_name(user_id)
             if user_info:
                 user_email, user_name = user_info
                 email_sender = EmailSender(user_email, user_name)
                 email_sender.send_email()
-                return (
-                    True,
-                    "Transaction processed successfully despite insufficient category budget.",
-                )
+        else:
+            if not self.__database.update_monthly_budget(user_id, report_date, amount):
+                return False, "Failed to update monthly budget."
+
+        return (
+            True,
+            "Transaction processed successfully despite insufficient category budget.",
+        )
 
     def __handle_sufficient_budget(
         self,
