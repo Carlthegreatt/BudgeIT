@@ -343,19 +343,6 @@ class BudgetApp(QMainWindow):
 
         self.horizontalLayout_24.addItem(self.horizontalSpacer)
 
-        self.notificationsbtn = QToolButton(self.dashboardwidget)
-        self.notificationsbtn.setObjectName("notificationsbtn")
-        self.notificationsbtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        self.notificationsbtn.setStyleSheet("border: none;")
-        icon5 = QIcon()
-        icon5.addFile(
-            ":/icons/notificationdark.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off
-        )
-        self.notificationsbtn.setIcon(icon5)
-        self.notificationsbtn.setIconSize(QSize(20, 20))
-
-        self.horizontalLayout_24.addWidget(self.notificationsbtn)
-
         self.profilebtn = QToolButton(self.dashboardwidget)
         self.profilebtn.setObjectName("profilebtn")
         self.profilebtn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
@@ -2008,9 +1995,6 @@ class BudgetApp(QMainWindow):
         self.menulabel.setText(
             QCoreApplication.translate("MainWindow", "Dashboard", None)
         )
-        self.notificationsbtn.setText(
-            QCoreApplication.translate("MainWindow", "...", None)
-        )
         self.profilebtn.setText(QCoreApplication.translate("MainWindow", "...", None))
         self.morebtn.setText(QCoreApplication.translate("MainWindow", "...", None))
         self.tab.setAccessibleDescription("")
@@ -2506,22 +2490,33 @@ class BudgetApp(QMainWindow):
                 else:
                     self.progressBar_2.setValue(0)
 
+                # Get totals from user_data (excluding savings which we'll calculate separately)
                 self.cursor.execute(
-                    """SELECT SUM(monthly_expenses), SUM(monthly_savings), SUM(monthly_income), SUM(monthly_budget) FROM user_data WHERE user_id = ?""",
+                    """SELECT SUM(monthly_expenses), SUM(monthly_income), SUM(monthly_budget) FROM user_data WHERE user_id = ?""",
                     (self.user_id,),
                 )
 
                 result = self.cursor.fetchone()
                 if result is None:
                     self.total_expenses = 0
-                    self.total_savings = 0
                     self.total_income = 0
                     self.total_budget = 0
                 else:
                     self.total_expenses = result[0] or 0
-                    self.total_savings = result[1] or 0
-                    self.total_income = result[2] or 0
-                    self.total_budget = result[3] or 0
+                    self.total_income = result[1] or 0
+                    self.total_budget = result[2] or 0
+
+                # Get actual accumulated savings from remaining_budgets table
+                self.cursor.execute(
+                    """SELECT SUM(remaining_monthly_savings) FROM remaining_budgets WHERE user_id = ?""",
+                    (self.user_id,),
+                )
+
+                savings_result = self.cursor.fetchone()
+                if savings_result is None:
+                    self.total_savings = 0
+                else:
+                    self.total_savings = savings_result[0] or 0
 
                 self.totalexpensevalue.setText(f"₱{float(self.total_expenses):,.2f}")
                 self.accumulatedsavingvalue.setText(

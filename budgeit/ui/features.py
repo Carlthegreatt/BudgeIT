@@ -455,7 +455,7 @@ class Features_ui(object):
 
     def retranslateUi(self, features_ui):
         features_ui.setWindowTitle(
-            QCoreApplication.translate("features_ui", "Dialog", None)
+            QCoreApplication.translate("features_ui", "Features", None)
         )
         self.label.setText(QCoreApplication.translate("features_ui", "Features", None))
         self.label_2.setText(

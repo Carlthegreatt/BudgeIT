@@ -36,7 +36,7 @@ class SavingsWindow(QDialog):
             current_month = datetime.today().strftime("%Y-%m")
             cursor = connect.cursor()
             cursor.execute(
-                """SELECT SUM(monthly_savings) FROM user_data WHERE user_id = ?""",
+                """SELECT SUM(remaining_monthly_savings) FROM remaining_budgets WHERE user_id = ?""",
                 (self.parent.user_id,),
             )
 
@@ -44,7 +44,7 @@ class SavingsWindow(QDialog):
             if result is None:
                 total_savings = 0
             else:
-                total_savings = result[0]
+                total_savings = result[0] or 0
 
             self.savingswindowvalue.setText(f"₱{float(total_savings):,.2f}")
 

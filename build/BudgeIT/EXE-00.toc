@@ -1,0 +1,2011 @@
+('C:\\Users\\shane VAN\\Desktop\\carl\\BudgeIT\\dist\\BudgeIT.exe',
+ False,
+ False,
+ False,
+ ['C:\\Users\\shane '
+  'VAN\\Desktop\\carl\\BudgeIT\\budgeit/assets/icons/favicon.ico'],
+ None,
+ False,
+ False,
+ b'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<assembly xmlns='
+ b'"urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">\n  <trustInfo x'
+ b'mlns="urn:schemas-microsoft-com:asm.v3">\n    <security>\n      <requested'
+ b'Privileges>\n        <requestedExecutionLevel level="asInvoker" uiAccess='
+ b'"false"/>\n      </requestedPrivileges>\n    </security>\n  </trustInfo>\n  '
+ b'<compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">\n    <'
+ b'application>\n      <supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f'
+ b'0}"/>\n      <supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}"/>\n '
+ b'     <supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}"/>\n      <s'
+ b'upportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}"/>\n      <supporte'
+ b'dOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}"/>\n    </application>\n  <'
+ b'/compatibility>\n  <application xmlns="urn:schemas-microsoft-com:asm.v3">'
+ b'\n    <windowsSettings>\n      <longPathAware xmlns="http://schemas.micros'
+ b'oft.com/SMI/2016/WindowsSettings">true</longPathAware>\n    </windowsSett'
+ b'ings>\n  </application>\n  <dependency>\n    <dependentAssembly>\n      <ass'
+ b'emblyIdentity type="win32" name="Microsoft.Windows.Common-Controls" version='
+ b'"6.0.0.0" processorArchitecture="*" publicKeyToken="6595b64144ccf1df" langua'
+ b'ge="*"/>\n    </dependentAssembly>\n  </dependency>\n</assembly>',
+ True,
+ False,
+ None,
+ None,
+ None,
+ 'C:\\Users\\shane VAN\\Desktop\\carl\\BudgeIT\\build\\BudgeIT\\BudgeIT.pkg',
+ [('pyi-contents-directory _internal', '', 'OPTION'),
+  ('PYZ-00.pyz',
+   'C:\\Users\\shane VAN\\Desktop\\carl\\BudgeIT\\build\\BudgeIT\\PYZ-00.pyz',
+   'PYZ'),
+  ('struct',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\build\\BudgeIT\\localpycs\\struct.pyc',
+   'PYMODULE'),
+  ('pyimod01_archive',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\build\\BudgeIT\\localpycs\\pyimod01_archive.pyc',
+   'PYMODULE'),
+  ('pyimod02_importers',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\build\\BudgeIT\\localpycs\\pyimod02_importers.pyc',
+   'PYMODULE'),
+  ('pyimod03_ctypes',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\build\\BudgeIT\\localpycs\\pyimod03_ctypes.pyc',
+   'PYMODULE'),
+  ('pyimod04_pywin32',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\build\\BudgeIT\\localpycs\\pyimod04_pywin32.pyc',
+   'PYMODULE'),
+  ('pyiboot01_bootstrap',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
+   'PYSOURCE'),
+  ('pyi_rth_inspect',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
+   'PYSOURCE'),
+  ('pyi_rth_pyside6',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pyside6.py',
+   'PYSOURCE'),
+  ('pyi_rth_mplconfig',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_mplconfig.py',
+   'PYSOURCE'),
+  ('pyi_rth_pkgutil',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_pkgutil.py',
+   'PYSOURCE'),
+  ('pyi_rth_multiprocessing',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_multiprocessing.py',
+   'PYSOURCE'),
+  ('pyi_rth_setuptools',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_setuptools.py',
+   'PYSOURCE'),
+  ('run', 'C:\\Users\\shane VAN\\Desktop\\carl\\BudgeIT\\run.py', 'PYSOURCE'),
+  ('python313.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\python313.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\sqldrivers\\qsqlodbc.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\sqldrivers\\qsqlodbc.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\sqldrivers\\qsqlibase.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\sqldrivers\\qsqlibase.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\sqldrivers\\qsqlpsql.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\sqldrivers\\qsqlpsql.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\sqldrivers\\qsqloci.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\sqldrivers\\qsqloci.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\sqldrivers\\qsqlmimer.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\sqldrivers\\qsqlmimer.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\sqldrivers\\qsqlite.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\sqldrivers\\qsqlite.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\styles\\qmodernwindowsstyle.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\styles\\qmodernwindowsstyle.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\platforms\\qminimal.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qminimal.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qgif.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qgif.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qsvg.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qsvg.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\platforms\\qwindows.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qwindows.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\platforms\\qoffscreen.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qoffscreen.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qicns.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qicns.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\platforms\\qdirect2d.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\platforms\\qdirect2d.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\platforminputcontexts\\qtvirtualkeyboardplugin.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\platforminputcontexts\\qtvirtualkeyboardplugin.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qwebp.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qwebp.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\generic\\qtuiotouchplugin.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\generic\\qtuiotouchplugin.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qtga.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qtga.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\iconengines\\qsvgicon.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\iconengines\\qsvgicon.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qtiff.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qtiff.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qjpeg.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qjpeg.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qico.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qico.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qpdf.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qpdf.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\imageformats\\qwbmp.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\imageformats\\qwbmp.dll',
+   'BINARY'),
+  ('PySide6\\opengl32sw.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\opengl32sw.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\tls\\qcertonlybackend.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\tls\\qcertonlybackend.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\tls\\qschannelbackend.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\tls\\qschannelbackend.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\tls\\qopensslbackend.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\tls\\qopensslbackend.dll',
+   'BINARY'),
+  ('PySide6\\plugins\\networkinformation\\qnetworklistmanager.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\plugins\\networkinformation\\qnetworklistmanager.dll',
+   'BINARY'),
+  ('numpy.libs\\msvcp140-263139962577ecda4cd9469ca360a746.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy.libs\\msvcp140-263139962577ecda4cd9469ca360a746.dll',
+   'BINARY'),
+  ('numpy.libs\\libscipy_openblas64_-13e2df515630b4a41f92893938845698.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy.libs\\libscipy_openblas64_-13e2df515630b4a41f92893938845698.dll',
+   'BINARY'),
+  ('unicodedata.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\unicodedata.pyd',
+   'EXTENSION'),
+  ('_lzma.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_lzma.pyd',
+   'EXTENSION'),
+  ('_bz2.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_bz2.pyd',
+   'EXTENSION'),
+  ('_decimal.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_decimal.pyd',
+   'EXTENSION'),
+  ('_hashlib.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_hashlib.pyd',
+   'EXTENSION'),
+  ('select.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\select.pyd',
+   'EXTENSION'),
+  ('_socket.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_socket.pyd',
+   'EXTENSION'),
+  ('_overlapped.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_overlapped.pyd',
+   'EXTENSION'),
+  ('_ssl.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_ssl.pyd',
+   'EXTENSION'),
+  ('_queue.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_queue.pyd',
+   'EXTENSION'),
+  ('_ctypes.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_ctypes.pyd',
+   'EXTENSION'),
+  ('_multiprocessing.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_multiprocessing.pyd',
+   'EXTENSION'),
+  ('pyexpat.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\pyexpat.pyd',
+   'EXTENSION'),
+  ('_asyncio.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_asyncio.pyd',
+   'EXTENSION'),
+  ('_wmi.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_wmi.pyd',
+   'EXTENSION'),
+  ('_sqlite3.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_sqlite3.pyd',
+   'EXTENSION'),
+  ('PySide6\\QtSql.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\QtSql.pyd',
+   'EXTENSION'),
+  ('shiboken6\\Shiboken.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\shiboken6\\Shiboken.pyd',
+   'EXTENSION'),
+  ('PySide6\\QtWidgets.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\QtWidgets.pyd',
+   'EXTENSION'),
+  ('PySide6\\QtGui.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\QtGui.pyd',
+   'EXTENSION'),
+  ('PySide6\\QtCore.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\QtCore.pyd',
+   'EXTENSION'),
+  ('PySide6\\QtNetwork.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\QtNetwork.pyd',
+   'EXTENSION'),
+  ('numpy\\_core\\_multiarray_umath.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\_core\\_multiarray_umath.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\linalg\\_umath_linalg.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\linalg\\_umath_linalg.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('PIL\\_imaging.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\_imaging.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('PIL\\_webp.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\_webp.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('PIL\\_imagingtk.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\_imagingtk.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('PIL\\_imagingcms.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\_imagingcms.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('PIL\\_imagingmath.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PIL\\_imagingmath.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('_elementtree.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_elementtree.pyd',
+   'EXTENSION'),
+  ('kiwisolver\\_cext.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\kiwisolver\\_cext.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('matplotlib\\backends\\_backend_agg.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\backends\\_backend_agg.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\_core\\_multiarray_tests.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\_core\\_multiarray_tests.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\random\\mtrand.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\random\\mtrand.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\random\\_sfc64.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\random\\_sfc64.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\random\\_philox.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\random\\_philox.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\random\\_pcg64.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\random\\_pcg64.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\random\\_mt19937.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\random\\_mt19937.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\random\\bit_generator.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\random\\bit_generator.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\random\\_generator.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\random\\_generator.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\random\\_bounded_integers.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\random\\_bounded_integers.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\random\\_common.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\random\\_common.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('numpy\\fft\\_pocketfft_umath.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy\\fft\\_pocketfft_umath.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('contourpy\\_contourpy.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\contourpy\\_contourpy.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('matplotlib\\_tri.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\_tri.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('matplotlib\\_qhull.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\_qhull.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('matplotlib\\_image.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\_image.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('matplotlib\\ft2font.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\ft2font.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('_uuid.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\_uuid.pyd',
+   'EXTENSION'),
+  ('matplotlib\\_path.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\_path.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('matplotlib\\_c_internal_utils.cp313-win_amd64.pyd',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\_c_internal_utils.cp313-win_amd64.pyd',
+   'EXTENSION'),
+  ('VCRUNTIME140.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\VCRUNTIME140.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Core.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6Core.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Sql.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6Sql.dll',
+   'BINARY'),
+  ('shiboken6\\MSVCP140.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\shiboken6\\MSVCP140.dll',
+   'BINARY'),
+  ('VCRUNTIME140_1.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\VCRUNTIME140_1.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Gui.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6Gui.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Widgets.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6Widgets.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Svg.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6Svg.dll',
+   'BINARY'),
+  ('PySide6\\Qt6VirtualKeyboard.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6VirtualKeyboard.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Network.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6Network.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Pdf.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6Pdf.dll',
+   'BINARY'),
+  ('libcrypto-3.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\libcrypto-3.dll',
+   'BINARY'),
+  ('libssl-3.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\libssl-3.dll',
+   'BINARY'),
+  ('libffi-8.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\libffi-8.dll',
+   'BINARY'),
+  ('sqlite3.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\DLLs\\sqlite3.dll',
+   'BINARY'),
+  ('PySide6\\VCRUNTIME140_1.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\VCRUNTIME140_1.dll',
+   'BINARY'),
+  ('shiboken6\\shiboken6.abi3.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\shiboken6\\shiboken6.abi3.dll',
+   'BINARY'),
+  ('PySide6\\MSVCP140.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\MSVCP140.dll',
+   'BINARY'),
+  ('PySide6\\pyside6.abi3.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\pyside6.abi3.dll',
+   'BINARY'),
+  ('PySide6\\VCRUNTIME140.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\VCRUNTIME140.dll',
+   'BINARY'),
+  ('python3.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\python3.dll',
+   'BINARY'),
+  ('shiboken6\\VCRUNTIME140.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\shiboken6\\VCRUNTIME140.dll',
+   'BINARY'),
+  ('shiboken6\\VCRUNTIME140_1.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\shiboken6\\VCRUNTIME140_1.dll',
+   'BINARY'),
+  ('PySide6\\MSVCP140_2.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\MSVCP140_2.dll',
+   'BINARY'),
+  ('PySide6\\MSVCP140_1.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\MSVCP140_1.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Qml.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6Qml.dll',
+   'BINARY'),
+  ('PySide6\\Qt6Quick.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6Quick.dll',
+   'BINARY'),
+  ('PySide6\\Qt6OpenGL.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6OpenGL.dll',
+   'BINARY'),
+  ('PySide6\\Qt6QmlModels.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6QmlModels.dll',
+   'BINARY'),
+  ('PySide6\\Qt6QmlMeta.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6QmlMeta.dll',
+   'BINARY'),
+  ('PySide6\\Qt6QmlWorkerScript.dll',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\Qt6QmlWorkerScript.dll',
+   'BINARY'),
+  ('budgeit\\accounts.db',
+   'C:\\Users\\shane VAN\\Desktop\\carl\\BudgeIT\\budgeit\\accounts.db',
+   'DATA'),
+  ('budgeit\\assets\\fonts\\Inter.ttf',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\fonts\\Inter.ttf',
+   'DATA'),
+  ('budgeit\\assets\\fonts\\Montserrat.ttf',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\fonts\\Montserrat.ttf',
+   'DATA'),
+  ('budgeit\\assets\\fonts\\Roboto.ttf',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\fonts\\Roboto.ttf',
+   'DATA'),
+  ('budgeit\\assets\\icons\\__pycache__\\icons_rc.cpython-312.pyc',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\__pycache__\\icons_rc.cpython-312.pyc',
+   'DATA'),
+  ('budgeit\\assets\\icons\\__pycache__\\icons_rc.cpython-313.pyc',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\__pycache__\\icons_rc.cpython-313.pyc',
+   'DATA'),
+  ('budgeit\\assets\\icons\\analytics_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\analytics_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\analyticsdark.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\analyticsdark.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\analyticslight.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\analyticslight.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\dashboarddark.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\dashboarddark.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\dashboardlight.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\dashboardlight.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\favicon.ico',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\favicon.ico',
+   'DATA'),
+  ('budgeit\\assets\\icons\\financedark.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\financedark.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\icons.qrc',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\icons.qrc',
+   'DATA'),
+  ('budgeit\\assets\\icons\\icons_rc.py',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\icons_rc.py',
+   'DATA'),
+  ('budgeit\\assets\\icons\\logoutlight.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\logoutlight.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\menudark.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\menudark.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\menulight.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\menulight.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\monitoringdark.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\monitoringdark.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\monitoringlight.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\monitoringlight.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\morelight.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\morelight.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\morepurple.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\morepurple.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\notificationdark.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\notificationdark.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\profiledark.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\profiledark.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\savingsdark.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\savingsdark.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\savingslight.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\savingslight.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\trendinglight.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\trendinglight.svg',
+   'DATA'),
+  ('budgeit\\assets\\icons\\walletlight.svg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\icons\\walletlight.svg',
+   'DATA'),
+  ('budgeit\\assets\\images\\Ayesha.jpg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\Ayesha.jpg',
+   'DATA'),
+  ('budgeit\\assets\\images\\BG.jpg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\BG.jpg',
+   'DATA'),
+  ('budgeit\\assets\\images\\Carl.jpg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\Carl.jpg',
+   'DATA'),
+  ('budgeit\\assets\\images\\Erika.jpg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\Erika.jpg',
+   'DATA'),
+  ('budgeit\\assets\\images\\Payton.jpg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\Payton.jpg',
+   'DATA'),
+  ('budgeit\\assets\\images\\Randolph.jpg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\Randolph.jpg',
+   'DATA'),
+  ('budgeit\\assets\\images\\Risha.jpg',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\Risha.jpg',
+   'DATA'),
+  ('budgeit\\assets\\images\\__pycache__\\images_rc.cpython-312.pyc',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\__pycache__\\images_rc.cpython-312.pyc',
+   'DATA'),
+  ('budgeit\\assets\\images\\__pycache__\\images_rc.cpython-313.pyc',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\__pycache__\\images_rc.cpython-313.pyc',
+   'DATA'),
+  ('budgeit\\assets\\images\\budgeIT.png',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\budgeIT.png',
+   'DATA'),
+  ('budgeit\\assets\\images\\budgeIT_logo.png',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\budgeIT_logo.png',
+   'DATA'),
+  ('budgeit\\assets\\images\\fb icon.png',
+   'C:\\Users\\shane VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\fb '
+   'icon.png',
+   'DATA'),
+  ('budgeit\\assets\\images\\images.qrc',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\images.qrc',
+   'DATA'),
+  ('budgeit\\assets\\images\\images_rc.py',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\images_rc.py',
+   'DATA'),
+  ('budgeit\\assets\\images\\logomax.png',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\logomax.png',
+   'DATA'),
+  ('budgeit\\assets\\images\\logomin.png',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\images\\logomin.png',
+   'DATA'),
+  ('budgeit\\assets\\resources\\account_setup.ui',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\account_setup.ui',
+   'DATA'),
+  ('budgeit\\assets\\resources\\budgetwindow.ui',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\budgetwindow.ui',
+   'DATA'),
+  ('budgeit\\assets\\resources\\features.ui',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\features.ui',
+   'DATA'),
+  ('budgeit\\assets\\resources\\features_ui.py',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\features_ui.py',
+   'DATA'),
+  ('budgeit\\assets\\resources\\get_started.ui',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\get_started.ui',
+   'DATA'),
+  ('budgeit\\assets\\resources\\landingpage.ui',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\landingpage.ui',
+   'DATA'),
+  ('budgeit\\assets\\resources\\login_signup.ui',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\login_signup.ui',
+   'DATA'),
+  ('budgeit\\assets\\resources\\mainwindow.ui',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\mainwindow.ui',
+   'DATA'),
+  ('budgeit\\assets\\resources\\mainwindowcopy.ui',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\mainwindowcopy.ui',
+   'DATA'),
+  ('budgeit\\assets\\resources\\savings_window.ui',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\savings_window.ui',
+   'DATA'),
+  ('budgeit\\assets\\resources\\signin_signup.ui',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\signin_signup.ui',
+   'DATA'),
+  ('budgeit\\assets\\resources\\signoutwindow.ui',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\budgeit\\assets\\resources\\signoutwindow.ui',
+   'DATA'),
+  ('requirements.txt',
+   'C:\\Users\\shane VAN\\Desktop\\carl\\BudgeIT\\requirements.txt',
+   'DATA'),
+  ('PySide6\\translations\\qt_pt_BR.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_pt_BR.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_gd.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_gd.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_sv.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_sv.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_nl.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_nl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_nl.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_nl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_ru.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_ru.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ru.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_ru.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_da.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_da.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_es.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_es.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_de.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_de.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_it.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_it.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ca.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_ca.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_ja.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_ja.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_sk.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_sk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_da.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_da.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_zh_TW.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_zh_TW.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_he.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_he.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ka.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_ka.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ja.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_ja.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_hr.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_hr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_lv.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_lv.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_fr.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_fr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_bg.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_bg.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ka.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_ka.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_zh_TW.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_zh_TW.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_en.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_en.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_de.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_de.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_hr.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_hr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_ca.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_ca.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_tr.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_tr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_fi.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_fi.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_pl.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_pl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_fr.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_fr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ko.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_ko.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ja.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_ja.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_fa.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_fa.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_hu.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_hu.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_sk.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_sk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_ar.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_ar.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_bg.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_bg.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_en.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_en.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_gl.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_gl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_pt_BR.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_pt_BR.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_nn.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_nn.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_zh_CN.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_zh_CN.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_ko.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_ko.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_uk.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_uk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_pl.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_pl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_tr.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_tr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_tr.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_tr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_pt_PT.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_pt_PT.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_nn.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_nn.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_he.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_he.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_zh_TW.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_zh_TW.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_it.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_it.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_es.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_es.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_fa.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_fa.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_hr.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_hr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_sl.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_sl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_da.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_da.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_uk.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_uk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_nn.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_nn.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_hu.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_hu.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_sl.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_sl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_fr.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_fr.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_cs.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_cs.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_pt_BR.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_pt_BR.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_zh_CN.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_zh_CN.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ar.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_ar.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ca.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_ca.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_it.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_it.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_lv.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_lv.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_pl.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_pl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_nl.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_nl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_cs.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_cs.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_sk.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_sk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_uk.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_uk.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_zh_CN.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_zh_CN.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_gl.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_gl.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_de.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_de.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_cs.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_cs.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_en.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_en.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ar.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_ar.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_es.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_es.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_hu.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_hu.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_ka.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_ka.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_ru.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_ru.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_ko.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_ko.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_help_bg.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_help_bg.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_lt.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_lt.qm',
+   'DATA'),
+  ('PySide6\\translations\\qtbase_gd.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qtbase_gd.qm',
+   'DATA'),
+  ('PySide6\\translations\\qt_fi.qm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PySide6\\translations\\qt_fi.qm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pplri8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pplri8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif-Italic.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif-Italic.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pncbi8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pncbi8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUniIta.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUniIta.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\matplotlib.pdf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\matplotlib.pdf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\home.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\home.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-dark.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-dark.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\README.txt',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\README.txt',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\filesave.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\filesave.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pzcmi8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pzcmi8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\Minduka_Present_Blue_Pack.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\Minduka_Present_Blue_Pack.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\eeg.dat',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\eeg.dat',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\phvb8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\phvb8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\readme.txt',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\readme.txt',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\home_large.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\home_large.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\matplotlib.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\matplotlib.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pncri8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pncri8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\msft.csv',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\msft.csv',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\phvl8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\phvl8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Courier-Oblique.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Courier-Oblique.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneralBolIta.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneralBolIta.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\move.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\move.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\zoom_to_rect.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\zoom_to_rect.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\s1045.ima.gz',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\s1045.ima.gz',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\ggplot.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\ggplot.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\forward.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\forward.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\phvbo8an.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\phvbo8an.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-notebook.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-notebook.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\matplotlib.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\matplotlib.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\cmmi10.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmmi10.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-pastel.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-pastel.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-deep.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-deep.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\ptmr8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\ptmr8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\jacksboro_fault_dem.npz',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\jacksboro_fault_dem.npz',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pplr8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pplr8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\putbi8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\putbi8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUni.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUni.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneralBol.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneralBol.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\qt4_editor_options.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\qt4_editor_options.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\home-symbolic.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\home-symbolic.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXSizOneSymBol.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizOneSymBol.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-muted.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-muted.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Times-BoldItalic.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Times-BoldItalic.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\cmr10.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmr10.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\zoom_to_rect-symbolic.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\zoom_to_rect-symbolic.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\filesave.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\filesave.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\plot_directive\\plot_directive.css',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\plot_directive\\plot_directive.css',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-darkgrid.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-darkgrid.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\psyr.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\psyr.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pcrro8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pcrro8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\ptmb8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\ptmb8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono-BoldOblique.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono-BoldOblique.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerifDisplay.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerifDisplay.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneral.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneral.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\ptmbi8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\ptmbi8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\help-symbolic.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\help-symbolic.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\subplots.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\subplots.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\phvb8an.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\phvb8an.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\back.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\back.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\forward_large.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\forward_large.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\LICENSE_STIX',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\LICENSE_STIX',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\filesave.pdf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\filesave.pdf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\hand.pdf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\hand.pdf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Helvetica-Oblique.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Helvetica-Oblique.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\home.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\home.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pbkli8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pbkli8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\phvr8an.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\phvr8an.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Helvetica-BoldOblique.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Helvetica-BoldOblique.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Times-Italic.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Times-Italic.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono-Bold.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono-Bold.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\qt4_editor_options.pdf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\qt4_editor_options.pdf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXSizFiveSymReg.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizFiveSymReg.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\axes_grid\\bivariate_normal.npy',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\axes_grid\\bivariate_normal.npy',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-colorblind.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-colorblind.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\subplots.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\subplots.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pbkd8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pbkd8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\hand.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\hand.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXSizOneSymReg.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizOneSymReg.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\dark_background.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\dark_background.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-dark-palette.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-dark-palette.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\qt4_editor_options_large.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\qt4_editor_options_large.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pagk8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pagk8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\ptmri8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\ptmri8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\back.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\back.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\phvro8an.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\phvro8an.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\forward-symbolic.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\forward-symbolic.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\move.pdf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\move.pdf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\back-symbolic.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\back-symbolic.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\cmsy10.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\cmsy10.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\grace_hopper.jpg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\grace_hopper.jpg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\logo2.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\logo2.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\back_large.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\back_large.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\move_large.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\move_large.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\membrane.dat',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\membrane.dat',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-talk.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-talk.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pplb8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pplb8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-whitegrid.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-whitegrid.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\hand.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\hand.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\cmex10.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmex10.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\zoom_to_rect.pdf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\zoom_to_rect.pdf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\LICENSE_DEJAVU',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\LICENSE_DEJAVU',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-ticks.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-ticks.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Helvetica-Bold.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Helvetica-Bold.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Symbol.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Symbol.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXSizThreeSymBol.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizThreeSymBol.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUniBol.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUniBol.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\cmss10.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmss10.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\kpsewhich.lua',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\kpsewhich.lua',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\subplots-symbolic.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\subplots-symbolic.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\fivethirtyeight.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\fivethirtyeight.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pzdr.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pzdr.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\move.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\move.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\Stocks.csv',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\Stocks.csv',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pncr8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pncr8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\phvlo8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\phvlo8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\putb8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\putb8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\classic.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\classic.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\cmmi10.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\cmmi10.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\tableau-colorblind10.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\tableau-colorblind10.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\forward.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\forward.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Helvetica.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Helvetica.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\help.pdf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\help.pdf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\putri8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\putri8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\back.pdf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\back.pdf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\ZapfDingbats.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\ZapfDingbats.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Times-Bold.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Times-Bold.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\help.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\help.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\embedding_in_wx3.xrc',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\embedding_in_wx3.xrc',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-white.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-white.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\cmex10.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\cmex10.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\matplotlibrc',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\matplotlibrc',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pbkl8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pbkl8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pcrbo8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pcrbo8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\cmb10.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmb10.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXSizFourSymBol.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizFourSymBol.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\cmtt10.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\cmtt10.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\help.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\help.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-poster.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-poster.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-paper.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-paper.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\cmsy10.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmsy10.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\subplots.pdf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\subplots.pdf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\phvbo8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\phvbo8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pagdo8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pagdo8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono-Oblique.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansMono-Oblique.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\zoom_to_rect.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\zoom_to_rect.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Courier-BoldOblique.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Courier-BoldOblique.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXSizTwoSymBol.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizTwoSymBol.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pagko8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pagko8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXSizThreeSymReg.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizThreeSymReg.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pbkdi8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pbkdi8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\goog.npz',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\goog.npz',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\petroff10.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\petroff10.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-bright.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8-bright.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\data_x_x2_x3.csv',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\data_x_x2_x3.csv',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\matplotlib_large.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\matplotlib_large.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\seaborn-v0_8.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\seaborn-v0_8.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\filesave_large.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\filesave_large.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pplbi8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pplbi8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\phvro8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\phvro8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\zoom_to_rect_large.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\zoom_to_rect_large.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneralItalic.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXGeneralItalic.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\qt4_editor_options.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\qt4_editor_options.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif-BoldItalic.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif-BoldItalic.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pcrr8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pcrr8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pncb8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pncb8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXSizFourSymReg.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizFourSymReg.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\move-symbolic.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\move-symbolic.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\_mpl-gallery.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\_mpl-gallery.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\forward.pdf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\forward.pdf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\putr8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\putr8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\_mpl-gallery-nogrid.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\_mpl-gallery-nogrid.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\_classic_test_patch.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\_classic_test_patch.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pagd8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pagd8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\grayscale.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\grayscale.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\bmh.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\bmh.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\cmr10.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\cmr10.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansDisplay.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSansDisplay.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\home.pdf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\home.pdf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif-Bold.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSerif-Bold.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUniBolIta.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXNonUniBolIta.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\cmtt10.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\cmtt10.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\STIXSizTwoSymReg.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\STIXSizTwoSymReg.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans-Oblique.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans-Oblique.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Courier-Bold.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Courier-Bold.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\Solarize_Light2.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\Solarize_Light2.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\pcrb8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\pcrb8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\afm\\phvr8a.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\afm\\phvr8a.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\subplots_large.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\subplots_large.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Times-Roman.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Times-Roman.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\filesave-symbolic.svg',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\filesave-symbolic.svg',
+   'DATA'),
+  ('matplotlib\\mpl-data\\images\\help_large.png',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\images\\help_large.png',
+   'DATA'),
+  ('matplotlib\\mpl-data\\sample_data\\topobathy.npz',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\sample_data\\topobathy.npz',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans-BoldOblique.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans-BoldOblique.ttf',
+   'DATA'),
+  ('matplotlib\\mpl-data\\stylelib\\fast.mplstyle',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\stylelib\\fast.mplstyle',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Courier.afm',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\pdfcorefonts\\Courier.afm',
+   'DATA'),
+  ('matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans-Bold.ttf',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\matplotlib\\mpl-data\\fonts\\ttf\\DejaVuSans-Bold.ttf',
+   'DATA'),
+  ('dateutil\\zoneinfo\\dateutil-zoneinfo.tar.gz',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\dateutil\\zoneinfo\\dateutil-zoneinfo.tar.gz',
+   'DATA'),
+  ('setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\REQUESTED',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\REQUESTED',
+   'DATA'),
+  ('setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\top_level.txt',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\top_level.txt',
+   'DATA'),
+  ('setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\INSTALLER',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\INSTALLER',
+   'DATA'),
+  ('setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\WHEEL',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\WHEEL',
+   'DATA'),
+  ('setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\METADATA',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\METADATA',
+   'DATA'),
+  ('setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\LICENSE',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\LICENSE',
+   'DATA'),
+  ('setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\RECORD',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.0.0.dist-info\\RECORD',
+   'DATA'),
+  ('setuptools\\_vendor\\jaraco\\text\\Lorem ipsum.txt',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\setuptools\\_vendor\\jaraco\\text\\Lorem '
+   'ipsum.txt',
+   'DATA'),
+  ('numpy-2.2.6.dist-info\\LICENSE.txt',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy-2.2.6.dist-info\\LICENSE.txt',
+   'DATA'),
+  ('numpy-2.2.6.dist-info\\RECORD',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy-2.2.6.dist-info\\RECORD',
+   'DATA'),
+  ('numpy-2.2.6.dist-info\\entry_points.txt',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy-2.2.6.dist-info\\entry_points.txt',
+   'DATA'),
+  ('numpy-2.2.6.dist-info\\METADATA',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy-2.2.6.dist-info\\METADATA',
+   'DATA'),
+  ('numpy-2.2.6.dist-info\\DELVEWHEEL',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy-2.2.6.dist-info\\DELVEWHEEL',
+   'DATA'),
+  ('numpy-2.2.6.dist-info\\WHEEL',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy-2.2.6.dist-info\\WHEEL',
+   'DATA'),
+  ('numpy-2.2.6.dist-info\\INSTALLER',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\numpy-2.2.6.dist-info\\INSTALLER',
+   'DATA'),
+  ('base_library.zip',
+   'C:\\Users\\shane '
+   'VAN\\Desktop\\carl\\BudgeIT\\build\\BudgeIT\\base_library.zip',
+   'DATA')],
+ [],
+ False,
+ False,
+ 1750436786,
+ [('runw.exe',
+   'C:\\Users\\shane '
+   'VAN\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit-intel\\runw.exe',
+   'EXECUTABLE')],
+ 'C:\\Users\\shane '
+ 'VAN\\AppData\\Local\\Programs\\Python\\Python313\\python313.dll')
