@@ -53,8 +53,8 @@ class Sidebar(QWidget):
         logo_layout.setContentsMargins(0, 20, 0, 20)
 
         self.logo = QLabel()
-        self.logo.setPixmap(QPixmap(":/budgeIT_logo.png"))
-        self.logo.setMaximumSize(QSize(45, 30))
+        self.logo.setPixmap(QPixmap(":/budgeIT.png"))
+        self.logo.setMaximumSize(QSize(30, 30))
         self.logo.setScaledContents(True)
         self.logo.setAlignment(Qt.AlignCenter)
         logo_layout.addWidget(self.logo)
@@ -182,8 +182,8 @@ class Sidebar(QWidget):
 
     def leaveEvent(self, event):
         self.animate_width(self.collapsed_width)
-        self.logo.setPixmap(QPixmap(":/budgeIT_logo.png"))
-        self.logo.setMaximumSize(QSize(45, 30))
+        self.logo.setPixmap(QPixmap(":/budgeIT.png"))
+        self.logo.setMaximumSize(QSize(30, 30))
         self.home_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
         self.analytics_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
         self.report_btn.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonIconOnly)
