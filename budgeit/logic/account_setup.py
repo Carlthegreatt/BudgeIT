@@ -302,9 +302,9 @@ class AccountSetup(QDialog):
         super().show()
 
     def setupUi(self, Dialog):
-        font_path = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), "assets", "fonts", "Roboto.ttf"
-        )
+        from ..utils.path_helper import get_asset_path
+
+        font_path = get_asset_path("fonts", "Roboto.ttf")
         font_id = QFontDatabase.addApplicationFont(font_path)
 
         if font_id != -1:

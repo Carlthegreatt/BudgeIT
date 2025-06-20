@@ -34,9 +34,26 @@ class Main:
 
 
 def main():
-    from .assets.images import images_rc
+    try:
+        # Import resource files
+        from .assets.images import images_rc
+        from .assets.icons import icons_rc
 
-    app = Main()
+        print("Resources loaded successfully")
+
+        app = Main()
+    except Exception as e:
+        print(f"Application failed to start: {e}")
+        import traceback
+
+        traceback.print_exc()
+
+        # Keep console open for debugging if in executable
+        import sys
+
+        if hasattr(sys, "_MEIPASS"):
+            input("\nPress Enter to exit...")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
