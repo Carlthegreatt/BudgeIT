@@ -1,0 +1,160 @@
+# BudgeIT Installation Information
+
+## 📋 Pre-Installation Guide
+
+Welcome to **BudgeIT** - Your Personal Budget Management Application!
+
+Before proceeding with the installation, please review the following information to ensure a smooth setup process.
+
+---
+
+## 🖥️ System Requirements
+
+### Minimum Requirements:
+- **Operating System:** Windows 10/11, macOS 10.14+, or Linux (Ubuntu 18.04+)
+- **Python:** Version 3.8 or higher
+- **RAM:** 2 GB minimum (4 GB recommended)
+- **Storage:** 100 MB free disk space
+- **Display:** 1024x768 resolution minimum
+
+### Recommended Requirements:
+- **Python:** Version 3.9 or higher
+- **RAM:** 4 GB or more
+- **Storage:** 500 MB free disk space
+- **Display:** 1920x1080 resolution or higher
+
+---
+
+## 🛠️ Prerequisites
+
+Before installing BudgeIT, ensure you have the following installed on your system:
+
+### 1. Python Installation
+- Download Python from [python.org](https://python.org)
+- Ensure Python is added to your system PATH
+- Verify installation by running: `python --version`
+
+### 2. Package Manager (pip)
+- Usually included with Python installation
+- Verify by running: `pip --version`
+
+### 3. Git (Optional but recommended)
+- Required if installing from source
+- Download from [git-scm.com](https://git-scm.com)
+
+---
+
+## 📦 Required Dependencies
+
+BudgeIT requires the following Python packages (automatically installed):
+
+- **PyQt5/PyQt6** - GUI Framework
+- **SQLite3** - Database management (included with Python)
+- **Additional dependencies** - Listed in `requirements.txt`
+
+---
+
+## ⚠️ Important Notes
+
+### Security Considerations:
+- BudgeIT stores financial data locally on your device
+- Ensure your system has adequate security measures
+- Regular backups of your data are recommended
+
+### Data Privacy:
+- All financial data remains on your local device
+- No data is transmitted to external servers
+- You maintain full control of your financial information
+
+### Network Requirements:
+- Internet connection required for:
+  - Initial installation (downloading dependencies)
+  - Currency exchange rate updates (optional feature)
+  - Email notifications (if enabled)
+
+---
+
+## 🚀 Installation Methods
+
+### Method 1: Pre-built Executable (Recommended for most users)
+- Download the latest release from our GitHub repository
+- No Python installation required
+- Simple double-click to run
+
+### Method 2: Python Installation (For developers/advanced users)
+1. Clone the repository or download source code
+2. Install dependencies: `pip install -r requirements.txt`
+3. Run application: `python run.py`
+
+---
+
+## 📁 What Will Be Installed
+
+During installation, BudgeIT will:
+
+1. **Create application directory** in your user folder
+2. **Set up local database** for storing your financial data
+3. **Install required fonts** and assets
+4. **Create desktop shortcut** (optional)
+5. **Configure initial settings** during first run
+
+---
+
+## 🔧 First-Time Setup
+
+After installation, you'll need to:
+
+1. **Create your account** - Set up your user profile
+2. **Configure categories** - Customize expense and income categories
+3. **Set budget limits** - Define your monthly budget constraints
+4. **Add initial data** - Input your current financial information
+
+---
+
+## ❓ Troubleshooting Common Issues
+
+### Installation Fails:
+- Ensure Python is properly installed and in PATH
+- Check internet connection for dependency downloads
+- Run terminal/command prompt as administrator
+
+### Permission Errors:
+- Install as administrator/root if required
+- Check write permissions for installation directory
+
+### Missing Dependencies:
+- Update pip: `python -m pip install --upgrade pip`
+- Install dependencies manually: `pip install -r requirements.txt`
+
+---
+
+## 📞 Support
+
+If you encounter any issues during installation:
+
+1. **Check our FAQ** - Common solutions to installation problems
+2. **Review documentation** - Detailed setup guides available
+3. **Contact support** - Submit an issue on our GitHub repository
+4. **Community help** - Join our user community discussions
+
+---
+
+## 🎯 Ready to Install?
+
+Once you've reviewed this information and confirmed your system meets the requirements, you can proceed with the installation.
+
+**Choose your installation method:**
+- **Quick Install:** Download and run the pre-built executable
+- **Developer Install:** Clone repository and run from source
+
+---
+
+## 📄 License
+
+BudgeIT is released under the MIT License. See `license.txt` for full details.
+
+**Copyright (c) 2025 Carl Blancaflor**
+
+---
+
+*Thank you for choosing BudgeIT for your personal finance management needs!* 
