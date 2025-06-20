@@ -7,7 +7,6 @@ a = Analysis(
     binaries=[],
     datas=[
         ('budgeit/assets', 'budgeit/assets'),
-        ('budgeit/accounts.db', 'budgeit'),
         ('requirements.txt', '.'),
     ],
     hiddenimports=[
