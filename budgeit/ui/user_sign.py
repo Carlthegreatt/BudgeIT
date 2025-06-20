@@ -6,7 +6,7 @@ from .main_window import BudgetApp
 from ..logic.account_setup import AccountSetup
 from ..assets.images import images_rc
 import sys
-from ..utils.emailautomation import EmailSender
+from ..utils.email_automation import EmailSender
 import os
 
 

@@ -1,5 +1,5 @@
 import sqlite3
-from ..utils.emailautomation import EmailSender
+from ..utils.email_automation import EmailSender
 from PySide6.QtWidgets import QMessageBox
 from contextlib import contextmanager
 from datetime import datetime

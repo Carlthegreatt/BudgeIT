@@ -17,7 +17,7 @@ import sqlite3
 from ..logic.database_manager import *
 from ..utils.update_month_setup import UpdateMonthSetup
 from PySide6.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
-from ..utils.pesoquerymodel import PesoQueryModel
+from ..utils.peso_query_model import PesoQueryModel
 from ..utils.fade_popup import FadePopup
 from .savings_window import SavingsWindow
 
