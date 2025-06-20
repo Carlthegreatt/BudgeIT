@@ -6,6 +6,7 @@ from .user_sign import SignEntry
 from .features import Features_ui
 from .about_us import Team_Dialog
 from ..assets.images import images_rc
+from .faq_window import Faq
 import os
 import ctypes
 
@@ -15,6 +16,7 @@ class LandingPage(QMainWindow):
         super().__init__()
         self.about_us_dialog = None
         self.features_dialog = None
+        self.faq_dialog = None
         self.setupUi()
         self.setup_animations()
         self.setWindowTitle(" ")
@@ -111,6 +113,7 @@ class LandingPage(QMainWindow):
         self.toolButton_7.setStyleSheet(self.get_nav_button_style())
         self.toolButton_7.setText("FAQ")
         self.horizontalLayout.addWidget(self.toolButton_7)
+        self.toolButton_7.clicked.connect(lambda: self.open_faq())
 
         self.toolButton_5 = QToolButton(self.widget_3)
         self.toolButton_5.setObjectName("toolButton_5")
@@ -513,3 +516,13 @@ QWidget {
         self.about_us_dialog = Team_Dialog(self)
         self.about_us_dialog.setWindowModality(Qt.ApplicationModal)
         self.about_us_dialog.show()
+
+    def open_faq(self):
+        if self.faq_dialog and self.faq_dialog.isVisible():
+            self.faq_dialog.close()
+            self.faq_dialog = None
+            return
+
+        self.faq_dialog = Faq(self)
+        self.faq_dialog.setWindowModality(Qt.ApplicationModal)
+        self.faq_dialog.show()

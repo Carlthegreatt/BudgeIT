@@ -10,7 +10,6 @@ class EmailSender:
 
     def send_email(self):
         try:
-            # Create the email
             message = MIMEMultipart("alternative")
             message["Subject"] = f"Welcome to BudgeIT, {self.receiver_email}!"
             message["From"] = "santoschinkit@gmail.com"

@@ -88,7 +88,6 @@ class TransactionDatabase(DatabaseInterface):
             "Miscellaneous": "remaining_miscellaneous_budget",
         }
 
-    # get the username and email of the us
     def get_user_email_and_name(self, user_id: int) -> tuple[str, str] | None:
         try:
             with self.__get_connection() as conn:
@@ -382,7 +381,7 @@ class BudgetManager:
         return True, "Transaction processed successfully."
 
 
-class UIManager:
+class SetupUI:
     def __init__(
         self,
         amount_edit: QLineEdit,
@@ -427,7 +426,7 @@ class TransactionService:
             amount_text, description
         )
         if not is_valid:
-            UIManager.show_error("Invalid Input", error_message)
+            SetupUI.show_error("Invalid Input", error_message)
             return False
 
         current_date = QDate.currentDate().toString("yyyy-MM-dd")
@@ -440,7 +439,7 @@ class TransactionService:
         )
         if not budget_success:
             if "cancelled" not in budget_message.lower():
-                UIManager.show_error("Budget Error", budget_message)
+                SetupUI.show_error("Budget Error", budget_message)
             return False
 
         transaction = TransactionData(
@@ -452,13 +451,13 @@ class TransactionService:
         )
 
         if not self.__database.insert_transaction(transaction):
-            UIManager.show_critical_error(
+            SetupUI.show_critical_error(
                 "Error", "Failed to add transaction to database."
             )
             return False
 
         if not self.__database.update_monthly_expenses(user_id, report_date, amount):
-            UIManager.show_critical_error("Error", "Failed to update monthly expenses.")
+            SetupUI.show_critical_error("Error", "Failed to update monthly expenses.")
             return False
 
         return True
@@ -490,7 +489,7 @@ class AddTransactions(Transaction):
         self.__transaction_service = TransactionService(
             self.__database, self.__budget_manager
         )
-        self.__ui_manager = UIManager(amount_edit, description_edit, category_combo)
+        self.__ui_manager = SetupUI(amount_edit, description_edit, category_combo)
 
     def add_entry(self) -> bool:
         try:
@@ -506,7 +505,7 @@ class AddTransactions(Transaction):
             return success
 
         except Exception as e:
-            UIManager.show_critical_error(
+            SetupUI.show_critical_error(
                 "Error", f"An unexpected error occurred: {str(e)}"
             )
             return False

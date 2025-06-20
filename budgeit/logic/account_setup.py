@@ -3,6 +3,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 import sqlite3
 from .auth_manager import get_db_connection
+import os
 
 
 class AccountSetup(QDialog):
@@ -31,6 +32,17 @@ class AccountSetup(QDialog):
         super().show()
 
     def setupUi(self, Dialog):
+        font_path = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), "assets", "fonts", "Roboto.ttf"
+        )
+        font_id = QFontDatabase.addApplicationFont(font_path)
+
+        if font_id != -1:
+            font_families = QFontDatabase.applicationFontFamilies(font_id)
+            if font_families:
+                app_font = QFont(font_families[0])
+                QApplication.setFont(app_font)
+
         if not Dialog.objectName():
             Dialog.setObjectName("Dialog")
         Dialog.resize(500, 510)
