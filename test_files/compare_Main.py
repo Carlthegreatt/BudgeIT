@@ -16,7 +16,7 @@ import sqlite3
 from budgeit.logic.database_manager import *
 from budgeit.utils.update_month_setup import UpdateMonthSetup
 from PySide6.QtSql import QSqlDatabase, QSqlQueryModel, QSqlQuery
-from budgeit.utils.pesoquerymodel import PesoQueryModel
+from budgeit.utils.peso_query_model import PesoQueryModel
 from budgeit.utils.fade_popup import FadePopup
 from budgeit.utils.animations import DataRefreshAnimation
 

@@ -2,11 +2,30 @@
 
 
 a = Analysis(
-    ['initialize_app.py'],
+    ['run.py'],
     pathex=[],
     binaries=[],
-    datas=[('components', 'components'), ('assets', 'assets'), ('core', 'core'), ('budgeit/accounts.db', 'database')],
-    hiddenimports=[],
+    datas=[
+        ('budgeit/assets', 'budgeit/assets'),
+        ('requirements.txt', '.'),
+    ],
+    hiddenimports=[
+        'PySide6.QtSql',
+        'PySide6.QtWidgets',
+        'PySide6.QtCore', 
+        'PySide6.QtGui',
+        'sqlite3',
+        'email.mime.multipart',
+        'email.mime.text',
+        'smtplib',
+        'matplotlib.backends.backend_qt5agg',
+        'matplotlib.backends.backend_qtagg', 
+        'matplotlib.figure',
+        'matplotlib.pyplot',
+        'numpy',
+        'budgeit.assets.icons.icons_rc',
+        'budgeit.assets.images.images_rc',
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -35,5 +54,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['assets\\images\\budgeIT_logo.png'],
+    icon='budgeit/assets/icons/favicon.ico',
 )

@@ -2,12 +2,14 @@ from datetime import datetime
 import sqlite3
 import os
 from contextlib import contextmanager
+from ..utils.path_helper import get_database_path
 
 
 def get_database_path():
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    budgeit_dir = os.path.dirname(current_dir)
-    return os.path.join(budgeit_dir, "accounts.db")
+    """Import and use the path helper function"""
+    from ..utils.path_helper import get_database_path as _get_db_path
+
+    return _get_db_path()
 
 
 @contextmanager

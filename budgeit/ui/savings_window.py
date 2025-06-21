@@ -13,9 +13,9 @@ class SavingsWindow(QDialog):
         self.setupUi(self)
         self.setWindowTitle(" ")
         self.load_savings_data()
-        font_path = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), "assets", "fonts", "Roboto.ttf"
-        )
+        from ..utils.path_helper import get_asset_path
+
+        font_path = get_asset_path("fonts", "Roboto.ttf")
         font_id = QFontDatabase.addApplicationFont(font_path)
 
         if font_id != -1:
@@ -36,7 +36,7 @@ class SavingsWindow(QDialog):
             current_month = datetime.today().strftime("%Y-%m")
             cursor = connect.cursor()
             cursor.execute(
-                """SELECT SUM(monthly_savings) FROM user_data WHERE user_id = ?""",
+                """SELECT SUM(remaining_monthly_savings) FROM remaining_budgets WHERE user_id = ?""",
                 (self.parent.user_id,),
             )
 
@@ -44,7 +44,7 @@ class SavingsWindow(QDialog):
             if result is None:
                 total_savings = 0
             else:
-                total_savings = result[0]
+                total_savings = result[0] or 0
 
             self.savingswindowvalue.setText(f"₱{float(total_savings):,.2f}")
 

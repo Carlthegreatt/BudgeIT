@@ -7,6 +7,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Optional, Dict, Any
 from .database_manager import get_database_path
+from budgeit.utils.warning_email_automation import EmailSender
 
 
 @dataclass
@@ -87,6 +88,21 @@ class TransactionDatabase(DatabaseInterface):
             "Miscellaneous": "remaining_miscellaneous_budget",
         }
 
+    def get_user_email_and_name(self, user_id: int) -> tuple[str, str] | None:
+        try:
+            with self.__get_connection() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "SELECT email, username FROM users WHERE user_id = ?", (user_id,)
+                )
+                result = cursor.fetchone()
+                if result:
+                    return result
+                return None
+        except Exception as e:
+            print(f"Error fetching user email: {e}")
+            return None
+
     def __get_connection(self) -> sqlite3.Connection:
         return sqlite3.connect(self.__db_path)
 
@@ -123,10 +139,95 @@ class TransactionDatabase(DatabaseInterface):
                         remaining_monthly_savings=result[1],
                         remaining_monthly_budget=result[2],
                     )
+
+                # If no budget data exists, try to create default budget record
+                if self._create_default_budget_record(cursor, user_id, report_date):
+                    conn.commit()
+                    # Try to fetch again
+                    result = cursor.execute(
+                        f"SELECT {budget_column}, remaining_monthly_savings, remaining_monthly_budget FROM remaining_budgets WHERE user_id = ? AND report_date = ?",
+                        (user_id, report_date),
+                    ).fetchone()
+
+                    if result:
+                        return BudgetData(
+                            remaining_category_budget=result[0],
+                            remaining_monthly_savings=result[1],
+                            remaining_monthly_budget=result[2],
+                        )
+
                 return None
         except Exception as e:
             print(f"Error getting budget: {e}")
             return None
+
+    def _create_default_budget_record(
+        self, cursor: sqlite3.Cursor, user_id: int, report_date: str
+    ) -> bool:
+        """Create a default budget record if none exists"""
+        try:
+            # Check if user has any user_data record for budget information
+            cursor.execute(
+                "SELECT monthly_income, monthly_budget, food_budget, utilities_budget, health_wellness_budget, personal_lifestyle_budget, education_budget, transportation_budget, miscellaneous_budget, monthly_savings FROM user_data WHERE user_id = ? ORDER BY report_date DESC LIMIT 1",
+                (user_id,),
+            )
+            user_data = cursor.fetchone()
+
+            if user_data:
+                # Use existing budget data
+                (
+                    monthly_income,
+                    monthly_budget,
+                    food_budget,
+                    utilities_budget,
+                    health_wellness_budget,
+                    personal_lifestyle_budget,
+                    education_budget,
+                    transportation_budget,
+                    miscellaneous_budget,
+                    monthly_savings,
+                ) = user_data
+            else:
+                # Create minimal default budget (user needs to set up properly)
+                monthly_income = 0
+                monthly_budget = 0
+                food_budget = utilities_budget = health_wellness_budget = (
+                    personal_lifestyle_budget
+                ) = education_budget = transportation_budget = miscellaneous_budget = 0
+                monthly_savings = 0
+
+            # Insert default remaining budget record
+            cursor.execute(
+                """
+                INSERT INTO remaining_budgets (
+                    user_id, remaining_income, remaining_monthly_savings, remaining_monthly_budget,
+                    remaining_food_budget, remaining_utilities_budget, remaining_health_wellness_budget,
+                    remaining_personal_lifestyle_budget, remaining_education_budget,
+                    remaining_transportation_budget, remaining_miscellaneous_budget, report_date
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    user_id,
+                    monthly_income,
+                    monthly_savings,
+                    monthly_budget,
+                    food_budget,
+                    utilities_budget,
+                    health_wellness_budget,
+                    personal_lifestyle_budget,
+                    education_budget,
+                    transportation_budget,
+                    miscellaneous_budget,
+                    report_date,
+                ),
+            )
+            print(
+                f"Created default budget record for user {user_id}, month {report_date}"
+            )
+            return True
+        except Exception as e:
+            print(f"Error creating default budget record: {e}")
+            return False
 
     def update_category_budget(
         self, user_id: int, report_date: str, category: str, amount: float
@@ -327,6 +428,13 @@ class BudgetManager:
             )
             if not self.__database.reset_all_budgets(user_id, report_date):
                 return False, "Failed to reset budgets."
+
+            # Send warning email if budget is zero
+            user_info = self.__database.get_user_email_and_name(user_id)
+            if user_info:
+                user_email, user_name = user_info
+                email_sender = EmailSender(user_email, user_name)
+                email_sender.send_email()
         else:
             if not self.__database.update_monthly_budget(user_id, report_date, amount):
                 return False, "Failed to update monthly budget."
@@ -358,7 +466,7 @@ class BudgetManager:
         return True, "Transaction processed successfully."
 
 
-class UIManager:
+class SetupUI:
     def __init__(
         self,
         amount_edit: QLineEdit,
@@ -403,7 +511,7 @@ class TransactionService:
             amount_text, description
         )
         if not is_valid:
-            UIManager.show_error("Invalid Input", error_message)
+            SetupUI.show_error("Invalid Input", error_message)
             return False
 
         current_date = QDate.currentDate().toString("yyyy-MM-dd")
@@ -416,7 +524,7 @@ class TransactionService:
         )
         if not budget_success:
             if "cancelled" not in budget_message.lower():
-                UIManager.show_error("Budget Error", budget_message)
+                SetupUI.show_error("Budget Error", budget_message)
             return False
 
         transaction = TransactionData(
@@ -428,13 +536,13 @@ class TransactionService:
         )
 
         if not self.__database.insert_transaction(transaction):
-            UIManager.show_critical_error(
+            SetupUI.show_critical_error(
                 "Error", "Failed to add transaction to database."
             )
             return False
 
         if not self.__database.update_monthly_expenses(user_id, report_date, amount):
-            UIManager.show_critical_error("Error", "Failed to update monthly expenses.")
+            SetupUI.show_critical_error("Error", "Failed to update monthly expenses.")
             return False
 
         return True
@@ -466,7 +574,7 @@ class AddTransactions(Transaction):
         self.__transaction_service = TransactionService(
             self.__database, self.__budget_manager
         )
-        self.__ui_manager = UIManager(amount_edit, description_edit, category_combo)
+        self.__ui_manager = SetupUI(amount_edit, description_edit, category_combo)
 
     def add_entry(self) -> bool:
         try:
@@ -482,7 +590,7 @@ class AddTransactions(Transaction):
             return success
 
         except Exception as e:
-            UIManager.show_critical_error(
+            SetupUI.show_critical_error(
                 "Error", f"An unexpected error occurred: {str(e)}"
             )
             return False

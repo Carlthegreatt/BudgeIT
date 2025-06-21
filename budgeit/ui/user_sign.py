@@ -6,7 +6,7 @@ from .main_window import BudgetApp
 from ..logic.account_setup import AccountSetup
 from ..assets.images import images_rc
 import sys
-from ..utils.emailautomation import EmailSender
+from ..utils.email_automation import EmailSender
 import os
 
 
@@ -28,9 +28,9 @@ class SignEntry(QMainWindow):
             QIcon.State.On,
         )
         self.setWindowIcon(title_icon)
-        font_path = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)), "assets", "fonts", "Roboto.ttf"
-        )
+        from ..utils.path_helper import get_asset_path
+
+        font_path = get_asset_path("fonts", "Roboto.ttf")
         font_id = QFontDatabase.addApplicationFont(font_path)
 
         if font_id != -1:

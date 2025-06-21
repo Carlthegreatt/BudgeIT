@@ -1,5 +1,5 @@
 import sqlite3
-from ..utils.emailautomation import EmailSender
+from ..utils.email_automation import EmailSender
 from PySide6.QtWidgets import QMessageBox
 from contextlib import contextmanager
 from datetime import datetime
@@ -8,13 +8,21 @@ from .database_manager import get_database_path
 
 class DatabaseManager:
     def __init__(self):
-        self.db_path = get_database_path()
-        self.report_date = datetime.today().strftime("%Y-%m")
+        self.__db_path = get_database_path()
+        self.__report_date = datetime.today().strftime("%Y-%m")
         self._initialize_database()
+
+    @property
+    def report_date(self):
+        return self.__report_date
+
+    @property
+    def db_path(self):
+        return self.__db_path
 
     @contextmanager
     def get_connection(self):
-        connection = sqlite3.connect(self.db_path)
+        connection = sqlite3.connect(self.__db_path)
         try:
             yield connection
         finally:
@@ -108,12 +116,16 @@ class AuthManager:
     def __init__(
         self, username_line=None, password_line=None, confirm_line=None, email_line=None
     ):
-        self.db_manager = DatabaseManager()
-        self.username_line_widget = username_line
-        self.password_line_widget = password_line
-        self.confirm_line_widget = confirm_line
-        self.email_line_widget = email_line
-        self.current_user_id = None
+        self.__db_manager = DatabaseManager()
+        self.__username_line_widget = username_line
+        self.__password_line_widget = password_line
+        self.__confirm_line_widget = confirm_line
+        self.__email_line_widget = email_line
+        self.__current_user_id = None
+
+    @property
+    def current_user_id(self):
+        return self.__current_user_id
 
     def _validate_signup_fields(self, username, password, confirm_password, email):
         if not all([username, password, confirm_password, email]):
@@ -125,7 +137,7 @@ class AuthManager:
         return True, ""
 
     def _check_existing_user(self, username, email):
-        with self.db_manager.get_connection() as connection:
+        with self.__db_manager.get_connection() as connection:
             cursor = connection.cursor()
 
             cursor.execute("SELECT username FROM users WHERE username = ?", (username,))
@@ -139,7 +151,7 @@ class AuthManager:
         return True, ""
 
     def _create_user_record(self, username, password, email):
-        with self.db_manager.get_connection() as connection:
+        with self.__db_manager.get_connection() as connection:
             cursor = connection.cursor()
 
             cursor.execute(
@@ -156,7 +168,7 @@ class AuthManager:
             return user_id
 
     def _create_initial_user_data(self, cursor, user_id):
-        report_date = self.db_manager.report_date
+        report_date = self.__db_manager.report_date
 
         cursor.execute(
             """
@@ -225,7 +237,7 @@ class AuthManager:
             return False
 
         try:
-            with self.db_manager.get_connection() as connection:
+            with self.__db_manager.get_connection() as connection:
                 cursor = connection.cursor()
                 cursor.execute(
                     "SELECT user_id, username FROM users WHERE email = ? AND password = ?",
@@ -234,7 +246,7 @@ class AuthManager:
                 data = cursor.fetchone()
 
                 if data:
-                    self.current_user_id = data[0]
+                    self.__current_user_id = data[0]
                     print(f"Signin successful. Welcome {data[1]} (ID: {data[0]})")
 
                     email_widget.clear()
@@ -250,7 +262,7 @@ class AuthManager:
             return False
 
     def get_current_user(self):
-        return self.current_user_id
+        return self.__current_user_id
 
 
 @contextmanager
