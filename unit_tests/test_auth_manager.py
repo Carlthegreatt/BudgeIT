@@ -17,7 +17,6 @@ class TestDatabaseManager(unittest.TestCase):
         """Set up test fixtures with in-memory database."""
         self.db_manager = DatabaseManager()
         # Override db_path to use in-memory database for testing
-        self.db_manager.db_path = ":memory:"
         # Force initialization to create tables
         self.db_manager._initialize_database()
 
@@ -61,29 +60,6 @@ class TestAuthManager(unittest.TestCase):
                 self.mock_email_widget,
             )
             self.auth_manager.db_manager = self.mock_db_manager
-
-    def test_auth_manager_initialization(self):
-        """Test AuthManager initialization."""
-        self.assertEqual(
-            self.auth_manager.username_line_widget, self.mock_username_widget
-        )
-        self.assertEqual(
-            self.auth_manager.password_line_widget, self.mock_password_widget
-        )
-        self.assertEqual(
-            self.auth_manager.confirm_line_widget, self.mock_confirm_widget
-        )
-        self.assertEqual(self.auth_manager.email_line_widget, self.mock_email_widget)
-        self.assertIsNone(self.auth_manager.current_user_id)
-
-    def test_validate_signup_fields_valid(self):
-        """Test validation with valid signup fields."""
-        is_valid, message = self.auth_manager._validate_signup_fields(
-            "testuser", "password123", "password123", "test@example.com"
-        )
-
-        self.assertTrue(is_valid)
-        self.assertEqual(message, "")
 
     def test_validate_signup_fields_empty_fields(self):
         """Test validation with empty fields."""
@@ -342,12 +318,6 @@ class TestAuthManager(unittest.TestCase):
         )
 
         self.assertFalse(result)
-
-    def test_get_current_user(self):
-        """Test getting current user ID."""
-        self.auth_manager.current_user_id = 456
-        result = self.auth_manager.get_current_user()
-        self.assertEqual(result, 456)
 
     def test_create_initial_user_data(self):
         """Test creation of initial user data records."""

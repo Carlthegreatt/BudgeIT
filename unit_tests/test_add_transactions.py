@@ -13,7 +13,7 @@ from budgeit.logic.add_transactions import (
     TransactionDatabase,
     TransactionValidator,
     BudgetManager,
-    UIManager,
+    SetupUI,
     TransactionService,
     AddTransactions,
     DatabaseInterface,
@@ -214,14 +214,14 @@ class TestBudgetManager(unittest.TestCase):
         mock_question.assert_not_called()
 
 
-class TestUIManager(unittest.TestCase):
+class TestSetupUI(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures."""
         self.mock_amount_edit = Mock()
         self.mock_description_edit = Mock()
         self.mock_category_combo = Mock()
 
-        self.ui_manager = UIManager(
+        self.ui_manager = SetupUI(
             self.mock_amount_edit, self.mock_description_edit, self.mock_category_combo
         )
 
@@ -253,13 +253,13 @@ class TestUIManager(unittest.TestCase):
     @patch("budgeit.logic.add_transactions.QMessageBox.warning")
     def test_show_error(self, mock_warning):
         """Test showing error message."""
-        UIManager.show_error("Test Title", "Test Message")
+        SetupUI.show_error("Test Title", "Test Message")
         mock_warning.assert_called_once_with(None, "Test Title", "Test Message")
 
     @patch("budgeit.logic.add_transactions.QMessageBox.critical")
     def test_show_critical_error(self, mock_critical):
         """Test showing critical error message."""
-        UIManager.show_critical_error("Test Title", "Test Message")
+        SetupUI.show_critical_error("Test Title", "Test Message")
         mock_critical.assert_called_once_with(None, "Test Title", "Test Message")
 
 
@@ -272,7 +272,7 @@ class TestTransactionService(unittest.TestCase):
             self.mock_database, self.mock_budget_manager
         )
 
-    @patch("budgeit.logic.add_transactions.UIManager.show_error")
+    @patch("budgeit.logic.add_transactions.SetupUI.show_error")
     def test_add_transaction_invalid_input(self, mock_show_error):
         """Test adding transaction with invalid input."""
         # Execute
@@ -285,7 +285,7 @@ class TestTransactionService(unittest.TestCase):
         mock_show_error.assert_called_once()
 
     @patch("budgeit.logic.add_transactions.QDate")
-    @patch("budgeit.logic.add_transactions.UIManager.show_error")
+    @patch("budgeit.logic.add_transactions.SetupUI.show_error")
     def test_add_transaction_budget_failure(self, mock_show_error, mock_qdate):
         """Test adding transaction when budget processing fails."""
         # Setup
@@ -308,7 +308,7 @@ class TestTransactionService(unittest.TestCase):
         mock_show_error.assert_called_once_with("Budget Error", "Budget error")
 
     @patch("budgeit.logic.add_transactions.QDate")
-    @patch("budgeit.logic.add_transactions.UIManager.show_critical_error")
+    @patch("budgeit.logic.add_transactions.SetupUI.show_critical_error")
     def test_add_transaction_database_insert_failure(
         self, mock_show_critical_error, mock_qdate
     ):
@@ -500,7 +500,7 @@ class TestAddTransactions(unittest.TestCase):
             database=self.mock_database,
         )
 
-    @patch("budgeit.logic.add_transactions.UIManager.show_critical_error")
+    @patch("budgeit.logic.add_transactions.SetupUI.show_critical_error")
     def test_add_entry_exception_handling(self, mock_show_critical_error):
         """Test exception handling in add_entry method."""
         # Setup to raise an exception
